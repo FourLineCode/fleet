@@ -1,0 +1,23 @@
+{
+	"name": "server",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "node -r esm src/index.js",
+		"dev": "nodemon -r esm src/index.js"
+	},
+	"dependencies": {
+		"cookie-parser": "^1.4.5",
+		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
+		"esm": "^3.2.25",
+		"express": "^4.17.1",
+		"helmet": "^4.1.1",
+		"mongoose": "^5.10.7",
+		"morgan": "^1.10.0"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.4"
+	}
+}
