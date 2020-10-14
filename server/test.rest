@@ -5,7 +5,7 @@ content-type: application/json
   "username": "alex",
   "displayName": "Alex Simp",
   "email": "alex@rip.com",
-  "password": "lmao"
+  "password": "lmaolmao"
 }
 
 ###

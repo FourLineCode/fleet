@@ -1,15 +1,17 @@
 import { Router } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
+import Joi from '@hapi/joi'
 import User from '../models/user'
-import { authAdmin } from '../middlewares/auth'
+import auth from '../middlewares/auth'
+import registerShema from '../middlewares/validation'
 
 const router = Router()
 
 // Get all users
-router.get('/', authAdmin, async (req, res, next) => {
+router.get('/', auth, async (req, res, next) => {
 	try {
-		if (!req.authorized) {
+		if (!req.admin) {
 			throw new Error('Access denied')
 		}
 
@@ -28,6 +30,12 @@ router.get('/', authAdmin, async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
 	try {
 		const { username, email, password, displayName } = req.body
+
+		const { error } = await registerShema.validate(req.body)
+		if (error) {
+			const [err] = error.details
+			throw err
+		}
 
 		const user1 = await User.findOne({ email: email })
 		if (user1) {
@@ -90,12 +98,8 @@ router.post('/signin', async (req, res, next) => {
 })
 
 // Check if a user is admin
-router.get('/isadmin/:id', authAdmin, async (req, res, next) => {
+router.get('/isadmin/:id', async (req, res, next) => {
 	try {
-		if (!req.authorized) {
-			throw new Error('Access denied')
-		}
-
 		const { id } = req.params
 
 		const user = await User.findById(id)
