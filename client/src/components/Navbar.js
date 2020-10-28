@@ -5,7 +5,7 @@ import TwitterIcon from './icons/TwitterIcon'
 const Navbar = () => {
 	return (
 		<div className='flex justify-center h-12 bg-gray-800 border-b border-gray-500'>
-			<nav className='container flex items-center justify-between'>
+			<nav className='container flex items-center justify-between mx-4 md:mx-0'>
 				<Link
 					to='/'
 					className='flex items-center text-2xl italic font-semibold text-center text-white'>

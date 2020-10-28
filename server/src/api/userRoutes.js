@@ -12,11 +12,13 @@ const router = Router()
 router.get('/', auth, async (req, res, next) => {
 	try {
 		if (!req.admin) {
+			res.status(403)
 			throw new Error('Access denied')
 		}
 
 		const users = await User.find()
 		if (!users) {
+			res.status(404)
 			throw new Error('No users found')
 		}
 
@@ -34,16 +36,19 @@ router.post('/signup', async (req, res, next) => {
 		const { error } = await registerShema.validate(req.body)
 		if (error) {
 			const [err] = error.details
+			res.status(400)
 			throw err
 		}
 
 		const user1 = await User.findOne({ email: email })
 		if (user1) {
+			res.status(400)
 			throw new Error('User already exists with given email')
 		}
 
 		const user2 = await User.findOne({ username })
 		if (user2) {
+			res.status(400)
 			throw new Error('User already exists with given username')
 		}
 
@@ -72,12 +77,14 @@ router.post('/signin', async (req, res, next) => {
 
 		const user = await User.findOne({ email })
 		if (!user) {
+			res.status(400)
 			throw new Error('User not found')
 		}
 
 		const validated = await bcrypt.compare(password, user.password)
 
 		if (!validated) {
+			res.status(400)
 			throw new Error('Invalid Credentials')
 		}
 
@@ -89,8 +96,8 @@ router.post('/signin', async (req, res, next) => {
 
 		const token = jwt.sign(payload, process.env.JWT_SECRET)
 
-		res.cookie('auth_token', token)
-		res.cookie('is_admin', user.isAdmin)
+		res.cookie('auth_token', token, { httpOnly: true })
+		res.cookie('is_admin', user.isAdmin, { httpOnly: true })
 		res.status(200).json({ success: true, token: token })
 	} catch (error) {
 		next(error)
@@ -104,6 +111,7 @@ router.get('/isadmin/:id', async (req, res, next) => {
 
 		const user = await User.findById(id)
 		if (!user) {
+			res.status(404)
 			throw new Error('User not found')
 		}
 

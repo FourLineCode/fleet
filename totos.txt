@@ -1,1 +1,5 @@
-make button, input component
+cookies not work
+display success meassge when signin/signup
+auto signin when sign up?
+make home page
+maybe improve noti

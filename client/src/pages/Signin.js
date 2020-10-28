@@ -1,13 +1,32 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { signin } from '../store/actions/authActions'
+import Button from '../ui/Button'
+import Input from '../ui/Input'
 
 const Singin = () => {
-	const handleSubmit = (e) => {
+	const history = useHistory()
+	const dispatch = useDispatch()
+	const auth = useSelector((state) => state.auth)
+
+	useEffect(() => {
+		if (auth.signedIn) {
+			history.push('/')
+		}
+	}, [auth])
+
+	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		const formData = new FormData(e.target)
-		console.log(formData.get('email'))
-		console.log(formData.get('password'))
+
+		const data = {
+			email: formData.get('email'),
+			password: formData.get('password'),
+		}
+
+		dispatch(signin(data))
 	}
 
 	return (
@@ -19,24 +38,8 @@ const Singin = () => {
 				<span className='my-4 text-5xl italic font-semibold text-center text-white'>
 					Sign in
 				</span>
-				<label htmlFor='email' className='text-white'>
-					Email
-				</label>
-				<input
-					type='email'
-					name='email'
-					autoComplete='off'
-					className='w-full px-2 py-2 rounded focus:outline-none'
-				/>
-				<label htmlFor='password' className='text-white'>
-					Password
-				</label>
-				<input
-					type='password'
-					name='password'
-					autoComplete='off'
-					className='w-full px-2 py-2 rounded focus:outline-none'
-				/>
+				<Input label='Email' type='email' name='email' />
+				<Input label='Password' type='password' name='password' />
 				<div className='flex items-center justify-between w-full py-2 mt-3'>
 					<span className='text-white'>
 						<span className='mr-2'>Not signed up yet?</span>
@@ -44,11 +47,7 @@ const Singin = () => {
 							Sign up
 						</Link>
 					</span>
-					<button
-						type='submit'
-						className='px-4 py-2 font-semibold text-white transition duration-300 bg-green-600 rounded focus:outline-none hover:bg-green-500'>
-						Sign in
-					</button>
+					<Button type='submit'>Sign in</Button>
 				</div>
 			</form>
 		</div>

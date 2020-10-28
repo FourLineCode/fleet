@@ -7,7 +7,13 @@ const reqString = {
 
 const userSchema = Schema(
 	{
-		username: { ...reqString, unique: true },
+		username: {
+			...reqString,
+			index: {
+				unique: [true, 'Username already exists!'],
+				collation: { locale: 'en', strength: 2 },
+			},
+		},
 		displayName: reqString,
 		email: { ...reqString, unique: true },
 		password: reqString,

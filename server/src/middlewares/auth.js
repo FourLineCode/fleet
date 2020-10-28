@@ -4,11 +4,13 @@ const auth = (req, res, next) => {
 	try {
 		const token = req.cookies.auth_token
 		if (!token) {
+			res.status(403)
 			throw new Error('Authorization failed')
 		}
 
 		const validated = jwt.verify(token, process.env.JWT_SECRET)
 		if (!validated) {
+			res.status(403)
 			throw new Error('Authorization failed')
 		}
 

@@ -1,15 +1,61 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import axios from 'axios'
+import Button from '../ui/Button'
+import Input from '../ui/Input'
+import Notification from '../ui/Notification'
+import { baseUrl } from '../config'
+import { useEffect } from 'react'
 
 const Signup = () => {
-	const handleSubmit = (e) => {
+	const history = useHistory()
+
+	const [error, setError] = useState(null)
+	const [showError, setShowError] = useState(false)
+
+	useEffect(() => {
+		if (error) {
+			console.log(error)
+			setShowError(true)
+			setTimeout(() => {
+				setShowError(false)
+			}, 3000)
+		}
+	}, [error])
+
+	const handleSubmit = async (e) => {
 		e.preventDefault()
+		setError(null)
 
 		const formData = new FormData(e.target)
-		console.log(formData.get('email'))
-		console.log(formData.get('username'))
-		console.log(formData.get('displayName'))
-		console.log(formData.get('password'))
+
+		const password = formData.get('password')
+		const confirmPassword = formData.get('cpassword')
+
+		if (password !== confirmPassword) {
+			setError('Passwords do not match')
+			return
+		}
+
+		const data = {
+			email: formData.get('email'),
+			username: formData.get('username'),
+			displayName: formData.get('displayName'),
+			password: formData.get('password'),
+		}
+
+		try {
+			const response = await axios.post(`${baseUrl}/user/signup`, data)
+			const { success } = response.data
+			if (success) {
+				history.push('signin')
+			}
+		} catch (err) {
+			if (err.response.data.message.startsWith('E11000')) {
+				return setError('User already exists with given username')
+			}
+			setError(err.response.data.message)
+		}
 	}
 
 	return (
@@ -21,51 +67,11 @@ const Signup = () => {
 				<span className='my-4 text-5xl italic font-semibold text-center text-white'>
 					Sign up
 				</span>
-				<label htmlFor='email' className='text-white'>
-					Email
-				</label>
-				<input
-					type='email'
-					name='email'
-					autoComplete='off'
-					className='w-full px-2 py-2 rounded focus:outline-none'
-				/>
-				<label htmlFor='username' className='text-white'>
-					Username
-				</label>
-				<input
-					type='text'
-					name='username'
-					autoComplete='off'
-					className='w-full px-2 py-2 rounded focus:outline-none'
-				/>
-				<label htmlFor='displayName' className='text-white'>
-					DisplayName
-				</label>
-				<input
-					type='text'
-					name='displayName'
-					autoComplete='off'
-					className='w-full px-2 py-2 rounded focus:outline-none'
-				/>
-				<label htmlFor='password' className='text-white'>
-					Password
-				</label>
-				<input
-					type='password'
-					name='password'
-					autoComplete='off'
-					className='w-full px-2 py-2 rounded focus:outline-none'
-				/>
-				<label htmlFor='cpassword' className='text-white'>
-					Confirm Password
-				</label>
-				<input
-					type='password'
-					name='cpassword'
-					autoComplete='off'
-					className='w-full px-2 py-2 rounded focus:outline-none'
-				/>
+				<Input label='Email' type='email' name='email' />
+				<Input label='Username' type='text' name='username' />
+				<Input label='Display Name' type='text' name='displayName' />
+				<Input label='Password' type='password' name='password' />
+				<Input label='Confirm Password' type='password' name='cpassword' />
 				<div className='flex items-center justify-between w-full py-2 mt-3'>
 					<span className='text-white'>
 						<span className='mr-2'>Have an account?</span>
@@ -73,13 +79,10 @@ const Signup = () => {
 							Sign in
 						</Link>
 					</span>
-					<button
-						type='submit'
-						className='px-4 py-2 font-semibold text-white transition duration-300 bg-green-600 rounded focus:outline-none hover:bg-green-500'>
-						Create an account
-					</button>
+					<Button type='submit'>Create an account</Button>
 				</div>
 			</form>
+			{showError && <Notification message={error} />}
 		</div>
 	)
 }
