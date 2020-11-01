@@ -1,16 +1,17 @@
 import jwt from 'jsonwebtoken'
+import { StatusCodes } from 'http-status-codes'
 
 const auth = (req, res, next) => {
 	try {
 		const token = req.cookies.auth_token
 		if (!token) {
-			res.status(403)
+			res.status(StatusCodes.FORBIDDEN)
 			throw new Error('Authorization failed')
 		}
 
 		const validated = jwt.verify(token, process.env.JWT_SECRET)
 		if (!validated) {
-			res.status(403)
+			res.status(StatusCodes.FORBIDDEN)
 			throw new Error('Authorization failed')
 		}
 
