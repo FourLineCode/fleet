@@ -13,8 +13,8 @@ const Navbar = () => {
 			<nav className='container flex items-center justify-between mx-4 md:mx-0'>
 				<Link
 					to='/'
-					className='flex items-center text-2xl italic font-semibold text-center text-white'>
-					<TwitterIcon className='w-6 h-6 mr-3 duration-150 transform hover:scale-110' />
+					className='flex items-center text-2xl italic font-bold text-center text-white duration-150 transform hover:scale-105'>
+					<TwitterIcon className='w-6 h-6 mr-3' />
 					TweetyTweet
 				</Link>
 				<div className='flex items-center space-x-5 text-center'>

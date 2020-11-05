@@ -6,15 +6,15 @@ import Singin from './pages/Signin'
 import Signup from './pages/Signup'
 import Home from './pages/Home'
 import ProtectedRoute from './components/ProtectedRoute'
-import { getUserInfo } from './store/actions/userActions'
+import { refreshAuthToken } from './store/actions/authActions'
 
 const App = () => {
 	const dispatch = useDispatch()
 	const auth = useSelector((state) => state.auth)
 
 	useEffect(() => {
-		if (auth.signedIn) {
-			dispatch(getUserInfo())
+		if (!auth.signedIn) {
+			dispatch(refreshAuthToken())
 		}
 	}, [auth.signedIn])
 

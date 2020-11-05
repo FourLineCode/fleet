@@ -27,7 +27,7 @@ const SignedInLinks = () => {
 			<a
 				onClick={signoutHandler}
 				href='#'
-				className='text-xl text-white hover:underline'>
+				className='text-xl text-white transition duration-150 hover:underline hover:text-green-400'>
 				Sign out
 			</a>
 		</>

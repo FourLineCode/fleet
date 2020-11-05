@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 const useLocalStorage = () => {
 	const getLocalStorage = (key) => {
 		const data = JSON.parse(window.localStorage.getItem(key))
@@ -11,7 +9,11 @@ const useLocalStorage = () => {
 		window.localStorage.setItem(key, JSON.stringify(value))
 	}
 
-	return [getLocalStorage, setLocalStorage]
+	const removeLocalStorage = (key) => {
+		window.localStorage.removeItem(key)
+	}
+
+	return { getLocalStorage, setLocalStorage, removeLocalStorage }
 }
 
 export default useLocalStorage
