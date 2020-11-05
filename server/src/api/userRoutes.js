@@ -1,7 +1,6 @@
 import { Router } from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
-import Joi from '@hapi/joi'
 import { StatusCodes } from 'http-status-codes'
 import User from '../models/user'
 import auth from '../middlewares/auth'
@@ -41,14 +40,14 @@ router.post('/signup', async (req, res, next) => {
 			throw err
 		}
 
-		const user1 = await User.findOne({ email: email })
-		if (user1) {
+		const emailExists = await User.findOne({ email: email })
+		if (emailExists) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User already exists with given email')
 		}
 
-		const user2 = await User.findOne({ username })
-		if (user2) {
+		const usernameExists = await User.findOne({ username })
+		if (usernameExists) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User already exists with given username')
 		}
@@ -65,7 +64,7 @@ router.post('/signup', async (req, res, next) => {
 
 		const savedUser = await newUser.save()
 
-		res.status(StatusCodes.OK).json({ success: true, id: savedUser._id })
+		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
 		next(error)
 	}
@@ -91,15 +90,72 @@ router.post('/signin', async (req, res, next) => {
 
 		const payload = {
 			id: user._id,
+		}
+
+		const token = jwt.sign(payload, process.env.JWT_SECRET, {
+			expiresIn: '24h',
+		})
+
+		const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
+			expiresIn: '1y',
+		})
+
+		res
+			.status(StatusCodes.OK)
+			.json({ success: true, token: token, refreshToken: refreshToken })
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Refreshes the authorization token
+router.get('/refreshtoken', (req, res, next) => {
+	try {
+		const refreshToken = req.headers['refresh-token']
+		if (!refreshToken) {
+			res.status(StatusCodes.FORBIDDEN)
+			throw new Error('Access denied')
+		}
+
+		const verifiedUser = jwt.verify(
+			refreshToken,
+			process.env.JWT_REFRESH_SECRET
+		)
+		if (!verifiedUser) {
+			res.status(StatusCodes.FORBIDDEN)
+			throw new Error('Access denied')
+		}
+
+		const payload = {
+			id: verifiedUser.id,
+		}
+
+		const newToken = jwt.sign(payload, process.env.JWT_SECRET, {
+			expiresIn: '24h',
+		})
+
+		res.status(StatusCodes.OK).json({ success: true, token: newToken })
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Get users data
+router.get('/info', auth, async (req, res, next) => {
+	try {
+		const user = await User.findById(req.userId)
+		if (!user) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('User not found')
+		}
+
+		const data = {
+			id: user._id,
 			username: user.username,
 			displayName: user.displayName,
 		}
 
-		const token = jwt.sign(payload, process.env.JWT_SECRET)
-
-		res.cookie('auth_token', token, { httpOnly: true })
-		res.cookie('is_admin', user.isAdmin, { httpOnly: true })
-		res.status(StatusCodes.OK).json({ success: true, token: token })
+		res.status(StatusCodes.OK).json(data)
 	} catch (error) {
 		next(error)
 	}
@@ -116,9 +172,7 @@ router.get('/isadmin/:id', async (req, res, next) => {
 			throw new Error('User not found')
 		}
 
-		res
-			.status(StatusCodes.OK)
-			.json({ isAdmin: user.isAdmin, id: user._id, username: user.username })
+		res.status(StatusCodes.OK).json({ isAdmin: user.isAdmin, id: user._id })
 	} catch (error) {
 		next(error)
 	}

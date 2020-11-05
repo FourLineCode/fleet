@@ -6,31 +6,44 @@ import Input from '../ui/Input'
 import Notification from '../ui/Notification'
 import { baseUrl } from '../config'
 import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { signin } from '../store/actions/authActions'
 
 const Signup = () => {
 	const history = useHistory()
+	const dispatch = useDispatch()
 
 	const [error, setError] = useState(null)
 	const [showError, setShowError] = useState(false)
 
 	useEffect(() => {
-		if (error) {
-			console.log(error)
+		if (error && !showError) {
 			setShowError(true)
-			setTimeout(() => {
+			const timeout = setTimeout(() => {
 				setShowError(false)
+				setError(null)
 			}, 3000)
 		}
 	}, [error])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
-		setError(null)
 
 		const formData = new FormData(e.target)
 
 		const password = formData.get('password')
 		const confirmPassword = formData.get('cpassword')
+
+		if (
+			formData.get('email') === '' ||
+			formData.get('username') === '' ||
+			formData.get('displayName') === '' ||
+			password === '' ||
+			confirmPassword === ''
+		) {
+			setError('One or more fields are empty')
+			return
+		}
 
 		if (password !== confirmPassword) {
 			setError('Passwords do not match')
@@ -48,7 +61,8 @@ const Signup = () => {
 			const response = await axios.post(`${baseUrl}/user/signup`, data)
 			const { success } = response.data
 			if (success) {
-				history.push('signin')
+				dispatch(signin(data))
+				history.push('/')
 			}
 		} catch (err) {
 			if (err.response.data.message.startsWith('E11000')) {
@@ -82,7 +96,7 @@ const Signup = () => {
 					<Button type='submit'>Create an account</Button>
 				</div>
 			</form>
-			{showError && <Notification message={error} />}
+			{showError && <Notification message={error} type='error' />}
 		</div>
 	)
 }

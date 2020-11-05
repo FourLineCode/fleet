@@ -1,2 +1,6 @@
 export const SIGN_IN = 'SIGN_IN'
 export const SIGN_IN_ERROR = 'SIGN_IN_ERROR'
+export const SIGN_OUT = 'SIGN_OUT'
+export const GET_USER_INFO = 'GET_USER_INFO'
+export const GET_USER_INFO_ERROR = 'GET_USER_INFO_ERROR'
+export const CLEAR_CURRENT_USER = 'CLEAR_CURRENT_USER'

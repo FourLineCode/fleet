@@ -1,8 +1,13 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import TwitterIcon from './icons/TwitterIcon'
+import TwitterIcon from '../ui/icons/TwitterIcon'
+import SignedInLinks from './SignedInLinks'
+import SignedOutLinks from './SignedOutLinks'
 
 const Navbar = () => {
+	const { signedIn } = useSelector((state) => state.auth)
+
 	return (
 		<div className='flex justify-center h-12 bg-gray-800 border-b border-gray-500'>
 			<nav className='container flex items-center justify-between mx-4 md:mx-0'>
@@ -13,13 +18,7 @@ const Navbar = () => {
 					TweetyTweet
 				</Link>
 				<div className='flex items-center space-x-5 text-center'>
-					<Link to='/signup' className='text-xl text-white hover:underline'>
-						Sign up
-					</Link>
-					<div className='h-6 w-0.5 bg-white'></div>
-					<Link to='/signin' className='text-xl text-white hover:underline'>
-						Sign in
-					</Link>
+					{signedIn ? <SignedInLinks /> : <SignedOutLinks />}
 				</div>
 			</nav>
 		</div>

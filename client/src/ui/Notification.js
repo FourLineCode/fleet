@@ -7,7 +7,7 @@ const Alert = (props) => {
 	return <MuiAlert elevation={6} variant='filled' {...props} />
 }
 
-const Notification = ({ message }) => {
+const Notification = ({ message, type = 'error' }) => {
 	const [open, setOpen] = useState(false)
 
 	useEffect(() => {
@@ -25,7 +25,7 @@ const Notification = ({ message }) => {
 	return (
 		<div>
 			<Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-				<Alert onClose={handleClose} severity='error'>
+				<Alert onClose={handleClose} severity={type}>
 					{message}
 				</Alert>
 			</Snackbar>

@@ -5,7 +5,7 @@ content-type: application/json
   "username": "alex",
   "displayName": "Alex Simp",
   "email": "alex@rip.com",
-  "password": "lmaolmao"
+  "password": "lma000"
 }
 
 ###
@@ -20,7 +20,11 @@ content-type: application/json
 
 ###
 GET http://localhost:5000/api/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTM3YTUzM2ZiZjM2MTlhY2NmZTRiYSIsImlhdCI6MTYwNDU1MzA1NCwiZXhwIjoxNjA0NjM5NDU0fQ.wp7FHsiAtC8h6sAKx1UrWdvN9pnsjteErkczZWQe93I
 
 ###
 GET http://localhost:5000/api/user/isadmin/5f75f2024fe8392864ca5c30
 
+###
+GET http://localhost:5000/api/user/refreshtoken
+refresh-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTM3YTUzM2ZiZjM2MTlhY2NmZTRiYSIsImlhdCI6MTYwNDU1MzAyNCwiZXhwIjoxNjM2MTEwNjI0fQ.hhWfEjFTdJCm_b22bvLemTJNfe5pL3wxNRL1he_u4yc

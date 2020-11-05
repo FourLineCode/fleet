@@ -1,14 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { signin } from '../store/actions/authActions'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
+import Notification from '../ui/Notification'
 
 const Singin = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
 	const auth = useSelector((state) => state.auth)
+
+	const [showError, setShowError] = useState(false)
 
 	useEffect(() => {
 		if (auth.signedIn) {
@@ -16,10 +19,23 @@ const Singin = () => {
 		}
 	}, [auth])
 
+	useEffect(() => {
+		if (auth.error) {
+			setShowError(true)
+			setTimeout(() => {
+				setShowError(false)
+			}, 3000)
+		}
+	}, [auth.error])
+
 	const handleSubmit = async (e) => {
 		e.preventDefault()
 
 		const formData = new FormData(e.target)
+
+		if (formData.get('email') === '' || formData.get('password') === '') {
+			return
+		}
 
 		const data = {
 			email: formData.get('email'),
@@ -50,6 +66,7 @@ const Singin = () => {
 					<Button type='submit'>Sign in</Button>
 				</div>
 			</form>
+			{showError && <Notification message={auth.error.message} type='error' />}
 		</div>
 	)
 }
