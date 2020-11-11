@@ -10,7 +10,12 @@ const auth = async (req, res, next) => {
 			throw new Error('Authorization failed')
 		}
 
-		const [_, token] = header.split(' ')
+		// TODO: Romove this in production
+		const [type, token] = header.split(' ')
+		if (type !== 'Bearer') {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('Token must be prefixed with Bearer')
+		}
 
 		if (!token) {
 			res.status(StatusCodes.FORBIDDEN)

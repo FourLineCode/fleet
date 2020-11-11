@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { StatusCodes } from 'http-status-codes'
 import User from '../models/user'
 import auth from '../middlewares/auth'
-import registerShema from '../middlewares/validation'
+import registerShema from '../validation/registerSchema'
 
 const router = Router()
 
@@ -23,6 +23,17 @@ router.get('/', auth, async (req, res, next) => {
 		}
 
 		res.status(StatusCodes.OK).json(users)
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Get one user
+router.get('/:id', auth, async (req, res, next) => {
+	try {
+		const user = await User.find({ _id: req.params.id })
+
+		res.status(StatusCodes.OK).json(user)
 	} catch (error) {
 		next(error)
 	}
