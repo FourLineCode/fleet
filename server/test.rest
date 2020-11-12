@@ -15,7 +15,7 @@ content-type: application/json
 
 {
   "email": "akmal@rip.com",
-  "password": "123"
+  "password": "akmal123"
 }
 
 ###
@@ -28,3 +28,7 @@ GET http://localhost:5000/api/user/isadmin/5f75f2024fe8392864ca5c30
 ###
 GET http://localhost:5000/api/user/refreshtoken
 refresh-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTM3YTUzM2ZiZjM2MTlhY2NmZTRiYSIsImlhdCI6MTYwNDU1MzAyNCwiZXhwIjoxNjM2MTEwNjI0fQ.hhWfEjFTdJCm_b22bvLemTJNfe5pL3wxNRL1he_u4yc
+
+###
+GET http://localhost:5000/api/user/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWNjMjg1Y2FiMTgzMjUwNGUyNjJiMCIsImlhdCI6MTYwNTE1OTIzMSwiZXhwIjoxNjA1MjQ1NjMxfQ.nwO8tt529h8odUskPK2Gdagy27Ph_eeWLuiulrUCuDA

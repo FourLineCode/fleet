@@ -1,11 +1,19 @@
 import React from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({ path, children }) => {
 	const { signedIn } = useSelector((state) => state.auth)
 
-	return <>{signedIn ? <>{children}</> : <Redirect to='/signin' />}</>
+	return (
+		<>
+			{signedIn ? (
+				<Route path={path}>{children}</Route>
+			) : (
+				<Redirect to='/signin' />
+			)}
+		</>
+	)
 }
 
 export default ProtectedRoute

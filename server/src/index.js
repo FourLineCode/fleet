@@ -16,7 +16,7 @@ const app = express()
 const init = async () => {
 	try {
 		app.use(express.json())
-		app.use(cors())
+		app.use(cors({ origin: process.env.ORIGIN }))
 		app.use(morgan('dev'))
 		app.use(helmet())
 		app.use(cookieParser())

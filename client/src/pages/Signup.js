@@ -62,7 +62,7 @@ const Signup = () => {
 			const { success } = response.data
 			if (success) {
 				dispatch(signin(data))
-				history.push('/')
+				history.push('/home')
 			}
 		} catch (err) {
 			if (err.response.data.message.startsWith('E11000')) {

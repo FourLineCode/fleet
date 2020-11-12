@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import Navbar from './components/Navbar'
 import Singin from './pages/Signin'
@@ -7,6 +7,8 @@ import Signup from './pages/Signup'
 import Home from './pages/Home'
 import ProtectedRoute from './components/ProtectedRoute'
 import { refreshAuthToken } from './store/actions/authActions'
+import Messages from './pages/Messages'
+import Profile from './pages/Profile'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -23,9 +25,7 @@ const App = () => {
 			<Navbar />
 			<Switch>
 				<Route exact path='/'>
-					<ProtectedRoute>
-						<Home />
-					</ProtectedRoute>
+					<Redirect to='/home' />
 				</Route>
 				<Route exact path='/signup'>
 					<Signup />
@@ -33,6 +33,15 @@ const App = () => {
 				<Route exact path='/signin'>
 					<Singin />
 				</Route>
+				<ProtectedRoute path='/home'>
+					<Home />
+				</ProtectedRoute>
+				<ProtectedRoute path='/messages'>
+					<Messages />
+				</ProtectedRoute>
+				<ProtectedRoute path='/profile'>
+					<Profile />
+				</ProtectedRoute>
 			</Switch>
 		</BrowserRouter>
 	)

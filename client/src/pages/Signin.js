@@ -15,7 +15,7 @@ const Singin = () => {
 
 	useEffect(() => {
 		if (auth.signedIn) {
-			history.push('/')
+			history.push('/home')
 		}
 	}, [auth])
 

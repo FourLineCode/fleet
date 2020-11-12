@@ -29,7 +29,7 @@ router.get('/', auth, async (req, res, next) => {
 })
 
 // Get one user
-router.get('/:id', auth, async (req, res, next) => {
+router.get('/profile/:id', auth, async (req, res, next) => {
 	try {
 		const user = await User.find({ _id: req.params.id })
 
@@ -120,7 +120,7 @@ router.post('/signin', async (req, res, next) => {
 })
 
 // Refreshes the authorization token
-router.get('/refreshtoken', (req, res, next) => {
+router.get('/refreshtoken', async (req, res, next) => {
 	try {
 		const refreshToken = req.headers['refresh-token']
 		if (!refreshToken) {
@@ -128,7 +128,7 @@ router.get('/refreshtoken', (req, res, next) => {
 			throw new Error('Access denied')
 		}
 
-		const verifiedUser = jwt.verify(
+		const verifiedUser = await jwt.verify(
 			refreshToken,
 			process.env.JWT_REFRESH_SECRET
 		)
@@ -141,7 +141,7 @@ router.get('/refreshtoken', (req, res, next) => {
 			id: verifiedUser.id,
 		}
 
-		const newToken = jwt.sign(payload, process.env.JWT_SECRET, {
+		const newToken = await jwt.sign(payload, process.env.JWT_SECRET, {
 			expiresIn: '24h',
 		})
 
