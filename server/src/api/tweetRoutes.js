@@ -15,14 +15,14 @@ router.get('/', auth, async (req, res, next) => {
 				'_id username displayName isAdmin'
 			)) || []
 
-		res.status(StatusCodes.OK).json(tweets)
+		res.status(StatusCodes.OK).json(tweets.reverse())
 	} catch (error) {
 		next(error)
 	}
 })
 
 // Get one tweet
-router.get('/:id', auth, async (req, res, next) => {
+router.get('/post/:id', auth, async (req, res, next) => {
 	try {
 		const tweet = await Tweet.findOne({ _id: req.params.id }).populate(
 			'author',

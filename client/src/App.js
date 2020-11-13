@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import Navbar from './components/Navbar'
 import Singin from './pages/Signin'
 import Signup from './pages/Signup'
@@ -9,10 +9,11 @@ import ProtectedRoute from './components/ProtectedRoute'
 import { refreshAuthToken } from './store/actions/authActions'
 import Messages from './pages/Messages'
 import Profile from './pages/Profile'
+import useAuthorization from './hooks/useAuthorization'
 
 const App = () => {
 	const dispatch = useDispatch()
-	const auth = useSelector((state) => state.auth)
+	const auth = useAuthorization()
 
 	useEffect(() => {
 		if (!auth.signedIn) {

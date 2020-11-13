@@ -1,12 +1,12 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import useAuthorization from '../hooks/useAuthorization'
 import TwitterIcon from '../ui/icons/TwitterIcon'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 
 const Navbar = () => {
-	const { signedIn } = useSelector((state) => state.auth)
+	const { signedIn } = useAuthorization()
 
 	return (
 		<div className='flex justify-center h-12 bg-gray-800 border-b border-gray-500'>

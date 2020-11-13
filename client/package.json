@@ -13,6 +13,7 @@
 		"@material-ui/lab": "^4.0.0-alpha.56",
 		"autoprefixer": "^9.8.6",
 		"axios": "^0.20.0",
+		"date-fns": "^2.16.1",
 		"parcel": "^1.12.4",
 		"parcel-plugin-compress": "^2.0.2",
 		"postcss-cli": "^8.0.0",

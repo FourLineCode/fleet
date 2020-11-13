@@ -12,7 +12,7 @@ const Menu = () => {
 	}
 
 	return (
-		<div className='flex justify-end h-full col-span-1 px-2 py-4'>
+		<div className='flex justify-end h-full px-2 py-4'>
 			<div className='flex flex-col space-y-4'>
 				<MenuLink type='route' to='/home'>
 					<HomeIcon className='w-6 h-6 mr-2' />

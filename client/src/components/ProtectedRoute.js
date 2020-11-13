@@ -1,9 +1,9 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import useAuthorization from '../hooks/useAuthorization'
 
 const ProtectedRoute = ({ path, children }) => {
-	const { signedIn } = useSelector((state) => state.auth)
+	const { signedIn } = useAuthorization()
 
 	return (
 		<>

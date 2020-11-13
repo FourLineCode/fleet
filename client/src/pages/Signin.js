@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { signin } from '../store/actions/authActions'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 import Notification from '../ui/Notification'
+import useAuthorization from '../hooks/useAuthorization'
 
 const Singin = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
-	const auth = useSelector((state) => state.auth)
+	const auth = useAuthorization()
 
 	const [showError, setShowError] = useState(false)
 

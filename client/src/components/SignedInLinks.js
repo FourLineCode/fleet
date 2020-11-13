@@ -1,9 +1,11 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { signout } from '../store/actions/authActions'
+import useCurrentUser from '../hooks/useCurrentUser'
+import ProfileIcon from '../ui/icons/ProfileIcon'
 
 const SignedInLinks = () => {
-	const user = useSelector((state) => state.user)
+	const user = useCurrentUser()
 	const dispatch = useDispatch()
 
 	const signoutHandler = (e) => {
@@ -14,14 +16,12 @@ const SignedInLinks = () => {
 
 	return (
 		<>
-			<div className='px-4 py-2 mx-1 text-white bg-green-500 rounded'>
-				{user.id}
-			</div>
-			<div className='px-4 py-2 mx-1 text-white bg-green-500 rounded'>
-				{user.username}
-			</div>
-			<div className='px-4 py-2 mx-1 text-white bg-green-500 rounded'>
-				{user.displayName}
+			<div className='flex items-center px-4 mx-1 text-right text-gray-400'>
+				<div>
+					<div>{user.displayName}</div>
+					<div>@{user.username}</div>
+				</div>
+				<ProfileIcon className='w-10 h-10 ml-2 text-gray-400' />
 			</div>
 			<div className='h-6 w-0.5 bg-white'></div>
 			<a
