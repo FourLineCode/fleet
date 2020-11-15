@@ -7,7 +7,7 @@ const Home = () => {
 		<div className='grid min-h-screen grid-cols-4 bg-gray-800 gap-x-4'>
 			<Menu />
 			<Timeline />
-			<div className='h-full'>
+			<div className='h-full px-2 py-4'>
 				<h1 className='text-2xl text-center text-white'>Recomended</h1>
 			</div>
 		</div>

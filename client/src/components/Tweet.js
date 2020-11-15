@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import { formatDistanceToNow } from 'date-fns'
 import { useMutation, useQueryCache } from 'react-query'
-import { baseUrl } from '../config'
+import { BASE_URL } from '../config'
 import ProfileIcon from '../ui/icons/ProfileIcon'
 import ReplyIcon from '../ui/icons/ReplyIcon'
 import HeartIcon from '../ui/icons/HeartIcon'
@@ -21,7 +21,7 @@ const Tweet = ({ tweet }) => {
 		try {
 			if (!tweet.likes.includes(user.id)) {
 				await axios.post(
-					`${baseUrl}/tweet/like/${tweet._id}`,
+					`${BASE_URL}/tweet/like/${tweet._id}`,
 					{},
 					{
 						headers: {
@@ -31,7 +31,7 @@ const Tweet = ({ tweet }) => {
 				)
 			} else {
 				await axios.post(
-					`${baseUrl}/tweet/unlike/${tweet._id}`,
+					`${BASE_URL}/tweet/unlike/${tweet._id}`,
 					{},
 					{
 						headers: {

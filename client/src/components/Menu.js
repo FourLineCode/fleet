@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HomeIcon from '../ui/icons/HomeIcon'
 import MessageIcon from '../ui/icons/MessageIcon'
 import ProfileIcon from '../ui/icons/ProfileIcon'
 import GithubIcon from '../ui/icons/GithubIcon'
 import MenuLink from '../ui/MenuLink'
+import TweetComposer from '../components/TweetComposer'
 
 const Menu = () => {
+	const [visible, setVisible] = useState(false)
+
 	const showTweetComposer = (e) => {
 		e.preventDefault()
-		alert('hello')
+
+		setVisible(!visible)
 	}
 
 	return (
@@ -35,6 +39,7 @@ const Menu = () => {
 					GitHub
 				</MenuLink>
 			</div>
+			<TweetComposer visible={visible} setVisible={setVisible} />
 		</div>
 	)
 }

@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { baseUrl } from '../../config'
+import { BASE_URL } from '../../config'
 import * as actions from '../types'
 
 export const getUserInfo = () => async (dispatch, getState) => {
 	try {
 		const { token } = getState().auth
 
-		const response = await axios.get(`${baseUrl}/user/info`, {
+		const response = await axios.get(`${BASE_URL}/user/info`, {
 			headers: {
 				authorization: `Bearer ${token}`,
 			},

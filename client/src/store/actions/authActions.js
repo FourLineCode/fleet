@@ -1,12 +1,12 @@
 import axios from 'axios'
-import { baseUrl } from '../../config'
+import { BASE_URL } from '../../config'
 import useLocalStorage from '../../hooks/useLocalstorage'
 import { getUserInfo } from './userActions'
 import * as actions from '../types'
 
 export const signin = (credentials) => async (dispatch) => {
 	try {
-		const response = await axios.post(`${baseUrl}/user/signin`, credentials)
+		const response = await axios.post(`${BASE_URL}/user/signin`, credentials)
 		const data = await response.data
 
 		if (data) {
@@ -40,7 +40,7 @@ export const refreshAuthToken = () => async (dispatch) => {
 			return
 		}
 
-		const { data } = await axios.get(`${baseUrl}/user/refreshtoken`, {
+		const { data } = await axios.get(`${BASE_URL}/user/refreshtoken`, {
 			headers: {
 				'refresh-token': refreshToken,
 			},

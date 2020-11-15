@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import axios from 'axios'
 import { useQuery } from 'react-query'
 import clsx from 'clsx'
 import { CircularProgress } from '@material-ui/core'
-import { baseUrl } from '../config'
+import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import Tweet from './Tweet'
+import ErrorIcon from '../ui/icons/ErrorIcon'
 
 const Timeline = () => {
 	const auth = useAuthorization()
 
 	const getTweets = async () => {
 		try {
-			const res = await axios.get(`${baseUrl}/tweet`, {
+			const res = await axios.get(`${BASE_URL}/tweet`, {
 				headers: {
 					Authorization: `Bearer ${auth.token}`,
 				},
@@ -41,8 +42,17 @@ const Timeline = () => {
 					size={30}
 					thickness={4}
 				/>
-			) : (
+			) : data && data.length > 0 ? (
 				data && data.map((tweet) => <Tweet tweet={tweet} key={tweet._id} />)
+			) : (
+				<div className='flex items-center justify-center w-full h-full'>
+					<div className='flex-col'>
+						<ErrorIcon className='w-20 h-20 mx-auto text-gray-500' />
+						<div className='text-2xl font-semibold text-gray-500'>
+							No Tweets found
+						</div>
+					</div>
+				</div>
 			)}
 		</div>
 	)

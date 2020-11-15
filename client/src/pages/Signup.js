@@ -4,7 +4,7 @@ import axios from 'axios'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 import Notification from '../ui/Notification'
-import { baseUrl } from '../config'
+import { BASE_URL } from '../config'
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { signin } from '../store/actions/authActions'
@@ -58,7 +58,7 @@ const Signup = () => {
 		}
 
 		try {
-			const response = await axios.post(`${baseUrl}/user/signup`, data)
+			const response = await axios.post(`${BASE_URL}/user/signup`, data)
 			const { success } = response.data
 			if (success) {
 				dispatch(signin(data))
