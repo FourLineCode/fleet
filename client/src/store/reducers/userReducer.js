@@ -4,7 +4,6 @@ const initState = {
 	id: null,
 	username: null,
 	displayName: null,
-	error: null,
 }
 
 const userReducer = (state = initState, { type, payload }) => {
@@ -15,14 +14,6 @@ const userReducer = (state = initState, { type, payload }) => {
 				id: payload.id,
 				username: payload.username,
 				displayName: payload.displayName,
-				error: null,
-			}
-		}
-		case actions.GET_USER_INFO_ERROR: {
-			console.log(payload)
-			return {
-				...state,
-				error: payload.data,
 			}
 		}
 		case actions.CLEAR_CURRENT_USER: {
@@ -30,7 +21,6 @@ const userReducer = (state = initState, { type, payload }) => {
 				id: null,
 				username: null,
 				displayName: null,
-				error: null,
 			}
 		}
 		default:

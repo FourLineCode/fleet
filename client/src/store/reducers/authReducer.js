@@ -3,7 +3,6 @@ import * as actions from '../types'
 const initState = {
 	signedIn: false,
 	token: null,
-	error: null,
 }
 
 const authReducer = (state = initState, { type, payload }) => {
@@ -13,13 +12,6 @@ const authReducer = (state = initState, { type, payload }) => {
 				...state,
 				signedIn: payload.success,
 				token: payload.token,
-				error: null,
-			}
-		}
-		case actions.SIGN_IN_ERROR: {
-			return {
-				...state,
-				error: payload.data,
 			}
 		}
 		case actions.SIGN_OUT: {
@@ -27,7 +19,6 @@ const authReducer = (state = initState, { type, payload }) => {
 				...state,
 				signedIn: false,
 				token: null,
-				error: null,
 			}
 		}
 		default:

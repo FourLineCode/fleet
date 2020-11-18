@@ -1,30 +1,16 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import axios from 'axios'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
-import Notification from '../ui/Notification'
 import { BASE_URL } from '../config'
-import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { signin } from '../store/actions/authActions'
+import { setError, setSuccess } from '../store/actions/notificationActions'
 
 const Signup = () => {
 	const history = useHistory()
 	const dispatch = useDispatch()
-
-	const [error, setError] = useState(null)
-	const [showError, setShowError] = useState(false)
-
-	useEffect(() => {
-		if (error && !showError) {
-			setShowError(true)
-			const timeout = setTimeout(() => {
-				setShowError(false)
-				setError(null)
-			}, 3000)
-		}
-	}, [error])
 
 	const handleSubmit = async (e) => {
 		e.preventDefault()
@@ -41,12 +27,12 @@ const Signup = () => {
 			password === '' ||
 			confirmPassword === ''
 		) {
-			setError('One or more fields are empty')
+			dispatch(setError('One or more fields are empty'))
 			return
 		}
 
 		if (password !== confirmPassword) {
-			setError('Passwords do not match')
+			dispatch(setError('Passwords do not match'))
 			return
 		}
 
@@ -62,13 +48,14 @@ const Signup = () => {
 			const { success } = response.data
 			if (success) {
 				dispatch(signin(data))
+				dispatch(setSuccess('Successfully signed up'))
 				history.push('/home')
 			}
 		} catch (err) {
 			if (err.response.data.message.startsWith('E11000')) {
-				return setError('User already exists with given username')
+				return dispatch(setError('User already exists with given username'))
 			}
-			setError(err.response.data.message)
+			dispatch(setError(err.response.data.message))
 		}
 	}
 
@@ -96,7 +83,6 @@ const Signup = () => {
 					<Button type='submit'>Create an account</Button>
 				</div>
 			</form>
-			{showError && <Notification message={error} type='error' />}
 		</div>
 	)
 }

@@ -3,6 +3,7 @@ import { BASE_URL } from '../../config'
 import useLocalStorage from '../../hooks/useLocalstorage'
 import { getUserInfo } from './userActions'
 import * as actions from '../types'
+import { setError } from './notificationActions'
 
 export const signin = (credentials) => async (dispatch) => {
 	try {
@@ -18,7 +19,7 @@ export const signin = (credentials) => async (dispatch) => {
 
 		setLocalStorage('refresh-token', data.refreshToken)
 	} catch (error) {
-		dispatch({ type: actions.SIGN_IN_ERROR, payload: error.response })
+		dispatch(setError(error.response.data.message))
 	}
 }
 
@@ -51,6 +52,6 @@ export const refreshAuthToken = () => async (dispatch) => {
 			dispatch(getUserInfo())
 		}
 	} catch (error) {
-		dispatch({ type: actions.SIGN_IN_ERROR, payload: error.response })
+		dispatch(setError(error.response.data.message))
 	}
 }

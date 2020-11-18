@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import clsx from 'clsx'
 import axios from 'axios'
 import { queryCache, useMutation } from 'react-query'
@@ -50,19 +50,39 @@ const TweetComposer = ({ visible, setVisible }) => {
 		setBody(e.target.value)
 	}
 
+	const ref = useRef()
+
+	const handleClick = (e) => {
+		if (ref.current.contains(e.target)) {
+			return
+		}
+
+		setVisible(false)
+	}
+
+	useEffect(() => {
+		document.addEventListener('mousedown', handleClick)
+
+		return () => {
+			document.removeEventListener('mousedown', handleClick)
+		}
+	})
+
 	return (
 		<div
 			className={clsx(
 				!visible && 'invisible',
 				'fixed top-0 left-0 bg-opacity-25 bg-white w-screen h-screen'
 			)}>
-			<div className='absolute left-0 right-0 w-full h-56 mx-auto bg-gray-800 rounded-lg shadow-md md:w-2/5 top-20'>
+			<div
+				ref={ref}
+				className='absolute left-0 right-0 w-full h-56 mx-auto bg-gray-800 rounded-lg shadow-md md:w-2/5 top-20'>
 				<div className='flex justify-end w-full'>
 					<IconButton onClick={() => setVisible(false)}>
 						<CloseIcon className='w-5 h-5 text-white' />
 					</IconButton>
 				</div>
-				<div className='w-full h-full p-6'>
+				<div className='w-full h-full p-2'>
 					<TextArea
 						value={body}
 						onChange={onChange}

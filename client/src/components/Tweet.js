@@ -54,8 +54,8 @@ const Tweet = ({ tweet }) => {
 	return (
 		<div className='w-3/4 px-2 pt-2 mx-auto border border-gray-700 rounded-lg shadow-xl'>
 			<div className='flex space-x-1'>
-				<div className='flex items-center justify-center flex-shrink-0 w-10 h-10 mt-2 mr-2 text-3xl text-white bg-gray-500 rounded-full'>
-					<ProfileIcon className='w-6 h-6 text-green-300' />
+				<div className='flex items-center justify-center flex-shrink-0 w-10 h-10 mt-2 mr-2 overflow-hidden rounded-full'>
+					<img src='http://github.com/kesne.png' className='' />
 				</div>
 				<div>
 					<div className='text-base font-bold text-white'>
