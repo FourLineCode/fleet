@@ -8,10 +8,13 @@ import TextArea from '../ui/TextArea'
 import Button from '../ui/Button'
 import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
+import { useDispatch } from 'react-redux'
+import { setSuccess, setError } from '../store/actions/notificationActions'
 
 const TweetComposer = ({ visible, setVisible }) => {
 	const [body, setBody] = useState('')
 	const auth = useAuthorization()
+	const dispatch = useDispatch()
 
 	const composeTweet = async () => {
 		try {
@@ -31,11 +34,13 @@ const TweetComposer = ({ visible, setVisible }) => {
 
 	const [mutate, { isLoading }] = useMutation(composeTweet, {
 		onSuccess: () => {
+			dispatch(setSuccess('Tweet sent'))
 			queryCache.refetchQueries('tweets')
 			setVisible(false)
 			setBody('')
 		},
 		onError: () => {
+			dispatch(setError('An error occured while sending tweet'))
 			setBody('')
 		},
 	})
@@ -94,7 +99,9 @@ const TweetComposer = ({ visible, setVisible }) => {
 					<div className='flex items-center justify-between w-full'>
 						<span
 							className={clsx(
-								body.length > 240 ? 'text-red-600' : 'text-white'
+								body.length > 240
+									? 'text-red-600'
+									: 'text-white'
 							)}>
 							{body.length}/240
 						</span>

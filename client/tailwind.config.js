@@ -1,11 +1,11 @@
 module.exports = {
 	experimental: 'all',
+	darkMode: 'class',
 	future: {
 		removeDeprecatedGapUtilities: true,
 		purgeLayersByDefault: true,
 	},
 	purge: {
-		// enabled: true,
 		content: ['./src/**/*.js', './src/**/*.html'],
 	},
 	theme: {

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
+import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import Navbar from './components/Navbar'
-import Singin from './pages/Signin'
-import Signup from './pages/Signup'
-import Home from './pages/Home'
 import ProtectedRoute from './components/ProtectedRoute'
-import { refreshAuthToken } from './store/actions/authActions'
+import useAuthorization from './hooks/useAuthorization'
+import useNotification from './hooks/useNotification'
+import Home from './pages/Home'
 import Messages from './pages/Messages'
 import Profile from './pages/Profile'
-import useAuthorization from './hooks/useAuthorization'
+import Singin from './pages/Signin'
+import Signup from './pages/Signup'
+import { refreshAuthToken } from './store/actions/authActions'
 import Notification from './ui/Notification'
-import useNotification from './hooks/useNotification'
 
 const App = () => {
 	const dispatch = useDispatch()
@@ -48,7 +48,10 @@ const App = () => {
 				</ProtectedRoute>
 			</Switch>
 			{notification.show && notification.message !== '' && (
-				<Notification message={notification.message} type={notification.type} />
+				<Notification
+					message={notification.message}
+					type={notification.type}
+				/>
 			)}
 		</BrowserRouter>
 	)

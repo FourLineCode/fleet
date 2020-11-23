@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { BASE_URL } from '../../config'
 import * as actions from '../types'
+import { setError } from './notificationActions'
 
 export const getUserInfo = () => async (dispatch, getState) => {
 	try {
@@ -16,7 +17,6 @@ export const getUserInfo = () => async (dispatch, getState) => {
 			dispatch({ type: actions.GET_USER_INFO, payload: response.data })
 		}
 	} catch (error) {
-		console.log(error)
-		dispatch({ type: actions.GET_USER_INFO_ERROR, payload: error.response })
+		dispatch(setError(error.response.data.message))
 	}
 }

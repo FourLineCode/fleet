@@ -1,3 +1,10 @@
-global error/success system
-make home page
-start tweets
+Not Found page
+fix protected route
+modal component
+profile page
+comment system
+like count shorten
+comment count shorten
+follow system
+dynamic timeline
+messaging system with socket.io

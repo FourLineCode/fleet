@@ -68,7 +68,9 @@ const Tweet = ({ tweet }) => {
 							{formatDistanceToNow(new Date(tweet.createdAt))}
 						</span>
 					</div>
-					<div className='text-sm text-white break-words'>{tweet.body}</div>
+					<div className='text-sm text-white break-all'>
+						{tweet.body}
+					</div>
 				</div>
 			</div>
 			<div className='flex items-center w-full h-6 justify-evenly'>
@@ -85,7 +87,9 @@ const Tweet = ({ tweet }) => {
 							<HeartIcon className='w-4 h-4' />
 						)}
 					</IconButton>
-					<span className='text-base text-white'>{tweet.likes.length}</span>
+					<span className='text-base text-white'>
+						{tweet.likes.length}
+					</span>
 				</div>
 			</div>
 		</div>
