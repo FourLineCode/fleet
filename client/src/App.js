@@ -5,6 +5,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import useNotification from './hooks/useNotification'
 import Home from './pages/Home'
 import Messages from './pages/Messages'
+import NotFound from './pages/NotFound'
 import Profile from './pages/Profile'
 import Singin from './pages/Signin'
 import Signup from './pages/Signup'
@@ -35,6 +36,9 @@ const App = () => {
 				<ProtectedRoute path='/profile'>
 					<Profile />
 				</ProtectedRoute>
+				<Route exact path='*'>
+					<NotFound />
+				</Route>
 			</Switch>
 			{notification.show && notification.message !== '' && (
 				<Notification

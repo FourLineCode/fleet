@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './App'
 import store from './store'
-import './tailwind.css'
+import './styles/index.css'
 import theme from './ui/themes/MuiTheme'
 
 ReactDOM.render(

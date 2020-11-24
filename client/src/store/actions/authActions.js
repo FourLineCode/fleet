@@ -2,7 +2,7 @@ import axios from 'axios'
 import { BASE_URL } from '../../config'
 import useLocalStorage from '../../hooks/useLocalstorage'
 import * as actions from '../types'
-import { setError } from './notificationActions'
+import { setError, setSuccess } from './notificationActions'
 import { getUserInfo } from './userActions'
 
 export const signin = (credentials) => async (dispatch) => {
@@ -32,6 +32,7 @@ export const signout = () => (dispatch) => {
 
 	dispatch({ type: actions.SIGN_OUT })
 	dispatch({ type: actions.CLEAR_CURRENT_USER })
+	dispatch(setSuccess('Successfully signed out'))
 }
 
 export const refreshAuthToken = () => async (dispatch) => {

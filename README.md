@@ -2,11 +2,12 @@
 
 # Frontend
 
-- React
-- Redux
+-   React
+-   Redux
+-   Tailwind CSS
 
 # Backend
 
-- Nodejs
-- Express
-- MongoDB
+-   Nodejs
+-   Express
+-   MongoDB
