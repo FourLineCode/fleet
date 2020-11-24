@@ -1,13 +1,16 @@
 import axios from 'axios'
 import { BASE_URL } from '../../config'
 import useLocalStorage from '../../hooks/useLocalstorage'
-import { getUserInfo } from './userActions'
 import * as actions from '../types'
 import { setError } from './notificationActions'
+import { getUserInfo } from './userActions'
 
 export const signin = (credentials) => async (dispatch) => {
 	try {
-		const response = await axios.post(`${BASE_URL}/user/signin`, credentials)
+		const response = await axios.post(
+			`${BASE_URL}/user/signin`,
+			credentials
+		)
 		const data = await response.data
 
 		if (data) {
@@ -33,10 +36,13 @@ export const signout = () => (dispatch) => {
 
 export const refreshAuthToken = () => async (dispatch) => {
 	try {
+		dispatch({ type: actions.SET_REFRESHING })
 		const { getLocalStorage } = useLocalStorage()
 
 		const refreshToken = getLocalStorage('refresh-token')
 		if (!refreshToken) {
+			dispatch(setError('Please sign in to view this page'))
+			dispatch({ type: actions.SET_NOT_REFRESHING })
 			dispatch({ type: actions.SIGN_OUT })
 			return
 		}
@@ -51,7 +57,9 @@ export const refreshAuthToken = () => async (dispatch) => {
 			dispatch({ type: actions.SIGN_IN, payload: data })
 			dispatch(getUserInfo())
 		}
+		dispatch({ type: actions.SET_NOT_REFRESHING })
 	} catch (error) {
 		dispatch(setError(error.response.data.message))
+		dispatch({ type: actions.SET_NOT_REFRESHING })
 	}
 }

@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import TweetComposer from '../components/TweetComposer'
+import GithubIcon from '../ui/icons/GithubIcon'
 import HomeIcon from '../ui/icons/HomeIcon'
 import MessageIcon from '../ui/icons/MessageIcon'
 import ProfileIcon from '../ui/icons/ProfileIcon'
-import GithubIcon from '../ui/icons/GithubIcon'
 import MenuLink from '../ui/MenuLink'
-import TweetComposer from '../components/TweetComposer'
 
 const Menu = () => {
 	const [visible, setVisible] = useState(false)
+	const { pathname } = useLocation()
 
 	const showTweetComposer = (e) => {
 		e.preventDefault()
@@ -18,15 +20,21 @@ const Menu = () => {
 	return (
 		<div className='flex justify-end h-full px-2 py-4'>
 			<div className='flex flex-col space-y-4'>
-				<MenuLink type='route' to='/home'>
+				<MenuLink type='route' to='/home' active={pathname === '/home'}>
 					<HomeIcon className='w-6 h-6 mr-2' />
 					Home
 				</MenuLink>
-				<MenuLink type='route' to='/messages'>
+				<MenuLink
+					type='route'
+					to='/messages'
+					active={pathname === '/messages'}>
 					<MessageIcon className='w-6 h-6 mr-2' />
 					Messages
 				</MenuLink>
-				<MenuLink type='route' to='/profile'>
+				<MenuLink
+					type='route'
+					to='/profile'
+					active={pathname === '/profile'}>
 					<ProfileIcon className='w-6 h-6 mr-2' />
 					Profile
 				</MenuLink>
@@ -34,7 +42,9 @@ const Menu = () => {
 					Tweet
 				</MenuLink>
 				<div className='w-full h-20'></div>
-				<MenuLink type='site' to='http://github.com/itzakmal/tweety-tweet'>
+				<MenuLink
+					type='site'
+					to='http://github.com/fourlinecode/tweety-tweet'>
 					<GithubIcon className='w-6 h-6 mr-2' />
 					GitHub
 				</MenuLink>

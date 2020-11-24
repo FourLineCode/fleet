@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { Link, useHistory } from 'react-router-dom'
+import useAuthorization from '../hooks/useAuthorization'
 import { signin } from '../store/actions/authActions'
+import { setSuccess } from '../store/actions/notificationActions'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
-import useAuthorization from '../hooks/useAuthorization'
-import { setSuccess } from '../store/actions/notificationActions'
 
 const Singin = () => {
 	const history = useHistory()
@@ -50,7 +50,9 @@ const Singin = () => {
 				<div className='flex items-center justify-between w-full py-2 mt-3'>
 					<span className='text-white'>
 						<span className='mr-2'>Not signed up yet?</span>
-						<Link to='/signup' className='text-green-400 hover:underline'>
+						<Link
+							to='/signup'
+							className='text-green-400 hover:underline'>
 							Sign up
 						</Link>
 					</span>

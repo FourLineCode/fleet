@@ -1,8 +1,14 @@
+import useLocalStorage from '../../hooks/useLocalStorage'
 import * as actions from '../types'
+
+const { getLocalStorage } = useLocalStorage()
+
+const refreshToken = getLocalStorage('refresh-token')
 
 const initState = {
 	signedIn: false,
 	token: null,
+	refreshing: refreshToken !== undefined,
 }
 
 const authReducer = (state = initState, { type, payload }) => {
@@ -19,6 +25,18 @@ const authReducer = (state = initState, { type, payload }) => {
 				...state,
 				signedIn: false,
 				token: null,
+			}
+		}
+		case actions.SET_REFRESHING: {
+			return {
+				...state,
+				refreshing: true,
+			}
+		}
+		case actions.SET_NOT_REFRESHING: {
+			return {
+				...state,
+				refreshing: false,
 			}
 		}
 		default:

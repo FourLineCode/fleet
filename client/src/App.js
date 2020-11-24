@@ -1,28 +1,17 @@
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
-import useAuthorization from './hooks/useAuthorization'
 import useNotification from './hooks/useNotification'
 import Home from './pages/Home'
 import Messages from './pages/Messages'
 import Profile from './pages/Profile'
 import Singin from './pages/Signin'
 import Signup from './pages/Signup'
-import { refreshAuthToken } from './store/actions/authActions'
 import Notification from './ui/Notification'
 
 const App = () => {
-	const dispatch = useDispatch()
-	const auth = useAuthorization()
 	const notification = useNotification()
-
-	useEffect(() => {
-		if (!auth.signedIn) {
-			dispatch(refreshAuthToken())
-		}
-	}, [auth.signedIn])
 
 	return (
 		<BrowserRouter>
