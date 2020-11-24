@@ -1,5 +1,3 @@
-Not Found page
-fix protected route
 modal component
 profile page
 comment system

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { signout } from '../store/actions/authActions'
 import useCurrentUser from '../hooks/useCurrentUser'
+import { signout } from '../store/actions/authActions'
 import ProfileIcon from '../ui/icons/ProfileIcon'
 
 const SignedInLinks = () => {
@@ -17,9 +17,9 @@ const SignedInLinks = () => {
 	return (
 		<>
 			<div className='flex items-center px-4 mx-1 text-right text-gray-400'>
-				<div>
-					<div>{user.displayName}</div>
-					<div>@{user.username}</div>
+				<div className='flex flex-col'>
+					<span>{user.displayName}</span>
+					<span>@{user.username}</span>
 				</div>
 				<ProfileIcon className='w-10 h-10 ml-2 text-gray-400' />
 			</div>

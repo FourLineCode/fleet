@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Link, useHistory } from 'react-router-dom'
 import useAuthorization from '../hooks/useAuthorization'
 import { signin } from '../store/actions/authActions'
-import { setSuccess } from '../store/actions/notificationActions'
+import { setError, setSuccess } from '../store/actions/notificationActions'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
 
@@ -14,6 +14,7 @@ const Singin = () => {
 
 	useEffect(() => {
 		if (auth.signedIn) {
+			dispatch(setSuccess('Successfully signed in'))
 			history.push('/home')
 		}
 	}, [auth])
@@ -24,6 +25,7 @@ const Singin = () => {
 		const formData = new FormData(e.target)
 
 		if (formData.get('email') === '' || formData.get('password') === '') {
+			dispatch(setError('One or more fields are empty'))
 			return
 		}
 
@@ -33,7 +35,6 @@ const Singin = () => {
 		}
 
 		dispatch(signin(data))
-		dispatch(setSuccess('Successfully signed in'))
 	}
 
 	return (

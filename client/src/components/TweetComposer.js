@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react'
-import clsx from 'clsx'
 import axios from 'axios'
+import clsx from 'clsx'
+import React, { useEffect, useRef, useState } from 'react'
 import { queryCache, useMutation } from 'react-query'
+import { useDispatch } from 'react-redux'
+import { BASE_URL } from '../config'
+import useAuthorization from '../hooks/useAuthorization'
+import { setError, setSuccess } from '../store/actions/notificationActions'
+import Button from '../ui/Button'
 import IconButton from '../ui/IconButton'
 import CloseIcon from '../ui/icons/CloseIcon'
 import TextArea from '../ui/TextArea'
-import Button from '../ui/Button'
-import { BASE_URL } from '../config'
-import useAuthorization from '../hooks/useAuthorization'
-import { useDispatch } from 'react-redux'
-import { setSuccess, setError } from '../store/actions/notificationActions'
 
 const TweetComposer = ({ visible, setVisible }) => {
 	const [body, setBody] = useState('')
@@ -46,6 +46,9 @@ const TweetComposer = ({ visible, setVisible }) => {
 	})
 
 	const onSubmit = () => {
+		if (body === '') {
+			dispatch(setError('Tweet body cannot be empty'))
+		}
 		if (body !== '' && !isLoading) {
 			mutate()
 		}
@@ -87,7 +90,7 @@ const TweetComposer = ({ visible, setVisible }) => {
 						<CloseIcon className='w-5 h-5 text-white' />
 					</IconButton>
 				</div>
-				<div className='w-full h-full p-2'>
+				<div className='w-full h-full px-2'>
 					<TextArea
 						value={body}
 						onChange={onChange}
