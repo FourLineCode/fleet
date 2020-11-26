@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "set NODE_ENV=development&&yarn css && parcel public/index.html --port 3000 --open --no-cache --no-source-maps",
 		"build": "set NODE_ENV=production&&yarn css && parcel build public/index.html --no-cache --no-source-maps",
-		"css": "postcss src/styles/tailwind.css -o src/styles/index.css"
+		"css": "tailwindcss build src/styles/tailwind.css -o src/styles/index.css"
 	},
 	"dependencies": {
 		"@material-ui/core": "^4.9.10",
@@ -16,9 +16,8 @@
 		"axios": "^0.21.0",
 		"clsx": "^1.1.1",
 		"date-fns": "^2.16.1",
-		"parcel": "^2.0.0-nightly.460",
-		"postcss": "^8.1.9",
-		"postcss-cli": "^8.3.0",
+		"parcel": "^2.0.0-nightly.462",
+		"postcss": "^8.1.10",
 		"react": "^17.0.1",
 		"react-dom": "^17.0.1",
 		"react-query": "^2.26.3",
@@ -34,5 +33,11 @@
 		"last 3 opera versions",
 		"last 3 ios_saf versions",
 		"last 3 safari versions"
-	]
+	],
+	"devDependencies": {
+		"@types/autoprefixer": "^9.7.2",
+		"@types/react": "^17.0.0",
+		"@types/react-dom": "^17.0.0",
+		"typescript": "^4.1.2"
+	}
 }

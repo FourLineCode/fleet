@@ -18,8 +18,7 @@ const userSchema = new Schema(
 		username: {
 			...reqString,
 			index: {
-				// TODO: test if this works
-				// @ts-ignore: idk wtf is happening
+				// @ts-ignore: This Actually works
 				unique: [true, 'Username already exists!'],
 				collation: { locale: 'en', strength: 2 },
 			},
