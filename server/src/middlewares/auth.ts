@@ -1,8 +1,9 @@
-import jwt from 'jsonwebtoken'
+import { NextFunction, Request, Response } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import User from '../models/user'
+import jwt from 'jsonwebtoken'
+import User, { UserType } from '../models/user'
 
-const auth = async (req, res, next) => {
+const auth = async (req: Request, res: Response, next: NextFunction) => {
 	try {
 		const header = req.headers['authorization']
 		if (!header) {
@@ -22,18 +23,18 @@ const auth = async (req, res, next) => {
 			throw new Error('Authorization failed')
 		}
 
-		const validated = jwt.verify(token, process.env.JWT_SECRET)
+		const validated = jwt.verify(token, process.env.JWT_SECRET!) as UserType
 		if (!validated) {
 			res.status(StatusCodes.FORBIDDEN)
 			throw new Error('Authorization failed')
 		}
 
 		const user = await User.findById(validated.id)
-		if (user.isAdmin) {
+		if (user?.isAdmin) {
 			req.admin = true
 		}
 
-		req.userId = user._id
+		req.userId = user?._id
 		req.authorized = true
 		next()
 	} catch (error) {

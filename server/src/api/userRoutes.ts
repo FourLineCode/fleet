@@ -1,9 +1,9 @@
-import { Router } from 'express'
 import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
+import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import User from '../models/user'
+import jwt from 'jsonwebtoken'
 import auth from '../middlewares/auth'
+import User, { UserType } from '../models/user'
 import registerShema from '../validation/registerSchema'
 
 const router = Router()
@@ -44,7 +44,7 @@ router.post('/signup', async (req, res, next) => {
 	try {
 		const { username, email, password, displayName } = req.body
 
-		const { error } = await registerShema.validate(req.body)
+		const { error } = registerShema.validate(req.body)
 		if (error) {
 			const [err] = error.details
 			res.status(StatusCodes.BAD_REQUEST)
@@ -73,7 +73,7 @@ router.post('/signup', async (req, res, next) => {
 			password: passwordHash,
 		})
 
-		const savedUser = await newUser.save()
+		await newUser.save()
 
 		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
@@ -103,17 +103,23 @@ router.post('/signin', async (req, res, next) => {
 			id: user._id,
 		}
 
-		const token = jwt.sign(payload, process.env.JWT_SECRET, {
+		const token = jwt.sign(payload, process.env.JWT_SECRET!, {
 			expiresIn: '24h',
 		})
 
-		const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
-			expiresIn: '1y',
-		})
+		const refreshToken = jwt.sign(
+			payload,
+			process.env.JWT_REFRESH_SECRET!,
+			{
+				expiresIn: '1y',
+			}
+		)
 
-		res
-			.status(StatusCodes.OK)
-			.json({ success: true, token: token, refreshToken: refreshToken })
+		res.status(StatusCodes.OK).json({
+			success: true,
+			token: token,
+			refreshToken: refreshToken,
+		})
 	} catch (error) {
 		next(error)
 	}
@@ -122,16 +128,16 @@ router.post('/signin', async (req, res, next) => {
 // Refreshes the authorization token
 router.get('/refreshtoken', async (req, res, next) => {
 	try {
-		const refreshToken = req.headers['refresh-token']
+		const refreshToken = req.headers['refresh-token'] as string
 		if (!refreshToken) {
 			res.status(StatusCodes.FORBIDDEN)
 			throw new Error('Access denied')
 		}
 
-		const verifiedUser = await jwt.verify(
+		const verifiedUser = jwt.verify(
 			refreshToken,
-			process.env.JWT_REFRESH_SECRET
-		)
+			process.env.JWT_REFRESH_SECRET!
+		) as UserType
 		if (!verifiedUser) {
 			res.status(StatusCodes.FORBIDDEN)
 			throw new Error('Access denied')
@@ -141,7 +147,7 @@ router.get('/refreshtoken', async (req, res, next) => {
 			id: verifiedUser.id,
 		}
 
-		const newToken = await jwt.sign(payload, process.env.JWT_SECRET, {
+		const newToken = jwt.sign(payload, process.env.JWT_SECRET!, {
 			expiresIn: '24h',
 		})
 

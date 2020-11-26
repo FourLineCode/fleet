@@ -1,15 +1,25 @@
-import { Schema, model } from 'mongoose'
+import { Document, model, Schema } from 'mongoose'
+
+export interface UserType extends Document {
+	username: string
+	displayName: string
+	email: string
+	password: string
+	isAdmin?: boolean
+}
 
 const reqString = {
 	type: String,
 	required: true,
 }
 
-const userSchema = Schema(
+const userSchema = new Schema(
 	{
 		username: {
 			...reqString,
 			index: {
+				// TODO: test if this works
+				// @ts-ignore: idk wtf is happening
 				unique: [true, 'Username already exists!'],
 				collation: { locale: 'en', strength: 2 },
 			},
@@ -27,6 +37,6 @@ const userSchema = Schema(
 	}
 )
 
-const User = model('user', userSchema)
+const User = model<UserType>('user', userSchema)
 
 export default User
