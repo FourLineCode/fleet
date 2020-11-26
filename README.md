@@ -1,13 +1,18 @@
 # This is a Twitter Clone
 
-# Frontend
+## Frontend
 
--   React
--   Redux
--   Tailwind CSS
+# Typescript
 
-# Backend
+-   [React](https://reactjs.org)
+-   [Redux](https://redux.js.org)
+-   [Tailwind CSS](https://tailwindcss.com/)
+-   [Material UI](https://material-ui.com/)
 
--   Nodejs
--   Express
--   MongoDB
+## Backend
+
+# Typescript
+
+-   [Nodejs](https://nodejs.org/en/)
+-   [Express](http://expressjs.com/)
+-   [MongoDB](https://www.mongodb.com/)
