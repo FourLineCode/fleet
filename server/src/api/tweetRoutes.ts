@@ -75,12 +75,12 @@ router.post('/like/:id', auth, async (req, res, next) => {
 			throw new Error('Tweet not found')
 		}
 
-		if (tweet.likes.includes(req.userId)) {
+		if (tweet.likes?.includes(req.userId)) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User already liked this tweet')
 		}
 
-		await tweet.update({ likes: [...tweet.likes, req.userId] })
+		await tweet.update({ likes: [...tweet.likes!, req.userId] })
 
 		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
@@ -99,13 +99,13 @@ router.post('/unlike/:id', auth, async (req, res, next) => {
 			throw new Error('Tweet not found')
 		}
 
-		if (!tweet.likes.includes(req.userId)) {
+		if (!tweet.likes?.includes(req.userId)) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User has not liked this tweet')
 		}
 
 		await tweet.update({
-			likes: tweet.likes.filter(
+			likes: tweet.likes?.filter(
 				(user) => JSON.stringify(user) !== JSON.stringify(req.userId)
 			),
 		})

@@ -1,5 +1,5 @@
-import User from './models/user'
 import bcrypt from 'bcryptjs'
+import User from './models/user'
 
 const seed_database = async () => {
 	try {

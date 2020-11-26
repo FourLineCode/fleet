@@ -1,12 +1,11 @@
-import express from 'express'
-import morgan from 'morgan'
-import helmet from 'helmet'
-import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import cors from 'cors'
+import express from 'express'
+import helmet from 'helmet'
 import mongoose from 'mongoose'
-
-import { notFound, errorHandler } from './middlewares/error'
+import morgan from 'morgan'
 import routes from './api'
+import { errorHandler, notFound } from './middlewares/error'
 import seed_database from './seed'
 
 require('dotenv').config()
@@ -22,9 +21,15 @@ const init = async () => {
 		app.use(cookieParser())
 
 		await mongoose.connect(
-			process.env.MONGO_URI,
-			{ useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true },
-			console.log('MongoDB connected ...')
+			process.env.MONGO_URI!,
+			{
+				useNewUrlParser: true,
+				useUnifiedTopology: true,
+				useCreateIndex: true,
+			},
+			() => {
+				console.log('MongoDB connected ...')
+			}
 		)
 
 		app.get('/', (req, res) => {
@@ -39,10 +44,9 @@ const init = async () => {
 		app.use(errorHandler)
 
 		const PORT = process.env.PORT || 5000
-		await app.listen(
-			PORT,
+		await app.listen(PORT, () => {
 			console.log(`Server started on http://localhost:${PORT}...`)
-		)
+		})
 
 		seed_database()
 	} catch (error) {

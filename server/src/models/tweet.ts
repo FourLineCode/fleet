@@ -1,11 +1,17 @@
-import { Schema, model } from 'mongoose'
+import { Document, model, Schema } from 'mongoose'
+
+export interface TweetType extends Document {
+	body: string
+	likes?: string[]
+	author: string
+}
 
 const reqString = {
 	type: String,
 	required: true,
 }
 
-const tweetSchema = Schema(
+const tweetSchema = new Schema(
 	{
 		body: reqString,
 		author: {
@@ -25,6 +31,6 @@ const tweetSchema = Schema(
 	}
 )
 
-const Tweet = model('tweet', tweetSchema)
+const Tweet = model<TweetType>('tweet', tweetSchema)
 
 export default Tweet
