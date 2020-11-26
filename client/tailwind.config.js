@@ -6,8 +6,7 @@ module.exports = {
 		purgeLayersByDefault: true,
 	},
 	purge: {
-		enabled: process.env.NODE_ENV === 'production',
-		content: ['./src/**/*.js', './src/**/*.html'],
+		content: ['./src/**/*.ts', './src/**/*.tsx', './src/**/*.html'],
 	},
 	theme: {
 		extend: {},

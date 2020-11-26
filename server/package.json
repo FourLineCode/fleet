@@ -4,8 +4,8 @@
 	"main": "index.js",
 	"license": "MIT",
 	"scripts": {
-		"start": "node -r esm src/index.js",
-		"dev": "nodemon -r esm src/index.js"
+		"start": "tsc && node build/src/index.js",
+		"dev": "nodemon src/index.ts"
 	},
 	"dependencies": {
 		"@hapi/joi": "^17.1.1",
@@ -22,6 +22,19 @@
 		"morgan": "^1.10.0"
 	},
 	"devDependencies": {
-		"nodemon": "^2.0.6"
+		"@types/bcryptjs": "^2.4.2",
+		"@types/cookie-parser": "^1.4.2",
+		"@types/cors": "^2.8.8",
+		"@types/esm": "^3.2.0",
+		"@types/express": "^4.17.9",
+		"@types/hapi__joi": "^17.1.6",
+		"@types/helmet": "^4.0.0",
+		"@types/jsonwebtoken": "^8.5.0",
+		"@types/mongoose": "^5.10.1",
+		"@types/morgan": "^1.9.2",
+		"@types/nodemon": "^1.19.0",
+		"nodemon": "^2.0.6",
+		"ts-node": "^9.0.0",
+		"typescript": "^4.1.2"
 	}
 }
