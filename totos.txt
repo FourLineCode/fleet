@@ -1,8 +1,9 @@
-modal component
-profile page
+complete profile page
+backend for bio
 comment system
 like count shorten
 comment count shorten
 follow system
+modal component
 dynamic timeline
 messaging system with socket.io

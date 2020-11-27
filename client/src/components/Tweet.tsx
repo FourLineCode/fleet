@@ -59,7 +59,7 @@ const Tweet = ({ tweet }: Props) => {
 		<div className='w-3/4 px-2 pt-2 mx-auto border border-gray-700 rounded-lg shadow-xl'>
 			<div className='flex space-x-1'>
 				<div className='flex items-center justify-center flex-shrink-0 w-10 h-10 mt-2 mr-2 overflow-hidden rounded-full'>
-					<img src='http://github.com/kesne.png' className='' />
+					<img src='http://github.com/kesne.png' />
 				</div>
 				<div>
 					<div className='text-base font-bold text-white'>

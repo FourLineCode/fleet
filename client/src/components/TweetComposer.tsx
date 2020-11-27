@@ -92,7 +92,7 @@ const TweetComposer = ({ visible, setVisible }: Props) => {
 				className='absolute left-0 right-0 w-full h-56 mx-auto bg-gray-800 rounded-lg shadow-md md:w-2/5 top-20'>
 				<div className='flex justify-end w-full'>
 					<IconButton onClick={() => setVisible(false)}>
-						<CloseIcon className='w-5 h-5 text-white' />
+						<CloseIcon className='w-5 h-5 text-white hover:text-green-400' />
 					</IconButton>
 				</div>
 				<div className='w-full h-full px-2'>
@@ -112,7 +112,9 @@ const TweetComposer = ({ visible, setVisible }: Props) => {
 							)}>
 							{body.length}/240
 						</span>
-						<Button onClick={onSubmit}>Tweet</Button>
+						<Button variant='filled' onClick={onSubmit}>
+							Tweet
+						</Button>
 					</div>
 				</div>
 			</div>

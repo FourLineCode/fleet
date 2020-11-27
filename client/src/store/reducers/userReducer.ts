@@ -5,6 +5,7 @@ const initState: UserState = {
 	id: null,
 	username: null,
 	displayName: null,
+	createdAt: null,
 }
 
 const userReducer = (state = initState, { type, payload }: ActionTypes) => {
@@ -15,6 +16,7 @@ const userReducer = (state = initState, { type, payload }: ActionTypes) => {
 				id: payload.id,
 				username: payload.username,
 				displayName: payload.displayName,
+				createdAt: payload.createdAt,
 			}
 		}
 		case actions.CLEAR_CURRENT_USER: {
@@ -22,6 +24,7 @@ const userReducer = (state = initState, { type, payload }: ActionTypes) => {
 				id: null,
 				username: null,
 				displayName: null,
+				createdAt: null,
 			}
 		}
 		default:

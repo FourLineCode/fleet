@@ -88,7 +88,9 @@ const Signup = () => {
 							Sign in
 						</Link>
 					</span>
-					<Button type='submit'>Create an account</Button>
+					<Button variant='filled' type='submit'>
+						Create an account
+					</Button>
 				</div>
 			</form>
 		</div>

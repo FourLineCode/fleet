@@ -3,19 +3,32 @@ import React from 'react'
 
 type Props = {
 	type?: 'button' | 'submit' | 'reset'
+	variant?: 'filled' | 'outlined'
 	className?: string
-	onClick?: () => void
+	onClick?: (arg?: any) => void
 	children: React.ReactNode
 }
 
-const Button = ({ type, onClick, children, className }: Props) => {
+const VariantStyles: Record<string, string> = {
+	filled: 'bg-green-500 hover:bg-green-600 hover:border-transparent',
+	outlined: 'bg-transparent hover:bg-green-500 hover:bg-opacity-30',
+}
+
+const Button = ({
+	type,
+	variant = 'filled',
+	onClick,
+	children,
+	className,
+}: Props) => {
 	return (
 		<button
 			onClick={onClick}
 			type={type}
 			className={clsx(
 				className,
-				'px-4 py-2 font-semibold text-white transition duration-300 bg-green-500 rounded-lg focus:outline-none hover:bg-green-400'
+				VariantStyles[variant],
+				'px-4 py-2 font-semibold text-white transition duration-300 rounded-lg focus:outline-none border-2 border-green-500'
 			)}>
 			{children}
 		</button>
