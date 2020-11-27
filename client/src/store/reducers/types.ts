@@ -25,4 +25,5 @@ export type UserState = {
 	id: string | null
 	username: string | null
 	displayName: string | null
+	createdAt: string | null
 }

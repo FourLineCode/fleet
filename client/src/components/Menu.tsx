@@ -42,9 +42,7 @@ const Menu = () => {
 					Tweet
 				</MenuLink>
 				<div className='w-full h-20'></div>
-				<MenuLink
-					type='site'
-					to='http://github.com/fourlinecode/tweety-tweet'>
+				<MenuLink type='site' to='http://github.com/fourlinecode/fleet'>
 					<GithubIcon className='w-6 h-6 mr-2' />
 					GitHub
 				</MenuLink>

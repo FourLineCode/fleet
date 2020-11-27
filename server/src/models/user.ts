@@ -6,6 +6,7 @@ export interface UserType extends Document {
 	email: string
 	password: string
 	isAdmin?: boolean
+	createdAt?: string
 }
 
 const reqString = {

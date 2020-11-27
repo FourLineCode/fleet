@@ -57,7 +57,9 @@ const Singin = () => {
 							Sign up
 						</Link>
 					</span>
-					<Button type='submit'>Sign in</Button>
+					<Button variant='filled' type='submit'>
+						Sign in
+					</Button>
 				</div>
 			</form>
 		</div>

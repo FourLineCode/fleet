@@ -22,7 +22,7 @@ const TextArea = ({ label, value, name, onChange, className }: Props) => {
 				autoComplete='off'
 				className={clsx(
 					className,
-					'w-full resize-none px-2 py-2 transition duration-150 border-b-4 border-green-300 rounded-lg focus:border-green-500 focus:outline-none'
+					'w-full resize-none px-2 py-2 transition duration-150 border-4 border-green-200 rounded-lg focus:border-green-500 focus:outline-none'
 				)}
 			/>
 		</>
