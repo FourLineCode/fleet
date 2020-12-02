@@ -1,9 +1,10 @@
-complete profile page
+Change everything to fleet
+change to interfaces
+complete profile page // loading state for profile page
 backend for bio
-comment system
-like count shorten
-comment count shorten
 follow system
-modal component
 dynamic timeline
+comment system
 messaging system with socket.io
+recommend system
+comments/cleanup

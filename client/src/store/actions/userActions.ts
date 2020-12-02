@@ -5,9 +5,9 @@ import { setError } from './notificationActions'
 
 export const getUserInfo = () => async (dispatch: any, getState: any) => {
 	try {
-		const { token } = getState().auth
+		const { token, id } = getState().auth
 
-		const response = await axios.get(`${BASE_URL}/user/info`, {
+		const response = await axios.get(`${BASE_URL}/user/info/${id}`, {
 			headers: {
 				authorization: `Bearer ${token}`,
 			},

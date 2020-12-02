@@ -3,10 +3,10 @@ import React from 'react'
 
 type Props = {
 	label: string
-	value: string
+	value?: string
 	name: string
-	className: string
-	onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
+	className?: string
+	onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 const TextArea = ({ label, value, name, onChange, className }: Props) => {

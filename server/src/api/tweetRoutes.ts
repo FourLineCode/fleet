@@ -40,11 +40,33 @@ router.get('/post/:id', auth, async (req, res, next) => {
 	}
 })
 
+// Get tweets for one user by id
+router.get('/timeline/:id', auth, async (req, res, next) => {
+	try {
+		const id = req.params.id
+
+		if (!id || id === null) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('Invalid user id')
+		}
+
+		const tweets =
+			(await Tweet.find({ author: id }).populate(
+				'author',
+				'_id username displayName isAdmin'
+			)) || []
+
+		res.status(StatusCodes.OK).json(tweets.reverse())
+	} catch (error) {
+		next(error)
+	}
+})
+
 // Post a tweet
 router.post('/', auth, async (req, res, next) => {
 	try {
 		const tweet = req.body
-		const { error } = await tweetSchema.validate(tweet)
+		const { error } = tweetSchema.validate(tweet)
 		if (error) {
 			const [err] = error.details
 			res.status(StatusCodes.BAD_REQUEST)

@@ -20,7 +20,7 @@ content-type: application/json
 
 ###
 GET http://localhost:5000/api/user
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTM3YTUzM2ZiZjM2MTlhY2NmZTRiYSIsImlhdCI6MTYwNDU1MzA1NCwiZXhwIjoxNjA0NjM5NDU0fQ.wp7FHsiAtC8h6sAKx1UrWdvN9pnsjteErkczZWQe93I
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWVjMjg0ZDQxNTEwMjdmNDUyMmUyNyIsImlhdCI6MTYwNjY2NTI4NSwiZXhwIjoxNjA2NzUxNjg1fQ.PhfCdodhERTJARbpn-3OtcZnvaOExNtTnET4yOzW_Zk
 
 ###
 GET http://localhost:5000/api/user/isadmin/5f75f2024fe8392864ca5c30
@@ -32,3 +32,10 @@ refresh-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYTM3YTUzM2ZiZjM2
 ###
 GET http://localhost:5000/api/user/info
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWNjMjg1Y2FiMTgzMjUwNGUyNjJiMCIsImlhdCI6MTYwNTE1OTIzMSwiZXhwIjoxNjA1MjQ1NjMxfQ.nwO8tt529h8odUskPK2Gdagy27Ph_eeWLuiulrUCuDA
+
+###
+GET http://localhost:5000/api/tweet/timeline/5faec284d4151027f4522e27
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWVjMjg0ZDQxNTEwMjdmNDUyMmUyNyIsImlhdCI6MTYwNjY2NTI4NSwiZXhwIjoxNjA2NzUxNjg1fQ.PhfCdodhERTJARbpn-3OtcZnvaOExNtTnET4yOzW_Zk
+
+###
+GET http://localhost:5000/api/user/info/akmal

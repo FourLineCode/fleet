@@ -11,6 +11,7 @@ export type ActionTypes = {
 
 export type AuthState = {
 	signedIn: boolean
+	id: string | null
 	token: string | null
 	refreshing: boolean
 }
@@ -25,5 +26,6 @@ export type UserState = {
 	id: string | null
 	username: string | null
 	displayName: string | null
+	bio: string | null
 	createdAt: string | null
 }

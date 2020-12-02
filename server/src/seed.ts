@@ -15,6 +15,8 @@ const seed_database = async () => {
 			email: 'akmal@rip.com',
 			password: passwordHash,
 			isAdmin: true,
+			bio:
+				'I made this website, i dont know what else to tell you about me LOL',
 		})
 
 		await newUser.save()

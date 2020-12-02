@@ -7,6 +7,7 @@ import { signin } from '../store/actions/authActions'
 import { setError, setSuccess } from '../store/actions/notificationActions'
 import Button from '../ui/Button'
 import Input from '../ui/Input'
+import TextArea from '../ui/TextArea'
 
 const Signup = () => {
 	const history = useHistory()
@@ -40,6 +41,7 @@ const Signup = () => {
 			email: formData.get('email') as string,
 			username: formData.get('username') as string,
 			displayName: formData.get('displayName') as string,
+			bio: formData.get('bio'),
 			password: formData.get('password') as string,
 		}
 
@@ -66,7 +68,7 @@ const Signup = () => {
 			<form
 				onSubmit={handleSubmit}
 				action='submit'
-				className='flex flex-col mt-20 w-96'>
+				className='flex flex-col mt-8 w-96'>
 				<span className='my-4 text-5xl italic font-semibold text-center text-white'>
 					Sign up
 				</span>
@@ -79,6 +81,7 @@ const Signup = () => {
 					type='password'
 					name='cpassword'
 				/>
+				<TextArea label='Bio (optional)' name='bio' />
 				<div className='flex items-center justify-between w-full py-2 mt-3'>
 					<span className='text-white'>
 						<span className='mr-2'>Have an account?</span>

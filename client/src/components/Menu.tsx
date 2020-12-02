@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import useAuthorization from '../hooks/useAuthorization'
 import GithubIcon from '../ui/icons/GithubIcon'
 import HomeIcon from '../ui/icons/HomeIcon'
 import MessageIcon from '../ui/icons/MessageIcon'
@@ -9,6 +10,7 @@ import TweetComposer from './TweetComposer'
 
 const Menu = () => {
 	const [visible, setVisible] = useState(false)
+	const auth = useAuthorization()
 	const { pathname } = useLocation()
 
 	const showTweetComposer = (e: React.ChangeEvent<HTMLButtonElement>) => {
@@ -33,8 +35,8 @@ const Menu = () => {
 				</MenuLink>
 				<MenuLink
 					type='route'
-					to='/profile'
-					active={pathname === '/profile'}>
+					to={`/profile/${auth.id}`}
+					active={pathname.startsWith('/profile')}>
 					<ProfileIcon className='w-6 h-6 mr-2' />
 					Profile
 				</MenuLink>
