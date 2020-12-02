@@ -33,7 +33,7 @@ const App: React.FC = () => {
 				<ProtectedRoute path='/messages'>
 					<Messages />
 				</ProtectedRoute>
-				<ProtectedRoute path='/profile'>
+				<ProtectedRoute path='/profile/:id'>
 					<Profile />
 				</ProtectedRoute>
 				<Route exact path='*'>

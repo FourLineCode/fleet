@@ -34,7 +34,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
 			req.admin = true
 		}
 
-		req.userId = user?._id
+		req.userId = user?._id!
 		req.authorized = true
 		next()
 	} catch (error) {

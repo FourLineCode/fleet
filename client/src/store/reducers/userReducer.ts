@@ -5,6 +5,7 @@ const initState: UserState = {
 	id: null,
 	username: null,
 	displayName: null,
+	bio: null,
 	createdAt: null,
 }
 
@@ -16,6 +17,7 @@ const userReducer = (state = initState, { type, payload }: ActionTypes) => {
 				id: payload.id,
 				username: payload.username,
 				displayName: payload.displayName,
+				bio: payload.bio,
 				createdAt: payload.createdAt,
 			}
 		}
@@ -24,6 +26,7 @@ const userReducer = (state = initState, { type, payload }: ActionTypes) => {
 				id: null,
 				username: null,
 				displayName: null,
+				bio: null,
 				createdAt: null,
 			}
 		}

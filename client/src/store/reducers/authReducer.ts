@@ -8,6 +8,7 @@ const refreshToken = getLocalStorage('refresh-token')
 
 const initState: AuthState = {
 	signedIn: false,
+	id: null,
 	token: null,
 	refreshing: refreshToken !== undefined,
 }
@@ -18,6 +19,7 @@ const authReducer = (state = initState, { type, payload }: ActionTypes) => {
 			return {
 				...state,
 				signedIn: payload.success,
+				id: payload.id,
 				token: payload.token,
 			}
 		}

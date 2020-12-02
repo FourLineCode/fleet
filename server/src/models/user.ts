@@ -3,6 +3,7 @@ import { Document, model, Schema } from 'mongoose'
 export interface UserType extends Document {
 	username: string
 	displayName: string
+	bio: string
 	email: string
 	password: string
 	isAdmin?: boolean
@@ -25,6 +26,7 @@ const userSchema = new Schema(
 			},
 		},
 		displayName: reqString,
+		bio: reqString,
 		email: { ...reqString, unique: true },
 		password: reqString,
 		isAdmin: {

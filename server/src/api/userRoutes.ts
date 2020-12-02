@@ -42,7 +42,7 @@ router.get('/profile/:id', auth, async (req, res, next) => {
 // Signup new user
 router.post('/signup', async (req, res, next) => {
 	try {
-		const { username, email, password, displayName } = req.body
+		const { username, email, password, displayName, bio } = req.body
 
 		const { error } = registerShema.validate(req.body)
 		if (error) {
@@ -69,6 +69,7 @@ router.post('/signup', async (req, res, next) => {
 		const newUser = await User.create({
 			username,
 			displayName,
+			bio,
 			email,
 			password: passwordHash,
 		})
@@ -117,6 +118,7 @@ router.post('/signin', async (req, res, next) => {
 
 		res.status(StatusCodes.OK).json({
 			success: true,
+			id: user._id,
 			token: token,
 			refreshToken: refreshToken,
 		})
@@ -151,16 +153,20 @@ router.get('/refreshtoken', async (req, res, next) => {
 			expiresIn: '24h',
 		})
 
-		res.status(StatusCodes.OK).json({ success: true, token: newToken })
+		res.status(StatusCodes.OK).json({
+			success: true,
+			id: verifiedUser.id,
+			token: newToken,
+		})
 	} catch (error) {
 		next(error)
 	}
 })
 
-// Get users data
-router.get('/info', auth, async (req, res, next) => {
+// Get authenticated users data
+router.get('/info/:id', auth, async (req, res, next) => {
 	try {
-		const user = await User.findById(req.userId)
+		const user = await User.findById(req.params.id)
 		if (!user) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User not found')
@@ -170,6 +176,7 @@ router.get('/info', auth, async (req, res, next) => {
 			id: user._id,
 			username: user.username,
 			displayName: user.displayName,
+			bio: user.bio,
 			createdAt: user.createdAt,
 		}
 
