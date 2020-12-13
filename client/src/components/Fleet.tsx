@@ -10,13 +10,13 @@ import IconButton from '../ui/IconButton'
 import HeartFilledIcon from '../ui/icons/HeartFilledIcon'
 import HeartIcon from '../ui/icons/HeartIcon'
 import ReplyIcon from '../ui/icons/ReplyIcon'
-import { TweetType } from './Timeline'
+import { FleetType } from './Timeline'
 
 type Props = {
-	tweet: TweetType
+	fleet: FleetType
 }
 
-const Tweet = ({ tweet }: Props) => {
+const Fleet = ({ fleet }: Props) => {
 	const auth = useAuthorization()
 	const user = useCurrentUser()
 	const queryCache = useQueryCache()
@@ -25,9 +25,9 @@ const Tweet = ({ tweet }: Props) => {
 	// TODO: make this cleaner
 	const likeHandler = async () => {
 		try {
-			if (!tweet.likes.includes(user.id!)) {
+			if (!fleet.likes.includes(user.id!)) {
 				await axios.post(
-					`${BASE_URL}/tweet/like/${tweet._id}`,
+					`${BASE_URL}/fleet/like/${fleet._id}`,
 					{},
 					{
 						headers: {
@@ -37,7 +37,7 @@ const Tweet = ({ tweet }: Props) => {
 				)
 			} else {
 				await axios.post(
-					`${BASE_URL}/tweet/unlike/${tweet._id}`,
+					`${BASE_URL}/fleet/unlike/${fleet._id}`,
 					{},
 					{
 						headers: {
@@ -54,9 +54,9 @@ const Tweet = ({ tweet }: Props) => {
 	const [mutate] = useMutation(likeHandler, {
 		onSuccess: () => {
 			if (location.pathname.startsWith('/home')) {
-				queryCache.refetchQueries('tweets')
+				queryCache.refetchQueries('fleets')
 			} else if (location.pathname.startsWith('/profile')) {
-				queryCache.refetchQueries('profile-tweets')
+				queryCache.refetchQueries('profile-fleets')
 			}
 		},
 	})
@@ -64,27 +64,23 @@ const Tweet = ({ tweet }: Props) => {
 	return (
 		<div className='w-3/4 px-2 pt-2 mx-auto border border-gray-700 rounded-lg shadow-xl'>
 			<div className='flex space-x-1'>
-				<Link to={`/profile/${tweet.author._id}`}>
+				<Link to={`/profile/${fleet.author._id}`}>
 					<div className='flex items-center justify-center flex-shrink-0 w-10 h-10 mt-2 mr-2 overflow-hidden rounded-full'>
 						<img src='http://github.com/kesne.png' />
 					</div>
 				</Link>
 				<div>
-					<Link to={`profile/${tweet.author._id}`}>
+					<Link to={`profile/${fleet.author._id}`}>
 						<div className='text-base font-bold text-white'>
-							{tweet.author.displayName}{' '}
-							<span className='font-normal text-gray-400'>
-								@{tweet.author.username}
-							</span>
+							{fleet.author.displayName}{' '}
+							<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
 							{' • '}
 							<span className='text-sm font-normal text-gray-400'>
-								{formatDistanceToNow(new Date(tweet.createdAt))}
+								{formatDistanceToNow(new Date(fleet.createdAt))}
 							</span>
 						</div>
 					</Link>
-					<div className='text-sm text-white break-all'>
-						{tweet.body}
-					</div>
+					<div className='text-sm text-white break-all'>{fleet.body}</div>
 				</div>
 			</div>
 			<div className='flex items-center w-full h-6 justify-evenly'>
@@ -97,19 +93,17 @@ const Tweet = ({ tweet }: Props) => {
 					<IconButton
 						onClick={mutate}
 						className='text-white rounded-full hover:bg-gray-700 hover:text-green-500'>
-						{tweet.likes.includes(user.id!) ? (
+						{fleet.likes.includes(user.id!) ? (
 							<HeartFilledIcon className='w-4 h-4' />
 						) : (
 							<HeartIcon className='w-4 h-4' />
 						)}
 					</IconButton>
-					<span className='text-base text-white'>
-						{tweet.likes.length}
-					</span>
+					<span className='text-base text-white'>{fleet.likes.length}</span>
 				</div>
 			</div>
 		</div>
 	)
 }
 
-export default Tweet
+export default Fleet

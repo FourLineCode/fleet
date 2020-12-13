@@ -1,6 +1,6 @@
 import { Document, model, Schema } from 'mongoose'
 
-export interface TweetType extends Document {
+export interface FleetType extends Document {
 	body: string
 	likes?: string[]
 	author: string
@@ -11,7 +11,7 @@ const reqString = {
 	required: true,
 }
 
-const tweetSchema = new Schema(
+const fleetSchema = new Schema(
 	{
 		body: reqString,
 		author: {
@@ -31,6 +31,6 @@ const tweetSchema = new Schema(
 	}
 )
 
-const Tweet = model<TweetType>('tweet', tweetSchema)
+const Fleet = model<FleetType>('fleet', fleetSchema)
 
-export default Tweet
+export default Fleet

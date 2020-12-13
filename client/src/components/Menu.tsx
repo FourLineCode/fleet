@@ -6,14 +6,14 @@ import HomeIcon from '../ui/icons/HomeIcon'
 import MessageIcon from '../ui/icons/MessageIcon'
 import ProfileIcon from '../ui/icons/ProfileIcon'
 import MenuLink from '../ui/MenuLink'
-import TweetComposer from './TweetComposer'
+import FleetComposer from './FleetComposer'
 
 const Menu = () => {
 	const [visible, setVisible] = useState(false)
 	const auth = useAuthorization()
 	const { pathname } = useLocation()
 
-	const showTweetComposer = (e: React.ChangeEvent<HTMLButtonElement>) => {
+	const showFleetComposer = (e: React.ChangeEvent<HTMLButtonElement>) => {
 		e.preventDefault()
 
 		setVisible(!visible)
@@ -26,22 +26,16 @@ const Menu = () => {
 					<HomeIcon className='w-6 h-6 mr-2' />
 					Home
 				</MenuLink>
-				<MenuLink
-					type='route'
-					to='/messages'
-					active={pathname === '/messages'}>
+				<MenuLink type='route' to='/messages' active={pathname === '/messages'}>
 					<MessageIcon className='w-6 h-6 mr-2' />
 					Messages
 				</MenuLink>
-				<MenuLink
-					type='route'
-					to={`/profile/${auth.id}`}
-					active={pathname.startsWith('/profile')}>
+				<MenuLink type='route' to={`/profile/${auth.id}`} active={pathname.startsWith('/profile')}>
 					<ProfileIcon className='w-6 h-6 mr-2' />
 					Profile
 				</MenuLink>
-				<MenuLink type='button' onClick={showTweetComposer}>
-					Tweet
+				<MenuLink type='button' onClick={showFleetComposer}>
+					Fleet
 				</MenuLink>
 				<div className='w-full h-20'></div>
 				<MenuLink type='site' to='http://github.com/fourlinecode/fleet'>
@@ -49,7 +43,7 @@ const Menu = () => {
 					GitHub
 				</MenuLink>
 			</div>
-			<TweetComposer visible={visible} setVisible={setVisible} />
+			<FleetComposer visible={visible} setVisible={setVisible} />
 		</div>
 	)
 }

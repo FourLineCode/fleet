@@ -1,10 +1,10 @@
-Change everything to fleet
 change to interfaces
+change default pfp
 complete profile page // loading state for profile page
-backend for bio
 follow system
 dynamic timeline
 comment system
 messaging system with socket.io
 recommend system
+mobile friendly
 comments/cleanup

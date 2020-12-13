@@ -6,6 +6,7 @@ import { BASE_URL } from '../config'
 import { signin } from '../store/actions/authActions'
 import { setError, setSuccess } from '../store/actions/notificationActions'
 import Button from '../ui/Button'
+import SocialMediaIllustration from '../ui/Illustrations/SocialMediaIllustration'
 import Input from '../ui/Input'
 import TextArea from '../ui/TextArea'
 
@@ -55,39 +56,27 @@ const Signup = () => {
 			}
 		} catch (err) {
 			if (err.response.data.message.startsWith('E11000')) {
-				return dispatch(
-					setError('User already exists with given username')
-				)
+				return dispatch(setError('User already exists with given username'))
 			}
 			dispatch(setError(err.response.data.message))
 		}
 	}
 
 	return (
-		<div className='flex justify-center h-screen bg-gray-700'>
-			<form
-				onSubmit={handleSubmit}
-				action='submit'
-				className='flex flex-col mt-8 w-96'>
-				<span className='my-4 text-5xl italic font-semibold text-center text-white'>
-					Sign up
-				</span>
+		<div className='flex w-full h-screen bg-gray-700 justify-evenly'>
+			<SocialMediaIllustration className='hidden mt-16 h-3/5 md:block' />
+			<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-8 w-96 md:mr-16'>
+				<span className='my-4 text-5xl italic font-semibold text-center text-white'>Sign up</span>
 				<Input label='Email' type='email' name='email' />
 				<Input label='Username' type='text' name='username' />
 				<Input label='Display Name' type='text' name='displayName' />
 				<Input label='Password' type='password' name='password' />
-				<Input
-					label='Confirm Password'
-					type='password'
-					name='cpassword'
-				/>
+				<Input label='Confirm Password' type='password' name='cpassword' />
 				<TextArea label='Bio (optional)' name='bio' />
 				<div className='flex items-center justify-between w-full py-2 mt-3'>
 					<span className='text-white'>
 						<span className='mr-2'>Have an account?</span>
-						<Link
-							to='/signin'
-							className='text-green-400 hover:underline'>
+						<Link to='/signin' className='text-green-400 hover:underline'>
 							Sign in
 						</Link>
 					</span>
