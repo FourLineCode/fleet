@@ -13,10 +13,11 @@ interface Params {
 }
 
 const ProfileCard = () => {
-	const [followed, setFollowed] = useState(false)
 	const auth = useAuthorization()
+	const [followed, setFollowed] = useState(false)
 	const { id } = useParams<Params>()
 	const [data, setData] = useState<UserState>()
+	// const [avatar, setAvatar] = useState(null)
 
 	const getUserData = async () => {
 		try {
@@ -37,9 +38,22 @@ const ProfileCard = () => {
 		setFollowed(!followed)
 	}
 
+	// const getAvatar = async () => {
+	// 	const res = await axios.get('https://api.multiavatar.com/v1/Starcrasher')
+	// 	const svg = res.data
+	// 	console.log(svg)
+	// 	setAvatar(svg)
+	// }
+
 	useEffect(() => {
 		getUserData()
 	}, [id])
+
+	// useEffect(() => {
+	// 	if (data && !avatar) {
+	// 		getAvatar()
+	// 	}
+	// }, [data])
 
 	return (
 		<>
@@ -63,12 +77,8 @@ const ProfileCard = () => {
 					<div className='px-4'>
 						<div className='flex items-center justify-between pb-2 text-2xl text-white border-b border-gray-500'>
 							<div className='flex flex-col'>
-								<span className='text-3xl font-semibold text-white'>
-									{data?.displayName}
-								</span>
-								<span className='text-lg text-gray-400'>
-									@{data?.username}
-								</span>
+								<span className='text-3xl font-semibold text-white'>{data?.displayName}</span>
+								<span className='text-lg text-gray-400'>@{data?.username}</span>
 							</div>
 							<Button
 								type='button'
@@ -84,14 +94,9 @@ const ProfileCard = () => {
 								<div>{data?.bio}</div>
 							</div>
 							<div className='flex-grow text-right'>
-								<div className='text-sm text-gray-400'>
-									Joined
-								</div>
+								<div className='text-sm text-gray-400'>Joined</div>
 								<div className='text-base text-white'>
-									{format(
-										new Date(data?.createdAt!),
-										'd MMM, Y'
-									)}
+									{format(new Date(data?.createdAt!), 'd MMM, Y')}
 								</div>
 							</div>
 						</div>

@@ -1,4 +1,6 @@
-# This is a Twitter Clone
+# Fleet
+
+**This is a Social Media App**
 
 # Frontend
 

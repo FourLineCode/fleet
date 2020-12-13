@@ -34,7 +34,7 @@ GET http://localhost:5000/api/user/info
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWNjMjg1Y2FiMTgzMjUwNGUyNjJiMCIsImlhdCI6MTYwNTE1OTIzMSwiZXhwIjoxNjA1MjQ1NjMxfQ.nwO8tt529h8odUskPK2Gdagy27Ph_eeWLuiulrUCuDA
 
 ###
-GET http://localhost:5000/api/tweet/timeline/5faec284d4151027f4522e27
+GET http://localhost:5000/api/fleet/timeline/5faec284d4151027f4522e27
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWVjMjg0ZDQxNTEwMjdmNDUyMmUyNyIsImlhdCI6MTYwNjY2NTI4NSwiZXhwIjoxNjA2NzUxNjg1fQ.PhfCdodhERTJARbpn-3OtcZnvaOExNtTnET4yOzW_Zk
 
 ###

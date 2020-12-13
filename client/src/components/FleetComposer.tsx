@@ -16,15 +16,15 @@ type Props = {
 	setVisible: (arg: boolean) => void
 }
 
-const TweetComposer = ({ visible, setVisible }: Props) => {
+const FleetComposer = ({ visible, setVisible }: Props) => {
 	const [body, setBody] = useState('')
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
 
-	const composeTweet = async () => {
+	const composeFleet = async () => {
 		try {
 			await axios.post(
-				`${BASE_URL}/tweet`,
+				`${BASE_URL}/fleet`,
 				{ body: body },
 				{
 					headers: {
@@ -37,22 +37,22 @@ const TweetComposer = ({ visible, setVisible }: Props) => {
 		}
 	}
 
-	const [mutate, { isLoading }] = useMutation(composeTweet, {
+	const [mutate, { isLoading }] = useMutation(composeFleet, {
 		onSuccess: () => {
-			dispatch(setSuccess('Tweet sent'))
-			queryCache.refetchQueries('tweets')
+			dispatch(setSuccess('Fleet sent'))
+			queryCache.refetchQueries('fleets')
 			setVisible(false)
 			setBody('')
 		},
 		onError: () => {
-			dispatch(setError('An error occured while sending tweet'))
+			dispatch(setError('An error occured while sending fleet'))
 			setBody('')
 		},
 	})
 
 	const onSubmit = () => {
 		if (body === '') {
-			dispatch(setError('Tweet body cannot be empty'))
+			dispatch(setError('Fleet body cannot be empty'))
 		}
 		if (body !== '' && !isLoading) {
 			mutate()
@@ -99,21 +99,16 @@ const TweetComposer = ({ visible, setVisible }: Props) => {
 					<TextArea
 						value={body}
 						onChange={onChange}
-						label='Tweet'
+						label='Fleet'
 						name='body'
 						className='h-24 text-white bg-gray-700 focus:bg-gray-600'
 					/>
 					<div className='flex items-center justify-between w-full'>
-						<span
-							className={clsx(
-								body.length > 240
-									? 'text-red-600'
-									: 'text-white'
-							)}>
+						<span className={clsx(body.length > 240 ? 'text-red-600' : 'text-white')}>
 							{body.length}/240
 						</span>
 						<Button variant='filled' onClick={onSubmit}>
-							Tweet
+							Send Fleet
 						</Button>
 					</div>
 				</div>
@@ -122,4 +117,4 @@ const TweetComposer = ({ visible, setVisible }: Props) => {
 	)
 }
 
-export default TweetComposer
+export default FleetComposer

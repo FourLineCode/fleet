@@ -5,6 +5,7 @@ import useAuthorization from '../hooks/useAuthorization'
 import { signin } from '../store/actions/authActions'
 import { setError, setSuccess } from '../store/actions/notificationActions'
 import Button from '../ui/Button'
+import SocialMediaIllustration from '../ui/Illustrations/SocialMediaIllustration'
 import Input from '../ui/Input'
 
 const Singin = () => {
@@ -38,22 +39,16 @@ const Singin = () => {
 	}
 
 	return (
-		<div className='flex justify-center h-screen bg-gray-700'>
-			<form
-				onSubmit={handleSubmit}
-				action='submit'
-				className='flex flex-col mt-20 w-96'>
-				<span className='my-4 text-5xl italic font-semibold text-center text-white'>
-					Sign in
-				</span>
+		<div className='flex w-full h-screen bg-gray-700 justify-evenly'>
+			<SocialMediaIllustration className='hidden mt-16 h-3/5 md:block' />
+			<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-20 w-96 md:mr-16'>
+				<span className='my-4 text-5xl italic font-semibold text-center text-white'>Sign in</span>
 				<Input label='Email' type='email' name='email' />
 				<Input label='Password' type='password' name='password' />
 				<div className='flex items-center justify-between w-full py-2 mt-3'>
 					<span className='text-white'>
 						<span className='mr-2'>Not signed up yet?</span>
-						<Link
-							to='/signup'
-							className='text-green-400 hover:underline'>
+						<Link to='/signup' className='text-green-400 hover:underline'>
 							Sign up
 						</Link>
 					</span>
