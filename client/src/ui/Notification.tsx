@@ -7,7 +7,7 @@ type NotificationTypes = '' | 'error' | 'success'
 const Alert = (props: AlertProps) => {
 	return <MuiAlert elevation={6} variant='filled' {...props} />
 }
-type NotificationProps = {
+interface NotificationProps {
 	message: string
 	type: NotificationTypes
 }

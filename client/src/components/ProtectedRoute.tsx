@@ -4,7 +4,7 @@ import { Redirect, Route } from 'react-router-dom'
 import useAuthorization from '../hooks/useAuthorization'
 import { refreshAuthToken } from '../store/actions/authActions'
 
-type Props = {
+interface Props {
 	path: string
 	children: React.ReactNode
 }
@@ -19,15 +19,7 @@ const ProtectedRoute = ({ path, children }: Props) => {
 		}
 	}, [])
 
-	return (
-		<>
-			{auth.signedIn ? (
-				<Route path={path}>{children}</Route>
-			) : (
-				!auth.refreshing && <Redirect to='/signin' />
-			)}
-		</>
-	)
+	return <>{auth.signedIn ? <Route path={path}>{children}</Route> : !auth.refreshing && <Redirect to='/signin' />}</>
 }
 
 export default ProtectedRoute

@@ -12,7 +12,7 @@ import HeartIcon from '../ui/icons/HeartIcon'
 import ReplyIcon from '../ui/icons/ReplyIcon'
 import { FleetType } from './Timeline'
 
-type Props = {
+interface Props {
 	fleet: FleetType
 }
 

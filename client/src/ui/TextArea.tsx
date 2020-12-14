@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 
-type Props = {
+interface Props {
 	label: string
 	value?: string
 	name: string

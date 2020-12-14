@@ -56,9 +56,9 @@ const ProfileCard = () => {
 	// }, [data])
 
 	return (
-		<>
+		<div className='w-full h-full col-span-2 border-l border-r border-gray-500'>
 			{data && (
-				<div className='h-full col-span-2 border-l border-r border-gray-500'>
+				<>
 					<div className='relative w-full h-60'>
 						<img
 							className='object-cover w-full h-full'
@@ -102,9 +102,9 @@ const ProfileCard = () => {
 						</div>
 						<ProfileTimeline />
 					</div>
-				</div>
+				</>
 			)}
-		</>
+		</div>
 	)
 }
 

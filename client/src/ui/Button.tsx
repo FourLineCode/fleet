@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 
-type Props = {
+interface Props {
 	type?: 'button' | 'submit' | 'reset'
 	variant?: 'filled' | 'outlined'
 	className?: string
@@ -14,13 +14,7 @@ const VariantStyles: Record<string, string> = {
 	outlined: 'bg-transparent hover:bg-green-500 hover:bg-opacity-30',
 }
 
-const Button = ({
-	type,
-	variant = 'filled',
-	onClick,
-	children,
-	className,
-}: Props) => {
+const Button = ({ type, variant = 'filled', onClick, children, className }: Props) => {
 	return (
 		<button
 			onClick={onClick}
