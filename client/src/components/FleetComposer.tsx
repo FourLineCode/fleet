@@ -85,11 +85,11 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 		<div
 			className={clsx(
 				!visible && 'invisible',
-				'fixed top-0 left-0 bg-opacity-25 bg-white w-screen h-screen z-50'
+				'fixed top-0 left-0 bg-opacity-10 bg-white w-screen h-screen z-50'
 			)}>
 			<div
 				ref={ref}
-				className='absolute left-0 right-0 w-full h-56 mx-auto bg-gray-800 rounded-lg shadow-md md:w-2/5 top-20'>
+				className='absolute left-0 right-0 w-full h-56 mx-auto bg-gray-800 rounded-lg shadow-lg md:w-2/5 top-20'>
 				<div className='flex justify-end w-full'>
 					<IconButton onClick={() => setVisible(false)}>
 						<CloseIcon className='w-5 h-5 text-white hover:text-green-400' />

@@ -1,10 +1,10 @@
-change to interfaces
-change default pfp
-complete profile page // loading state for profile page
 follow system
 dynamic timeline
 comment system
 messaging system with socket.io
 recommend system
 mobile friendly
+modal comp.
+initial message
+about page
 comments/cleanup

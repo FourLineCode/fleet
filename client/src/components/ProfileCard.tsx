@@ -17,7 +17,6 @@ const ProfileCard = () => {
 	const [followed, setFollowed] = useState(false)
 	const { id } = useParams<Params>()
 	const [data, setData] = useState<UserState>()
-	// const [avatar, setAvatar] = useState(null)
 
 	const getUserData = async () => {
 		try {
@@ -38,22 +37,9 @@ const ProfileCard = () => {
 		setFollowed(!followed)
 	}
 
-	// const getAvatar = async () => {
-	// 	const res = await axios.get('https://api.multiavatar.com/v1/Starcrasher')
-	// 	const svg = res.data
-	// 	console.log(svg)
-	// 	setAvatar(svg)
-	// }
-
 	useEffect(() => {
 		getUserData()
 	}, [id])
-
-	// useEffect(() => {
-	// 	if (data && !avatar) {
-	// 		getAvatar()
-	// 	}
-	// }, [data])
 
 	return (
 		<div className='w-full h-full col-span-2 border-l border-r border-gray-500'>
@@ -62,7 +48,7 @@ const ProfileCard = () => {
 					<div className='relative w-full h-60'>
 						<img
 							className='object-cover w-full h-full'
-							src='https://pbs.twimg.com/profile_banners/2163885564/1589765384/1080x360'
+							src='https://sweep.ac.uk/wp-content/uploads/green-banner.jpg'
 							alt='profile-banner'
 						/>
 						<div className='absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-900 to-transparent' />
