@@ -11,7 +11,7 @@ import IconButton from '../ui/IconButton'
 import CloseIcon from '../ui/icons/CloseIcon'
 import TextArea from '../ui/TextArea'
 
-type Props = {
+interface Props {
 	visible: boolean
 	setVisible: (arg: boolean) => void
 }

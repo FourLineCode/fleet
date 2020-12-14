@@ -5,17 +5,14 @@ import * as actions from '../types'
 import { setError, setSuccess } from './notificationActions'
 import { getUserInfo } from './userActions'
 
-type Credentials = {
+interface Credentials {
 	email: string
 	password: string
 }
 
 export const signin = (credentials: Credentials) => async (dispatch: any) => {
 	try {
-		const response = await axios.post(
-			`${BASE_URL}/user/signin`,
-			credentials
-		)
+		const response = await axios.post(`${BASE_URL}/user/signin`, credentials)
 		const data = await response.data
 
 		if (data) {

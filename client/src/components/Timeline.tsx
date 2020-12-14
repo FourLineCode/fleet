@@ -8,14 +8,14 @@ import useAuthorization from '../hooks/useAuthorization'
 import ErrorIcon from '../ui/icons/ErrorIcon'
 import Fleet from './Fleet'
 
-type Author = {
+interface Author {
 	_id: string
 	username: string
 	displayName: string
 	isAdmin: boolean
 }
 
-export type FleetType = {
+export interface FleetType {
 	_id: string
 	body: string
 	createdAt: string
