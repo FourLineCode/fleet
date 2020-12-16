@@ -1,10 +1,8 @@
-profile tweets route bug
-comment system
-messaging system with socket.io
 recommend system
 search system
+comment system
+messaging system with socket.io
 mobile friendly
-modal comp.
 initial message
 about page
 admin panel
