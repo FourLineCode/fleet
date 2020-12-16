@@ -10,7 +10,7 @@ const router = Router()
 router.post('/:id', auth, async (req, res, next) => {
 	try {
 		const { id } = req.params
-		const followedUser = await User.findOne({ id })
+		const followedUser = await User.findOne({ _id: id })
 		if (!followedUser) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('Requested user doesnt exist')
@@ -38,7 +38,7 @@ router.post('/:id', auth, async (req, res, next) => {
 router.post('/unfollow/:id', auth, async (req, res, next) => {
 	try {
 		const { id } = req.params
-		const followedUser = await User.findOne({ id })
+		const followedUser = await User.findOne({ _id: id })
 		if (!followedUser) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('Requested user doesnt exist')
@@ -59,10 +59,10 @@ router.post('/unfollow/:id', auth, async (req, res, next) => {
 })
 
 // Check if you follow a user
-router.post('/check/:id', auth, async (req, res, next) => {
+router.get('/check/:id', auth, async (req, res, next) => {
 	try {
 		const { id } = req.params
-		const followedUser = await User.findOne({ id })
+		const followedUser = await User.findOne({ _id: id })
 		if (!followedUser) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('Requested user doesnt exist')
@@ -74,6 +74,25 @@ router.post('/check/:id', auth, async (req, res, next) => {
 		}
 
 		res.status(StatusCodes.OK).json({ follows: true })
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Get follow counts
+router.get('/count/:id', auth, async (req, res, next) => {
+	try {
+		const { id } = req.params
+		const user = await User.findOne({ _id: id })
+		if (!user) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('Requested user doesnt exist')
+		}
+
+		const followers = await Follow.find({ to: id }).select('from to')
+		const following = await Follow.find({ from: id }).select('from to')
+
+		res.status(StatusCodes.OK).json({ followers, following })
 	} catch (error) {
 		next(error)
 	}

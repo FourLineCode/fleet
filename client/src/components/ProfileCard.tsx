@@ -1,6 +1,8 @@
 import axios from 'axios'
+import clsx from 'clsx'
 import { format } from 'date-fns'
 import React, { useEffect, useState } from 'react'
+import { queryCache, useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
 import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
@@ -13,10 +15,17 @@ interface Params {
 }
 
 const ProfileCard = () => {
-	const auth = useAuthorization()
-	const [followed, setFollowed] = useState(false)
 	const { id } = useParams<Params>()
-	const [data, setData] = useState<UserState>()
+	const auth = useAuthorization()
+	const [userData, setUserData] = useState<UserState>()
+	const [followData, setFollowData] = useState<Record<string, Object[] | number>>({
+		folowers: [],
+		followerCount: 0,
+		following: [],
+		followingCount: 0,
+	})
+	const [followed, setFollowed] = useState(false)
+	const [disableFollow, setDisableFollow] = useState(false)
 
 	const getUserData = async () => {
 		try {
@@ -25,25 +34,109 @@ const ProfileCard = () => {
 					authorization: `Bearer ${auth.token}`,
 				},
 			})
-			setData(res.data)
+			setUserData(res.data)
 		} catch (error) {
 			console.log(error.response.data.message)
 		}
 	}
 
-	const handleFollow = (e: React.MouseEvent) => {
+	const getFollowData = async () => {
+		try {
+			const res = await axios.get(`${BASE_URL}/follow/count/${id}`, {
+				headers: {
+					authorization: `Bearer ${auth.token}`,
+				},
+			})
+
+			const { followers, following } = res.data
+
+			const followResponse = {
+				followers: followers,
+				followerCount: followers.length,
+				following: following,
+				followingCount: following.length,
+			}
+
+			return followResponse
+		} catch (error) {
+			console.log(error.response.data)
+		}
+	}
+
+	const checkFollow = async () => {
+		try {
+			const res = await axios.get(`${BASE_URL}/follow/check/${id}`, {
+				headers: {
+					authorization: `Bearer ${auth.token}`,
+				},
+			})
+
+			setFollowed(res.data.follows)
+		} catch (error) {
+			console.log(error.response.data)
+		}
+	}
+
+	const handleFollow = async (e: React.MouseEvent) => {
 		e.preventDefault()
 
-		setFollowed(!followed)
+		try {
+			if (!followed) {
+				const res = await axios.post(
+					`${BASE_URL}/follow/${id}`,
+					{},
+					{
+						headers: {
+							authorization: `Bearer ${auth.token}`,
+						},
+					}
+				)
+
+				setFollowed(res.data.success)
+			} else {
+				const res = await axios.post(
+					`${BASE_URL}/follow/unfollow/${id}`,
+					{},
+					{
+						headers: {
+							authorization: `Bearer ${auth.token}`,
+						},
+					}
+				)
+
+				setFollowed(!res.data.success)
+			}
+			queryCache.refetchQueries('follow-data')
+		} catch (error) {
+			console.log(error.response.data)
+		}
 	}
+
+	const { data } = useQuery('follow-data', getFollowData)
+
+	useEffect(() => {
+		if (data) {
+			setFollowData(data)
+		}
+	}, [data])
 
 	useEffect(() => {
 		getUserData()
+		queryCache.prefetchQuery('follow-data', getFollowData)
+	}, [id])
+
+	useEffect(() => {
+		if (id === auth.id) {
+			setDisableFollow(true)
+			return
+		}
+
+		checkFollow()
 	}, [id])
 
 	return (
 		<div className='w-full h-full col-span-2 border-l border-r border-gray-500'>
-			{data && (
+			{userData && (
 				<>
 					<div className='relative w-full h-60'>
 						<img
@@ -61,28 +154,39 @@ const ProfileCard = () => {
 						/>
 					</div>
 					<div className='px-4'>
-						<div className='flex items-center justify-between pb-2 text-2xl text-white border-b border-gray-500'>
+						<div className='flex items-center justify-between pb-2 text-2xl text-white'>
 							<div className='flex flex-col'>
-								<span className='text-3xl font-semibold text-white'>{data?.displayName}</span>
-								<span className='text-lg text-gray-400'>@{data?.username}</span>
+								<span className='text-3xl font-semibold text-white'>{userData?.displayName}</span>
+								<span className='text-lg text-gray-400'>@{userData?.username}</span>
 							</div>
 							<Button
 								type='button'
 								variant={followed ? 'filled' : 'outlined'}
+								disabled={disableFollow}
 								onClick={handleFollow}
-								className='text-base'>
+								className={clsx('text-base', disableFollow && 'hidden')}>
 								{followed ? 'Unfollow' : 'Follow'}
 							</Button>
+						</div>
+						<div className='flex items-center pb-2 space-x-4 text-gray-400 border-b border-gray-500'>
+							<div>
+								<span className='text-lg font-bold text-white'>{followData.followerCount}</span>{' '}
+								Followers
+							</div>
+							<div>
+								<span className='text-lg font-bold text-white'>{followData.followingCount}</span>{' '}
+								Following
+							</div>
 						</div>
 						<div className='flex px-4 pb-2 mt-2 border-b border-gray-500'>
 							<div className='w-3/4 text-white'>
 								<div className='text-sm text-gray-400'>Bio</div>
-								<div>{data?.bio}</div>
+								<div>{userData?.bio}</div>
 							</div>
 							<div className='flex-grow text-right'>
 								<div className='text-sm text-gray-400'>Joined</div>
 								<div className='text-base text-white'>
-									{format(new Date(data?.createdAt!), 'd MMM, Y')}
+									{format(new Date(userData?.createdAt!), 'd MMM, Y')}
 								</div>
 							</div>
 						</div>
