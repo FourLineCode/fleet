@@ -10,7 +10,7 @@ const SignedInLinks = () => {
 	const user = useCurrentUser()
 	const dispatch = useDispatch()
 
-	const signoutHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
+	const signoutHandler = (e: React.MouseEvent) => {
 		e.preventDefault()
 
 		queryCache.clear()
@@ -31,11 +31,9 @@ const SignedInLinks = () => {
 				</Link>
 			</div>
 			<div className='h-6 w-0.5 bg-white'></div>
-			<a onClick={signoutHandler} href='#'>
-				<Button variant='filled' type='button'>
-					Sign out
-				</Button>
-			</a>
+			<Button onClick={signoutHandler} variant='filled' type='button'>
+				Sign out
+			</Button>
 		</>
 	)
 }
