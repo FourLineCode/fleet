@@ -8,7 +8,7 @@ interface Props {
 	className?: string
 }
 
-const Input = ({ label, type, name, className }: Props) => {
+const Input = React.forwardRef<HTMLInputElement, Props>(({ label, type, name, className }, ref) => {
 	return (
 		<>
 			<label htmlFor={name} className='pl-1 text-white'>
@@ -17,6 +17,7 @@ const Input = ({ label, type, name, className }: Props) => {
 			<input
 				type={type}
 				name={name}
+				ref={ref}
 				autoComplete='off'
 				className={clsx(
 					className,
@@ -25,6 +26,6 @@ const Input = ({ label, type, name, className }: Props) => {
 			/>
 		</>
 	)
-}
+})
 
 export default Input

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import clsx from 'clsx'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { createRef, useEffect, useRef, useState } from 'react'
 import { queryCache, useMutation } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { BASE_URL } from '../config'
@@ -20,6 +20,7 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 	const [body, setBody] = useState('')
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
+	const inputRef = createRef<HTMLTextAreaElement>()
 
 	const composeFleet = async () => {
 		try {
@@ -73,13 +74,26 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 		setVisible(false)
 	}
 
+	const onEnterPress = (e: React.KeyboardEvent) => {
+		if (e.key === 'Enter' && e.shiftKey === false) {
+			e.preventDefault()
+			onSubmit()
+		}
+	}
+
 	useEffect(() => {
 		document.addEventListener('mousedown', handleClick)
 
 		return () => {
 			document.removeEventListener('mousedown', handleClick)
 		}
-	})
+	}, [])
+
+	useEffect(() => {
+		if (visible) {
+			inputRef.current?.focus()
+		}
+	}, [visible])
 
 	return (
 		<div
@@ -99,8 +113,10 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 					<TextArea
 						value={body}
 						onChange={onChange}
+						onKeyDown={onEnterPress}
 						label='Fleet'
 						name='body'
+						ref={inputRef}
 						className='h-24 text-white bg-gray-700 focus:bg-gray-600'
 					/>
 					<div className='flex items-center justify-between w-full'>
