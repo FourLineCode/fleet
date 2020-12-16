@@ -1,4 +1,5 @@
 import React from 'react'
+import { queryCache } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import useCurrentUser from '../hooks/useCurrentUser'
@@ -12,6 +13,7 @@ const SignedInLinks = () => {
 	const signoutHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
 		e.preventDefault()
 
+		queryCache.clear()
 		dispatch(signout())
 	}
 

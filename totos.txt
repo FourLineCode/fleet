@@ -1,9 +1,9 @@
-follow system
-fix bio optional
 dynamic timeline
+fix bio optional
 comment system
 messaging system with socket.io
 recommend system
+search system
 mobile friendly
 modal comp.
 initial message

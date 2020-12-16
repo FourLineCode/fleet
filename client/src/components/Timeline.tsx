@@ -28,7 +28,7 @@ const Timeline = () => {
 
 	const getFleets = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/fleet`, {
+			const res = await axios.get(`${BASE_URL}/fleet/home`, {
 				headers: {
 					Authorization: `Bearer ${auth.token}`,
 				},

@@ -2,6 +2,7 @@ import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import auth from '../middlewares/auth'
 import Fleet from '../models/fleet'
+import Follow from '../models/follow'
 import fleetSchema from '../validation/fleetSchema'
 
 const router = Router()
@@ -12,6 +13,24 @@ router.get('/', auth, async (req, res, next) => {
 		const fleets = (await Fleet.find().populate('author', '_id username displayName isAdmin')) || []
 
 		res.status(StatusCodes.OK).json(fleets.reverse())
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Get home page fleets for user
+router.get('/home', auth, async (req, res, next) => {
+	try {
+		const fleets = (await Fleet.find().populate('author', '_id username displayName isAdmin')) || []
+
+		const followedUsers = await Follow.find({ from: req.userId })
+		const followedUserIds = followedUsers.map((follow) => String(follow.to))
+		followedUserIds.push(String(req.userId))
+
+		// @ts-ignore: _id property exists after populating query
+		const filteredFleets = fleets.filter((fleet) => followedUserIds.includes(String(fleet.author._id)))
+
+		res.status(StatusCodes.OK).json(filteredFleets.reverse())
 	} catch (error) {
 		next(error)
 	}
