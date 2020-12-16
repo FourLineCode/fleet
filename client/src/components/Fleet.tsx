@@ -70,7 +70,7 @@ const Fleet = ({ fleet }: Props) => {
 					</div>
 				</Link>
 				<div>
-					<Link to={`profile/${fleet.author._id}`}>
+					<Link to={`/profile/${fleet.author._id}`}>
 						<div className='text-base font-bold text-white'>
 							{fleet.author.displayName}{' '}
 							<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
