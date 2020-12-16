@@ -1,4 +1,5 @@
 follow system
+fix bio optional
 dynamic timeline
 comment system
 messaging system with socket.io

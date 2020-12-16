@@ -9,7 +9,7 @@ const registerShema = Joi.object({
 		.regex(/^[A-Za-z0-9_]{1,15}$/)
 		.required(),
 	displayName: Joi.string().min(2).max(32).required(),
-	bio: Joi.string().max(256),
+	bio: Joi.string().min(0).max(256),
 	isAdmin: Joi.boolean(),
 })
 
