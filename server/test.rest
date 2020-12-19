@@ -39,3 +39,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmYWVjMjg0Z
 
 ###
 GET http://localhost:5000/api/user/info/akmal
+
+###
+GET http://localhost:5000/api/search/recommend
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmZDY4ZDJkOTE3NTk4MmQ3Y2Y2M2YyZSIsImlhdCI6MTYwODM4ODAwOCwiZXhwIjoxNjA4NDc0NDA4fQ.8v8sQ4K5SmeaklJEW3L1Obq8upCqAoQ8s_E0YdzX040
