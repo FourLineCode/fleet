@@ -23,6 +23,7 @@ export interface NotificationState {
 }
 
 export interface UserState {
+	_id?: string | null
 	id: string | null
 	username: string | null
 	displayName: string | null

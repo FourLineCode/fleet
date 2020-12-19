@@ -72,6 +72,7 @@ const ProfileCard = () => {
 			})
 
 			setFollowed(res.data.follows)
+			return res.data.follows
 		} catch (error) {
 			console.log(error.response.data)
 		}
@@ -107,12 +108,14 @@ const ProfileCard = () => {
 				setFollowed(!res.data.success)
 			}
 			queryCache.refetchQueries('follow-data')
+			queryCache.refetchQueries('recommended-users')
 		} catch (error) {
 			console.log(error.response.data)
 		}
 	}
 
 	const { data } = useQuery('follow-data', getFollowData)
+	useQuery('is-following', checkFollow)
 
 	useEffect(() => {
 		if (data) {
@@ -131,7 +134,7 @@ const ProfileCard = () => {
 			return
 		}
 
-		checkFollow()
+		queryCache.refetchQueries('is-following')
 	}, [id])
 
 	return (

@@ -1,6 +1,6 @@
 import React from 'react'
 import Menu from '../components/Menu'
-import Recomend from '../components/Recomend'
+import Recommend from '../components/Recommend'
 import UserProfileCard from '../components/UserProfileCard'
 
 const UserProfile = () => {
@@ -8,7 +8,7 @@ const UserProfile = () => {
 		<div className='grid min-h-screen grid-cols-4 bg-gray-800 gap-x-4'>
 			<Menu />
 			<UserProfileCard />
-			<Recomend />
+			<Recommend />
 		</div>
 	)
 }
