@@ -132,6 +132,9 @@ const ProfileCard = () => {
 		if (id === auth.id) {
 			setDisableFollow(true)
 			return
+		} else {
+			setDisableFollow(false)
+			return
 		}
 
 		queryCache.refetchQueries('is-following')

@@ -8,10 +8,12 @@ import './styles/index.css'
 import theme from './ui/themes/MuiTheme'
 
 ReactDOM.render(
-	<Provider store={store}>
-		<MuiThemeProvider theme={theme}>
-			<App />
-		</MuiThemeProvider>
-	</Provider>,
+	<React.StrictMode>
+		<Provider store={store}>
+			<MuiThemeProvider theme={theme}>
+				<App />
+			</MuiThemeProvider>
+		</Provider>
+	</React.StrictMode>,
 	document.getElementById('root')
 )
