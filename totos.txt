@@ -1,4 +1,4 @@
-recommend system
+show people followed
 search system
 comment system
 messaging system with socket.io
