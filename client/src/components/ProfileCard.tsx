@@ -8,6 +8,7 @@ import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import { UserState } from '../store/reducers/types'
 import Button from '../ui/Button'
+import FollowDetails from './FollowDetails'
 import ProfileTimeline from './ProfileTimeline'
 
 interface Params {
@@ -26,6 +27,7 @@ const ProfileCard = () => {
 	})
 	const [followed, setFollowed] = useState(false)
 	const [disableFollow, setDisableFollow] = useState(false)
+	const [showFollowDetails, setShowFollowDetails] = useState(false)
 
 	const getUserData = async () => {
 		try {
@@ -132,13 +134,15 @@ const ProfileCard = () => {
 		if (id === auth.id) {
 			setDisableFollow(true)
 			return
-		} else {
-			setDisableFollow(false)
-			return
 		}
+		setDisableFollow(false)
 
 		queryCache.refetchQueries('is-following')
 	}, [id])
+
+	const followDetailsHandler = () => {
+		setShowFollowDetails(true)
+	}
 
 	return (
 		<div className='w-full h-full col-span-2 border-l border-r border-gray-500'>
@@ -175,11 +179,11 @@ const ProfileCard = () => {
 							</Button>
 						</div>
 						<div className='flex items-center pb-2 space-x-4 text-gray-400 border-b border-gray-500'>
-							<div>
+							<div className='cursor-pointer' onClick={followDetailsHandler}>
 								<span className='text-lg font-bold text-white'>{followData.followerCount}</span>{' '}
 								Followers
 							</div>
-							<div>
+							<div className='cursor-pointer' onClick={followDetailsHandler}>
 								<span className='text-lg font-bold text-white'>{followData.followingCount}</span>{' '}
 								Following
 							</div>
@@ -198,6 +202,7 @@ const ProfileCard = () => {
 						</div>
 						<ProfileTimeline />
 					</div>
+					<FollowDetails visible={showFollowDetails} setVisible={setShowFollowDetails} />
 				</>
 			)}
 		</div>

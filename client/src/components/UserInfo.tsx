@@ -9,9 +9,10 @@ import Button from '../ui/Button'
 
 interface Props {
 	user: UserState
+	showButton?: boolean
 }
 
-const UserInfo = ({ user }: Props) => {
+const UserInfo = ({ user, showButton = true }: Props) => {
 	const auth = useAuthorization()
 	const [followed, setFollowed] = useState(false)
 
@@ -83,9 +84,11 @@ const UserInfo = ({ user }: Props) => {
 					</div>
 				</Link>
 			</div>
-			<Button type='button' variant={followed ? 'filled' : 'outlined'} onClick={handleFollow}>
-				{followed ? 'Unfollow' : 'Follow'}
-			</Button>
+			{showButton && (
+				<Button type='button' variant={followed ? 'filled' : 'outlined'} onClick={handleFollow}>
+					{followed ? 'Unfollow' : 'Follow'}
+				</Button>
+			)}
 		</div>
 	)
 }

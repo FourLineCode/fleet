@@ -2,7 +2,6 @@ import React from 'react'
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import ProtectedRoute from './components/ProtectedRoute'
-import useCurrentUser from './hooks/useCurrentUser'
 import useNotification from './hooks/useNotification'
 import Home from './pages/Home'
 import Messages from './pages/Messages'
@@ -13,7 +12,6 @@ import Signup from './pages/Signup'
 import Notification from './ui/Notification'
 
 const App: React.FC = () => {
-	const user = useCurrentUser()
 	const notification = useNotification()
 
 	return (

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import clsx from 'clsx'
-import React, { createRef, useEffect, useRef, useState } from 'react'
+import React, { createRef, useEffect, useState } from 'react'
 import { queryCache, useMutation } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { BASE_URL } from '../config'
@@ -9,6 +9,7 @@ import { setError, setSuccess } from '../store/actions/notificationActions'
 import Button from '../ui/Button'
 import IconButton from '../ui/IconButton'
 import CloseIcon from '../ui/icons/CloseIcon'
+import Modal from '../ui/Modal'
 import TextArea from '../ui/TextArea'
 
 interface Props {
@@ -64,16 +65,6 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 		setBody(e.target.value)
 	}
 
-	const ref = useRef<HTMLDivElement>(null)
-
-	const handleClick = (e: MouseEvent) => {
-		if (ref.current?.contains(e.target as Node)) {
-			return
-		}
-
-		setVisible(false)
-	}
-
 	const onEnterPress = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter' && e.shiftKey === false) {
 			e.preventDefault()
@@ -82,54 +73,40 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 	}
 
 	useEffect(() => {
-		document.addEventListener('mousedown', handleClick)
-
-		return () => {
-			document.removeEventListener('mousedown', handleClick)
-		}
-	}, [])
-
-	useEffect(() => {
 		if (visible) {
 			inputRef.current?.focus()
 		}
 	}, [visible])
 
 	return (
-		<div
-			className={clsx(
-				!visible && 'invisible',
-				'fixed top-0 left-0 bg-opacity-10 bg-white w-screen h-screen z-50'
-			)}>
-			<div
-				ref={ref}
-				className='absolute left-0 right-0 w-full h-56 mx-auto bg-gray-800 rounded-lg shadow-lg md:w-2/5 top-20'>
-				<div className='flex justify-end w-full'>
-					<IconButton onClick={() => setVisible(false)}>
-						<CloseIcon className='w-5 h-5 text-white hover:text-green-400' />
-					</IconButton>
-				</div>
-				<div className='w-full h-full px-2'>
-					<TextArea
-						value={body}
-						onChange={onChange}
-						onKeyDown={onEnterPress}
-						label='Fleet'
-						name='body'
-						ref={inputRef}
-						className='h-24 text-white bg-gray-700 focus:bg-gray-600'
-					/>
-					<div className='flex items-center justify-between w-full'>
-						<span className={clsx(body.length > 240 ? 'text-red-600' : 'text-white')}>
-							{body.length}/240
-						</span>
-						<Button variant='filled' onClick={onSubmit}>
-							Send Fleet
-						</Button>
-					</div>
+		<Modal
+			visible={visible}
+			setVisible={setVisible}
+			position='top'
+			className='w-full h-56 bg-gray-800 rounded-lg shadow-lg md:w-2/5'>
+			<div className='flex justify-end w-full'>
+				<IconButton onClick={() => setVisible(false)}>
+					<CloseIcon className='w-5 h-5 text-white hover:text-green-400' />
+				</IconButton>
+			</div>
+			<div className='w-full h-full px-2'>
+				<TextArea
+					value={body}
+					onChange={onChange}
+					onKeyDown={onEnterPress}
+					label='Fleet'
+					name='body'
+					ref={inputRef}
+					className='h-24 text-white bg-gray-700 focus:bg-gray-600'
+				/>
+				<div className='flex items-center justify-between w-full'>
+					<span className={clsx(body.length > 240 ? 'text-red-600' : 'text-white')}>{body.length}/240</span>
+					<Button variant='filled' onClick={onSubmit}>
+						Send Fleet
+					</Button>
 				</div>
 			</div>
-		</div>
+		</Modal>
 	)
 }
 
