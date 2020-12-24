@@ -1,7 +1,8 @@
+remove follow button from reco.
 show people followed
-search system
 comment system
 messaging system with socket.io
+maybe photo upload
 mobile friendly
 initial message
 about page
