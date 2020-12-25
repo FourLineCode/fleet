@@ -1,4 +1,3 @@
-remove follow button from reco.
 show people followed
 comment system
 messaging system with socket.io

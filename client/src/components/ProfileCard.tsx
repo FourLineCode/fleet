@@ -110,7 +110,6 @@ const ProfileCard = () => {
 				setFollowed(!res.data.success)
 			}
 			queryCache.refetchQueries('follow-data')
-			queryCache.refetchQueries('recommended-users')
 		} catch (error) {
 			console.log(error.response.data)
 		}
@@ -137,7 +136,7 @@ const ProfileCard = () => {
 		}
 		setDisableFollow(false)
 
-		queryCache.refetchQueries('is-following')
+		queryCache.prefetchQuery('is-following', checkFollow)
 	}, [id])
 
 	const followDetailsHandler = () => {
