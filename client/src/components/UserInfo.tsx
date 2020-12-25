@@ -61,7 +61,7 @@ const UserInfo = ({ user, showButton = true }: Props) => {
 
 			setFollowed(res.data.follows)
 		} catch (error) {
-			console.log(error.responce.data)
+			console.log(error.response.data)
 		}
 	}
 

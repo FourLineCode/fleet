@@ -1,0 +1,14 @@
+{
+	"name": "fleet",
+	"version": "1.0.0",
+	"main": "index.js",
+	"repository": "https://github.com/ItzAkmal/TweetyTweet.git",
+	"author": "ItzAkmal <akmal3535.ah@gmail.com>",
+	"license": "MIT",
+	"scripts": {
+		"start": "concurrently -n \" server , client \" -c \"yellow.bold,green.bold\" \"cd server && yarn dev\" \"cd client && yarn start\""
+	},
+	"dependencies": {
+		"concurrently": "^5.3.0"
+	}
+}
