@@ -55,36 +55,9 @@ const FollowDetails = ({ visible, setVisible }: Props) => {
 				</div>
 			</div>
 			<div className='flex-1 p-4 space-y-2 overflow-y-auto overscroll-contain'>
-				{tab === Tabs.followers ? (
-					<>
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-					</>
-				) : (
-					<>
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-						<UserInfo user={user} showButton={false} />
-					</>
-				)}
+				{tab === Tabs.followers
+					? Array.from({ length: 4 }).map(() => <UserInfo user={user} />)
+					: Array.from({ length: 9 }).map(() => <UserInfo user={user} />)}
 			</div>
 		</Modal>
 	)
