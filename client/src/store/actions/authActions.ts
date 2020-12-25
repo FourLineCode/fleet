@@ -62,7 +62,7 @@ export const refreshAuthToken = () => async (dispatch: any) => {
 		}
 		dispatch({ type: actions.SET_NOT_REFRESHING })
 	} catch (error) {
-		dispatch(setError(error.response.data.message))
+		if (error.response) dispatch(setError(error.response.data.message))
 		dispatch({ type: actions.SET_NOT_REFRESHING })
 	}
 }

@@ -3,8 +3,8 @@
 	"version": "1.0.0",
 	"license": "MIT",
 	"scripts": {
-		"start": "set NODE_ENV=development&&yarn css && parcel public/index.html --port 3000 --open --no-cache --no-source-maps",
-		"build": "set NODE_ENV=production&&yarn css && parcel build public/index.html --no-cache --no-source-maps",
+		"start": "set NODE_ENV=development&&yarn css && parcel public/index.html --port 3000 --open",
+		"build": "set NODE_ENV=production&&yarn css && parcel build public/index.html",
 		"css": "tailwindcss build src/styles/tailwind.css -o src/styles/index.css"
 	},
 	"dependencies": {
