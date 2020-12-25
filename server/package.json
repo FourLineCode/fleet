@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start": "tsc && node build/src/index.js",
+		"build": "tsc",
 		"dev": "ts-node-dev --respawn src/index.ts"
 	},
 	"dependencies": {
