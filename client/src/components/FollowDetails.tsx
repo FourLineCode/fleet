@@ -1,28 +1,61 @@
+import { CircularProgress } from '@material-ui/core'
+import axios from 'axios'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
-import useCurrentUser from '../hooks/useCurrentUser'
+import { queryCache, useQuery } from 'react-query'
+import { BASE_URL } from '../config'
+import useAuthorization from '../hooks/useAuthorization'
+import { UserState } from '../store/reducers/types'
 import Modal from '../ui/Modal'
 import UserInfo from './UserInfo'
 
 interface Props {
+	id: string
+	tabType: TabTypes
 	visible: boolean
 	setVisible: (arg: any) => void
 }
 
-type TabTypes = 'followers' | 'following'
+export type TabTypes = 'followers' | 'following'
 
-const Tabs: Record<TabTypes, TabTypes> = {
+export const Tabs: Record<TabTypes, TabTypes> = {
 	followers: 'followers',
 	following: 'following',
 }
 
-const FollowDetails = ({ visible, setVisible }: Props) => {
+const FollowDetails = ({ id, tabType, visible, setVisible }: Props) => {
 	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
-	const user = useCurrentUser()
+	const auth = useAuthorization()
+
+	const getFollowDetails = async () => {
+		try {
+			const res = await axios.get(`${BASE_URL}/follow/users/${id}`, {
+				headers: {
+					authorization: `Bearer ${auth.token}`,
+				},
+			})
+
+			return res.data
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const { data, isLoading } = useQuery('follow-details', getFollowDetails)
 
 	useEffect(() => {
-		setTab(Tabs.followers)
+		setTab(tabType)
+		queryCache.prefetchQuery('follow-details', getFollowDetails)
 	}, [visible])
+
+	useEffect(() => {
+		queryCache.refetchQueries('follow-details')
+	}, [])
+
+	useEffect(() => {
+		setVisible(false)
+		queryCache.removeQueries('follow-details')
+	}, [id])
 
 	return (
 		<Modal
@@ -54,10 +87,17 @@ const FollowDetails = ({ visible, setVisible }: Props) => {
 					/>
 				</div>
 			</div>
-			<div className='flex-1 p-4 space-y-2 overflow-y-auto overscroll-contain'>
+			<div
+				className={clsx(
+					isLoading && 'flex justify-center items-center',
+					'flex-1 p-4 space-y-2 overflow-y-auto overscroll-contain'
+				)}>
 				{tab === Tabs.followers
-					? Array.from({ length: 4 }).map(() => <UserInfo user={user} />)
-					: Array.from({ length: 9 }).map(() => <UserInfo user={user} />)}
+					? data && data.followers.map((follower: UserState) => <UserInfo user={follower} />)
+					: data && data.following.map((followed: UserState) => <UserInfo user={followed} />)}
+				{isLoading && (
+					<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
+				)}
 			</div>
 		</Modal>
 	)

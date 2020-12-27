@@ -1,3 +1,4 @@
+import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
@@ -30,7 +31,7 @@ const ProfileTimeline = () => {
 		}
 	}
 
-	const { data } = useQuery('profile-fleets', getFleets)
+	const { data, isLoading } = useQuery('profile-fleets', getFleets)
 
 	useEffect(() => {
 		queryCache.prefetchQuery('profile-fleets', getFleets)
@@ -43,8 +44,8 @@ const ProfileTimeline = () => {
 					<div className='text-xl font-bold text-center text-white'>Posts</div>
 				</div>
 			</div>
-			<div className={clsx('h-full my-4 flex-col space-y-4')}>
-				{data && data.length > 0 ? (
+			<div className={clsx(isLoading && 'justify-center', 'h-full my-4 flex-col space-y-4')}>
+				{!isLoading && data && data.length > 0 ? (
 					data && data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet._id} />)
 				) : (
 					<div className='flex items-center justify-center w-full h-full'>
@@ -53,6 +54,9 @@ const ProfileTimeline = () => {
 							<div className='text-2xl font-semibold text-gray-500'>No Fleets found</div>
 						</div>
 					</div>
+				)}
+				{isLoading && (
+					<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
 				)}
 			</div>
 		</>

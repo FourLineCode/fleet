@@ -35,7 +35,7 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 				}
 			)
 		} catch (error) {
-			console.log(error.response.data)
+			if (error.response.data) dispatch(setError(error.response.data.message))
 		}
 	}
 

@@ -1,3 +1,4 @@
+import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
 import { format } from 'date-fns'
@@ -8,7 +9,7 @@ import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import { UserState } from '../store/reducers/types'
 import Button from '../ui/Button'
-import FollowDetails from './FollowDetails'
+import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
 import ProfileTimeline from './ProfileTimeline'
 
 interface Params {
@@ -19,6 +20,7 @@ const ProfileCard = () => {
 	const { id } = useParams<Params>()
 	const auth = useAuthorization()
 	const [userData, setUserData] = useState<UserState>()
+	const [userDataLoading, setUserDataLoading] = useState(false)
 	const [followData, setFollowData] = useState<Record<string, Object[] | number>>({
 		folowers: [],
 		followerCount: 0,
@@ -28,15 +30,18 @@ const ProfileCard = () => {
 	const [followed, setFollowed] = useState(false)
 	const [disableFollow, setDisableFollow] = useState(false)
 	const [showFollowDetails, setShowFollowDetails] = useState(false)
+	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
 
 	const getUserData = async () => {
 		try {
+			setUserDataLoading(true)
 			const res = await axios.get(`${BASE_URL}/user/info/${id}`, {
 				headers: {
 					authorization: `Bearer ${auth.token}`,
 				},
 			})
 			setUserData(res.data)
+			setUserDataLoading(false)
 		} catch (error) {
 			console.log(error.response.data.message)
 		}
@@ -139,13 +144,18 @@ const ProfileCard = () => {
 		queryCache.prefetchQuery('is-following', checkFollow)
 	}, [id])
 
-	const followDetailsHandler = () => {
+	const followDetailsHandler = (tabType: TabTypes) => {
+		setTab(tabType)
 		setShowFollowDetails(true)
 	}
 
 	return (
-		<div className='w-full h-full col-span-2 border-l border-r border-gray-500'>
-			{userData && (
+		<div
+			className={clsx(
+				userDataLoading && 'flex justify-center items-center',
+				'w-full h-full col-span-2 border-l border-r border-gray-500'
+			)}>
+			{userData && !userDataLoading && (
 				<>
 					<div className='relative w-full h-60'>
 						<img
@@ -178,11 +188,11 @@ const ProfileCard = () => {
 							</Button>
 						</div>
 						<div className='flex items-center pb-2 space-x-4 text-gray-400 border-b border-gray-500'>
-							<div className='cursor-pointer' onClick={followDetailsHandler}>
+							<div className='cursor-pointer' onClick={() => followDetailsHandler(Tabs.followers)}>
 								<span className='text-lg font-bold text-white'>{followData.followerCount}</span>{' '}
 								Followers
 							</div>
-							<div className='cursor-pointer' onClick={followDetailsHandler}>
+							<div className='cursor-pointer' onClick={() => followDetailsHandler(Tabs.following)}>
 								<span className='text-lg font-bold text-white'>{followData.followingCount}</span>{' '}
 								Following
 							</div>
@@ -201,8 +211,16 @@ const ProfileCard = () => {
 						</div>
 						<ProfileTimeline />
 					</div>
-					<FollowDetails visible={showFollowDetails} setVisible={setShowFollowDetails} />
+					<FollowDetails
+						id={id}
+						tabType={tab}
+						visible={showFollowDetails}
+						setVisible={setShowFollowDetails}
+					/>
 				</>
+			)}
+			{userDataLoading && (
+				<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
 			)}
 		</div>
 	)
