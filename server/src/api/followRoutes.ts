@@ -2,7 +2,7 @@ import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import auth from '../middlewares/auth'
 import Follow from '../models/follow'
-import User from '../models/user'
+import User, { UserType } from '../models/user'
 
 const router = Router()
 
@@ -93,6 +93,38 @@ router.get('/count/:id', auth, async (req, res, next) => {
 		const following = await Follow.find({ from: id }).select('from to')
 
 		res.status(StatusCodes.OK).json({ followers, following })
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Get follow users
+router.get('/users/:id', auth, async (req, res, next) => {
+	try {
+		const { id } = req.params
+		const user = await User.findOne({ _id: id })
+		if (!user) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('Requested user doesnt exist')
+		}
+
+		const followers = await Follow.find({ to: id }).select('from')
+		const followerUsers: (UserType | null)[] = []
+
+		for (const follow of followers) {
+			const follower = await User.findOne({ _id: follow.from })
+			followerUsers.push(follower)
+		}
+
+		const following = await Follow.find({ from: id }).select('to')
+		const followingUsers: (UserType | null)[] = []
+
+		for (const follow of following) {
+			const followed = await User.findOne({ _id: follow.to })
+			followingUsers.push(followed)
+		}
+
+		res.status(StatusCodes.OK).json({ followers: followerUsers, following: followingUsers })
 	} catch (error) {
 		next(error)
 	}
