@@ -2,8 +2,8 @@ import bcrypt from 'bcryptjs'
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
 import jwt from 'jsonwebtoken'
+import User from '../entity/User'
 import auth from '../middlewares/auth'
-import User, { UserType } from '../models/user'
 import registerShema from '../validation/registerSchema'
 
 const router = Router()
@@ -31,7 +31,11 @@ router.get('/', auth, async (req, res, next) => {
 // Get one user
 router.get('/profile/:id', auth, async (req, res, next) => {
 	try {
-		const user = await User.find({ _id: req.params.id })
+		const user = await User.find({ id: req.params.id })
+		if (!user) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('User not found')
+		}
 
 		res.status(StatusCodes.OK).json(user)
 	} catch (error) {
@@ -58,7 +62,7 @@ router.post('/signup', async (req, res, next) => {
 		}
 
 		// TODO: use lowercase to make unique
-		const usernameExists = await User.findOne({ username })
+		const usernameExists = await User.findOne({ username: username.toLowerCase() })
 		if (usernameExists) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User already exists with given username')
@@ -68,7 +72,7 @@ router.post('/signup', async (req, res, next) => {
 		const passwordHash = await bcrypt.hash(password, salt)
 
 		const newUser = await User.create({
-			username,
+			username: username.toLowerCase(),
 			displayName,
 			bio,
 			email,
@@ -102,7 +106,7 @@ router.post('/signin', async (req, res, next) => {
 		}
 
 		const payload = {
-			id: user._id,
+			id: user.id,
 		}
 
 		const token = jwt.sign(payload, process.env.JWT_SECRET!, {
@@ -115,7 +119,7 @@ router.post('/signin', async (req, res, next) => {
 
 		res.status(StatusCodes.OK).json({
 			success: true,
-			id: user._id,
+			id: user.id,
 			token: token,
 			refreshToken: refreshToken,
 		})
@@ -133,7 +137,7 @@ router.get('/refreshtoken', async (req, res, next) => {
 			throw new Error('Access denied')
 		}
 
-		const verifiedUser = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET!) as UserType
+		const verifiedUser = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET!) as User
 		if (!verifiedUser) {
 			res.status(StatusCodes.FORBIDDEN)
 			throw new Error('Access denied')
@@ -160,14 +164,14 @@ router.get('/refreshtoken', async (req, res, next) => {
 // Get authenticated users data
 router.get('/info/:id', auth, async (req, res, next) => {
 	try {
-		const user = await User.findById(req.params.id)
+		const user = await User.findOne({ id: req.params.id })
 		if (!user) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User not found')
 		}
 
 		const data = {
-			id: user._id,
+			id: user.id,
 			username: user.username,
 			displayName: user.displayName,
 			bio: user.bio,
@@ -183,15 +187,13 @@ router.get('/info/:id', auth, async (req, res, next) => {
 // Check if a user is admin
 router.get('/isadmin/:id', async (req, res, next) => {
 	try {
-		const { id } = req.params
-
-		const user = await User.findById(id)
+		const user = await User.findOne({ id: req.params.id })
 		if (!user) {
 			res.status(StatusCodes.NOT_FOUND)
 			throw new Error('User not found')
 		}
 
-		res.status(StatusCodes.OK).json({ isAdmin: user.isAdmin, id: user._id })
+		res.status(StatusCodes.OK).json({ isAdmin: user.isAdmin, id: user.id })
 	} catch (error) {
 		next(error)
 	}

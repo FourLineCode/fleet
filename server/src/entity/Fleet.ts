@@ -1,5 +1,5 @@
 import { Max } from 'class-validator'
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, ManyToOne } from 'typeorm'
 import InternalEntity from './InternalEntity'
 import User from './User'
 
@@ -9,9 +9,9 @@ export default class Fleet extends InternalEntity {
 	@Max(240)
 	body: string
 
-	@Column(() => User)
+	@ManyToOne(() => User, (author) => author.fleets)
 	author: User
 
-	@Column(() => User)
-	likes: User[]
+	@Column({ type: 'simple-array' })
+	likes: string[]
 }
