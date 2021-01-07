@@ -57,6 +57,7 @@ router.post('/signup', async (req, res, next) => {
 			throw new Error('User already exists with given email')
 		}
 
+		// TODO: use lowercase to make unique
 		const usernameExists = await User.findOne({ username })
 		if (usernameExists) {
 			res.status(StatusCodes.BAD_REQUEST)
