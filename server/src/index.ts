@@ -4,6 +4,7 @@ import express from 'express'
 import helmet from 'helmet'
 import mongoose from 'mongoose'
 import morgan from 'morgan'
+import { createConnection } from 'typeorm'
 import routes from './api'
 import { errorHandler, notFound } from './middlewares/error'
 import seed_database from './seed'
@@ -31,6 +32,8 @@ const init = async () => {
 				console.log('MongoDB connected ...')
 			}
 		)
+
+		await createConnection()
 
 		app.get('/', (req, res) => {
 			res.send({
