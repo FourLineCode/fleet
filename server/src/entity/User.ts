@@ -1,5 +1,6 @@
 import { IsEmail } from 'class-validator'
 import { Column, Entity, OneToMany } from 'typeorm'
+import Follow from '../entity/Follow'
 import Fleet from './Fleet'
 import InternalEntity from './InternalEntity'
 
@@ -26,4 +27,10 @@ export default class User extends InternalEntity {
 
 	@OneToMany(() => Fleet, (fleet) => fleet.author)
 	fleets: Fleet[]
+
+	@OneToMany(() => Follow, (follow) => follow.from)
+	following: Follow[]
+
+	@OneToMany(() => Follow, (follow) => follow.to)
+	followers: Follow[]
 }
