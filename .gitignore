@@ -6,4 +6,4 @@
 **/.env
 **/debug.log
 **/.parcel-cache
-**/*.sqlite3
+**/*.sqlite
