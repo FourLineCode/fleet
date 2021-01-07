@@ -17,4 +17,5 @@
 
 -   [Nodejs](https://nodejs.org/en/)
 -   [Express](http://expressjs.com/)
--   [MongoDB](https://www.mongodb.com/)
+-   [SQLite](https://www.sqlite.org/index.html)
+-   [TypeORM](https://typeorm.io/)

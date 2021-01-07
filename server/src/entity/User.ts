@@ -1,5 +1,6 @@
 import { IsEmail } from 'class-validator'
-import { Column, Entity } from 'typeorm'
+import { Column, Entity, OneToMany } from 'typeorm'
+import Fleet from './Fleet'
 import InternalEntity from './InternalEntity'
 
 @Entity()
@@ -10,7 +11,7 @@ export default class User extends InternalEntity {
 	@Column()
 	displayName: string
 
-	@Column({ nullable: true })
+	@Column({ default: '' })
 	bio: string
 
 	@Column({ unique: true })
@@ -22,4 +23,7 @@ export default class User extends InternalEntity {
 
 	@Column({ default: false })
 	isAdmin: boolean
+
+	@OneToMany(() => Fleet, (fleet) => fleet.author)
+	fleets: Fleet[]
 }
