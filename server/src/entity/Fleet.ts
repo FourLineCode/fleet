@@ -12,6 +12,9 @@ export default class Fleet extends InternalEntity {
 	@ManyToOne(() => User, (author) => author.fleets)
 	author: User
 
+	@Column({ default: 0 })
+	likes: number
+
 	@Column({ type: 'simple-array' })
-	likes: string[]
+	likers: string[]
 }

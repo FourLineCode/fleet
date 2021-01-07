@@ -1,12 +1,12 @@
-import { Column, Entity } from 'typeorm'
+import { Entity, ManyToOne } from 'typeorm'
 import InternalEntity from './InternalEntity'
 import User from './User'
 
 @Entity()
 export default class Follow extends InternalEntity {
-	@Column(() => User)
+	@ManyToOne(() => User, (from) => from.following)
 	from: User
 
-	@Column(() => User)
+	@ManyToOne(() => User, (to) => to.followers)
 	to: User
 }
