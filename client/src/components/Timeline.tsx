@@ -9,18 +9,19 @@ import ErrorIcon from '../ui/icons/ErrorIcon'
 import Fleet from './Fleet'
 
 interface Author {
-	_id: string
+	id: string
 	username: string
 	displayName: string
 	isAdmin: boolean
 }
 
 export interface FleetType {
-	_id: string
+	id: string
 	body: string
 	createdAt: string
 	author: Author
-	likes: string[]
+	likes: number
+	likers: string[]
 }
 
 const Timeline = () => {
@@ -52,7 +53,7 @@ const Timeline = () => {
 			{isLoading ? (
 				<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
 			) : data && data.length > 0 ? (
-				data && data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet._id} />)
+				data && data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.id} />)
 			) : (
 				<div className='flex items-center justify-center w-full h-full'>
 					<div className='flex-col'>

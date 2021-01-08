@@ -2,7 +2,6 @@ import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
-import mongoose from 'mongoose'
 import morgan from 'morgan'
 import { createConnection } from 'typeorm'
 import routes from './api'
@@ -21,18 +20,6 @@ const init = async () => {
 		app.use(helmet())
 		app.use(cookieParser())
 
-		await mongoose.connect(
-			process.env.MONGO_URI!,
-			{
-				useNewUrlParser: true,
-				useUnifiedTopology: true,
-				useCreateIndex: true,
-			},
-			() => {
-				console.log('MongoDB connected ...')
-			}
-		)
-
 		await createConnection()
 
 		app.get('/', (req, res) => {
@@ -48,7 +35,7 @@ const init = async () => {
 
 		const PORT = process.env.PORT || 5000
 		await app.listen(PORT, () => {
-			console.log(`Server started on http://localhost:${PORT}...`)
+			console.log(`\nServer started on http://localhost:${PORT}...\n`)
 		})
 
 		seed_database()

@@ -7,7 +7,7 @@ interface Props {
 }
 
 const UserInfo = ({ user }: Props) => {
-	const userProfileId = user._id ? user._id : user.id
+	const userProfileId = user.id ? user.id : user.id
 
 	return (
 		<div className='w-full h-16 p-2 border border-gray-700 rounded-lg shadow-xl'>

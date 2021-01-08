@@ -41,11 +41,10 @@ router.get('/home', auth, async (req, res, next) => {
 			.getRepository(Follow)
 			.createQueryBuilder('follow')
 			.leftJoinAndSelect('follow.from', 'from')
-			.select(['from.id'])
 			.where('from.id = :id', { id: req.userId })
 			.leftJoinAndSelect('follow.to', 'to')
-			.select(['to.id'])
 			.getMany()
+
 		const followedUserIds = followedUsers.map((follow) => String(follow.to.id))
 		followedUserIds.push(String(req.userId))
 
@@ -88,7 +87,16 @@ router.get('/timeline/:id', auth, async (req, res, next) => {
 			.createQueryBuilder('user')
 			.where('user.id = :id', { id: req.params.id })
 			.leftJoinAndSelect('user.fleets', 'fleets')
-			.select(['user', 'fleets'])
+			.leftJoinAndSelect('fleets.author', 'author')
+			.select([
+				'user',
+				'fleets',
+				'author.id',
+				'author.username',
+				'author.displayName',
+				'author.bio',
+				'author.isAdmin',
+			])
 			.getOne()
 
 		const fleets = user?.fleets || []
