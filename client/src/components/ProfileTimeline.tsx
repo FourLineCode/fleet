@@ -46,7 +46,7 @@ const ProfileTimeline = () => {
 			</div>
 			<div className={clsx(isLoading && 'justify-center', 'h-full my-4 flex-col space-y-4')}>
 				{!isLoading && data && data.length > 0 ? (
-					data && data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet._id} />)
+					data && data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.id} />)
 				) : (
 					<div className='flex items-center justify-center w-full h-full'>
 						<div className='flex-col'>

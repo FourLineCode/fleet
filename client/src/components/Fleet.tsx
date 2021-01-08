@@ -21,13 +21,14 @@ const Fleet = ({ fleet }: Props) => {
 	const user = useCurrentUser()
 	const queryCache = useQueryCache()
 	const location = useLocation()
+	console.log(fleet)
 
 	// TODO: make this cleaner
 	const likeHandler = async () => {
 		try {
-			if (!fleet.likes.includes(user.id!)) {
+			if (!fleet.likers.includes(user.id!)) {
 				await axios.post(
-					`${BASE_URL}/fleet/like/${fleet._id}`,
+					`${BASE_URL}/fleet/like/${fleet.id}`,
 					{},
 					{
 						headers: {
@@ -37,7 +38,7 @@ const Fleet = ({ fleet }: Props) => {
 				)
 			} else {
 				await axios.post(
-					`${BASE_URL}/fleet/unlike/${fleet._id}`,
+					`${BASE_URL}/fleet/unlike/${fleet.id}`,
 					{},
 					{
 						headers: {
@@ -64,13 +65,13 @@ const Fleet = ({ fleet }: Props) => {
 	return (
 		<div className='w-3/4 px-2 pt-2 mx-auto border border-gray-700 rounded-lg shadow-xl'>
 			<div className='flex space-x-1'>
-				<Link to={`/profile/${fleet.author._id}`}>
+				<Link to={`/profile/${fleet.author.id}`}>
 					<div className='flex items-center justify-center flex-shrink-0 w-10 h-10 mt-2 mr-2 overflow-hidden rounded-full'>
 						<img src='http://github.com/kesne.png' />
 					</div>
 				</Link>
 				<div>
-					<Link to={`/profile/${fleet.author._id}`}>
+					<Link to={`/profile/${fleet.author.id}`}>
 						<div className='text-base font-bold text-white'>
 							{fleet.author.displayName}{' '}
 							<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
@@ -93,13 +94,13 @@ const Fleet = ({ fleet }: Props) => {
 					<IconButton
 						onClick={mutate}
 						className='text-white rounded-full hover:bg-gray-700 hover:text-green-500'>
-						{fleet.likes.includes(user.id!) ? (
+						{fleet.likers.includes(user.id!) ? (
 							<HeartFilledIcon className='w-4 h-4' />
 						) : (
 							<HeartIcon className='w-4 h-4' />
 						)}
 					</IconButton>
-					<span className='text-base text-white'>{fleet.likes.length}</span>
+					<span className='text-base text-white'>{fleet.likes}</span>
 				</div>
 			</div>
 		</div>

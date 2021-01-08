@@ -29,7 +29,7 @@ const Recommend = () => {
 			<div className='w-full px-4 pt-2 pb-4 border border-gray-700 rounded-lg shadow-xl'>
 				<div className='mb-2 text-lg text-white'>People you may know</div>
 				<div className='flex flex-col space-y-4'>
-					{data && data.map((user: UserState) => <UserInfo user={user} key={user._id} />)}
+					{data && data.map((user: UserState) => <UserInfo user={user} key={user.id} />)}
 				</div>
 			</div>
 		</div>
