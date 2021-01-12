@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { formatDistanceToNow } from 'date-fns'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useMutation, useQueryCache } from 'react-query'
-import { Link, useLocation } from 'react-router-dom'
 import useAuthorization from '../hooks/useAuthorization'
 import useCurrentUser from '../hooks/useCurrentUser'
 import IconButton from '../ui/IconButton'
@@ -20,7 +21,7 @@ const Fleet = ({ fleet }: Props) => {
 	const auth = useAuthorization()
 	const user = useCurrentUser()
 	const queryCache = useQueryCache()
-	const location = useLocation()
+	const { pathname } = useRouter()
 	console.log(fleet)
 
 	// TODO: make this cleaner
@@ -54,9 +55,9 @@ const Fleet = ({ fleet }: Props) => {
 
 	const [mutate] = useMutation(likeHandler, {
 		onSuccess: () => {
-			if (location.pathname.startsWith('/home')) {
+			if (pathname.startsWith('/home')) {
 				queryCache.refetchQueries('fleets')
-			} else if (location.pathname.startsWith('/profile')) {
+			} else if (pathname.startsWith('/profile')) {
 				queryCache.refetchQueries('profile-fleets')
 			}
 		},
@@ -65,13 +66,13 @@ const Fleet = ({ fleet }: Props) => {
 	return (
 		<div className='w-3/4 px-2 pt-2 mx-auto border border-gray-700 rounded-lg shadow-xl'>
 			<div className='flex space-x-1'>
-				<Link to={`/profile/${fleet.author.id}`}>
+				<Link href={`/profile/${fleet.author.id}`}>
 					<div className='flex items-center justify-center flex-shrink-0 w-10 h-10 mt-2 mr-2 overflow-hidden rounded-full'>
 						<img src='http://github.com/kesne.png' />
 					</div>
 				</Link>
 				<div>
-					<Link to={`/profile/${fleet.author.id}`}>
+					<Link href={`/profile/${fleet.author.id}`}>
 						<div className='text-base font-bold text-white'>
 							{fleet.author.displayName}{' '}
 							<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
