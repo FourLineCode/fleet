@@ -24,7 +24,11 @@ export const signin = (credentials: Credentials) => async (dispatch: any) => {
 
 		setLocalStorage('refresh-token', data.refreshToken)
 	} catch (error) {
-		dispatch(setError(error.response.data.message))
+		if (error.response.data) {
+			dispatch(setError(error.response.data.message))
+		} else {
+			console.log(error)
+		}
 	}
 }
 
@@ -62,7 +66,11 @@ export const refreshAuthToken = () => async (dispatch: any) => {
 		}
 		dispatch({ type: actions.SET_NOT_REFRESHING })
 	} catch (error) {
-		if (error.response) dispatch(setError(error.response.data.message))
+		if (error.response.data) {
+			dispatch(setError(error.response.data.message))
+		} else {
+			console.log(error)
+		}
 		dispatch({ type: actions.SET_NOT_REFRESHING })
 	}
 }

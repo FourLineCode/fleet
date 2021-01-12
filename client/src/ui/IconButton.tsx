@@ -9,7 +9,7 @@ interface Props {
 
 const IconButton = ({ className, onClick, children }: Props) => {
 	return (
-		<button className={clsx(className, 'p-1 focus:outline-none transition duration-150')} onClick={onClick}>
+		<button className={clsx(className, 'p-1 focus:outline-none')} onClick={onClick}>
 			{children}
 		</button>
 	)

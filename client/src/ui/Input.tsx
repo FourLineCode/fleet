@@ -21,7 +21,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(({ label, type, name, cl
 				autoComplete='off'
 				className={clsx(
 					className,
-					'w-full px-2 py-2 transition duration-150 border-4 border-green-200 rounded-lg focus:border-green-500 focus:outline-none'
+					'w-full px-2 py-2 border-4 border-green-200 rounded-lg focus:border-green-500 focus:outline-none'
 				)}
 			/>
 		</>
