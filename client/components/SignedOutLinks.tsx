@@ -1,16 +1,16 @@
+import Link from 'next/link'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import Button from '../ui/Button'
 
 const SignedOutLinks = () => {
 	return (
 		<>
-			<Link to='/signup'>
+			<Link href='/signup'>
 				<Button type='button' variant='filled'>
 					Sign up
 				</Button>
 			</Link>
-			<Link to='/signin'>
+			<Link href='/signin'>
 				<Button type='button' variant='outlined'>
 					Sign in
 				</Button>

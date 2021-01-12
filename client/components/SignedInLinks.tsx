@@ -1,13 +1,15 @@
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { queryCache } from 'react-query'
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
 import useCurrentUser from '../hooks/useCurrentUser'
 import { signout } from '../store/actions/authActions'
 import Button from '../ui/Button'
 
 const SignedInLinks = () => {
 	const user = useCurrentUser()
+	const router = useRouter()
 	const dispatch = useDispatch()
 
 	const signoutHandler = (e: React.MouseEvent) => {
@@ -15,6 +17,7 @@ const SignedInLinks = () => {
 
 		queryCache.clear()
 		dispatch(signout())
+		router.push('/signin')
 	}
 
 	return (
@@ -24,7 +27,7 @@ const SignedInLinks = () => {
 					<span className='text-gray-300'>{user.displayName}</span>
 					<span className='text-gray-400'>@{user.username}</span>
 				</div>
-				<Link to={`/profile/${user.id}`}>
+				<Link href={`/profile/${user.id}`}>
 					<div className='w-12 h-12 overflow-hidden border-2 border-green-500 rounded-full hover:border-green-400'>
 						<img src='http://github.com/kesne.png' />
 					</div>

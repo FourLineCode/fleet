@@ -51,9 +51,9 @@ const Singin = () => {
 					<div className='flex items-center justify-between w-full py-2 mt-3'>
 						<span className='text-white'>
 							<span className='mr-2'>Not signed up yet?</span>
-							<Link href='/signup'>
-								<div className='text-green-400 hover:underline'>Sign up</div>
-							</Link>
+							<div className='text-green-400 hover:underline'>
+								<Link href='/signup'>Sign up</Link>
+							</div>
 						</span>
 						<Button variant='filled' type='submit'>
 							Sign in

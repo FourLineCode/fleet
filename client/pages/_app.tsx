@@ -11,14 +11,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 	const notification = useNotification()
 
 	return (
-		<React.StrictMode>
-			<MuiThemeProvider theme={theme}>
-				<Component {...pageProps} />
-				{notification.show && notification.message !== '' && (
-					<Notification message={notification.message} type={notification.type} />
-				)}
-			</MuiThemeProvider>
-		</React.StrictMode>
+		<MuiThemeProvider theme={theme}>
+			<Component {...pageProps} />
+			{notification.show && notification.message !== '' && (
+				<Notification message={notification.message} type={notification.type} />
+			)}
+		</MuiThemeProvider>
 	)
 }
 

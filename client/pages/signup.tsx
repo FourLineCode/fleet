@@ -79,9 +79,9 @@ const Signup = () => {
 					<div className='flex items-center justify-between w-full py-2 mt-3'>
 						<span className='text-white'>
 							<span className='mr-2'>Have an account?</span>
-							<Link href='/signin'>
-								<div className='text-green-400 hover:underline'>Sign in</div>
-							</Link>
+							<div className='text-green-400 hover:underline'>
+								<Link href='/signin'>Sign in</Link>
+							</div>
 						</span>
 						<Button variant='filled' type='submit'>
 							Create an account

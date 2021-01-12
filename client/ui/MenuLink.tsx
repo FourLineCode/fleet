@@ -1,5 +1,5 @@
+import Link from 'next/link'
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 interface Props {
 	type: 'route' | 'site' | 'button'
@@ -16,9 +16,9 @@ const MenuLink = ({ type, to, active = false, children, onClick }: Props) => {
 
 	if (type === 'route') {
 		return (
-			<Link className={classes} to={to as string}>
-				{children}
-			</Link>
+			<div className={classes}>
+				<Link href={to as string}>{children}</Link>
+			</div>
 		)
 	} else if (type === 'site') {
 		return (

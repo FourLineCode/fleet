@@ -12,4 +12,4 @@ const makeStore = () => {
 	return createStore(rootReducer, composeEnhancers(applyMiddleware(...middlewares)))
 }
 
-export default createWrapper(makeStore, { debug: true })
+export default createWrapper(makeStore)
