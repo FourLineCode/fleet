@@ -23,19 +23,19 @@ const Menu = () => {
 		<div className='flex justify-end h-full px-2 py-4'>
 			<div className='flex flex-col space-y-4'>
 				<MenuLink type='route' to='/home' active={pathname === '/home'}>
-					<a>
+					<a className='flex items-center'>
 						<HomeIcon className='w-6 h-6 mr-2' />
 						Home
 					</a>
 				</MenuLink>
 				<MenuLink type='route' to='/messages' active={pathname === '/messages'}>
-					<a>
+					<a className='flex items-center'>
 						<MessageIcon className='w-6 h-6 mr-2' />
 						Messages
 					</a>
 				</MenuLink>
 				<MenuLink type='route' to={`/profile/${auth.id}`} active={pathname.startsWith('/profile')}>
-					<a>
+					<a className='flex items-center'>
 						<ProfileIcon className='w-6 h-6 mr-2' />
 						Profile
 					</a>
@@ -45,7 +45,7 @@ const Menu = () => {
 				</MenuLink>
 				<div className='w-full h-20'></div>
 				<MenuLink type='site' to='http://github.com/fourlinecode/fleet'>
-					<a>
+					<a className='flex items-center'>
 						<GithubIcon className='w-6 h-6 mr-2' />
 						GitHub
 					</a>
