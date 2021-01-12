@@ -2,7 +2,7 @@ import Snackbar from '@material-ui/core/Snackbar'
 import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
 import React, { useEffect, useState } from 'react'
 
-type NotificationTypes = 'error' | 'success' | 'info' | 'warning' | '' | undefined
+type NotificationTypes = 'error' | 'success' | 'info' | 'warning'
 
 const Alert = (props: AlertProps) => {
 	return <MuiAlert elevation={6} variant='filled' {...props} />

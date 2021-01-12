@@ -3,13 +3,13 @@ import { formatDistanceToNow } from 'date-fns'
 import React from 'react'
 import { useMutation, useQueryCache } from 'react-query'
 import { Link, useLocation } from 'react-router-dom'
-import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import useCurrentUser from '../hooks/useCurrentUser'
 import IconButton from '../ui/IconButton'
 import HeartFilledIcon from '../ui/icons/HeartFilledIcon'
 import HeartIcon from '../ui/icons/HeartIcon'
 import ReplyIcon from '../ui/icons/ReplyIcon'
+import { BASE_URL } from '../utils/config'
 import { FleetType } from './Timeline'
 
 interface Props {
@@ -87,13 +87,15 @@ const Fleet = ({ fleet }: Props) => {
 			<div className='flex items-center w-full h-6 justify-evenly'>
 				<IconButton
 					onClick={() => {}}
-					className='text-white rounded-full hover:bg-gray-700 hover:text-green-500'>
+					className='text-white rounded-full hover:bg-gray-700 hover:text-green-500'
+				>
 					<ReplyIcon className='w-4 h-4' />
 				</IconButton>
 				<div className='flex items-center'>
 					<IconButton
 						onClick={mutate}
-						className='text-white rounded-full hover:bg-gray-700 hover:text-green-500'>
+						className='text-white rounded-full hover:bg-gray-700 hover:text-green-500'
+					>
 						{fleet.likers.includes(user.id!) ? (
 							<HeartFilledIcon className='w-4 h-4' />
 						) : (

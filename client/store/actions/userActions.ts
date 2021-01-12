@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { BASE_URL } from '../../config'
+import { BASE_URL } from '../../utils/config'
 import * as actions from '../types'
 import { setError } from './notificationActions'
 

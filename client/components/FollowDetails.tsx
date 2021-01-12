@@ -3,10 +3,10 @@ import axios from 'axios'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 import { queryCache, useQuery } from 'react-query'
-import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import { UserState } from '../store/reducers/types'
 import Modal from '../ui/Modal'
+import { BASE_URL } from '../utils/config'
 import UserInfo from './UserInfo'
 
 interface Props {
@@ -62,11 +62,13 @@ const FollowDetails = ({ id, tabType, visible, setVisible }: Props) => {
 			visible={visible}
 			setVisible={setVisible}
 			position='center'
-			className='flex flex-col w-full bg-gray-800 rounded-lg shadow-lg md:w-1/5 h-96'>
+			className='flex flex-col w-full bg-gray-800 rounded-lg shadow-lg md:w-1/5 h-96'
+		>
 			<div className='flex w-full font-semibold text-white'>
 				<div
 					onClick={() => setTab(Tabs.followers)}
-					className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-gray-700'>
+					className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-gray-700'
+				>
 					Followers
 					<div
 						className={clsx(
@@ -77,7 +79,8 @@ const FollowDetails = ({ id, tabType, visible, setVisible }: Props) => {
 				</div>
 				<div
 					onClick={() => setTab(Tabs.following)}
-					className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-gray-700'>
+					className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-gray-700'
+				>
 					Following
 					<div
 						className={clsx(
@@ -91,7 +94,8 @@ const FollowDetails = ({ id, tabType, visible, setVisible }: Props) => {
 				className={clsx(
 					isLoading && 'flex justify-center items-center',
 					'flex-1 p-4 space-y-2 overflow-y-auto overscroll-contain'
-				)}>
+				)}
+			>
 				{tab === Tabs.followers
 					? data && data.followers.map((follower: UserState) => <UserInfo user={follower} />)
 					: data && data.following.map((followed: UserState) => <UserInfo user={followed} />)}

@@ -3,7 +3,6 @@ import clsx from 'clsx'
 import React, { createRef, useEffect, useState } from 'react'
 import { queryCache, useMutation } from 'react-query'
 import { useDispatch } from 'react-redux'
-import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError, setSuccess } from '../store/actions/notificationActions'
 import Button from '../ui/Button'
@@ -11,6 +10,7 @@ import IconButton from '../ui/IconButton'
 import CloseIcon from '../ui/icons/CloseIcon'
 import Modal from '../ui/Modal'
 import TextArea from '../ui/TextArea'
+import { BASE_URL } from '../utils/config'
 
 interface Props {
 	visible: boolean
@@ -83,7 +83,8 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 			visible={visible}
 			setVisible={setVisible}
 			position='top'
-			className='w-full h-56 bg-gray-800 rounded-lg shadow-lg md:w-2/5'>
+			className='w-full h-56 bg-gray-800 rounded-lg shadow-lg md:w-2/5'
+		>
 			<div className='flex justify-end w-full'>
 				<IconButton onClick={() => setVisible(false)}>
 					<CloseIcon className='w-5 h-5 text-white hover:text-green-400' />

@@ -6,7 +6,14 @@ module.exports = {
 		purgeLayersByDefault: true,
 	},
 	purge: {
-		content: ['./src/**/*.ts', './src/**/*.tsx', './src/**/*.html'],
+		content: [
+			'./pages/**/*.ts',
+			'./pages/**/*.tsx',
+			'./components/**/*.ts',
+			'./components/**/*.tsx',
+			'./ui/**/*.ts',
+			'./ui/**/*.tsx',
+		],
 	},
 	theme: {
 		extend: {},

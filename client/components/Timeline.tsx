@@ -3,9 +3,9 @@ import axios from 'axios'
 import clsx from 'clsx'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import ErrorIcon from '../ui/icons/ErrorIcon'
+import { BASE_URL } from '../utils/config'
 import Fleet from './Fleet'
 
 interface Author {
@@ -49,7 +49,8 @@ const Timeline = () => {
 			className={clsx(
 				'h-full col-span-2 border-l border-r border-gray-500 py-4',
 				isLoading ? 'flex items-center justify-center' : 'flex-col space-y-4'
-			)}>
+			)}
+		>
 			{isLoading ? (
 				<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
 			) : data && data.length > 0 ? (

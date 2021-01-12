@@ -1,6 +1,6 @@
 import axios from 'axios'
-import { BASE_URL } from '../../config'
 import useLocalStorage from '../../hooks/useLocalStorage'
+import { BASE_URL } from '../../utils/config'
 import * as actions from '../types'
 import { setError, setSuccess } from './notificationActions'
 import { getUserInfo } from './userActions'

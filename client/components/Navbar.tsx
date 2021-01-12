@@ -13,7 +13,8 @@ const Navbar = () => {
 			<nav className='flex items-center justify-between w-3/4 mx-4 md:mx-0'>
 				<Link
 					to='/home'
-					className='flex items-center text-3xl italic font-bold text-center text-white duration-150 transform hover:scale-105'>
+					className='flex items-center text-3xl italic font-bold text-center text-white duration-150 transform hover:scale-105'
+				>
 					<FleetIcon className='w-8 h-8 mr-3' />
 					Fleet
 				</Link>
