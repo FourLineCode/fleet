@@ -12,7 +12,7 @@ interface Props {
 const MenuLink = ({ type, to, active = false, children, onClick }: Props) => {
 	const classes = `${
 		active ? 'text-green-400' : 'text-white'
-	} flex items-center px-10 py-1 rounded-full font-bold text-2xl transition duration-300 hover:bg-green-700 hover:bg-opacity-25 hover:text-green-400`
+	} flex items-center px-10 py-1 rounded-full font-bold text-2xl hover:bg-green-700 hover:bg-opacity-25 hover:text-green-400`
 
 	if (type === 'route') {
 		return (
@@ -29,9 +29,10 @@ const MenuLink = ({ type, to, active = false, children, onClick }: Props) => {
 	} else if (type === 'button') {
 		return (
 			<button
-				className={`px-10 py-1 rounded-full focus:ring-4 ring-green-700 ring-opacity-50 text-white font-bold text-2xl transition duration-300 hover:bg-green-400 bg-green-500 focus:outline-none`}
+				className={`px-10 py-1 rounded-full focus:ring-4 ring-green-700 ring-opacity-50 text-white font-bold text-2xl hover:bg-green-400 bg-green-500 focus:outline-none`}
 				// @ts-ignore: This function will be passed trust me
-				onClick={onClick}>
+				onClick={onClick}
+			>
 				{children}
 			</button>
 		)
