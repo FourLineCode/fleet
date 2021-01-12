@@ -5,10 +5,10 @@ import { format } from 'date-fns'
 import React, { useEffect, useState } from 'react'
 import { queryCache, useQuery } from 'react-query'
 import { useParams } from 'react-router-dom'
-import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import { UserState } from '../store/reducers/types'
 import Button from '../ui/Button'
+import { BASE_URL } from '../utils/config'
 import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
 import ProfileTimeline from './ProfileTimeline'
 
@@ -154,7 +154,8 @@ const ProfileCard = () => {
 			className={clsx(
 				userDataLoading && 'flex justify-center items-center',
 				'w-full h-full col-span-2 border-l border-r border-gray-500'
-			)}>
+			)}
+		>
 			{userData && !userDataLoading && (
 				<>
 					<div className='relative w-full h-60'>
@@ -183,7 +184,8 @@ const ProfileCard = () => {
 								variant={followed ? 'filled' : 'outlined'}
 								disabled={disableFollow}
 								onClick={handleFollow}
-								className={clsx('text-base', disableFollow && 'hidden')}>
+								className={clsx('text-base', disableFollow && 'hidden')}
+							>
 								{followed ? 'Unfollow' : 'Follow'}
 							</Button>
 						</div>

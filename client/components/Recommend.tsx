@@ -1,9 +1,9 @@
 import axios from 'axios'
 import React from 'react'
 import { useQuery } from 'react-query'
-import { BASE_URL } from '../config'
 import useAuthorization from '../hooks/useAuthorization'
 import { UserState } from '../store/reducers/types'
+import { BASE_URL } from '../utils/config'
 import UserInfo from './UserInfo'
 
 const Recommend = () => {

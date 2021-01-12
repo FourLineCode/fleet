@@ -1,16 +1,22 @@
 const useLocalStorage = () => {
 	const getLocalStorage = (key: string) => {
-		const data = JSON.parse(window.localStorage.getItem(key)!)
+		if (process.browser) {
+			const data = JSON.parse(window.localStorage.getItem(key)!)
 
-		return data
+			return data
+		}
 	}
 
 	const setLocalStorage = (key: string, value: any) => {
-		window.localStorage.setItem(key, JSON.stringify(value))
+		if (process.browser) {
+			window.localStorage.setItem(key, JSON.stringify(value))
+		}
 	}
 
 	const removeLocalStorage = (key: string) => {
-		window.localStorage.removeItem(key)
+		if (process.browser) {
+			window.localStorage.removeItem(key)
+		}
 	}
 
 	return { getLocalStorage, setLocalStorage, removeLocalStorage }
