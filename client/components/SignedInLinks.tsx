@@ -28,9 +28,9 @@ const SignedInLinks = () => {
 					<span className='text-gray-400'>@{user.username}</span>
 				</div>
 				<Link href={`/profile/${user.id}`}>
-					<div className='w-12 h-12 overflow-hidden border-2 border-green-500 rounded-full hover:border-green-400'>
+					<a className='w-12 h-12 overflow-hidden border-2 border-green-500 rounded-full hover:border-green-400'>
 						<img src='http://github.com/kesne.png' />
-					</div>
+					</a>
 				</Link>
 			</div>
 			<div className='h-6 w-0.5 bg-white'></div>
