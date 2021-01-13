@@ -1,6 +1,7 @@
 import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { queryCache, useQuery } from 'react-query'
 import useAuthorization from '../hooks/useAuthorization'
@@ -10,7 +11,6 @@ import { BASE_URL } from '../utils/config'
 import UserInfo from './UserInfo'
 
 interface Props {
-	id: string
 	tabType: TabTypes
 	visible: boolean
 	setVisible: (arg: any) => void
@@ -23,7 +23,9 @@ export const Tabs: Record<TabTypes, TabTypes> = {
 	following: 'following',
 }
 
-const FollowDetails = ({ id, tabType, visible, setVisible }: Props) => {
+const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
+	const router = useRouter()
+	const { id } = router.query
 	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
 	const auth = useAuthorization()
 
@@ -97,8 +99,10 @@ const FollowDetails = ({ id, tabType, visible, setVisible }: Props) => {
 				)}
 			>
 				{tab === Tabs.followers
-					? data && data.followers.map((follower: UserState) => <UserInfo user={follower} />)
-					: data && data.following.map((followed: UserState) => <UserInfo user={followed} />)}
+					? data &&
+					  data.followers.map((follower: UserState) => <UserInfo user={follower} key={follower.id} />)
+					: data &&
+					  data.following.map((followed: UserState) => <UserInfo user={followed} key={followed.id} />)}
 				{isLoading && (
 					<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
 				)}

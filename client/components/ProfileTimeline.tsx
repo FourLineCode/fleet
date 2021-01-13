@@ -1,22 +1,19 @@
 import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { queryCache, useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
 import useAuthorization from '../hooks/useAuthorization'
 import ErrorIcon from '../ui/icons/ErrorIcon'
 import { BASE_URL } from '../utils/config'
 import Fleet from './Fleet'
 import { FleetType } from './Timeline'
 
-interface Params {
-	id: string
-}
-
 const ProfileTimeline = () => {
 	const auth = useAuthorization()
-	const { id } = useParams<Params>()
+	const router = useRouter()
+	const { id } = router.query
 
 	const getFleets = async () => {
 		try {
