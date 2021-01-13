@@ -2,9 +2,9 @@ import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
 import { format } from 'date-fns'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { queryCache, useQuery } from 'react-query'
-import { useParams } from 'react-router-dom'
 import useAuthorization from '../hooks/useAuthorization'
 import { UserState } from '../store/reducers/types'
 import Button from '../ui/Button'
@@ -12,12 +12,9 @@ import { BASE_URL } from '../utils/config'
 import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
 import ProfileTimeline from './ProfileTimeline'
 
-interface Params {
-	id: string
-}
-
 const ProfileCard = () => {
-	const { id } = useParams<Params>()
+	const router = useRouter()
+	const { id } = router.query
 	const auth = useAuthorization()
 	const [userData, setUserData] = useState<UserState>()
 	const [userDataLoading, setUserDataLoading] = useState(false)
@@ -42,6 +39,7 @@ const ProfileCard = () => {
 			})
 			setUserData(res.data)
 			setUserDataLoading(false)
+			return
 		} catch (error) {
 			console.log(error.response.data.message)
 		}
@@ -213,12 +211,7 @@ const ProfileCard = () => {
 						</div>
 						<ProfileTimeline />
 					</div>
-					<FollowDetails
-						id={id}
-						tabType={tab}
-						visible={showFollowDetails}
-						setVisible={setShowFollowDetails}
-					/>
+					<FollowDetails tabType={tab} visible={showFollowDetails} setVisible={setShowFollowDetails} />
 				</>
 			)}
 			{userDataLoading && (

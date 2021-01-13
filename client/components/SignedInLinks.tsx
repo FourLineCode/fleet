@@ -29,7 +29,7 @@ const SignedInLinks = () => {
 				</div>
 				<Link href={`/profile/${user.id}`}>
 					<a className='w-12 h-12 overflow-hidden border-2 border-green-500 rounded-full hover:border-green-400'>
-						<img src='http://github.com/kesne.png' />
+						<img src='http://github.com/kesne.png' alt='user-logo' />
 					</a>
 				</Link>
 			</div>

@@ -4,7 +4,7 @@ import { ActionTypes, NotificationState } from './types'
 const initState: NotificationState = {
 	show: false,
 	message: '',
-	type: '',
+	type: 'success',
 }
 
 const errorReducer = (state = initState, { type, payload }: ActionTypes) => {
@@ -27,7 +27,7 @@ const errorReducer = (state = initState, { type, payload }: ActionTypes) => {
 			return {
 				...state,
 				message: '',
-				type: '',
+				type: 'success',
 			}
 		}
 		case actions.SHOW_NOTIFICATION: {

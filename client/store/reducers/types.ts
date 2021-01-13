@@ -19,11 +19,10 @@ export interface AuthState {
 export interface NotificationState {
 	show: boolean
 	message: string
-	type: 'error' | 'success' | ''
+	type: 'error' | 'success'
 }
 
 export interface UserState {
-	id?: string | null
 	id: string | null
 	username: string | null
 	displayName: string | null

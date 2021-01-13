@@ -14,7 +14,7 @@ const UserInfo = ({ user }: Props) => {
 			<div className='flex items-center'>
 				<Link href={`/profile/${userProfileId}`}>
 					<a className='flex items-center justify-center w-12 h-12 mr-2 overflow-hidden rounded-full'>
-						<img src='http://github.com/tnarla.png' />
+						<img src='http://github.com/tnarla.png' alt='profile-photo' />
 					</a>
 				</Link>
 				<Link href={`/profile/${userProfileId}`}>

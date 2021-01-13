@@ -22,7 +22,6 @@ const Fleet = ({ fleet }: Props) => {
 	const user = useCurrentUser()
 	const queryCache = useQueryCache()
 	const { pathname } = useRouter()
-	console.log(fleet)
 
 	// TODO: make this cleaner
 	const likeHandler = async () => {
@@ -67,20 +66,20 @@ const Fleet = ({ fleet }: Props) => {
 		<div className='w-3/4 px-2 pt-2 mx-auto border border-gray-700 rounded-lg shadow-xl'>
 			<div className='flex space-x-1'>
 				<Link href={`/profile/${fleet.author.id}`}>
-					<div className='flex items-center justify-center flex-shrink-0 w-10 h-10 mt-2 mr-2 overflow-hidden rounded-full'>
-						<img src='http://github.com/kesne.png' />
-					</div>
+					<a className='flex items-center justify-center flex-shrink-0 w-10 h-10 mt-2 mr-2 overflow-hidden rounded-full'>
+						<img src='http://github.com/kesne.png' alt='profile-photo' />
+					</a>
 				</Link>
 				<div>
 					<Link href={`/profile/${fleet.author.id}`}>
-						<div className='text-base font-bold text-white'>
+						<a className='text-base font-bold text-white'>
 							{fleet.author.displayName}{' '}
 							<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
 							{' • '}
 							<span className='text-sm font-normal text-gray-400'>
 								{formatDistanceToNow(new Date(fleet.createdAt))}
 							</span>
-						</div>
+						</a>
 					</Link>
 					<div className='text-sm text-white break-all'>{fleet.body}</div>
 				</div>
