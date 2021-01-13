@@ -109,11 +109,11 @@ router.post('/signin', async (req, res, next) => {
 			id: user.id,
 		}
 
-		const token = jwt.sign(payload, process.env.JWT_SECRET!, {
+		const token = jwt.sign(payload, process.env.JWT_SECRET || 'sercet', {
 			expiresIn: '24h',
 		})
 
-		const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET!, {
+		const refreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || 'sercet', {
 			expiresIn: '1y',
 		})
 
@@ -137,7 +137,7 @@ router.get('/refreshtoken', async (req, res, next) => {
 			throw new Error('Access denied')
 		}
 
-		const verifiedUser = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET!) as User
+		const verifiedUser = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET || 'sercet') as User
 		if (!verifiedUser) {
 			res.status(StatusCodes.FORBIDDEN)
 			throw new Error('Access denied')
@@ -147,7 +147,7 @@ router.get('/refreshtoken', async (req, res, next) => {
 			id: verifiedUser.id,
 		}
 
-		const newToken = jwt.sign(payload, process.env.JWT_SECRET!, {
+		const newToken = jwt.sign(payload, process.env.JWT_SECRET || 'sercet', {
 			expiresIn: '24h',
 		})
 
