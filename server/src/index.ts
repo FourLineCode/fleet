@@ -15,7 +15,7 @@ const app = express()
 const init = async () => {
 	try {
 		app.use(express.json())
-		app.use(cors({ origin: process.env.ORIGIN }))
+		app.use(cors({ origin: process.env.ORIGIN || 'http://localhost:3000' }))
 		app.use(morgan('dev'))
 		app.use(helmet())
 		app.use(cookieParser())
