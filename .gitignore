@@ -1,6 +1,6 @@
 **/node_modules
 **/dist
-**/index.css
+**/.next
 **/build
 **/.cache
 **/.env

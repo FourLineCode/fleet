@@ -6,8 +6,9 @@
 	"author": "ItzAkmal <akmal3535.ah@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"start": "concurrently -n \" server , client \" -c \"yellow.bold,green.bold\" \"cd server && yarn dev\" \"cd client && yarn start\"",
+		"dev": "concurrently -n \" server , client \" -c \"yellow.bold,green.bold\" \"cd server && yarn dev\" \"cd client && yarn dev\"",
 		"build": "concurrently -n \" server , client \" -c \"yellow.bold,green.bold\" \"cd server && yarn build\" \"cd client && yarn build\"",
+		"prod": "concurrently -n \" server , client \" -c \"yellow.bold,green.bold\" \"cd server && yarn start\" \"cd client && yarn build && yarn start\"",
 		"dep": "concurrently -n \" server , client \" -c \"yellow.bold,green.bold\" \"cd server && yarn\" \"cd client && yarn\""
 	},
 	"dependencies": {

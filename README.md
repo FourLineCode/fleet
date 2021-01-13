@@ -6,6 +6,7 @@
 
 ## Typescript
 
+-   [Next.js](https://nextjs.org/)
 -   [React](https://reactjs.org)
 -   [Redux](https://redux.js.org)
 -   [Tailwind CSS](https://tailwindcss.com/)
