@@ -23,7 +23,7 @@ const auth = async (req: Request, res: Response, next: NextFunction) => {
 			throw new Error('Authorization failed')
 		}
 
-		const validated = jwt.verify(token, process.env.JWT_SECRET!) as User
+		const validated = jwt.verify(token, process.env.JWT_SECRET || 'sercet') as User
 		if (!validated) {
 			res.status(StatusCodes.FORBIDDEN)
 			throw new Error('Authorization failed')
