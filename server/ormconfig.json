@@ -3,5 +3,5 @@
 	"database": "./db/database.sqlite",
 	"logging": false,
 	"synchronize": true,
-	"entities": ["./src/entity/**/*.ts"]
+	"entities": ["./build/src/entity/**/*.js"]
 }
