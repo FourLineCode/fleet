@@ -64,6 +64,11 @@ export const refreshAuthToken = () => async (dispatch: any) => {
 			dispatch({ type: actions.SIGN_IN, payload: data })
 			dispatch(getUserInfo())
 		}
+
+		const { setLocalStorage } = useLocalStorage()
+
+		setLocalStorage('refresh-token', data.refreshToken)
+
 		dispatch({ type: actions.SET_NOT_REFRESHING })
 	} catch (error) {
 		if (error.response.data) {
