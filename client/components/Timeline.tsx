@@ -47,7 +47,7 @@ const Timeline = () => {
 	return (
 		<div
 			className={clsx(
-				'h-full col-span-2 border-l border-r border-gray-500 py-4',
+				'h-full col-span-3 xl:col-span-2 border-l lg:border-r border-gray-500 py-4',
 				isLoading ? 'flex items-center justify-center' : 'flex-col space-y-4'
 			)}
 		>
