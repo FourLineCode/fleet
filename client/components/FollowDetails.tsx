@@ -64,7 +64,7 @@ const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
 			visible={visible}
 			setVisible={setVisible}
 			position='center'
-			className='flex flex-col w-full bg-gray-800 rounded-lg shadow-lg md:w-1/5 h-96'
+			className='flex flex-col bg-gray-800 rounded-lg shadow-lg w-96 h-96'
 		>
 			<div className='flex w-full font-semibold text-white'>
 				<div

@@ -42,9 +42,9 @@ const Singin = () => {
 
 	return (
 		<Layout title='Sign In | Fleet'>
-			<div className='flex w-full h-screen bg-gray-700 justify-evenly'>
+			<div className='flex w-full h-screen px-2 bg-gray-700 justify-evenly md:px-0'>
 				<SocialMediaIllustration className='hidden mt-16 h-3/5 md:block' />
-				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-20 w-96 md:mr-16'>
+				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-20 md:ml-2 w-96 md:mr-16'>
 					<span className='my-4 text-5xl italic font-semibold text-center text-white'>Sign in</span>
 					<Input label='Email' type='email' name='email' />
 					<Input label='Password' type='password' name='password' />

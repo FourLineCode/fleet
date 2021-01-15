@@ -63,7 +63,7 @@ const Fleet = ({ fleet }: Props) => {
 	})
 
 	return (
-		<div className='w-3/4 px-2 pt-2 mx-auto border border-gray-700 rounded-lg shadow-xl cursor-pointer hover:bg-gray-900 hover:bg-opacity-50'>
+		<div className='w-full px-2 pt-2 border border-gray-700 rounded-lg shadow-xl cursor-pointer lg:mx-auto lg:w-3/4 hover:bg-gray-900 hover:bg-opacity-50'>
 			<div className='flex space-x-1'>
 				<Link href={`/profile/${fleet.author.id}`}>
 					<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-green-500'>

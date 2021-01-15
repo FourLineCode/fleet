@@ -12,7 +12,7 @@ interface Props {
 const MenuLink = ({ type, to, active = false, children, onClick }: Props) => {
 	const classes = `${
 		active ? 'text-green-400' : 'text-white'
-	} px-10 py-1 rounded-lg font-bold text-2xl hover:bg-green-700 hover:bg-opacity-25 hover:text-green-400`
+	} px-4 xl:px-10 py-1 rounded-lg font-bold text-2xl hover:bg-green-700 hover:bg-opacity-25 hover:text-green-400`
 
 	if (type === 'route') {
 		return (
