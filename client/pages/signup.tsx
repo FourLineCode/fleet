@@ -66,9 +66,9 @@ const Signup = () => {
 
 	return (
 		<Layout title='Sign Up | Fleet'>
-			<div className='flex w-full h-screen bg-gray-700 justify-evenly'>
+			<div className='flex w-full h-screen px-2 bg-gray-700 justify-evenly md:px-0'>
 				<SocialMediaIllustration className='hidden mt-16 h-3/5 md:block' />
-				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-8 w-96 md:mr-16'>
+				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-8 md:ml-2 w-96 md:mr-16'>
 					<span className='my-4 text-5xl italic font-semibold text-center text-white'>Sign up</span>
 					<Input label='Email' type='email' name='email' />
 					<Input label='Username' type='text' name='username' />
