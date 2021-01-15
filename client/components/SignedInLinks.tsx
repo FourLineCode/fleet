@@ -42,7 +42,7 @@ const SignedInLinks = () => {
 							>
 								<Menu.Items
 									static
-									className='absolute right-0 w-48 p-2 mt-1 space-y-1 text-white bg-gray-800 border-2 border-green-500 rounded-lg shadow-lg top-full focus:outline-none'
+									className='absolute right-0 z-50 w-48 p-2 mt-1 space-y-1 text-white bg-gray-800 border-2 border-green-500 rounded-lg shadow-lg top-full focus:outline-none'
 								>
 									<div className='px-4 py-2 text-left border-b border-gray-700'>
 										<p className='text-xs text-gray-500'>Signed in as</p>
