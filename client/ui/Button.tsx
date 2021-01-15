@@ -27,7 +27,7 @@ const Button = ({ type, variant = 'filled', disabled = false, onClick, children,
 				disabled
 					? 'cursor-not-allowed border-gray-600 text-gray-500 bg-transparent'
 					: 'border-green-500 text-white',
-				'px-4 py-2 font-semibold rounded-lg focus:outline-none focus:ring-4 ring-green-700 ring-opacity-50 border-2 '
+				'px-4 py-2 font-semibold rounded-full focus:outline-none focus:ring-4 ring-green-700 ring-opacity-50 border-2 '
 			)}
 		>
 			{children}

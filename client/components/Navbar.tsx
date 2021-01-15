@@ -13,7 +13,7 @@ const Navbar = () => {
 
 	return (
 		<div className='flex justify-center w-full bg-gray-800 border-b border-gray-500 h-14'>
-			<nav className='flex items-center justify-between w-3/4 mx-4 md:mx-0'>
+			<nav className='flex items-center justify-between w-full mx-4 md:w-3/4 md:mx-0'>
 				<Link href={redirect}>
 					<a className='flex items-center text-3xl italic font-bold text-center text-white duration-150 transform hover:scale-105'>
 						<FleetIcon className='w-8 h-8 mr-3' />

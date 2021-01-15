@@ -87,7 +87,7 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 		>
 			<div className='flex justify-end w-full'>
 				<IconButton onClick={() => setVisible(false)}>
-					<CloseIcon className='w-5 h-5 text-white hover:text-green-400' />
+					<CloseIcon className='w-5 h-5 text-white transform hover:text-green-400 hover:scale-110' />
 				</IconButton>
 			</div>
 			<div className='w-full h-full px-2'>
