@@ -151,10 +151,15 @@ router.get('/refreshtoken', async (req, res, next) => {
 			expiresIn: '24h',
 		})
 
+		const newRefreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || 'sercet', {
+			expiresIn: '1y',
+		})
+
 		res.status(StatusCodes.OK).json({
 			success: true,
 			id: verifiedUser.id,
 			token: newToken,
+			refreshToken: newRefreshToken,
 		})
 	} catch (error) {
 		next(error)
