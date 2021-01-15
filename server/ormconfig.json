@@ -1,7 +1,0 @@
-{
-	"type": "sqlite",
-	"database": "./db/database.sqlite",
-	"logging": false,
-	"synchronize": true,
-	"entities": ["./build/src/entity/**/*.js"]
-}
