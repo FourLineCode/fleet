@@ -1,6 +1,6 @@
 import axios from 'axios'
 import clsx from 'clsx'
-import React, { createRef, useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { queryCache, useMutation } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
@@ -21,7 +21,7 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 	const [body, setBody] = useState('')
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
-	const inputRef = createRef<HTMLTextAreaElement>()
+	const inputRef = useRef<HTMLTextAreaElement>(null)
 
 	const composeFleet = async () => {
 		try {
@@ -74,7 +74,9 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 
 	useEffect(() => {
 		if (visible) {
-			inputRef.current?.focus()
+			setTimeout(() => {
+				inputRef.current?.focus()
+			}, 0)
 		}
 	}, [visible])
 
@@ -98,7 +100,7 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 					label='Fleet'
 					name='body'
 					ref={inputRef}
-					className='h-24 text-white bg-gray-700 focus:bg-gray-600'
+					className='h-24 text-white transition duration-150 bg-gray-800 focus:bg-gray-700'
 				/>
 				<div className='flex items-center justify-between w-full'>
 					<span className={clsx(body.length > 240 ? 'text-red-600' : 'text-white')}>{body.length}/240</span>
