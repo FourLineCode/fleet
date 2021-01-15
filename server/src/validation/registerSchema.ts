@@ -1,4 +1,4 @@
-import Joi from '@hapi/joi'
+import Joi from 'joi'
 
 const registerShema = Joi.object({
 	email: Joi.string().email().required(),

@@ -9,7 +9,6 @@
 		"dev": "ts-node-dev --respawn src/index.ts"
 	},
 	"dependencies": {
-		"@hapi/joi": "^17.1.1",
 		"bcryptjs": "^2.4.3",
 		"class-validator": "^0.12.2",
 		"cookie-parser": "^1.4.5",
@@ -19,6 +18,7 @@
 		"express": "^4.17.1",
 		"helmet": "^4.2.0",
 		"http-status-codes": "^2.1.4",
+		"joi": "^17.3.0",
 		"jsonwebtoken": "^8.5.1",
 		"morgan": "^1.10.0",
 		"reflect-metadata": "^0.1.13",
@@ -31,8 +31,6 @@
 		"@types/cors": "^2.8.8",
 		"@types/esm": "^3.2.0",
 		"@types/express": "^4.17.9",
-		"@types/hapi__joi": "^17.1.6",
-		"@types/helmet": "^4.0.0",
 		"@types/jsonwebtoken": "^8.5.0",
 		"@types/morgan": "^1.9.2",
 		"@types/sqlite3": "^3.1.6",
