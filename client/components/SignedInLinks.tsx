@@ -27,8 +27,8 @@ const SignedInLinks = () => {
 					{({ open }) => (
 						<>
 							<Menu.Button className='focus:outline-none'>
-								<div className='inline-flex items-center w-12 h-12 overflow-hidden border-2 border-green-500 rounded-lg hover:border-green-400'>
-									<img src='http://github.com/kesne.png' alt='user-logo' />
+								<div className='inline-flex items-center w-12 h-12 overflow-hidden border-2 border-white rounded-lg hover:border-green-400'>
+									<img src='http://github.com/RobinMalfait.png' alt='user-logo' />
 								</div>
 							</Menu.Button>
 							<Transition
