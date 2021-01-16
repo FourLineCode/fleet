@@ -7,7 +7,7 @@ const Messages = () => {
 		<ProtectedLayout title='Messages | Fleet'>
 			<div className='grid min-h-screen grid-cols-4 bg-gray-800 gap-x-4'>
 				<Menu />
-				<div className='h-full border-l border-r border-gray-500'>
+				<div className='h-full border-r border-gray-500 md:border-l'>
 					<h1 className='text-2xl text-center text-white'>People</h1>
 				</div>
 				<div className='h-full col-span-2'>
