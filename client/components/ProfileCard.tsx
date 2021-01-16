@@ -167,7 +167,7 @@ const ProfileCard = () => {
 					<div className='flex justify-center'>
 						<img
 							className='z-10 w-40 h-40 overflow-hidden border-4 border-white rounded-xl -mt-28'
-							src='http://github.com/kesne.png'
+							src='http://github.com/RobinMalfait.png'
 							alt='profile-photo'
 						/>
 					</div>

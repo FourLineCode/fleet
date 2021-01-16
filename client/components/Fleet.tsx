@@ -67,7 +67,7 @@ const Fleet = ({ fleet }: Props) => {
 			<div className='flex space-x-1'>
 				<Link href={`/profile/${fleet.author.id}`}>
 					<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-green-500'>
-						<img src='http://github.com/kesne.png' alt='profile-photo' />
+						<img src='http://github.com/RobinMalfait.png' alt='profile-photo' />
 					</a>
 				</Link>
 				<div>

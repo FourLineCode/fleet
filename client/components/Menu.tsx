@@ -21,7 +21,7 @@ const Menu = () => {
 
 	return (
 		<div className='hidden h-full px-2 py-4 md:block md:col-span-1'>
-			<div className='flex justify-center lg:justify-end'>
+			<div className='flex justify-center xl:justify-end'>
 				<div className='flex flex-col space-y-4'>
 					<MenuLink type='route' to='/home' active={pathname === '/home'}>
 						<a className='flex items-center'>
