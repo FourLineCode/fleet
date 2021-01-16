@@ -151,7 +151,7 @@ const ProfileCard = () => {
 		<div
 			className={clsx(
 				userDataLoading && 'flex justify-center items-center',
-				'w-full h-full col-span-4 md:col-span-3 xl:col-span-2 border-l border-r border-gray-500'
+				'w-full h-full col-span-4 md:col-span-3 xl:col-span-2 md:border-l lg:border-r border-gray-500'
 			)}
 		>
 			{userData && !userDataLoading && (
