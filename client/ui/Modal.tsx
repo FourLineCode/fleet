@@ -12,7 +12,7 @@ interface Props {
 
 const POSITIONS: Record<string, string> = {
 	top: 'top-20',
-	center: 'top-72',
+	center: 'top-44 lg:top-72',
 }
 
 const Modal = ({ visible, setVisible, className, position, children }: Props) => {
