@@ -7,7 +7,6 @@ import Layout from '../components/Layout'
 import { signin } from '../store/actions/authActions'
 import { setError, setSuccess } from '../store/actions/notificationActions'
 import Button from '../ui/Button'
-import SocialMediaIllustration from '../ui/Illustrations/SocialMediaIllustration'
 import Input from '../ui/Input'
 import TextArea from '../ui/TextArea'
 import { BASE_URL } from '../utils/config'
@@ -66,10 +65,9 @@ const Signup = () => {
 
 	return (
 		<Layout title='Sign Up | Fleet'>
-			<div className='flex w-full h-screen px-2 bg-gray-700 justify-evenly md:px-0'>
-				<SocialMediaIllustration className='hidden mt-16 h-3/5 md:block' />
-				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-8 md:ml-2 w-96 md:mr-16'>
-					<span className='my-4 text-5xl italic font-semibold text-center text-white'>Sign up</span>
+			<div className='flex justify-center w-full h-screen px-2 bg-gray-700 md:px-0'>
+				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-8 w-96'>
+					<span className='my-4 text-5xl italic font-bold text-center text-white'>Sign up</span>
 					<Input label='Email' type='email' name='email' />
 					<Input label='Username' type='text' name='username' />
 					<Input label='Display Name' type='text' name='displayName' />
