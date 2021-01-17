@@ -15,9 +15,10 @@ const Navbar = () => {
 		<div className='sticky top-0 left-0 z-40 flex justify-center w-full bg-gray-800 border-b border-gray-500 h-14'>
 			<nav className='flex items-center justify-between w-full mx-4 lg:w-3/4 lg:mx-0'>
 				<Link href={redirect}>
-					<a className='flex items-center text-3xl italic font-bold text-center text-white duration-150 transform hover:scale-105'>
+					<a className='flex items-center italic font-bold text-center text-white duration-150 transform hover:scale-105'>
 						<FleetIcon className='w-8 h-8 mr-3' />
-						Fl<span className='underline'>eet</span>
+						<span className='text-4xl'>Fl</span>
+						<span className='text-3xl underline'>eet</span>
 					</a>
 				</Link>
 				<div className='flex items-center space-x-5 text-center'>
