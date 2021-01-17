@@ -4,9 +4,11 @@ import { getManager } from 'typeorm'
 import Fleet from '../entity/Fleet'
 import Follow from '../entity/Follow'
 import Like from '../entity/Like'
+import Reply from '../entity/Reply'
 import User from '../entity/User'
 import auth from '../middlewares/auth'
 import fleetSchema from '../validation/fleetSchema'
+import replySchema from '../validation/replySchema'
 
 const router = Router()
 
@@ -19,7 +21,16 @@ router.get('/', auth, async (req, res, next) => {
 				.createQueryBuilder('fleet')
 				.leftJoinAndSelect('fleet.author', 'author')
 				.leftJoinAndSelect('fleet.likes', 'likes')
-				.select(['fleet', 'likes', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
+				.leftJoinAndSelect('fleet.replies', 'replies')
+				.select([
+					'fleet',
+					'likes',
+					'replies',
+					'author.id',
+					'author.username',
+					'author.displayName',
+					'author.isAdmin',
+				])
 				.getMany()) || []
 
 		res.status(StatusCodes.OK).json(fleets.reverse())
@@ -37,7 +48,16 @@ router.get('/home', auth, async (req, res, next) => {
 				.createQueryBuilder('fleet')
 				.leftJoinAndSelect('fleet.author', 'author')
 				.leftJoinAndSelect('fleet.likes', 'likes')
-				.select(['fleet', 'likes', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
+				.leftJoinAndSelect('fleet.replies', 'replies')
+				.select([
+					'fleet',
+					'likes',
+					'replies',
+					'author.id',
+					'author.username',
+					'author.displayName',
+					'author.isAdmin',
+				])
 				.getMany()) || []
 
 		const followedUsers = await getManager()
@@ -68,7 +88,21 @@ router.get('/post/:id', auth, async (req, res, next) => {
 			.where('fleet.id = :id', { id: req.params.id })
 			.leftJoinAndSelect('fleet.author', 'author')
 			.leftJoinAndSelect('fleet.likes', 'likes')
-			.select(['fleet', 'likes', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
+			.leftJoinAndSelect('fleet.replies', 'replies')
+			.leftJoinAndSelect('replies.user', 'user')
+			.select([
+				'fleet',
+				'likes',
+				'replies',
+				'user.id',
+				'user.username',
+				'user.displayName',
+				'user.isAdmin',
+				'author.id',
+				'author.username',
+				'author.displayName',
+				'author.isAdmin',
+			])
 			.getOne()
 
 		if (!fleet) {
@@ -92,10 +126,12 @@ router.get('/timeline/:id', auth, async (req, res, next) => {
 			.leftJoinAndSelect('user.fleets', 'fleets')
 			.leftJoinAndSelect('fleets.author', 'author')
 			.leftJoinAndSelect('fleets.likes', 'likes')
+			.leftJoinAndSelect('fleets.replies', 'replies')
 			.select([
 				'user',
 				'fleets',
 				'likes',
+				'replies',
 				'author.id',
 				'author.username',
 				'author.displayName',
@@ -108,7 +144,6 @@ router.get('/timeline/:id', auth, async (req, res, next) => {
 
 		res.status(StatusCodes.OK).json(fleets.reverse())
 	} catch (error) {
-		console.log(error)
 		next(error)
 	}
 })
@@ -190,7 +225,7 @@ router.post('/unlike/:id', auth, async (req, res, next) => {
 	}
 })
 
-// Like a fleet
+// Check if user likes a fleet
 router.get('/checklike/:id', auth, async (req, res, next) => {
 	try {
 		const fleet = await Fleet.findOne({ id: req.params.id })
@@ -207,6 +242,32 @@ router.get('/checklike/:id', auth, async (req, res, next) => {
 		}
 
 		res.status(StatusCodes.OK).json({ liked: true })
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Reply to a fleet
+router.post('/reply/:id', auth, async (req, res, next) => {
+	try {
+		const fleet = await Fleet.findOne({ id: req.params.id })
+
+		if (!fleet) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('Fleet not found')
+		}
+
+		const { error } = replySchema.validate(req.body)
+		if (error) {
+			const [err] = error.details
+			res.status(StatusCodes.BAD_REQUEST)
+			throw err
+		}
+
+		const reply = Reply.create({ fleet: fleet, user: req.user, body: req.body.body })
+		await reply.save()
+
+		res.status(StatusCodes.OK).json({ success: true, reply: reply })
 	} catch (error) {
 		next(error)
 	}

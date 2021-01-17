@@ -4,6 +4,7 @@ import Follow from '../entity/Follow'
 import Fleet from './Fleet'
 import InternalEntity from './InternalEntity'
 import Like from './Like'
+import Reply from './Reply'
 
 @Entity()
 export default class User extends InternalEntity {
@@ -37,4 +38,7 @@ export default class User extends InternalEntity {
 
 	@OneToMany(() => Like, (likes) => likes.user)
 	likedFleets: Like[]
+
+	@OneToMany(() => Reply, (replies) => replies.user)
+	replies: Reply[]
 }

@@ -4,7 +4,9 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { queryCache, useQuery } from 'react-query'
+import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
+import { setError } from '../store/actions/notificationActions'
 import ErrorIcon from '../ui/icons/ErrorIcon'
 import { BASE_URL } from '../utils/config'
 import Fleet from './Fleet'
@@ -14,6 +16,7 @@ const ProfileTimeline = () => {
 	const auth = useAuthorization()
 	const router = useRouter()
 	const { id } = router.query
+	const dispatch = useDispatch()
 
 	const getFleets = async () => {
 		try {
@@ -24,7 +27,7 @@ const ProfileTimeline = () => {
 			})
 			return res.data
 		} catch (error) {
-			console.log(error)
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 
