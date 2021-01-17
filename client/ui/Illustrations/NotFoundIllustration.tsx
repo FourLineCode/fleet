@@ -12,7 +12,8 @@ const NotFoundIllustration = ({ className }: Props) => {
 			data-name='Layer 1'
 			xmlns='http://www.w3.org/2000/svg'
 			xmlnsXlink='http://www.w3.org/1999/xlink'
-			viewBox='0 0 315.35 305.59'>
+			viewBox='0 0 315.35 305.59'
+		>
 			<defs>
 				<linearGradient
 					id='linear-gradient'
@@ -20,7 +21,8 @@ const NotFoundIllustration = ({ className }: Props) => {
 					y1={259}
 					x2='159.63'
 					y2='341.54'
-					gradientUnits='userSpaceOnUse'>
+					gradientUnits='userSpaceOnUse'
+				>
 					<stop offset={0} stopOpacity={0} />
 					<stop offset='0.95' />
 				</linearGradient>
@@ -30,7 +32,8 @@ const NotFoundIllustration = ({ className }: Props) => {
 					y1='231.63'
 					x2='64.79'
 					y2='116.55'
-					gradientUnits='userSpaceOnUse'>
+					gradientUnits='userSpaceOnUse'
+				>
 					<stop offset={0} stopOpacity={0} />
 					<stop offset='0.99' />
 				</linearGradient>
@@ -55,11 +58,11 @@ const NotFoundIllustration = ({ className }: Props) => {
 			<path
 				d='M154.3,205.44c20.68,9.09,44.07,8.95,66.66,8.65,11.85-.15,24.11-.39,34.9-5.3,15-6.83,24.74-21.49,37.9-31.41,15.11-11.41,34.45-16.33,49.1-28.32a63.39,63.39,0,0,0,1.63-96.76c-7.75-6.78-17-11.57-26.17-16.28l-46.05-23.7c-10.79-5.55-21.86-11.19-33.9-12.7C228.21-1.65,217.93.11,208,2.38,179.7,8.78,151.62,19.81,130.86,40,113,57.4,101.34,80.77,81.8,96.26c-5,3.95-10.54,7.44-14.18,12.66-13.1,18.81.17,42.84,17.19,52.48C108.38,174.74,129.59,194.59,154.3,205.44Z'
 				transform='translate(-58.19 0.8)'
-				fill='#10b981'
+				fill='#333333'
 				opacity='0.18'
 				style={{ isolation: 'isolate' }}
 			/>
-			<ellipse cx='157.68' cy='286.11' rx='157.68' ry='19.48' fill='#10b981' />
+			<ellipse cx='157.68' cy='286.11' rx='157.68' ry='19.48' fill='#333333' />
 			<ellipse cx='157.68' cy='286.11' rx='157.68' ry='19.48' fill='url(#linear-gradient)' />
 			<path
 				d='M129.49,95A26.4,26.4,0,0,0,109.31,91a7.65,7.65,0,0,0-3.48,1.49c-2.37,2-2,5.72-2.63,8.78-.77,3.77-3.3,7-4.21,10.72a24.15,24.15,0,0,0-.09,8.48,139.76,139.76,0,0,0,7.91,32.42l-11,144.91s11.25,1.82,34.07,3.64l2.42-138Z'
@@ -79,9 +82,9 @@ const NotFoundIllustration = ({ className }: Props) => {
 				points='263.7 176.1 258.53 202.65 247.52 226.6 246.55 174.48 263.7 176.1'
 				fill='url(#linear-gradient-3)'
 			/>
-			<rect x='52.64' y='48.4' width='211.71' height='133.37' rx='8.37' fill='#10b981' />
+			<rect x='52.64' y='48.4' width='211.71' height='133.37' rx='8.37' fill='#333333' />
 			<rect x='52.64' y='48.4' width='211.71' height='133.37' rx='8.37' fill='url(#linear-gradient-4)' />
-			<rect x='52.64' y='43.05' width='211.71' height='133.37' rx='8.37' fill='#10b981' />
+			<rect x='52.64' y='43.05' width='211.71' height='133.37' rx='8.37' fill='#333333' />
 			<path
 				d='M129.58,97.85c3.37-3.74,3.37-3.74,7.18-8.22l16.23-19a75.55,75.55,0,0,0,7-8.9h15.33a109.89,109.89,0,0,0-.59,12.41V98.45h2.17a52,52,0,0,0,7.4-.6v13.62a59.12,59.12,0,0,0-7.33-.45h-2.24v3.74a53.39,53.39,0,0,0,.59,9.2h-15.4a66.1,66.1,0,0,0,.59-9.35V111H139.31c-4.87,0-7,.07-9.73.29Zm31-7.92c0-3.37.15-7.48.45-10.77-1.5,2.09-2.62,3.59-4.64,6.13L145.44,98.6h15.11Z'
 				transform='translate(-58.19 0.8)'
