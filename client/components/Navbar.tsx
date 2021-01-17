@@ -17,7 +17,7 @@ const Navbar = () => {
 				<Link href={redirect}>
 					<a className='flex items-center text-3xl italic font-bold text-center text-white duration-150 transform hover:scale-105'>
 						<FleetIcon className='w-8 h-8 mr-3' />
-						Fleet
+						Fl<span className='underline'>eet</span>
 					</a>
 				</Link>
 				<div className='flex items-center space-x-5 text-center'>
