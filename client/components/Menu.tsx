@@ -11,7 +11,6 @@ import FleetComposer from './FleetComposer'
 
 const Menu = () => {
 	const [visible, setVisible] = useState(false)
-	const [visibleMobile, setVisibleMobile] = useState(false)
 	const auth = useAuthorization()
 	const { pathname } = useRouter()
 
@@ -19,12 +18,6 @@ const Menu = () => {
 		e.preventDefault()
 
 		setVisible(!visible)
-	}
-
-	const showFleetComposerMobile = (e: React.ChangeEvent<HTMLButtonElement>) => {
-		e.preventDefault()
-
-		setVisibleMobile(!visible)
 	}
 
 	return (
@@ -61,7 +54,6 @@ const Menu = () => {
 							</div>
 						</MenuLink>
 					</div>
-					<FleetComposer visible={visible} setVisible={setVisible} />
 				</div>
 			</div>
 			<div className='fixed bottom-0 left-0 z-50 block w-full h-16 bg-gray-800 border-t-2 border-green-500 rounded-t-md md:hidden'>
@@ -76,7 +68,7 @@ const Menu = () => {
 							<MessageIcon className='w-6 h-6' />
 						</a>
 					</MenuLink>
-					<MenuLink type='button' onClick={showFleetComposerMobile}>
+					<MenuLink type='button' onClick={showFleetComposer}>
 						<PlusIcon className='w-6 h-6 my-1 text-white' />
 					</MenuLink>
 					<MenuLink type='route' to={`/profile/${auth.id}`} active={pathname.startsWith('/profile')}>
@@ -90,8 +82,8 @@ const Menu = () => {
 						</div>
 					</MenuLink>
 				</div>
-				<FleetComposer visible={visibleMobile} setVisible={setVisibleMobile} />
 			</div>
+			<FleetComposer visible={visible} setVisible={setVisible} />
 		</>
 	)
 }
