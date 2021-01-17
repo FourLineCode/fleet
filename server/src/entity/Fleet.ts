@@ -1,6 +1,7 @@
 import { Max } from 'class-validator'
-import { Column, Entity, ManyToOne } from 'typeorm'
+import { Column, Entity, ManyToOne, OneToMany } from 'typeorm'
 import InternalEntity from './InternalEntity'
+import Like from './Like'
 import User from './User'
 
 @Entity()
@@ -12,9 +13,6 @@ export default class Fleet extends InternalEntity {
 	@ManyToOne(() => User, (author) => author.fleets)
 	author: User
 
-	@Column({ default: 0 })
-	likes: number
-
-	@Column({ type: 'simple-array' })
-	likers: string[]
+	@OneToMany(() => Like, (likes) => likes.fleet)
+	likes: Like[]
 }

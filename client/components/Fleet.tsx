@@ -2,10 +2,9 @@ import axios from 'axios'
 import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useMutation, useQueryCache } from 'react-query'
 import useAuthorization from '../hooks/useAuthorization'
-import useCurrentUser from '../hooks/useCurrentUser'
 import IconButton from '../ui/IconButton'
 import HeartFilledIcon from '../ui/icons/HeartFilledIcon'
 import HeartIcon from '../ui/icons/HeartIcon'
@@ -19,14 +18,16 @@ interface Props {
 
 const Fleet = ({ fleet }: Props) => {
 	const auth = useAuthorization()
-	const user = useCurrentUser()
 	const queryCache = useQueryCache()
 	const { pathname } = useRouter()
 
+	const [liked, setLiked] = useState<boolean | null>(null)
+
 	// TODO: make this cleaner
 	const likeHandler = async () => {
+		if (liked === null) return
 		try {
-			if (!fleet.likers.includes(user.id!)) {
+			if (!liked) {
 				await axios.post(
 					`${BASE_URL}/fleet/like/${fleet.id}`,
 					{},
@@ -36,6 +37,7 @@ const Fleet = ({ fleet }: Props) => {
 						},
 					}
 				)
+				setLiked(true)
 			} else {
 				await axios.post(
 					`${BASE_URL}/fleet/unlike/${fleet.id}`,
@@ -46,11 +48,26 @@ const Fleet = ({ fleet }: Props) => {
 						},
 					}
 				)
+				setLiked(false)
 			}
 		} catch (error) {
 			console.log(error)
 		}
 	}
+
+	const checkLiked = async () => {
+		const res = await axios.get(`${BASE_URL}/fleet/checklike/${fleet.id}`, {
+			headers: {
+				Authorization: `Bearer ${auth.token}`,
+			},
+		})
+
+		setLiked(res.data.liked)
+	}
+
+	useEffect(() => {
+		checkLiked()
+	}, [])
 
 	const [mutate] = useMutation(likeHandler, {
 		onSuccess: () => {
@@ -96,13 +113,9 @@ const Fleet = ({ fleet }: Props) => {
 						onClick={mutate}
 						className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-125'
 					>
-						{fleet.likers.includes(user.id!) ? (
-							<HeartFilledIcon className='w-4 h-4' />
-						) : (
-							<HeartIcon className='w-4 h-4' />
-						)}
+						{liked ? <HeartFilledIcon className='w-4 h-4' /> : <HeartIcon className='w-4 h-4' />}
 					</IconButton>
-					<span className='text-base text-white'>{fleet.likes}</span>
+					<span className='text-base text-white'>{fleet.likes.length}</span>
 				</div>
 			</div>
 		</div>

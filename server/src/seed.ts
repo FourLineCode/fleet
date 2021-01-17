@@ -1,4 +1,6 @@
 import bcrypt from 'bcryptjs'
+import Fleet from './entity/Fleet'
+import Follow from './entity/Follow'
 import User from './entity/User'
 
 const seed_database = async () => {
@@ -9,7 +11,7 @@ const seed_database = async () => {
 		const salt = await bcrypt.genSalt(10)
 		const passwordHash = await bcrypt.hash('akmal123', salt)
 
-		const newUser = await User.create({
+		const adminUser = await User.create({
 			username: 'akmal',
 			displayName: 'Akmal Hossain',
 			email: 'akmal@rip.com',
@@ -18,7 +20,7 @@ const seed_database = async () => {
 			bio: 'I made this website, i dont know what else to tell you about me LOL',
 		})
 
-		await newUser.save()
+		await adminUser.save()
 
 		for (const n of Array(10).keys()) {
 			const username = `demo${n}`
@@ -34,7 +36,19 @@ const seed_database = async () => {
 				isAdmin: false,
 				bio: `This is automated bio for ${displayName}`,
 			})
+
 			await newUser.save()
+
+			if (n % 2 == 0) {
+				await Follow.create({ from: newUser, to: adminUser }).save()
+			}
+
+			for (const _ of Array(5).keys()) {
+				await Fleet.create({
+					body: `Example Fleet by demo user ${n}`,
+					author: newUser,
+				}).save()
+			}
 		}
 	} catch (error) {
 		console.log(error)

@@ -15,13 +15,16 @@ interface Author {
 	isAdmin: boolean
 }
 
+interface Like {
+	id: string
+	createdAt: string
+}
 export interface FleetType {
 	id: string
 	body: string
 	createdAt: string
 	author: Author
-	likes: number
-	likers: string[]
+	likes: Like[]
 }
 
 const Timeline = () => {
