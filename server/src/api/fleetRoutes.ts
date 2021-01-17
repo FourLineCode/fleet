@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes'
 import { getManager } from 'typeorm'
 import Fleet from '../entity/Fleet'
 import Follow from '../entity/Follow'
+import Like from '../entity/Like'
 import User from '../entity/User'
 import auth from '../middlewares/auth'
 import fleetSchema from '../validation/fleetSchema'
@@ -17,7 +18,8 @@ router.get('/', auth, async (req, res, next) => {
 				.getRepository(Fleet)
 				.createQueryBuilder('fleet')
 				.leftJoinAndSelect('fleet.author', 'author')
-				.select(['fleet', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
+				.leftJoinAndSelect('fleet.likes', 'likes')
+				.select(['fleet', 'likes', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
 				.getMany()) || []
 
 		res.status(StatusCodes.OK).json(fleets.reverse())
@@ -34,7 +36,8 @@ router.get('/home', auth, async (req, res, next) => {
 				.getRepository(Fleet)
 				.createQueryBuilder('fleet')
 				.leftJoinAndSelect('fleet.author', 'author')
-				.select(['fleet', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
+				.leftJoinAndSelect('fleet.likes', 'likes')
+				.select(['fleet', 'likes', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
 				.getMany()) || []
 
 		const followedUsers = await getManager()
@@ -59,14 +62,14 @@ router.get('/home', auth, async (req, res, next) => {
 // Get one fleet
 router.get('/post/:id', auth, async (req, res, next) => {
 	try {
-		const fleet =
-			(await getManager()
-				.getRepository(Fleet)
-				.createQueryBuilder('fleet')
-				.where('fleet.id = :id', { id: req.params.id })
-				.leftJoinAndSelect('fleet.author', 'author')
-				.select(['fleet', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
-				.getMany()) || []
+		const fleet = await getManager()
+			.getRepository(Fleet)
+			.createQueryBuilder('fleet')
+			.where('fleet.id = :id', { id: req.params.id })
+			.leftJoinAndSelect('fleet.author', 'author')
+			.leftJoinAndSelect('fleet.likes', 'likes')
+			.select(['fleet', 'likes', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
+			.getOne()
 
 		if (!fleet) {
 			res.status(StatusCodes.BAD_REQUEST)
@@ -88,9 +91,11 @@ router.get('/timeline/:id', auth, async (req, res, next) => {
 			.where('user.id = :id', { id: req.params.id })
 			.leftJoinAndSelect('user.fleets', 'fleets')
 			.leftJoinAndSelect('fleets.author', 'author')
+			.leftJoinAndSelect('fleets.likes', 'likes')
 			.select([
 				'user',
 				'fleets',
+				'likes',
 				'author.id',
 				'author.username',
 				'author.displayName',
@@ -103,6 +108,7 @@ router.get('/timeline/:id', auth, async (req, res, next) => {
 
 		res.status(StatusCodes.OK).json(fleets.reverse())
 	} catch (error) {
+		console.log(error)
 		next(error)
 	}
 })
@@ -121,7 +127,6 @@ router.post('/', auth, async (req, res, next) => {
 		const newFleet = await Fleet.create({
 			body: fleet.body,
 			author: req.user,
-			likers: [],
 		})
 
 		const savedFleet = await newFleet.save()
@@ -142,21 +147,17 @@ router.post('/like/:id', auth, async (req, res, next) => {
 			throw new Error('Fleet not found')
 		}
 
-		if (fleet.likers?.includes(req.userId)) {
+		const like = await Like.findOne({ where: { user: req.user, fleet: fleet } })
+
+		if (like) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User already liked this fleet')
 		}
 
-		await getManager()
-			.getRepository(Fleet)
-			.createQueryBuilder()
-			.update()
-			.set({
-				likers: [...fleet.likers, req.userId],
-				likes: () => 'likes + 1',
-			})
-			.where('id = :id', { id: req.params.id })
-			.execute()
+		await Like.create({
+			user: req.user,
+			fleet: fleet,
+		}).save()
 
 		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
@@ -174,23 +175,38 @@ router.post('/unlike/:id', auth, async (req, res, next) => {
 			throw new Error('Fleet not found')
 		}
 
-		if (!fleet.likers?.includes(req.userId)) {
+		const like = await Like.findOne({ where: { user: req.user, fleet: fleet } })
+
+		if (!like) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User has not liked this fleet')
 		}
 
-		await getManager()
-			.getRepository(Fleet)
-			.createQueryBuilder()
-			.update()
-			.set({
-				likers: fleet.likers.filter((user) => JSON.stringify(user) !== JSON.stringify(req.userId)),
-				likes: () => 'likes - 1',
-			})
-			.where('id = :id', { id: req.params.id })
-			.execute()
+		await Like.delete({ user: req.user, fleet: fleet })
 
 		res.status(StatusCodes.OK).json({ success: true })
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Like a fleet
+router.get('/checklike/:id', auth, async (req, res, next) => {
+	try {
+		const fleet = await Fleet.findOne({ id: req.params.id })
+
+		if (!fleet) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('Fleet not found')
+		}
+
+		const like = await Like.findOne({ where: { user: req.user, fleet: fleet } })
+
+		if (!like) {
+			return res.status(StatusCodes.OK).json({ liked: false })
+		}
+
+		res.status(StatusCodes.OK).json({ liked: true })
 	} catch (error) {
 		next(error)
 	}
