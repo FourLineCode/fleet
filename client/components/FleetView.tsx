@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { formatDistanceToNow } from 'date-fns'
+import { format } from 'date-fns'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useMutation, useQueryCache } from 'react-query'
 import { useDispatch } from 'react-redux'
@@ -19,11 +18,10 @@ interface Props {
 	fleet: FleetType
 }
 
-const Fleet = ({ fleet }: Props) => {
+const FleetView = ({ fleet }: Props) => {
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
 	const queryCache = useQueryCache()
-	const { pathname } = useRouter()
 
 	const [showReplyComposer, setShowReplyComposer] = useState(false)
 	const [liked, setLiked] = useState<boolean | null>(null)
@@ -76,56 +74,51 @@ const Fleet = ({ fleet }: Props) => {
 
 	const [mutate] = useMutation(likeHandler, {
 		onSuccess: () => {
-			if (pathname.startsWith('/home')) {
-				queryCache.refetchQueries('fleets')
-			} else if (pathname.startsWith('/profile')) {
-				queryCache.refetchQueries('profile-fleets')
-			}
+			queryCache.refetchQueries('fleet-details')
 		},
 	})
 
 	return (
-		<div className='w-full px-2 pt-2 border border-gray-700 rounded-lg shadow-xl lg:mx-auto lg:w-3/4 hover:bg-gray-900 hover:bg-opacity-50'>
-			<Link href={`/fleet/${fleet.id}`} passHref={true}>
-				<div className='flex space-x-1 cursor-pointer'>
+		<div className='w-full'>
+			<div className='flex flex-col pb-2 space-x-1 space-y-2 border-b border-gray-700 cursor-pointer'>
+				<div className='flex'>
 					<Link href={`/profile/${fleet.author.id}`}>
-						<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-green-500'>
+						<a className='flex items-center justify-center flex-shrink-0 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg w-14 h-14 hover:border-green-500'>
 							<img src='http://github.com/RobinMalfait.png' alt='profile-photo' />
 						</a>
 					</Link>
 					<div className='text-base font-bold text-white'>
 						<Link href={`/profile/${fleet.author.id}`}>
-							<a>
-								<span className='hover:underline'>{fleet.author.displayName}</span>{' '}
+							<a className='flex flex-col'>
+								<span className='text-xl hover:underline'>{fleet.author.displayName}</span>{' '}
 								<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
 							</a>
 						</Link>
-						{' • '}
-						<span className='text-sm font-normal text-gray-400'>
-							{formatDistanceToNow(new Date(fleet.createdAt))}
-						</span>
-						<div className='text-sm font-normal text-white break-all'>{fleet.body}</div>
 					</div>
 				</div>
-			</Link>
-			<div className='flex items-center w-full h-6 mt-1 justify-evenly'>
+				<div className='text-lg font-normal text-white break-all'>{fleet.body}</div>
+				<div className='text-sm font-normal text-gray-400'>
+					{format(new Date(fleet.createdAt), 'h:mm bbb • d MMMM, yyyy')}
+				</div>
+			</div>
+			<div className='flex items-center w-full h-8 mt-1 justify-evenly'>
 				<div className='flex items-center'>
 					<IconButton
 						onClick={() => setShowReplyComposer(true)}
 						className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
 					>
-						<ReplyIcon className='w-4 h-4' />
+						<ReplyIcon className='w-5 h-5' />
 					</IconButton>
-					<span className='text-base text-white'>{fleet.replies.length}</span>
+					<span className='text-lg text-white'>{fleet.replies.length}</span>
 				</div>
 				<div className='flex items-center'>
 					<IconButton
 						onClick={mutate}
 						className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
 					>
-						{liked ? <HeartFilledIcon className='w-4 h-4' /> : <HeartIcon className='w-4 h-4' />}
+						{liked ? <HeartFilledIcon className='w-5 h-5' /> : <HeartIcon className='w-5 h-5' />}
 					</IconButton>
-					<span className='text-base text-white'>{fleet.likes.length}</span>
+					<span className='text-lg text-white'>{fleet.likes.length}</span>
 				</div>
 			</div>
 			<ReplyComposer fleet={fleet} visible={showReplyComposer} setVisible={setShowReplyComposer} />
@@ -133,4 +126,4 @@ const Fleet = ({ fleet }: Props) => {
 	)
 }
 
-export default Fleet
+export default FleetView

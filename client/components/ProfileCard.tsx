@@ -5,7 +5,9 @@ import { format } from 'date-fns'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { queryCache, useQuery } from 'react-query'
+import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
+import { setError } from '../store/actions/notificationActions'
 import { UserState } from '../store/reducers/types'
 import Button from '../ui/Button'
 import { BASE_URL } from '../utils/config'
@@ -16,6 +18,7 @@ const ProfileCard = () => {
 	const router = useRouter()
 	const { id } = router.query
 	const auth = useAuthorization()
+	const dispatch = useDispatch()
 	const [userData, setUserData] = useState<UserState>()
 	const [userDataLoading, setUserDataLoading] = useState(false)
 	const [followData, setFollowData] = useState<Record<string, Object[] | number>>({
@@ -41,7 +44,7 @@ const ProfileCard = () => {
 			setUserDataLoading(false)
 			return
 		} catch (error) {
-			console.log(error.response.data.message)
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 
@@ -64,7 +67,7 @@ const ProfileCard = () => {
 
 			return followResponse
 		} catch (error) {
-			console.log(error.response.data)
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 
@@ -79,7 +82,7 @@ const ProfileCard = () => {
 			setFollowed(res.data.follows)
 			return res.data.follows
 		} catch (error) {
-			console.log(error.response.data)
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 
@@ -114,7 +117,7 @@ const ProfileCard = () => {
 			}
 			queryCache.refetchQueries('follow-data')
 		} catch (error) {
-			console.log(error.response.data)
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 

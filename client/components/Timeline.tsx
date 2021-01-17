@@ -3,7 +3,9 @@ import axios from 'axios'
 import clsx from 'clsx'
 import React from 'react'
 import { useQuery } from 'react-query'
+import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
+import { setError } from '../store/actions/notificationActions'
 import ErrorIcon from '../ui/icons/ErrorIcon'
 import { BASE_URL } from '../utils/config'
 import Fleet from './Fleet'
@@ -19,16 +21,23 @@ interface Like {
 	id: string
 	createdAt: string
 }
+
+interface Reply {
+	id: string
+	createdAt: string
+}
 export interface FleetType {
 	id: string
 	body: string
 	createdAt: string
 	author: Author
 	likes: Like[]
+	replies: Reply[]
 }
 
 const Timeline = () => {
 	const auth = useAuthorization()
+	const dispatch = useDispatch()
 
 	const getFleets = async () => {
 		try {
@@ -40,7 +49,7 @@ const Timeline = () => {
 
 			return res.data
 		} catch (error) {
-			console.log(error)
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 

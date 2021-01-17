@@ -1,13 +1,16 @@
 import axios from 'axios'
 import React from 'react'
 import { useQuery } from 'react-query'
+import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
+import { setError } from '../store/actions/notificationActions'
 import { UserState } from '../store/reducers/types'
 import { BASE_URL } from '../utils/config'
 import UserInfo from './UserInfo'
 
 const Recommend = () => {
 	const auth = useAuthorization()
+	const dispatch = useDispatch()
 
 	const getRecommendations = async () => {
 		try {
@@ -18,7 +21,7 @@ const Recommend = () => {
 			})
 			return res.data
 		} catch (error) {
-			console.log(error.response.data)
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 

@@ -4,7 +4,9 @@ import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { queryCache, useQuery } from 'react-query'
+import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
+import { setError } from '../store/actions/notificationActions'
 import { UserState } from '../store/reducers/types'
 import Modal from '../ui/Modal'
 import { BASE_URL } from '../utils/config'
@@ -28,6 +30,7 @@ const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
 	const { id } = router.query
 	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
 	const auth = useAuthorization()
+	const dispatch = useDispatch()
 
 	const getFollowDetails = async () => {
 		try {
@@ -39,7 +42,7 @@ const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
 
 			return res.data
 		} catch (error) {
-			console.log(error)
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 
