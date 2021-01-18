@@ -1,1 +1,2 @@
-export const BASE_URL = 'https://fleet-serve.herokuapp.com/api'
+export const BASE_URL =
+	process.env.NODE_ENV === 'production' ? 'https://fleet-serve.herokuapp.com/api' : 'http://localhost:5000/api'
