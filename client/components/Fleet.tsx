@@ -12,6 +12,7 @@ import HeartFilledIcon from '../ui/icons/HeartFilledIcon'
 import HeartIcon from '../ui/icons/HeartIcon'
 import ReplyIcon from '../ui/icons/ReplyIcon'
 import { BASE_URL } from '../utils/config'
+import FleetOptions from './FleetOptions'
 import ReplyComposer from './ReplyComposer'
 import { FleetType } from './Timeline'
 
@@ -27,6 +28,7 @@ const Fleet = ({ fleet }: Props) => {
 
 	const [showReplyComposer, setShowReplyComposer] = useState(false)
 	const [liked, setLiked] = useState<boolean | null>(null)
+	const [canDelete] = useState(auth.id === fleet.author.id)
 
 	// TODO: make this cleaner
 	const likeHandler = async () => {
@@ -93,7 +95,7 @@ const Fleet = ({ fleet }: Props) => {
 							<img src='http://github.com/RobinMalfait.png' alt='profile-photo' />
 						</a>
 					</Link>
-					<div className='text-base font-bold text-white'>
+					<div className='w-full text-base font-bold text-white'>
 						<Link href={`/profile/${fleet.author.id}`}>
 							<a>
 								<span className='hover:underline'>{fleet.author.displayName}</span>{' '}
@@ -108,24 +110,29 @@ const Fleet = ({ fleet }: Props) => {
 					</div>
 				</div>
 			</Link>
-			<div className='flex items-center w-full h-6 mt-1 justify-evenly'>
-				<div className='flex items-center'>
-					<IconButton
-						onClick={() => setShowReplyComposer(true)}
-						className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
-					>
-						<ReplyIcon className='w-4 h-4' />
-					</IconButton>
-					<span className='text-base text-white'>{fleet.replies.length}</span>
-				</div>
-				<div className='flex items-center'>
-					<IconButton
-						onClick={mutate}
-						className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
-					>
-						{liked ? <HeartFilledIcon className='w-4 h-4' /> : <HeartIcon className='w-4 h-4' />}
-					</IconButton>
-					<span className='text-base text-white'>{fleet.likes.length}</span>
+			<div className='w-full h-6 mt-1'>
+				<div className='flex items-center w-full h-full'>
+					<div className='flex items-center flex-1 justify-evenly'>
+						<div className='flex items-center justify-evenly'>
+							<IconButton
+								onClick={() => setShowReplyComposer(true)}
+								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
+							>
+								<ReplyIcon className='w-4 h-4' />
+							</IconButton>
+							<span className='text-base text-white'>{fleet.replies.length}</span>
+						</div>
+						<div className='flex items-center'>
+							<IconButton
+								onClick={mutate}
+								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
+							>
+								{liked ? <HeartFilledIcon className='w-4 h-4' /> : <HeartIcon className='w-4 h-4' />}
+							</IconButton>
+							<span className='text-base text-white'>{fleet.likes.length}</span>
+						</div>
+					</div>
+					<FleetOptions id={fleet.id} canDelete={canDelete} />
 				</div>
 			</div>
 			<ReplyComposer fleet={fleet} visible={showReplyComposer} setVisible={setShowReplyComposer} />

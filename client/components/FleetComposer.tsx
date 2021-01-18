@@ -1,5 +1,6 @@
 import axios from 'axios'
 import clsx from 'clsx'
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
@@ -18,10 +19,11 @@ interface Props {
 }
 
 const FleetComposer = ({ visible, setVisible }: Props) => {
-	const [body, setBody] = useState('')
 	const auth = useAuthorization()
 	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
+	const { pathname } = useRouter()
+	const [body, setBody] = useState('')
 	const inputRef = useRef<HTMLTextAreaElement>(null)
 
 	const composeFleet = async () => {
@@ -43,9 +45,13 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 	const { mutate, isLoading } = useMutation(composeFleet, {
 		onSuccess: () => {
 			dispatch(setSuccess('Fleet sent'))
-			queryClient.refetchQueries('fleets')
 			setVisible(false)
 			setBody('')
+			if (pathname.startsWith('/home')) {
+				queryClient.refetchQueries('fleets')
+			} else if (pathname.startsWith('/profile')) {
+				queryClient.refetchQueries('profile-fleets')
+			}
 		},
 		onError: () => {
 			dispatch(setError('An error occured while sending fleet'))
