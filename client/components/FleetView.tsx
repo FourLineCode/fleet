@@ -11,6 +11,7 @@ import HeartFilledIcon from '../ui/icons/HeartFilledIcon'
 import HeartIcon from '../ui/icons/HeartIcon'
 import ReplyIcon from '../ui/icons/ReplyIcon'
 import { BASE_URL } from '../utils/config'
+import FleetOptions from './FleetOptions'
 import ReplyComposer from './ReplyComposer'
 import { FleetType } from './Timeline'
 
@@ -18,9 +19,10 @@ interface Props {
 	fleet: FleetType
 	liked: boolean | null
 	setLiked: Dispatch<SetStateAction<boolean | null>>
+	canDelete: boolean
 }
 
-const FleetView = ({ fleet, liked, setLiked }: Props) => {
+const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
@@ -88,24 +90,29 @@ const FleetView = ({ fleet, liked, setLiked }: Props) => {
 					{format(new Date(fleet.createdAt), 'h:mm bbb • d MMMM, yyyy')}
 				</div>
 			</div>
-			<div className='flex items-center w-full h-8 mt-1 justify-evenly'>
-				<div className='flex items-center'>
-					<IconButton
-						onClick={() => setShowReplyComposer(true)}
-						className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
-					>
-						<ReplyIcon className='w-5 h-5' />
-					</IconButton>
-					<span className='text-lg text-white'>{fleet.replies.length}</span>
-				</div>
-				<div className='flex items-center'>
-					<IconButton
-						onClick={mutate}
-						className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
-					>
-						{liked ? <HeartFilledIcon className='w-5 h-5' /> : <HeartIcon className='w-5 h-5' />}
-					</IconButton>
-					<span className='text-lg text-white'>{fleet.likes.length}</span>
+			<div className='w-full h-8 px-2 mt-1'>
+				<div className='flex items-center w-full h-full'>
+					<div className='flex items-center flex-1 justify-evenly'>
+						<div className='flex items-center justify-evenly'>
+							<IconButton
+								onClick={() => setShowReplyComposer(true)}
+								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
+							>
+								<ReplyIcon className='w-5 h-5' />
+							</IconButton>
+							<span className='text-lg text-white'>{fleet.replies.length}</span>
+						</div>
+						<div className='flex items-center'>
+							<IconButton
+								onClick={mutate}
+								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
+							>
+								{liked ? <HeartFilledIcon className='w-5 h-5' /> : <HeartIcon className='w-5 h-5' />}
+							</IconButton>
+							<span className='text-lg text-white'>{fleet.likes.length}</span>
+						</div>
+					</div>
+					<FleetOptions id={fleet.id} canDelete={canDelete} />
 				</div>
 			</div>
 			<ReplyComposer fleet={fleet} visible={showReplyComposer} setVisible={setShowReplyComposer} />

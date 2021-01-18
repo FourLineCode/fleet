@@ -59,7 +59,12 @@ const FleetDetails = () => {
 			{data && (
 				<div>
 					<div className='border-b border-gray-700'>
-						<FleetView fleet={data} liked={liked} setLiked={setLiked} />
+						<FleetView
+							fleet={data}
+							liked={liked}
+							setLiked={setLiked}
+							canDelete={data.author.id === auth.id}
+						/>
 					</div>
 					<div className='w-full mt-6 mb-8 space-y-4 md:mb-0'>
 						{data.replies.map((reply: ReplyType) => (
