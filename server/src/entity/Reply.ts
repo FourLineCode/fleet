@@ -6,10 +6,10 @@ import User from './User'
 
 @Entity()
 export default class Reply extends InternalEntity {
-	@ManyToOne(() => Fleet, (fleet) => fleet.replies)
+	@ManyToOne(() => Fleet, (fleet) => fleet.replies, { onDelete: 'CASCADE' })
 	fleet: Fleet
 
-	@ManyToOne(() => User, (user) => user.replies)
+	@ManyToOne(() => User, (user) => user.replies, { onDelete: 'CASCADE' })
 	user: User
 
 	@Column()

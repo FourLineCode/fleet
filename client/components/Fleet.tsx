@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
+import useCurrentUser from '../hooks/useCurrentUser'
 import { setError } from '../store/actions/notificationActions'
 import IconButton from '../ui/IconButton'
 import HeartFilledIcon from '../ui/icons/HeartFilledIcon'
@@ -22,13 +23,14 @@ interface Props {
 
 const Fleet = ({ fleet }: Props) => {
 	const auth = useAuthorization()
+	const user = useCurrentUser()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 	const { pathname } = useRouter()
 
 	const [showReplyComposer, setShowReplyComposer] = useState(false)
 	const [liked, setLiked] = useState<boolean | null>(null)
-	const [canDelete] = useState(auth.id === fleet.author.id)
+	const [canDelete] = useState(auth.id === fleet.author.id || user.isAdmin)
 
 	// TODO: make this cleaner
 	const likeHandler = async () => {
@@ -92,7 +94,14 @@ const Fleet = ({ fleet }: Props) => {
 				<div className='flex space-x-1 cursor-pointer'>
 					<Link href={`/profile/${fleet.author.id}`}>
 						<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-green-500'>
-							<img src='http://github.com/RobinMalfait.png' alt='profile-photo' />
+							<img
+								src={
+									fleet.author.isAdmin
+										? 'http://github.com/FourLineCode.png'
+										: 'http://github.com/RobinMalfait.png'
+								}
+								alt='profile-photo'
+							/>
 						</a>
 					</Link>
 					<div className='w-full text-base font-bold text-white'>

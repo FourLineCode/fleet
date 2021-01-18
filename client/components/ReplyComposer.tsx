@@ -110,7 +110,14 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 				<div className='w-full px-2 py-2 mb-3 border border-gray-700 rounded-lg shadow-xl'>
 					<div className='flex space-x-1'>
 						<div className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg'>
-							<img src='http://github.com/RobinMalfait.png' alt='profile-photo' />
+							<img
+								src={
+									fleet.author.isAdmin
+										? 'http://github.com/FourLineCode.png'
+										: 'http://github.com/RobinMalfait.png'
+								}
+								alt='profile-photo'
+							/>
 						</div>
 						<div>
 							<a className='text-base font-bold text-white'>

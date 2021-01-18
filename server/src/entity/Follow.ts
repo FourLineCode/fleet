@@ -4,9 +4,9 @@ import User from './User'
 
 @Entity()
 export default class Follow extends InternalEntity {
-	@ManyToOne(() => User, (from) => from.following)
+	@ManyToOne(() => User, (from) => from.following, { onDelete: 'CASCADE' })
 	from: User
 
-	@ManyToOne(() => User, (to) => to.followers)
+	@ManyToOne(() => User, (to) => to.followers, { onDelete: 'CASCADE' })
 	to: User
 }

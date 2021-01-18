@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
+import useCurrentUser from '../hooks/useCurrentUser'
 import { setError } from '../store/actions/notificationActions'
 import { UserState } from '../store/reducers/types'
 import { BASE_URL } from '../utils/config'
@@ -18,6 +19,7 @@ export interface ReplyType {
 }
 
 const FleetDetails = () => {
+	const user = useCurrentUser()
 	const router = useRouter()
 	const { id } = router.query
 	const auth = useAuthorization()
@@ -63,7 +65,7 @@ const FleetDetails = () => {
 							fleet={data}
 							liked={liked}
 							setLiked={setLiked}
-							canDelete={data.author.id === auth.id}
+							canDelete={data.author.id === auth.id || user.isAdmin}
 						/>
 					</div>
 					<div className='w-full mt-6 mb-8 space-y-4 md:mb-0'>

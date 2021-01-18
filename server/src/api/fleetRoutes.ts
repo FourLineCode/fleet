@@ -173,6 +173,40 @@ router.post('/', auth, async (req, res, next) => {
 	}
 })
 
+// delete a fleet
+router.delete('/:id', auth, async (req, res, next) => {
+	try {
+		const fleet = await getManager()
+			.getRepository(Fleet)
+			.createQueryBuilder('fleet')
+			.where('fleet.id = :id', { id: req.params.id })
+			.leftJoinAndSelect('fleet.author', 'author')
+			.select(['fleet', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
+			.getOne()
+
+		if (!fleet) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('Fleet not found')
+		}
+
+		if (fleet.author.id !== req.userId && !req.admin) {
+			res.status(StatusCodes.FORBIDDEN)
+			throw new Error('You are not authorized to delete this fleet')
+		}
+
+		await getManager()
+			.getRepository(Fleet)
+			.createQueryBuilder('fleet')
+			.delete()
+			.where('fleet.id = :id', { id: fleet.id })
+			.execute()
+
+		res.status(StatusCodes.OK).json({ success: true })
+	} catch (error) {
+		next(error)
+	}
+})
+
 // Like a fleet
 router.post('/like/:id', auth, async (req, res, next) => {
 	try {

@@ -181,6 +181,7 @@ router.get('/info/:id', auth, async (req, res, next) => {
 			displayName: user.displayName,
 			bio: user.bio,
 			createdAt: user.createdAt,
+			isAdmin: user.isAdmin,
 		}
 
 		res.status(StatusCodes.OK).json(data)

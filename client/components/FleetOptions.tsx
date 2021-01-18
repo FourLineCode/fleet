@@ -1,9 +1,16 @@
 import { Menu, Transition } from '@headlessui/react'
+import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
+import { useDispatch } from 'react-redux'
+import useAuthorization from '../hooks/useAuthorization'
+import { setError, setSuccess } from '../store/actions/notificationActions'
 import DotsVertical from '../ui/icons/DotsVertical'
 import ExternalLinkIcon from '../ui/icons/ExternalLinkIcon'
 import TrashIcon from '../ui/icons/TrashIcon'
+import { BASE_URL } from '../utils/config'
 import ConfirmModal from './ConfirmModal'
 
 interface Props {
@@ -13,11 +20,42 @@ interface Props {
 
 // TODO: Make admins delete any fleet
 const FleetOptions = ({ id, canDelete }: Props) => {
+	const auth = useAuthorization()
+	const dispatch = useDispatch()
+	const router = useRouter()
+	const { pathname } = router
+	const queryClient = useQueryClient()
 	const [visible, setVisible] = useState(false)
 
 	const deleteFleet = async () => {
-		console.log(`deleting fleet ${id}`)
+		try {
+			const res = await axios.delete(`${BASE_URL}/fleet/${id}`, {
+				headers: {
+					Authorization: `Bearer ${auth.token}`,
+				},
+			})
+
+			return res.data
+		} catch (error) {
+			if (error.response) dispatch(setError(error.response.data.message))
+		}
 	}
+
+	const { mutate } = useMutation(deleteFleet, {
+		onSuccess: () => {
+			setVisible(false)
+			dispatch(setSuccess('Fleet was deleted'))
+			if (pathname.startsWith('/home')) {
+				queryClient.refetchQueries('fleets')
+			} else if (pathname.startsWith('/profile')) {
+				queryClient.refetchQueries('profile-fleets')
+			} else if (pathname.startsWith('/fleet')) {
+				queryClient.removeQueries('fleets')
+				queryClient.refetchQueries('profile-fleets')
+				router.back()
+			}
+		},
+	})
 
 	return (
 		<div>
@@ -71,7 +109,7 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 					)}
 				</Menu>
 				<ConfirmModal
-					action={deleteFleet}
+					action={mutate}
 					header='Delete Fleet?'
 					desc='This can’t be undone and it will be removed from your profile'
 					visible={visible}

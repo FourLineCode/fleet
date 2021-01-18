@@ -73,7 +73,14 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 				<div className='flex'>
 					<Link href={`/profile/${fleet.author.id}`}>
 						<a className='flex items-center justify-center flex-shrink-0 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg w-14 h-14 hover:border-green-500'>
-							<img src='http://github.com/RobinMalfait.png' alt='profile-photo' />
+							<img
+								src={
+									fleet.author.isAdmin
+										? 'http://github.com/FourLineCode.png'
+										: 'http://github.com/RobinMalfait.png'
+								}
+								alt='profile-photo'
+							/>
 						</a>
 					</Link>
 					<div className='text-base font-bold text-white'>

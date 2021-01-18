@@ -28,4 +28,5 @@ export interface UserState {
 	displayName: string | null
 	bio: string | null
 	createdAt: string | null
+	isAdmin: boolean
 }
