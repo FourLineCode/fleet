@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
-import useCurrentUser from '../hooks/useCurrentUser'
 import { setError } from '../store/actions/notificationActions'
 import { UserState } from '../store/reducers/types'
 import Button from '../ui/Button'
@@ -19,7 +18,6 @@ const ProfileCard = () => {
 	const router = useRouter()
 	const { id } = router.query
 	const auth = useAuthorization()
-	const user = useCurrentUser()
 	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 	const [userData, setUserData] = useState<UserState>()
