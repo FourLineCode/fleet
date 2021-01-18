@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { formatDistanceToNow } from 'date-fns'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
-import { queryCache, useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError, setSuccess } from '../store/actions/notificationActions'
@@ -25,6 +25,7 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 	const [body, setBody] = useState('')
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
+	const queryClient = useQueryClient()
 	const { pathname } = useRouter()
 	const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -46,17 +47,17 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 		}
 	}
 
-	const [mutate, { isLoading }] = useMutation(composeReply, {
+	const { mutate, isLoading } = useMutation(composeReply, {
 		onSuccess: () => {
 			dispatch(setSuccess('Reply sent'))
 			setVisible(false)
 			setBody('')
 			if (pathname.startsWith('/home')) {
-				queryCache.refetchQueries('fleets')
+				queryClient.refetchQueries('fleets')
 			} else if (pathname.startsWith('/profile')) {
-				queryCache.refetchQueries('profile-fleets')
+				queryClient.refetchQueries('profile-fleets')
 			} else if (pathname.startsWith('/fleet')) {
-				queryCache.refetchQueries('fleet-details')
+				queryClient.refetchQueries('fleet-details')
 			}
 		},
 		onError: () => {

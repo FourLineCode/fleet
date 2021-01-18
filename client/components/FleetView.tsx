@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { format } from 'date-fns'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import { useMutation, useQueryCache } from 'react-query'
+import React, { Dispatch, SetStateAction, useState } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError } from '../store/actions/notificationActions'
@@ -16,15 +16,16 @@ import { FleetType } from './Timeline'
 
 interface Props {
 	fleet: FleetType
+	liked: boolean | null
+	setLiked: Dispatch<SetStateAction<boolean | null>>
 }
 
-const FleetView = ({ fleet }: Props) => {
+const FleetView = ({ fleet, liked, setLiked }: Props) => {
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
-	const queryCache = useQueryCache()
+	const queryClient = useQueryClient()
 
 	const [showReplyComposer, setShowReplyComposer] = useState(false)
-	const [liked, setLiked] = useState<boolean | null>(null)
 
 	// TODO: make this cleaner
 	const likeHandler = async () => {
@@ -58,23 +59,9 @@ const FleetView = ({ fleet }: Props) => {
 		}
 	}
 
-	const checkLiked = async () => {
-		const res = await axios.get(`${BASE_URL}/fleet/checklike/${fleet.id}`, {
-			headers: {
-				Authorization: `Bearer ${auth.token}`,
-			},
-		})
-
-		setLiked(res.data.liked)
-	}
-
-	useEffect(() => {
-		checkLiked()
-	}, [])
-
-	const [mutate] = useMutation(likeHandler, {
+	const { mutate } = useMutation(likeHandler, {
 		onSuccess: () => {
-			queryCache.refetchQueries('fleet-details')
+			queryClient.refetchQueries('fleet-details')
 		},
 	})
 
@@ -96,7 +83,7 @@ const FleetView = ({ fleet }: Props) => {
 						</Link>
 					</div>
 				</div>
-				<div className='text-lg font-normal text-white break-all'>{fleet.body}</div>
+				<div className='text-xl font-normal text-white break-all'>{fleet.body}</div>
 				<div className='text-sm font-normal text-gray-400'>
 					{format(new Date(fleet.createdAt), 'h:mm bbb • d MMMM, yyyy')}
 				</div>

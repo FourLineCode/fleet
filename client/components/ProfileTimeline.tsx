@@ -3,7 +3,7 @@ import axios from 'axios'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
-import { queryCache, useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError } from '../store/actions/notificationActions'
@@ -17,6 +17,7 @@ const ProfileTimeline = () => {
 	const router = useRouter()
 	const { id } = router.query
 	const dispatch = useDispatch()
+	const queryClient = useQueryClient()
 
 	const getFleets = async () => {
 		try {
@@ -34,7 +35,7 @@ const ProfileTimeline = () => {
 	const { data, isLoading } = useQuery('profile-fleets', getFleets)
 
 	useEffect(() => {
-		queryCache.prefetchQuery('profile-fleets', getFleets)
+		queryClient.prefetchQuery('profile-fleets', getFleets)
 	}, [id])
 
 	return (

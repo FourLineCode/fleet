@@ -23,7 +23,7 @@ const Reply = ({ reply, user }: Props) => {
 						<div>
 							<Link href={`/profile/${reply.user.id}`}>
 								<a>
-									<span className='hover:underline'>{reply.user.displayName}</span>{' '}
+									<span className='font-semibold hover:underline'>{reply.user.displayName}</span>{' '}
 									<span className='font-normal text-gray-400'>@{reply.user.username}</span>
 								</a>
 							</Link>
