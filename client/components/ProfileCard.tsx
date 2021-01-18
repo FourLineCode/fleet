@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { format } from 'date-fns'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { queryCache, useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError } from '../store/actions/notificationActions'
@@ -18,6 +18,7 @@ const ProfileCard = () => {
 	const router = useRouter()
 	const { id } = router.query
 	const auth = useAuthorization()
+	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 	const [userData, setUserData] = useState<UserState>()
 	const [userDataLoading, setUserDataLoading] = useState(false)
@@ -115,7 +116,7 @@ const ProfileCard = () => {
 
 				setFollowed(!res.data.success)
 			}
-			queryCache.refetchQueries('follow-data')
+			queryClient.refetchQueries('follow-data')
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))
 		}
@@ -132,7 +133,7 @@ const ProfileCard = () => {
 
 	useEffect(() => {
 		getUserData()
-		queryCache.prefetchQuery('follow-data', getFollowData)
+		queryClient.prefetchQuery('follow-data', getFollowData)
 	}, [id])
 
 	useEffect(() => {
@@ -142,7 +143,7 @@ const ProfileCard = () => {
 		}
 		setDisableFollow(false)
 
-		queryCache.prefetchQuery('is-following', checkFollow)
+		queryClient.prefetchQuery('is-following', checkFollow)
 	}, [id])
 
 	const followDetailsHandler = (tabType: TabTypes) => {

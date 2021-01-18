@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { queryCache } from 'react-query'
+import { useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useCurrentUser from '../hooks/useCurrentUser'
 import { signout } from '../store/actions/authActions'
@@ -11,11 +11,12 @@ const SignedInLinks = () => {
 	const user = useCurrentUser()
 	const router = useRouter()
 	const dispatch = useDispatch()
+	const queryClient = useQueryClient()
 
 	const signoutHandler = (e: React.MouseEvent) => {
 		e.preventDefault()
 
-		queryCache.clear()
+		queryClient.clear()
 		dispatch(signout())
 		router.push('/signin')
 	}

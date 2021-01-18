@@ -1,7 +1,7 @@
 import axios from 'axios'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
-import { queryCache, useMutation } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError, setSuccess } from '../store/actions/notificationActions'
@@ -20,6 +20,7 @@ interface Props {
 const FleetComposer = ({ visible, setVisible }: Props) => {
 	const [body, setBody] = useState('')
 	const auth = useAuthorization()
+	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 	const inputRef = useRef<HTMLTextAreaElement>(null)
 
@@ -39,10 +40,10 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 		}
 	}
 
-	const [mutate, { isLoading }] = useMutation(composeFleet, {
+	const { mutate, isLoading } = useMutation(composeFleet, {
 		onSuccess: () => {
 			dispatch(setSuccess('Fleet sent'))
-			queryCache.refetchQueries('fleets')
+			queryClient.refetchQueries('fleets')
 			setVisible(false)
 			setBody('')
 		},

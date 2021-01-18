@@ -3,7 +3,7 @@ import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useMutation, useQueryCache } from 'react-query'
+import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError } from '../store/actions/notificationActions'
@@ -22,7 +22,7 @@ interface Props {
 const Fleet = ({ fleet }: Props) => {
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
-	const queryCache = useQueryCache()
+	const queryClient = useQueryClient()
 	const { pathname } = useRouter()
 
 	const [showReplyComposer, setShowReplyComposer] = useState(false)
@@ -74,12 +74,12 @@ const Fleet = ({ fleet }: Props) => {
 		checkLiked()
 	}, [])
 
-	const [mutate] = useMutation(likeHandler, {
+	const { mutate } = useMutation(likeHandler, {
 		onSuccess: () => {
 			if (pathname.startsWith('/home')) {
-				queryCache.refetchQueries('fleets')
+				queryClient.refetchQueries('fleets')
 			} else if (pathname.startsWith('/profile')) {
-				queryCache.refetchQueries('profile-fleets')
+				queryClient.refetchQueries('profile-fleets')
 			}
 		},
 	})

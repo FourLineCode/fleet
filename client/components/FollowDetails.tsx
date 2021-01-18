@@ -3,7 +3,7 @@ import axios from 'axios'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { queryCache, useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError } from '../store/actions/notificationActions'
@@ -27,6 +27,7 @@ export const Tabs: Record<TabTypes, TabTypes> = {
 
 const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
 	const router = useRouter()
+	const queryClient = useQueryClient()
 	const { id } = router.query
 	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
 	const auth = useAuthorization()
@@ -50,16 +51,16 @@ const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
 
 	useEffect(() => {
 		setTab(tabType)
-		queryCache.prefetchQuery('follow-details', getFollowDetails)
+		queryClient.prefetchQuery('follow-details', getFollowDetails)
 	}, [visible])
 
 	useEffect(() => {
-		queryCache.refetchQueries('follow-details')
+		queryClient.refetchQueries('follow-details')
 	}, [])
 
 	useEffect(() => {
 		setVisible(false)
-		queryCache.removeQueries('follow-details')
+		queryClient.removeQueries('follow-details')
 	}, [id])
 
 	return (
