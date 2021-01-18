@@ -90,6 +90,7 @@ router.get('/post/:id', auth, async (req, res, next) => {
 			.leftJoinAndSelect('fleet.likes', 'likes')
 			.leftJoinAndSelect('fleet.replies', 'replies')
 			.leftJoinAndSelect('replies.user', 'user')
+			.orderBy('replies.createdAt', 'ASC')
 			.select([
 				'fleet',
 				'likes',
