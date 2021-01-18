@@ -61,7 +61,7 @@ const FleetDetails = () => {
 					<div className='border-b border-gray-700'>
 						<FleetView fleet={data} liked={liked} setLiked={setLiked} />
 					</div>
-					<div className='w-full mt-6 space-y-4'>
+					<div className='w-full mt-6 mb-8 space-y-4 md:mb-0'>
 						{data.replies.map((reply: ReplyType) => (
 							<Reply reply={reply} user={data.author} key={reply.id} />
 						))}
