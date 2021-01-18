@@ -7,6 +7,7 @@ const initState: UserState = {
 	displayName: null,
 	bio: null,
 	createdAt: null,
+	isAdmin: false,
 }
 
 const userReducer = (state = initState, { type, payload }: ActionTypes) => {
@@ -19,6 +20,7 @@ const userReducer = (state = initState, { type, payload }: ActionTypes) => {
 				displayName: payload.displayName,
 				bio: payload.bio,
 				createdAt: payload.createdAt,
+				isAdmin: payload.isAdmin,
 			}
 		}
 		case actions.CLEAR_CURRENT_USER: {
@@ -28,6 +30,7 @@ const userReducer = (state = initState, { type, payload }: ActionTypes) => {
 				displayName: null,
 				bio: null,
 				createdAt: null,
+				isAdmin: false,
 			}
 		}
 		default:

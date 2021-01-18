@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
+import useCurrentUser from '../hooks/useCurrentUser'
 import { setError } from '../store/actions/notificationActions'
 import { UserState } from '../store/reducers/types'
 import Button from '../ui/Button'
@@ -18,6 +19,7 @@ const ProfileCard = () => {
 	const router = useRouter()
 	const { id } = router.query
 	const auth = useAuthorization()
+	const user = useCurrentUser()
 	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 	const [userData, setUserData] = useState<UserState>()
@@ -171,7 +173,11 @@ const ProfileCard = () => {
 					<div className='flex justify-center'>
 						<img
 							className='z-10 w-40 h-40 overflow-hidden border-4 border-white rounded-xl -mt-28'
-							src='http://github.com/RobinMalfait.png'
+							src={
+								userData.isAdmin
+									? 'http://github.com/FourLineCode.png'
+									: 'http://github.com/RobinMalfait.png'
+							}
 							alt='profile-photo'
 						/>
 					</div>

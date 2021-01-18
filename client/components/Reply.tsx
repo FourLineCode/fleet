@@ -15,7 +15,14 @@ const Reply = ({ reply, user }: Props) => {
 			<div className='flex space-x-1'>
 				<Link href={`/profile/${reply.user.id}`}>
 					<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-green-500'>
-						<img src='http://github.com/RobinMalfait.png' alt='profile-photo' />
+						<img
+							src={
+								reply.user.isAdmin
+									? 'http://github.com/FourLineCode.png'
+									: 'http://github.com/RobinMalfait.png'
+							}
+							alt='profile-photo'
+						/>
 					</a>
 				</Link>
 				<div className='text-base font-bold text-white'>

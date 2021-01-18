@@ -11,7 +11,7 @@ export default class Fleet extends InternalEntity {
 	@Max(240)
 	body: string
 
-	@ManyToOne(() => User, (author) => author.fleets)
+	@ManyToOne(() => User, (author) => author.fleets, { onDelete: 'CASCADE' })
 	author: User
 
 	@OneToMany(() => Like, (likes) => likes.fleet)

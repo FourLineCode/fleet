@@ -6,6 +6,7 @@ import { useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useCurrentUser from '../hooks/useCurrentUser'
 import { signout } from '../store/actions/authActions'
+import VerifiedIcon from '../ui/icons/VerifiedIcon'
 
 const SignedInLinks = () => {
 	const user = useCurrentUser()
@@ -22,14 +23,27 @@ const SignedInLinks = () => {
 	}
 
 	return (
-		<div>
+		<div className='flex items-center space-x-4'>
+			{user.isAdmin && (
+				<div className='flex p-2 font-bold text-green-500 bg-green-500 bg-opacity-25 rounded-lg'>
+					<VerifiedIcon className='w-6 h-6' />
+					<span>ADMIN</span>
+				</div>
+			)}
 			<div className='relative'>
 				<Menu>
 					{({ open }) => (
 						<>
 							<Menu.Button className='focus:outline-none'>
 								<div className='inline-flex items-center w-12 h-12 overflow-hidden border-2 border-white rounded-lg hover:border-green-400'>
-									<img src='http://github.com/RobinMalfait.png' alt='user-logo' />
+									<img
+										src={
+											user.isAdmin
+												? 'http://github.com/FourLineCode.png'
+												: 'http://github.com/RobinMalfait.png'
+										}
+										alt='user-logo'
+									/>
 								</div>
 							</Menu.Button>
 							<Transition

@@ -26,7 +26,7 @@ const seed_database = async () => {
 			const username = `demo${n}`
 			const displayName = `demo-user-${n}`
 			const salt = await bcrypt.genSalt(10)
-			const passwordHash = await bcrypt.hash(username, salt)
+			const passwordHash = await bcrypt.hash('admin', salt)
 
 			const newUser = await User.create({
 				username,
