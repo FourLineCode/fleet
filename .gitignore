@@ -7,3 +7,4 @@
 **/debug.log
 **/.parcel-cache
 **/*.sqlite
+.vercel
