@@ -28,8 +28,8 @@ router.get('/recommend', auth, async (req, res, next) => {
 
 		const response: User[] = []
 		for (let i = 0; i < 5; i++) {
-			response.push(filteredUsers.splice(Math.floor(Math.random() * filteredUsers.length), 1)[0])
 			if (!filteredUsers.length) break
+			response.push(filteredUsers.splice(Math.floor(Math.random() * filteredUsers.length), 1)[0])
 		}
 
 		res.status(StatusCodes.OK).json(response)

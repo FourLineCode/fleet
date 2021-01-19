@@ -37,6 +37,7 @@ const Fleet = ({ fleet }: Props) => {
 		if (liked === null) return
 		try {
 			if (!liked) {
+				setLiked(true)
 				await axios.post(
 					`${BASE_URL}/fleet/like/${fleet.id}`,
 					{},
@@ -46,8 +47,8 @@ const Fleet = ({ fleet }: Props) => {
 						},
 					}
 				)
-				setLiked(true)
 			} else {
+				setLiked(false)
 				await axios.post(
 					`${BASE_URL}/fleet/unlike/${fleet.id}`,
 					{},
@@ -57,7 +58,6 @@ const Fleet = ({ fleet }: Props) => {
 						},
 					}
 				)
-				setLiked(false)
 			}
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))
