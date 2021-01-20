@@ -4,9 +4,9 @@ export default abstract class InternalEntity extends BaseEntity {
 	@PrimaryGeneratedColumn('uuid')
 	readonly id!: string
 
-	@CreateDateColumn({ type: 'datetime' })
+	@CreateDateColumn({ type: 'timestamp' })
 	createdAt!: Date
 
-	@CreateDateColumn({ type: 'datetime' })
+	@CreateDateColumn({ type: 'timestamp' })
 	updatedAt!: Date
 }
