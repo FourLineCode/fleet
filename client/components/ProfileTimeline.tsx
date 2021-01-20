@@ -38,6 +38,12 @@ const ProfileTimeline = () => {
 		queryClient.prefetchQuery('profile-fleets', getFleets)
 	}, [id])
 
+	useEffect(() => {
+		return () => {
+			queryClient.removeQueries('profile-fleets')
+		}
+	}, [])
+
 	return (
 		<>
 			<div className='flex justify-center'>
@@ -50,7 +56,7 @@ const ProfileTimeline = () => {
 			>
 				{!isLoading &&
 					(data && data.length > 0 ? (
-						data && data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.id} />)
+						data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.id} />)
 					) : (
 						<div className='flex items-center justify-center w-full h-full'>
 							<div className='flex-col'>

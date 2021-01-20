@@ -1,8 +1,8 @@
 import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
-import React from 'react'
-import { useQuery } from 'react-query'
+import React, { useEffect } from 'react'
+import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
 import { setError } from '../store/actions/notificationActions'
@@ -38,6 +38,7 @@ export interface FleetType {
 const Timeline = () => {
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
+	const queryClient = useQueryClient()
 
 	const getFleets = async () => {
 		try {
@@ -55,6 +56,12 @@ const Timeline = () => {
 
 	// TODO: Handle error with error component
 	const { data, isLoading } = useQuery('fleets', getFleets)
+
+	useEffect(() => {
+		return () => {
+			queryClient.removeQueries('fleets')
+		}
+	}, [])
 
 	return (
 		<div

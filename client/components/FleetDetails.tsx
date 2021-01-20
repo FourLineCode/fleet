@@ -1,4 +1,6 @@
+import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
+import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
@@ -8,6 +10,7 @@ import useCurrentUser from '../hooks/useCurrentUser'
 import { setError } from '../store/actions/notificationActions'
 import { UserState } from '../store/reducers/types'
 import { BASE_URL } from '../utils/config'
+import queryClient from '../utils/query'
 import FleetView from './FleetView'
 import Reply from './Reply'
 
@@ -50,15 +53,24 @@ const FleetDetails = () => {
 		setLiked(res.data.liked)
 	}
 
-	const { data } = useQuery('fleet-details', getFleetData)
+	const { data, isLoading } = useQuery('fleet-details', getFleetData)
 
 	useEffect(() => {
 		checkLiked()
+
+		return () => {
+			queryClient.removeQueries('fleet-details')
+		}
 	}, [])
 
 	return (
-		<div className='w-full h-full col-span-4 p-2 border-gray-500 md:col-span-3 xl:col-span-2 md:border-l lg:border-r'>
-			{data && (
+		<div
+			className={clsx(
+				isLoading && 'flex justify-center items-center',
+				'w-full h-full col-span-4 p-2 border-gray-500 md:col-span-3 xl:col-span-2 md:border-l lg:border-r'
+			)}
+		>
+			{data && !isLoading ? (
 				<div>
 					<div className='border-b border-gray-700'>
 						<FleetView
@@ -74,6 +86,8 @@ const FleetDetails = () => {
 						))}
 					</div>
 				</div>
+			) : (
+				<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
 			)}
 		</div>
 	)

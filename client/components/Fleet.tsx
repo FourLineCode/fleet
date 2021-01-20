@@ -35,6 +35,7 @@ const Fleet = ({ fleet }: Props) => {
 	// TODO: make this cleaner
 	const likeHandler = async () => {
 		if (liked === null) return
+		console.log(fleet.id)
 		try {
 			if (!liked) {
 				setLiked(true)
