@@ -95,7 +95,9 @@ const ProfileCard = () => {
 
 		try {
 			if (!followed) {
-				const res = await axios.post(
+				setFollowed(true)
+
+				await axios.post(
 					`${BASE_URL}/follow/${id}`,
 					{},
 					{
@@ -104,10 +106,10 @@ const ProfileCard = () => {
 						},
 					}
 				)
-
-				setFollowed(res.data.success)
 			} else {
-				const res = await axios.post(
+				setFollowed(false)
+
+				await axios.post(
 					`${BASE_URL}/follow/unfollow/${id}`,
 					{},
 					{
@@ -116,8 +118,6 @@ const ProfileCard = () => {
 						},
 					}
 				)
-
-				setFollowed(!res.data.success)
 			}
 			queryClient.refetchQueries('follow-data')
 		} catch (error) {
