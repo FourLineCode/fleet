@@ -31,6 +31,7 @@ router.get('/', auth, async (req, res, next) => {
 					'author.displayName',
 					'author.isAdmin',
 				])
+				.orderBy('fleet.createdAt', 'ASC')
 				.getMany()) || []
 
 		res.status(StatusCodes.OK).json(fleets.reverse())
@@ -49,6 +50,7 @@ router.get('/home', auth, async (req, res, next) => {
 				.leftJoinAndSelect('fleet.author', 'author')
 				.leftJoinAndSelect('fleet.likes', 'likes')
 				.leftJoinAndSelect('fleet.replies', 'replies')
+				.orderBy('fleet.createdAt', 'ASC')
 				.select([
 					'fleet',
 					'likes',
@@ -128,6 +130,7 @@ router.get('/timeline/:id', auth, async (req, res, next) => {
 			.leftJoinAndSelect('fleets.author', 'author')
 			.leftJoinAndSelect('fleets.likes', 'likes')
 			.leftJoinAndSelect('fleets.replies', 'replies')
+			.orderBy('fleets.createdAt', 'ASC')
 			.select([
 				'user',
 				'fleets',
