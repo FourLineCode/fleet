@@ -2,6 +2,7 @@ import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
 import { format } from 'date-fns'
+import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
@@ -10,6 +11,7 @@ import useAuthorization from '../hooks/useAuthorization'
 import { setError } from '../store/actions/notificationActions'
 import { UserState } from '../store/reducers/types'
 import Button from '../ui/Button'
+import ErrorIcon from '../ui/icons/ErrorIcon'
 import { BASE_URL } from '../utils/config'
 import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
 import ProfileTimeline from './ProfileTimeline'
@@ -45,6 +47,7 @@ const ProfileCard = () => {
 			setUserDataLoading(false)
 			return
 		} catch (error) {
+			setUserDataLoading(false)
 			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
@@ -151,15 +154,22 @@ const ProfileCard = () => {
 		setShowFollowDetails(true)
 	}
 
+	useEffect(() => {
+		console.log(userData)
+	}, [userData])
+
 	return (
 		<div
 			className={clsx(
-				userDataLoading && 'flex justify-center items-center',
+				(userDataLoading || !userData) && 'flex justify-center items-center',
 				'w-full h-full col-span-4 md:col-span-3 xl:col-span-2 md:border-l lg:border-r border-gray-500'
 			)}
 		>
 			{userData && !userDataLoading && (
 				<>
+					<Head>
+						<title>{userData.displayName} | Fleet</title>
+					</Head>
 					<div className='relative w-full h-60'>
 						<img
 							className='object-cover w-full h-full'
@@ -224,6 +234,14 @@ const ProfileCard = () => {
 			)}
 			{userDataLoading && (
 				<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
+			)}
+			{!userData && !userDataLoading && (
+				<div className='flex items-center justify-center w-full h-full'>
+					<div className='flex-col'>
+						<ErrorIcon className='w-20 h-20 mx-auto text-gray-500' />
+						<div className='text-2xl font-semibold text-gray-500'>User not found</div>
+					</div>
+				</div>
 			)}
 		</div>
 	)

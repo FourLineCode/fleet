@@ -9,7 +9,7 @@ const seed_database = async () => {
 		if (user) return
 
 		const salt = await bcrypt.genSalt(10)
-		const passwordHash = await bcrypt.hash('akmal123', salt)
+		const passwordHash = await bcrypt.hash('admin00', salt)
 
 		const adminUser = await User.create({
 			username: 'akmal',
