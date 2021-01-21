@@ -12,6 +12,7 @@ import IconButton from '../../ui/components/IconButton'
 import HeartFilledIcon from '../../ui/icons/HeartFilledIcon'
 import HeartIcon from '../../ui/icons/HeartIcon'
 import ReplyIcon from '../../ui/icons/ReplyIcon'
+import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
 import FleetOptions from './FleetOptions'
 import ReplyComposer from './ReplyComposer'
@@ -106,16 +107,21 @@ const Fleet = ({ fleet }: Props) => {
 						</a>
 					</Link>
 					<div className='w-full text-base font-bold text-white'>
-						<Link href={`/profile/${fleet.author.id}`}>
-							<a>
-								<span className='hover:underline'>{fleet.author.displayName}</span>{' '}
-								<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
-							</a>
-						</Link>
-						{' • '}
-						<span className='text-sm font-normal text-gray-400'>
-							{formatDistanceToNow(new Date(fleet.createdAt))}
-						</span>
+						<div className='flex items-center space-x-1'>
+							<Link href={`/profile/${fleet.author.id}`}>
+								<a className='flex items-center space-x-1'>
+									<span className='flex items-center hover:underline'>
+										<span>{fleet.author.displayName}</span>
+										{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+									</span>{' '}
+									<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
+								</a>
+							</Link>
+							<span>{' • '}</span>
+							<span className='text-sm font-normal text-gray-400'>
+								{formatDistanceToNow(new Date(fleet.createdAt))}
+							</span>
+						</div>
 						<div className='text-sm font-normal text-white break-all'>{fleet.body}</div>
 					</div>
 				</div>

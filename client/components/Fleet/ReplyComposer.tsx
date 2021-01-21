@@ -12,6 +12,7 @@ import IconButton from '../../ui/components/IconButton'
 import Modal from '../../ui/components/Modal'
 import TextArea from '../../ui/components/TextArea'
 import CloseIcon from '../../ui/icons/CloseIcon'
+import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
 import { FleetType } from './Timeline'
 
@@ -120,14 +121,21 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 							/>
 						</div>
 						<div>
-							<a className='text-base font-bold text-white'>
-								<span>{fleet.author.displayName}</span>{' '}
-								<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
-								{' • '}
-								<span className='text-sm font-normal text-gray-400'>
-									{formatDistanceToNow(new Date(fleet.createdAt))}
-								</span>
-							</a>
+							<div className='text-base font-bold text-white'>
+								<div className='flex items-center space-x-1'>
+									<a className='flex items-center space-x-1'>
+										<span className='flex items-center hover:underline'>
+											<span>{fleet.author.displayName}</span>
+											{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+										</span>{' '}
+										<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
+									</a>
+									<span>{' • '}</span>
+									<span className='text-sm font-normal text-gray-400'>
+										{formatDistanceToNow(new Date(fleet.createdAt))}
+									</span>
+								</div>
+							</div>
 							<div className='text-sm text-white break-all'>{fleet.body}</div>
 						</div>
 					</div>

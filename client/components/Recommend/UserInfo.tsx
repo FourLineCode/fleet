@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { UserState } from '../../store/reducers/types'
 import RightArrowIcon from '../../ui/icons/RightArrowIcon'
+import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 
 interface Props {
 	user: UserState
@@ -23,7 +24,10 @@ const UserInfo = ({ user }: Props) => {
 						<img src='http://github.com/tnarla.png' alt='profile-photo' />
 					</div>
 					<div className='flex flex-col'>
-						<div className='text-white truncate'>{user.displayName}</div>
+						<div className='flex items-center text-white truncate'>
+							<span>{user.displayName}</span>
+							{user.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+						</div>
 						<div className='text-gray-400'>@{user.username}</div>
 					</div>
 				</div>
