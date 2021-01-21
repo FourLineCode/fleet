@@ -1,7 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
 import axios from 'axios'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
@@ -9,7 +7,6 @@ import useAuthorization from '../../hooks/useAuthorization'
 import { setError, setSuccess } from '../../store/actions/notificationActions'
 import ConfirmModal from '../../ui/components/ConfirmModal'
 import DotsVertical from '../../ui/icons/DotsVertical'
-import ExternalLinkIcon from '../../ui/icons/ExternalLinkIcon'
 import TrashIcon from '../../ui/icons/TrashIcon'
 import { BASE_URL } from '../../utils/config'
 
@@ -18,17 +15,15 @@ interface Props {
 	canDelete: boolean
 }
 
-const FleetOptions = ({ id, canDelete }: Props) => {
+const ReplyOptions = ({ id, canDelete }: Props) => {
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
-	const router = useRouter()
-	const { pathname } = router
 	const queryClient = useQueryClient()
 	const [visible, setVisible] = useState(false)
 
-	const deleteFleet = async () => {
+	const deleteReply = async () => {
 		try {
-			const res = await axios.delete(`${BASE_URL}/fleet/${id}`, {
+			const res = await axios.delete(`${BASE_URL}/fleet/reply/${id}`, {
 				headers: {
 					Authorization: `Bearer ${auth.token}`,
 				},
@@ -40,17 +35,11 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 		}
 	}
 
-	const { mutate } = useMutation(deleteFleet, {
+	const { mutate } = useMutation(deleteReply, {
 		onSuccess: () => {
 			setVisible(false)
-			dispatch(setSuccess('Fleet was deleted'))
-			if (pathname.startsWith('/home')) {
-				queryClient.refetchQueries('fleets')
-			} else if (pathname.startsWith('/profile')) {
-				queryClient.refetchQueries('profile-fleets')
-			} else if (pathname.startsWith('/fleet')) {
-				router.back()
-			}
+			dispatch(setSuccess('Reply was deleted'))
+			queryClient.refetchQueries('fleet-details')
 		},
 	})
 
@@ -89,17 +78,6 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 											</div>
 										</Menu.Item>
 									)}
-									<Menu.Item>
-										<Link href={`/fleet/${id}`}>
-											<a
-												target='_blank'
-												className='flex items-center w-full px-2 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-green-500 hover:bg-opacity-25 hover:text-green-500'
-											>
-												<ExternalLinkIcon className='w-4 h-4 mr-2' />
-												Open in a new window
-											</a>
-										</Link>
-									</Menu.Item>
 								</Menu.Items>
 							</Transition>
 						</>
@@ -107,8 +85,8 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 				</Menu>
 				<ConfirmModal
 					action={mutate}
-					header='Delete Fleet?'
-					desc='This can’t be undone and it will be removed from your profile'
+					header='Delete Reply?'
+					desc='This can’t be undone and it will be removed from the post'
 					visible={visible}
 					setVisible={setVisible}
 				/>
@@ -117,4 +95,4 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 	)
 }
 
-export default FleetOptions
+export default ReplyOptions

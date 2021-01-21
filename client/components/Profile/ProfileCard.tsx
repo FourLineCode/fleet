@@ -11,6 +11,7 @@ import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import Button from '../../ui/components/Button'
 import ErrorIcon from '../../ui/icons/ErrorIcon'
+import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
 import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
 import ProfileBanner from './ProfileBanner'
@@ -175,7 +176,10 @@ const ProfileCard = () => {
 					<div className='px-4'>
 						<div className='flex items-center justify-between pb-2 text-2xl text-white'>
 							<div className='flex flex-col'>
-								<span className='text-3xl font-semibold text-white'>{userData?.displayName}</span>
+								<span className='flex items-center text-white'>
+									<span className='text-3xl font-semibold '>{userData?.displayName}</span>
+									{userData.isAdmin && <VerifiedFilledIcon className='w-6 h-6 ml-1 text-white' />}
+								</span>
 								<span className='text-lg text-gray-400'>@{userData?.username}</span>
 							</div>
 							<Button

@@ -10,6 +10,7 @@ import IconButton from '../../ui/components/IconButton'
 import HeartFilledIcon from '../../ui/icons/HeartFilledIcon'
 import HeartIcon from '../../ui/icons/HeartIcon'
 import ReplyIcon from '../../ui/icons/ReplyIcon'
+import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
 import FleetOptions from './FleetOptions'
 import ReplyComposer from './ReplyComposer'
@@ -85,8 +86,11 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 					</Link>
 					<div className='text-base font-bold text-white'>
 						<Link href={`/profile/${fleet.author.id}`}>
-							<a className='flex flex-col'>
-								<span className='text-xl hover:underline'>{fleet.author.displayName}</span>{' '}
+							<a>
+								<span className='flex items-center text-xl hover:underline'>
+									<span>{fleet.author.displayName}</span>
+									{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+								</span>{' '}
 								<span className='font-normal text-gray-400'>@{fleet.author.username}</span>
 							</a>
 						</Link>

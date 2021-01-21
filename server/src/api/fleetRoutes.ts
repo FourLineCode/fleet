@@ -176,7 +176,7 @@ router.post('/', auth, async (req, res, next) => {
 	}
 })
 
-// delete a fleet
+// Delete a fleet
 router.delete('/:id', auth, async (req, res, next) => {
 	try {
 		const fleet = await getManager()
@@ -306,6 +306,40 @@ router.post('/reply/:id', auth, async (req, res, next) => {
 		await reply.save()
 
 		res.status(StatusCodes.OK).json({ success: true, reply: reply })
+	} catch (error) {
+		next(error)
+	}
+})
+
+// Delete a reply
+router.delete('/reply/:id', auth, async (req, res, next) => {
+	try {
+		const reply = await getManager()
+			.getRepository(Reply)
+			.createQueryBuilder('reply')
+			.where('reply.id = :id', { id: req.params.id })
+			.leftJoinAndSelect('reply.user', 'user')
+			.select(['reply', 'user.id', 'user.username', 'user.displayName', 'user.isAdmin'])
+			.getOne()
+
+		if (!reply) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('Reply not found')
+		}
+
+		if (reply.user.id !== req.userId && !req.admin) {
+			res.status(StatusCodes.FORBIDDEN)
+			throw new Error('You are not authorized to delete this reply')
+		}
+
+		await getManager()
+			.getRepository(Reply)
+			.createQueryBuilder('reply')
+			.delete()
+			.where('reply.id = :id', { id: reply.id })
+			.execute()
+
+		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
 		next(error)
 	}
