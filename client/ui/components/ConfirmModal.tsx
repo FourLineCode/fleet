@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useRef } from 'react'
-import Button from '../ui/Button'
-import Modal from '../ui/Modal'
+import Button from './Button'
+import Modal from './Modal'
 
 interface Props {
 	header: string

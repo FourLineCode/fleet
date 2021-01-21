@@ -1,19 +1,20 @@
 import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
-import { format } from 'date-fns'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../hooks/useAuthorization'
-import { setError } from '../store/actions/notificationActions'
-import { UserState } from '../store/reducers/types'
-import Button from '../ui/Button'
-import ErrorIcon from '../ui/icons/ErrorIcon'
-import { BASE_URL } from '../utils/config'
+import useAuthorization from '../../hooks/useAuthorization'
+import { setError } from '../../store/actions/notificationActions'
+import { UserState } from '../../store/reducers/types'
+import Button from '../../ui/components/Button'
+import ErrorIcon from '../../ui/icons/ErrorIcon'
+import { BASE_URL } from '../../utils/config'
 import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
+import ProfileBanner from './ProfileBanner'
+import ProfileInfo from './ProfileInfo'
 import ProfileTimeline from './ProfileTimeline'
 
 const ProfileCard = () => {
@@ -125,6 +126,11 @@ const ProfileCard = () => {
 		}
 	}
 
+	const followDetailsHandler = (tabType: TabTypes) => {
+		setTab(tabType)
+		setShowFollowDetails(true)
+	}
+
 	const { data } = useQuery('follow-data', getFollowData)
 	useQuery('is-following', checkFollow)
 
@@ -149,11 +155,6 @@ const ProfileCard = () => {
 		queryClient.prefetchQuery('is-following', checkFollow)
 	}, [id])
 
-	const followDetailsHandler = (tabType: TabTypes) => {
-		setTab(tabType)
-		setShowFollowDetails(true)
-	}
-
 	useEffect(() => {
 		console.log(userData)
 	}, [userData])
@@ -170,25 +171,7 @@ const ProfileCard = () => {
 					<Head>
 						<title>{userData.displayName} | Fleet</title>
 					</Head>
-					<div className='relative w-full h-60'>
-						<img
-							className='object-cover w-full h-full'
-							src='https://images6.fanpop.com/image/photos/39600000/Sparkle-Stars-Profile-Banner-smile19-39654242-946-250.jpg'
-							alt='profile-banner'
-						/>
-						<div className='absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-900 to-transparent' />
-					</div>
-					<div className='flex justify-center'>
-						<img
-							className='z-10 w-40 h-40 overflow-hidden border-4 border-white rounded-xl -mt-28'
-							src={
-								userData.isAdmin
-									? 'http://github.com/FourLineCode.png'
-									: 'http://github.com/RobinMalfait.png'
-							}
-							alt='profile-photo'
-						/>
-					</div>
+					<ProfileBanner isAdmin={userData.isAdmin} />
 					<div className='px-4'>
 						<div className='flex items-center justify-between pb-2 text-2xl text-white'>
 							<div className='flex flex-col'>
@@ -215,18 +198,7 @@ const ProfileCard = () => {
 								Following
 							</div>
 						</div>
-						<div className='flex px-4 pb-2 mt-2 border-b border-gray-500'>
-							<div className='w-3/4 text-white'>
-								<div className='text-sm text-gray-400'>Bio</div>
-								<div>{userData?.bio}</div>
-							</div>
-							<div className='flex-grow text-right'>
-								<div className='text-sm text-gray-400'>Joined</div>
-								<div className='text-base text-white'>
-									{format(new Date(userData?.createdAt!), 'd MMM, Y')}
-								</div>
-							</div>
-						</div>
+						<ProfileInfo bio={userData.bio} createdAt={userData.createdAt} />
 						<ProfileTimeline />
 					</div>
 					<FollowDetails tabType={tab} visible={showFollowDetails} setVisible={setShowFollowDetails} />

@@ -5,7 +5,7 @@ import { QueryClientProvider } from 'react-query'
 import useNotification from '../hooks/useNotification'
 import wrapper from '../store'
 import '../styles/index.css'
-import Notification from '../ui/Notification'
+import Notification from '../ui/components/Notification'
 import theme from '../ui/themes/MuiTheme'
 import queryClient from '../utils/query'
 

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-import ProtectedLayout from '../../components/ProtectedLayout'
+import ProtectedLayout from '../../components/Layouts/ProtectedLayout'
 import useCurrentUser from '../../hooks/useCurrentUser'
 
 const Profile = () => {

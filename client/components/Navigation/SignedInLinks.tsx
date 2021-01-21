@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useCurrentUser from '../hooks/useCurrentUser'
-import { signout } from '../store/actions/authActions'
-import VerifiedIcon from '../ui/icons/VerifiedIcon'
+import useCurrentUser from '../../hooks/useCurrentUser'
+import { signout } from '../../store/actions/authActions'
+import VerifiedIcon from '../../ui/icons/VerifiedIcon'
 
 const SignedInLinks = () => {
 	const user = useCurrentUser()

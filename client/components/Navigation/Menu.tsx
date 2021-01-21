@@ -1,13 +1,13 @@
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
-import useAuthorization from '../hooks/useAuthorization'
-import GithubIcon from '../ui/icons/GithubIcon'
-import HomeIcon from '../ui/icons/HomeIcon'
-import MessageIcon from '../ui/icons/MessageIcon'
-import PlusIcon from '../ui/icons/PlusIcon'
-import ProfileIcon from '../ui/icons/ProfileIcon'
-import MenuLink from '../ui/MenuLink'
-import FleetComposer from './FleetComposer'
+import useAuthorization from '../../hooks/useAuthorization'
+import MenuLink from '../../ui/components/MenuLink'
+import GithubIcon from '../../ui/icons/GithubIcon'
+import HomeIcon from '../../ui/icons/HomeIcon'
+import MessageIcon from '../../ui/icons/MessageIcon'
+import PlusIcon from '../../ui/icons/PlusIcon'
+import ProfileIcon from '../../ui/icons/ProfileIcon'
+import FleetComposer from '../Fleet/FleetComposer'
 
 const Menu = () => {
 	const [visible, setVisible] = useState(false)

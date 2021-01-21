@@ -1,7 +1,7 @@
 import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
 import React from 'react'
-import { UserState } from '../store/reducers/types'
+import { UserState } from '../../store/reducers/types'
 import { ReplyType } from './FleetDetails'
 
 interface Props {

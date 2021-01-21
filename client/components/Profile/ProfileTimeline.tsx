@@ -5,12 +5,12 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../hooks/useAuthorization'
-import { setError } from '../store/actions/notificationActions'
-import ErrorIcon from '../ui/icons/ErrorIcon'
-import { BASE_URL } from '../utils/config'
-import Fleet from './Fleet'
-import { FleetType } from './Timeline'
+import useAuthorization from '../../hooks/useAuthorization'
+import { setError } from '../../store/actions/notificationActions'
+import ErrorIcon from '../../ui/icons/ErrorIcon'
+import { BASE_URL } from '../../utils/config'
+import Fleet from '../Fleet/Fleet'
+import { FleetType } from '../Fleet/Timeline'
 
 const ProfileTimeline = () => {
 	const auth = useAuthorization()
