@@ -52,7 +52,10 @@ const ProfileTimeline = () => {
 				</div>
 			</div>
 			<div
-				className={clsx(isLoading && 'justify-center items-center flex', 'flex h-full my-4 flex-col space-y-4')}
+				className={clsx(
+					isLoading && 'justify-center items-center flex',
+					'flex h-full my-4 mb-8 md:mb-0 flex-col space-y-4 pb-2'
+				)}
 			>
 				{!isLoading &&
 					(data && data.length > 0 ? (
