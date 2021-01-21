@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../hooks/useAuthorization'
-import { refreshAuthToken } from '../store/actions/authActions'
+import useAuthorization from '../../hooks/useAuthorization'
+import { refreshAuthToken } from '../../store/actions/authActions'
 import Layout from './Layout'
 
 interface Props {

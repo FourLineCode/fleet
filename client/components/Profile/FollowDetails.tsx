@@ -5,12 +5,12 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../hooks/useAuthorization'
-import { setError } from '../store/actions/notificationActions'
-import { UserState } from '../store/reducers/types'
-import Modal from '../ui/Modal'
-import { BASE_URL } from '../utils/config'
-import UserInfo from './UserInfo'
+import useAuthorization from '../../hooks/useAuthorization'
+import { setError } from '../../store/actions/notificationActions'
+import { UserState } from '../../store/reducers/types'
+import Modal from '../../ui/components/Modal'
+import { BASE_URL } from '../../utils/config'
+import UserInfo from '../Recommend/UserInfo'
 
 interface Props {
 	tabType: TabTypes

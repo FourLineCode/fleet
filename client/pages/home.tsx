@@ -1,8 +1,8 @@
 import React from 'react'
-import Menu from '../components/Menu'
-import ProtectedLayout from '../components/ProtectedLayout'
-import Recommend from '../components/Recommend'
-import Timeline from '../components/Timeline'
+import Timeline from '../components/Fleet/Timeline'
+import ProtectedLayout from '../components/Layouts/ProtectedLayout'
+import Menu from '../components/Navigation/Menu'
+import Recommend from '../components/Recommend/Recommend'
 
 const Home = () => {
 	return (

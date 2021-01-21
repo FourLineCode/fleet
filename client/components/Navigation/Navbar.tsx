@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import useAuthorization from '../hooks/useAuthorization'
-import FleetIcon from '../ui/icons/FleetIcon'
+import useAuthorization from '../../hooks/useAuthorization'
+import FleetIcon from '../../ui/icons/FleetIcon'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 

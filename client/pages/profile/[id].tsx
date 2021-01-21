@@ -1,8 +1,8 @@
 import React from 'react'
-import Menu from '../../components/Menu'
-import ProfileCard from '../../components/ProfileCard'
-import ProtectedLayout from '../../components/ProtectedLayout'
-import Recommend from '../../components/Recommend'
+import ProtectedLayout from '../../components/Layouts/ProtectedLayout'
+import Menu from '../../components/Navigation/Menu'
+import ProfileCard from '../../components/Profile/ProfileCard'
+import Recommend from '../../components/Recommend/Recommend'
 
 const Profile = () => {
 	return (
