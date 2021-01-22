@@ -245,7 +245,25 @@ router.post('/like/:id', auth, async (req, res, next) => {
 			fleet: fleet,
 		}).save()
 
-		res.status(StatusCodes.OK).json({ success: true })
+		const updatedFleet = await getManager()
+			.getRepository(Fleet)
+			.createQueryBuilder('fleet')
+			.where('fleet.id = :id', { id: req.params.id })
+			.leftJoinAndSelect('fleet.author', 'author')
+			.leftJoinAndSelect('fleet.likes', 'likes')
+			.leftJoinAndSelect('fleet.replies', 'replies')
+			.select([
+				'fleet',
+				'likes',
+				'replies',
+				'author.id',
+				'author.username',
+				'author.displayName',
+				'author.isAdmin',
+			])
+			.getOne()
+
+		res.status(StatusCodes.OK).json({ success: true, updatedFleet: updatedFleet })
 	} catch (error) {
 		next(error)
 	}
@@ -270,7 +288,25 @@ router.post('/unlike/:id', auth, async (req, res, next) => {
 
 		await Like.delete({ user: req.user, fleet: fleet })
 
-		res.status(StatusCodes.OK).json({ success: true })
+		const updatedFleet = await getManager()
+			.getRepository(Fleet)
+			.createQueryBuilder('fleet')
+			.where('fleet.id = :id', { id: req.params.id })
+			.leftJoinAndSelect('fleet.author', 'author')
+			.leftJoinAndSelect('fleet.likes', 'likes')
+			.leftJoinAndSelect('fleet.replies', 'replies')
+			.select([
+				'fleet',
+				'likes',
+				'replies',
+				'author.id',
+				'author.username',
+				'author.displayName',
+				'author.isAdmin',
+			])
+			.getOne()
+
+		res.status(StatusCodes.OK).json({ success: true, updatedFleet: updatedFleet })
 	} catch (error) {
 		next(error)
 	}
