@@ -12,7 +12,8 @@
 		"install": "concurrently -n \" server , client \" -c \"yellow.bold,green.bold\" \"cd server && yarn\" \"cd client && yarn\"",
 		"drop:db": "rm server/db/database.sqlite",
 		"deploy:server": "git subtree push --prefix server heroku master",
-		"deploy:client": "vercel --prod"
+		"deploy:client": "vercel --prod",
+		"deploy:stack": "yarn deploy:server && yarn deploy:client"
 	},
 	"dependencies": {
 		"concurrently": "^5.3.0"

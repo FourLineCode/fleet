@@ -43,19 +43,17 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 	}
 
 	const { mutate, isLoading } = useMutation(composeFleet, {
-		onSuccess: () => {
+		onMutate: () => {
 			dispatch(setSuccess('Fleet sent'))
 			setVisible(false)
 			setBody('')
+		},
+		onSuccess: () => {
 			if (pathname.startsWith('/home')) {
 				queryClient.refetchQueries('fleets')
 			} else if (pathname.startsWith('/profile')) {
 				queryClient.refetchQueries('profile-fleets')
 			}
-		},
-		onError: () => {
-			dispatch(setError('An error occured while sending fleet'))
-			setBody('')
 		},
 	})
 
