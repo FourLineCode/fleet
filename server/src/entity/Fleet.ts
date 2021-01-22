@@ -19,4 +19,6 @@ export default class Fleet extends InternalEntity {
 
 	@OneToMany(() => Reply, (replies) => replies.fleet)
 	replies: Reply[]
+
+	liked: boolean | null
 }

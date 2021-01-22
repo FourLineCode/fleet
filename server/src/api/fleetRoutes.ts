@@ -50,7 +50,7 @@ router.get('/home', auth, async (req, res, next) => {
 				.leftJoinAndSelect('fleet.author', 'author')
 				.leftJoinAndSelect('fleet.likes', 'likes')
 				.leftJoinAndSelect('fleet.replies', 'replies')
-				.orderBy('fleet.createdAt', 'ASC')
+				.orderBy('fleet.createdAt', 'DESC')
 				.select([
 					'fleet',
 					'likes',
@@ -75,7 +75,12 @@ router.get('/home', auth, async (req, res, next) => {
 
 		const filteredFleets = fleets.filter((fleet) => followedUserIds.includes(String(fleet.author.id)))
 
-		res.status(StatusCodes.OK).json(filteredFleets.reverse())
+		for (const fleet of filteredFleets) {
+			const like = await Like.findOne({ where: { user: req.user, fleet: fleet } })
+			fleet.liked = !!like
+		}
+
+		res.status(StatusCodes.OK).json(filteredFleets)
 	} catch (error) {
 		next(error)
 	}
@@ -113,6 +118,9 @@ router.get('/post/:id', auth, async (req, res, next) => {
 			throw new Error('Fleet not found')
 		}
 
+		const like = await Like.findOne({ where: { user: req.user, fleet: fleet } })
+		fleet.liked = !!like
+
 		res.status(StatusCodes.OK).json(fleet)
 	} catch (error) {
 		next(error)
@@ -130,7 +138,7 @@ router.get('/timeline/:id', auth, async (req, res, next) => {
 			.leftJoinAndSelect('fleets.author', 'author')
 			.leftJoinAndSelect('fleets.likes', 'likes')
 			.leftJoinAndSelect('fleets.replies', 'replies')
-			.orderBy('fleets.createdAt', 'ASC')
+			.orderBy('fleets.createdAt', 'DESC')
 			.select([
 				'user',
 				'fleets',
@@ -146,7 +154,12 @@ router.get('/timeline/:id', auth, async (req, res, next) => {
 
 		const fleets = user?.fleets || []
 
-		res.status(StatusCodes.OK).json(fleets.reverse())
+		for (const fleet of fleets) {
+			const like = await Like.findOne({ where: { user: req.user, fleet: fleet } })
+			fleet.liked = !!like
+		}
+
+		res.status(StatusCodes.OK).json(fleets)
 	} catch (error) {
 		next(error)
 	}
