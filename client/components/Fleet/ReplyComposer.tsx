@@ -49,21 +49,19 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 	}
 
 	const { mutate, isLoading } = useMutation(composeReply, {
-		onSuccess: () => {
+		onMutate: () => {
 			dispatch(setSuccess('Reply sent'))
 			setVisible(false)
 			setBody('')
-			if (pathname.startsWith('/home')) {
-				queryClient.refetchQueries('fleets')
-			} else if (pathname.startsWith('/profile')) {
-				queryClient.refetchQueries('profile-fleets')
-			} else if (pathname.startsWith('/fleet')) {
-				queryClient.refetchQueries('fleet-details')
-			}
 		},
-		onError: () => {
-			dispatch(setError('An error occured while Replying to this fleet.'))
-			setBody('')
+		onSuccess: () => {
+			if (pathname.startsWith('/fleet')) {
+				queryClient.refetchQueries('fleet-details')
+			} else if (pathname.startsWith('/home')) {
+				queryClient.invalidateQueries('fleets')
+			} else if (pathname.startsWith('/profile')) {
+				queryClient.invalidateQueries('profile-fleets')
+			}
 		},
 	})
 
@@ -100,7 +98,7 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 			visible={visible}
 			setVisible={setVisible}
 			position='top'
-			className='w-full bg-gray-800 rounded-lg shadow-lg h-80 md:w-2/5'
+			className='w-full pb-2 bg-gray-800 rounded-lg shadow-lg max-h-96 md:w-2/5'
 		>
 			<div className='flex justify-end w-full'>
 				<IconButton onClick={() => setVisible(false)}>
@@ -136,7 +134,7 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 									</span>
 								</div>
 							</div>
-							<div className='text-sm text-white break-all'>{fleet.body}</div>
+							<div className='overflow-hidden text-sm text-white break-all'>{fleet.body}</div>
 						</div>
 					</div>
 				</div>

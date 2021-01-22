@@ -141,10 +141,12 @@ const ProfileCard = () => {
 	})
 
 	const { mutate } = useMutation(handleFollow, {
-		onSuccess: (data) => {
-			if (followed) setFollowed(!data.success)
-			else setFollowed(data.success)
-			queryClient.refetchQueries('follow-data')
+		onMutate: () => {
+			setFollowed(!followed)
+		},
+		onSettled: () => {
+			queryClient.invalidateQueries('follow-data')
+			queryClient.invalidateQueries('is-following')
 		},
 	})
 

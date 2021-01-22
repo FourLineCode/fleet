@@ -30,7 +30,6 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 
 	const [showReplyComposer, setShowReplyComposer] = useState(false)
 
-	// TODO: make this cleaner
 	const likeHandler = async () => {
 		try {
 			if (!liked) {
@@ -43,7 +42,6 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 						},
 					}
 				)
-				setLiked(true)
 			} else {
 				await axios.post(
 					`${BASE_URL}/fleet/unlike/${fleet.id}`,
@@ -54,7 +52,6 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 						},
 					}
 				)
-				setLiked(false)
 			}
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))
@@ -62,8 +59,19 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 	}
 
 	const { mutate } = useMutation(likeHandler, {
-		onSuccess: () => {
-			queryClient.refetchQueries('fleet-details')
+		onMutate: () => {
+			if (liked) {
+				fleet.likes.pop()
+			} else {
+				fleet.likes.push({
+					id: 'placeholder',
+					createdAt: new Date().toISOString(),
+				})
+			}
+			setLiked(!liked)
+		},
+		onSettled: () => {
+			queryClient.invalidateQueries('fleet-details')
 		},
 	})
 

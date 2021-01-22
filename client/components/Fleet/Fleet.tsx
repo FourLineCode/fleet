@@ -66,9 +66,18 @@ const Fleet = ({ fleet }: Props) => {
 	}
 
 	const { mutate } = useMutation(likeHandler, {
-		onSuccess: (data) => {
-			if (liked) setLiked(!data.success)
-			else setLiked(data.success)
+		onMutate: () => {
+			if (liked) {
+				fleet.likes.pop()
+			} else {
+				fleet.likes.push({
+					id: 'placeholder',
+					createdAt: new Date().toISOString(),
+				})
+			}
+			setLiked(!liked)
+		},
+		onSettled: () => {
 			if (pathname.startsWith('/home')) {
 				queryClient.invalidateQueries('fleets')
 			} else if (pathname.startsWith('/profile')) {
