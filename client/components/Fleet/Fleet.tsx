@@ -2,7 +2,7 @@ import axios from 'axios'
 import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../../hooks/useAuthorization'
@@ -30,13 +30,11 @@ const Fleet = ({ fleet }: Props) => {
 	const { pathname } = useRouter()
 
 	const [showReplyComposer, setShowReplyComposer] = useState(false)
-	const [liked, setLiked] = useState<boolean | null>(null)
+	const [liked, setLiked] = useState<boolean>(fleet.liked)
 	const [canDelete] = useState(auth.id === fleet.author.id || user.isAdmin)
 
 	// TODO: make this cleaner
 	const likeHandler = async () => {
-		if (liked === null) return
-		console.log(fleet.id)
 		try {
 			if (!liked) {
 				setLiked(true)
@@ -65,20 +63,6 @@ const Fleet = ({ fleet }: Props) => {
 			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
-
-	const checkLiked = async () => {
-		const res = await axios.get(`${BASE_URL}/fleet/checklike/${fleet.id}`, {
-			headers: {
-				Authorization: `Bearer ${auth.token}`,
-			},
-		})
-
-		setLiked(res.data.liked)
-	}
-
-	useEffect(() => {
-		checkLiked()
-	}, [])
 
 	const { mutate } = useMutation(likeHandler, {
 		onSuccess: () => {

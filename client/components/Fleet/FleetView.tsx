@@ -18,8 +18,8 @@ import { FleetType } from './Timeline'
 
 interface Props {
 	fleet: FleetType
-	liked: boolean | null
-	setLiked: Dispatch<SetStateAction<boolean | null>>
+	liked: boolean
+	setLiked: Dispatch<SetStateAction<boolean>>
 	canDelete: boolean
 }
 
@@ -32,7 +32,6 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 
 	// TODO: make this cleaner
 	const likeHandler = async () => {
-		if (liked === null) return
 		try {
 			if (!liked) {
 				await axios.post(

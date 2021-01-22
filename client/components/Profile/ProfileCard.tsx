@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
@@ -26,6 +26,7 @@ const ProfileCard = () => {
 	const dispatch = useDispatch()
 	const [userData, setUserData] = useState<UserState>()
 	const [userDataLoading, setUserDataLoading] = useState(false)
+	// TODO: clean this shit up
 	const [followData, setFollowData] = useState<Record<string, Object[] | number>>({
 		folowers: [],
 		followerCount: 0,
@@ -77,29 +78,10 @@ const ProfileCard = () => {
 		}
 	}
 
-	const checkFollow = async () => {
-		try {
-			const res = await axios.get(`${BASE_URL}/follow/check/${id}`, {
-				headers: {
-					authorization: `Bearer ${auth.token}`,
-				},
-			})
-
-			setFollowed(res.data.follows)
-			return res.data.follows
-		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
-		}
-	}
-
-	const handleFollow = async (e: React.MouseEvent) => {
-		e.preventDefault()
-
+	const handleFollow = async () => {
 		try {
 			if (!followed) {
-				setFollowed(true)
-
-				await axios.post(
+				const res = await axios.post(
 					`${BASE_URL}/follow/${id}`,
 					{},
 					{
@@ -108,10 +90,10 @@ const ProfileCard = () => {
 						},
 					}
 				)
-			} else {
-				setFollowed(false)
 
-				await axios.post(
+				return res.data
+			} else {
+				const res = await axios.post(
 					`${BASE_URL}/follow/unfollow/${id}`,
 					{},
 					{
@@ -120,8 +102,9 @@ const ProfileCard = () => {
 						},
 					}
 				)
+
+				return res.data
 			}
-			queryClient.refetchQueries('follow-data')
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))
 		}
@@ -132,8 +115,35 @@ const ProfileCard = () => {
 		setShowFollowDetails(true)
 	}
 
+	const checkFollow = async () => {
+		try {
+			const res = await axios.get(`${BASE_URL}/follow/check/${id}`, {
+				headers: {
+					authorization: `Bearer ${auth.token}`,
+				},
+			})
+
+			return res.data
+		} catch (error) {
+			if (error.response) dispatch(setError(error.response.data.message))
+		}
+	}
+
 	const { data } = useQuery('follow-data', getFollowData)
-	useQuery('is-following', checkFollow)
+
+	useQuery('is-following', checkFollow, {
+		onSuccess: (isFollowingData) => {
+			setFollowed(isFollowingData.follows)
+		},
+	})
+
+	const { mutate } = useMutation(handleFollow, {
+		onSuccess: (data) => {
+			if (followed) setFollowed(!data.success)
+			else setFollowed(data.success)
+			queryClient.refetchQueries('follow-data')
+		},
+	})
 
 	useEffect(() => {
 		if (data) {
@@ -155,10 +165,6 @@ const ProfileCard = () => {
 
 		queryClient.prefetchQuery('is-following', checkFollow)
 	}, [id])
-
-	useEffect(() => {
-		console.log(userData)
-	}, [userData])
 
 	return (
 		<div
@@ -186,7 +192,7 @@ const ProfileCard = () => {
 								type='button'
 								variant={followed ? 'filled' : 'outlined'}
 								disabled={disableFollow}
-								onClick={handleFollow}
+								onClick={mutate}
 								className={clsx('text-base', disableFollow && 'hidden')}
 							>
 								{followed ? 'Unfollow' : 'Follow'}

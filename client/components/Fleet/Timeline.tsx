@@ -33,6 +33,7 @@ export interface FleetType {
 	author: Author
 	likes: Like[]
 	replies: Reply[]
+	liked: boolean
 }
 
 const Timeline = () => {

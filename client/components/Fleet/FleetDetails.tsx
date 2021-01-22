@@ -27,7 +27,7 @@ const FleetDetails = () => {
 	const { id } = router.query
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
-	const [liked, setLiked] = useState<boolean | null>(null)
+	const [liked, setLiked] = useState<boolean>(false)
 
 	const getFleetData = async () => {
 		try {
@@ -43,25 +43,19 @@ const FleetDetails = () => {
 		}
 	}
 
-	const checkLiked = async () => {
-		const res = await axios.get(`${BASE_URL}/fleet/checklike/${id}`, {
-			headers: {
-				Authorization: `Bearer ${auth.token}`,
-			},
-		})
-
-		setLiked(res.data.liked)
-	}
-
 	const { data, isLoading } = useQuery('fleet-details', getFleetData)
 
 	useEffect(() => {
-		checkLiked()
-
 		return () => {
 			queryClient.removeQueries('fleet-details')
 		}
 	}, [])
+
+	useEffect(() => {
+		if (data) {
+			setLiked(data.liked)
+		}
+	}, [data])
 
 	return (
 		<div
