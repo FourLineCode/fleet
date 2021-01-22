@@ -33,12 +33,10 @@ const Fleet = ({ fleet }: Props) => {
 	const [liked, setLiked] = useState<boolean>(fleet.liked)
 	const [canDelete] = useState(auth.id === fleet.author.id || user.isAdmin)
 
-	// TODO: make this cleaner
 	const likeHandler = async () => {
 		try {
 			if (!liked) {
-				setLiked(true)
-				await axios.post(
+				const res = await axios.post(
 					`${BASE_URL}/fleet/like/${fleet.id}`,
 					{},
 					{
@@ -47,9 +45,10 @@ const Fleet = ({ fleet }: Props) => {
 						},
 					}
 				)
+
+				return res.data
 			} else {
-				setLiked(false)
-				await axios.post(
+				const res = await axios.post(
 					`${BASE_URL}/fleet/unlike/${fleet.id}`,
 					{},
 					{
@@ -58,6 +57,8 @@ const Fleet = ({ fleet }: Props) => {
 						},
 					}
 				)
+
+				return res.data
 			}
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))
@@ -65,11 +66,13 @@ const Fleet = ({ fleet }: Props) => {
 	}
 
 	const { mutate } = useMutation(likeHandler, {
-		onSuccess: () => {
+		onSuccess: (data) => {
+			if (liked) setLiked(!data.success)
+			else setLiked(data.success)
 			if (pathname.startsWith('/home')) {
-				queryClient.refetchQueries('fleets')
+				queryClient.invalidateQueries('fleets')
 			} else if (pathname.startsWith('/profile')) {
-				queryClient.refetchQueries('profile-fleets')
+				queryClient.invalidateQueries('profile-fleets')
 			}
 		},
 	})

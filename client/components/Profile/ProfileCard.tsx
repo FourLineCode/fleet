@@ -39,6 +39,7 @@ const ProfileCard = () => {
 	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
 
 	const getUserData = async () => {
+		if (!id) return
 		try {
 			setUserDataLoading(true)
 			const res = await axios.get(`${BASE_URL}/user/info/${id}`, {
@@ -56,6 +57,7 @@ const ProfileCard = () => {
 	}
 
 	const getFollowData = async () => {
+		if (!id) return
 		try {
 			const res = await axios.get(`${BASE_URL}/follow/count/${id}`, {
 				headers: {
@@ -116,6 +118,7 @@ const ProfileCard = () => {
 	}
 
 	const checkFollow = async () => {
+		if (!id) return { follows: false }
 		try {
 			const res = await axios.get(`${BASE_URL}/follow/check/${id}`, {
 				headers: {
