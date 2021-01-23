@@ -13,6 +13,7 @@ import Button from '../../ui/components/Button'
 import ErrorIcon from '../../ui/icons/ErrorIcon'
 import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
 import ProfileBanner from './ProfileBanner'
 import ProfileInfo from './ProfileInfo'
@@ -42,11 +43,7 @@ const ProfileCard = () => {
 		if (!id) return
 		try {
 			setUserDataLoading(true)
-			const res = await axios.get(`${BASE_URL}/user/info/${id}`, {
-				headers: {
-					authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.get(`${BASE_URL}/user/info/${id}`, auth.apiConfig)
 			setUserData(res.data)
 			setUserDataLoading(false)
 			return
@@ -56,14 +53,11 @@ const ProfileCard = () => {
 		}
 	}
 
+	// TODO: improve this
 	const getFollowData = async () => {
 		if (!id) return
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/count/${id}`, {
-				headers: {
-					authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.get(`${BASE_URL}/follow/count/${id}`, auth.apiConfig)
 
 			const { followers, following } = res.data
 
@@ -83,27 +77,11 @@ const ProfileCard = () => {
 	const handleFollow = async () => {
 		try {
 			if (!followed) {
-				const res = await axios.post(
-					`${BASE_URL}/follow/${id}`,
-					{},
-					{
-						headers: {
-							authorization: `Bearer ${auth.token}`,
-						},
-					}
-				)
+				const res = await axios.post(`${BASE_URL}/follow/${id}`, {}, auth.apiConfig)
 
 				return res.data
 			} else {
-				const res = await axios.post(
-					`${BASE_URL}/follow/unfollow/${id}`,
-					{},
-					{
-						headers: {
-							authorization: `Bearer ${auth.token}`,
-						},
-					}
-				)
+				const res = await axios.post(`${BASE_URL}/follow/unfollow/${id}`, {}, auth.apiConfig)
 
 				return res.data
 			}
@@ -120,11 +98,7 @@ const ProfileCard = () => {
 	const checkFollow = async () => {
 		if (!id) return { follows: false }
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/check/${id}`, {
-				headers: {
-					authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.get(`${BASE_URL}/follow/check/${id}`, auth.apiConfig)
 
 			return res.data
 		} catch (error) {
@@ -132,9 +106,9 @@ const ProfileCard = () => {
 		}
 	}
 
-	const { data } = useQuery('follow-data', getFollowData)
+	const { data } = useQuery(queryTypes.FOLLOW_DATA, getFollowData)
 
-	useQuery('is-following', checkFollow, {
+	useQuery(queryTypes.IS_FOLLOWING, checkFollow, {
 		onSuccess: (isFollowingData) => {
 			setFollowed(isFollowingData.follows)
 		},
@@ -145,8 +119,8 @@ const ProfileCard = () => {
 			setFollowed(!followed)
 		},
 		onSettled: () => {
-			queryClient.invalidateQueries('follow-data')
-			queryClient.invalidateQueries('is-following')
+			queryClient.invalidateQueries(queryTypes.FOLLOW_DATA)
+			queryClient.invalidateQueries(queryTypes.IS_FOLLOWING)
 		},
 	})
 
@@ -158,7 +132,7 @@ const ProfileCard = () => {
 
 	useEffect(() => {
 		getUserData()
-		queryClient.prefetchQuery('follow-data', getFollowData)
+		queryClient.prefetchQuery(queryTypes.FOLLOW_DATA, getFollowData)
 	}, [id])
 
 	useEffect(() => {
@@ -168,7 +142,7 @@ const ProfileCard = () => {
 		}
 		setDisableFollow(false)
 
-		queryClient.prefetchQuery('is-following', checkFollow)
+		queryClient.prefetchQuery(queryTypes.IS_FOLLOWING, checkFollow)
 	}, [id])
 
 	return (

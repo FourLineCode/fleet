@@ -12,6 +12,7 @@ import Modal from '../../ui/components/Modal'
 import TextArea from '../../ui/components/TextArea'
 import CloseIcon from '../../ui/icons/CloseIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 
 interface Props {
 	visible: boolean
@@ -28,15 +29,7 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 
 	const composeFleet = async () => {
 		try {
-			await axios.post(
-				`${BASE_URL}/fleet`,
-				{ body: body },
-				{
-					headers: {
-						Authorization: `Bearer ${auth.token}`,
-					},
-				}
-			)
+			await axios.post(`${BASE_URL}/fleet`, { body: body }, auth.apiConfig)
 		} catch (error) {
 			if (error.response.data) dispatch(setError(error.response.data.message))
 		}
@@ -50,9 +43,9 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 		},
 		onSuccess: () => {
 			if (pathname.startsWith('/home')) {
-				queryClient.refetchQueries('fleets')
+				queryClient.refetchQueries(queryTypes.FLEETS)
 			} else if (pathname.startsWith('/profile')) {
-				queryClient.refetchQueries('profile-fleets')
+				queryClient.refetchQueries(queryTypes.PROFILE_FLEETS)
 			}
 		},
 	})

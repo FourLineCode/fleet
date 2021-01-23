@@ -12,6 +12,7 @@ import HeartIcon from '../../ui/icons/HeartIcon'
 import ReplyIcon from '../../ui/icons/ReplyIcon'
 import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 import FleetOptions from './FleetOptions'
 import ReplyComposer from './ReplyComposer'
 import { FleetType } from './Timeline'
@@ -33,25 +34,9 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 	const likeHandler = async () => {
 		try {
 			if (!liked) {
-				await axios.post(
-					`${BASE_URL}/fleet/like/${fleet.id}`,
-					{},
-					{
-						headers: {
-							Authorization: `Bearer ${auth.token}`,
-						},
-					}
-				)
+				await axios.post(`${BASE_URL}/fleet/like/${fleet.id}`, {}, auth.apiConfig)
 			} else {
-				await axios.post(
-					`${BASE_URL}/fleet/unlike/${fleet.id}`,
-					{},
-					{
-						headers: {
-							Authorization: `Bearer ${auth.token}`,
-						},
-					}
-				)
+				await axios.post(`${BASE_URL}/fleet/unlike/${fleet.id}`, {}, auth.apiConfig)
 			}
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))
@@ -71,7 +56,7 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 			setLiked(!liked)
 		},
 		onSettled: () => {
-			queryClient.invalidateQueries('fleet-details')
+			queryClient.invalidateQueries(queryTypes.FLEET_DETAILS)
 		},
 	})
 

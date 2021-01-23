@@ -10,7 +10,7 @@ import useCurrentUser from '../../hooks/useCurrentUser'
 import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import { BASE_URL } from '../../utils/config'
-import queryClient from '../../utils/query'
+import queryClient, { queryTypes } from '../../utils/query'
 import FleetView from './FleetView'
 import Reply from './Reply'
 
@@ -31,11 +31,7 @@ const FleetDetails = () => {
 
 	const getFleetData = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/fleet/post/${id}`, {
-				headers: {
-					Authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.get(`${BASE_URL}/fleet/post/${id}`, auth.apiConfig)
 
 			return res.data
 		} catch (error) {
@@ -43,11 +39,11 @@ const FleetDetails = () => {
 		}
 	}
 
-	const { data, isLoading } = useQuery('fleet-details', getFleetData)
+	const { data, isLoading } = useQuery(queryTypes.FLEET_DETAILS, getFleetData)
 
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries('fleet-details')
+			queryClient.removeQueries(queryTypes.FLEET_DETAILS)
 		}
 	}, [])
 

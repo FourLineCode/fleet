@@ -14,6 +14,7 @@ import HeartIcon from '../../ui/icons/HeartIcon'
 import ReplyIcon from '../../ui/icons/ReplyIcon'
 import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 import FleetOptions from './FleetOptions'
 import ReplyComposer from './ReplyComposer'
 import { FleetType } from './Timeline'
@@ -36,27 +37,11 @@ const Fleet = ({ fleet }: Props) => {
 	const likeHandler = async () => {
 		try {
 			if (!liked) {
-				const res = await axios.post(
-					`${BASE_URL}/fleet/like/${fleet.id}`,
-					{},
-					{
-						headers: {
-							Authorization: `Bearer ${auth.token}`,
-						},
-					}
-				)
+				const res = await axios.post(`${BASE_URL}/fleet/like/${fleet.id}`, {}, auth.apiConfig)
 
 				return res.data
 			} else {
-				const res = await axios.post(
-					`${BASE_URL}/fleet/unlike/${fleet.id}`,
-					{},
-					{
-						headers: {
-							Authorization: `Bearer ${auth.token}`,
-						},
-					}
-				)
+				const res = await axios.post(`${BASE_URL}/fleet/unlike/${fleet.id}`, {}, auth.apiConfig)
 
 				return res.data
 			}
@@ -79,9 +64,9 @@ const Fleet = ({ fleet }: Props) => {
 		},
 		onSettled: () => {
 			if (pathname.startsWith('/home')) {
-				queryClient.invalidateQueries('fleets')
+				queryClient.invalidateQueries(queryTypes.FLEETS)
 			} else if (pathname.startsWith('/profile')) {
-				queryClient.invalidateQueries('profile-fleets')
+				queryClient.invalidateQueries(queryTypes.PROFILE_FLEETS)
 			}
 		},
 	})

@@ -12,6 +12,7 @@ import DotsVertical from '../../ui/icons/DotsVertical'
 import ExternalLinkIcon from '../../ui/icons/ExternalLinkIcon'
 import TrashIcon from '../../ui/icons/TrashIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 
 interface Props {
 	id: string
@@ -28,11 +29,7 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 
 	const deleteFleet = async () => {
 		try {
-			const res = await axios.delete(`${BASE_URL}/fleet/${id}`, {
-				headers: {
-					Authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.delete(`${BASE_URL}/fleet/${id}`, auth.apiConfig)
 
 			return res.data
 		} catch (error) {
@@ -45,9 +42,9 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 			setVisible(false)
 			dispatch(setSuccess('Fleet was deleted'))
 			if (pathname.startsWith('/home')) {
-				queryClient.refetchQueries('fleets')
+				queryClient.refetchQueries(queryTypes.FLEETS)
 			} else if (pathname.startsWith('/profile')) {
-				queryClient.refetchQueries('profile-fleets')
+				queryClient.refetchQueries(queryTypes.PROFILE_FLEETS)
 			} else if (pathname.startsWith('/fleet')) {
 				router.back()
 			}

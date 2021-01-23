@@ -13,6 +13,7 @@ export interface AuthState {
 	signedIn: boolean
 	id: string | null
 	token: string | null
+	apiConfig: Record<'headers', Record<'Authorization', string | null>>
 	refreshing: boolean
 }
 
