@@ -10,6 +10,11 @@ const router = Router()
 // Follow a user
 router.post('/:id', auth, async (req, res, next) => {
 	try {
+		if (req.params.id === req.userId) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('You cannot follow yourself')
+		}
+
 		const followedUser = await User.findOne({ id: req.params.id })
 		if (!followedUser) {
 			res.status(StatusCodes.BAD_REQUEST)
@@ -38,6 +43,11 @@ router.post('/:id', auth, async (req, res, next) => {
 // Unfollow a user
 router.post('/unfollow/:id', auth, async (req, res, next) => {
 	try {
+		if (req.params.id === req.userId) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('You cannot unfollow yourself')
+		}
+
 		const followedUser = await User.findOne({ id: req.params.id })
 		if (!followedUser) {
 			res.status(StatusCodes.BAD_REQUEST)
@@ -93,10 +103,10 @@ router.get('/count/:id', auth, async (req, res, next) => {
 			throw new Error('Requested user doesnt exist')
 		}
 
-		const followers = user.followers
-		const following = user.following
+		const followerCount = user.followers.length
+		const followingCount = user.following.length
 
-		res.status(StatusCodes.OK).json({ followers, following })
+		res.status(StatusCodes.OK).json({ followerCount, followingCount })
 	} catch (error) {
 		next(error)
 	}
