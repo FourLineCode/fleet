@@ -27,11 +27,8 @@ const ProfileCard = () => {
 	const dispatch = useDispatch()
 	const [userData, setUserData] = useState<UserState>()
 	const [userDataLoading, setUserDataLoading] = useState(false)
-	// TODO: clean this shit up
-	const [followData, setFollowData] = useState<Record<string, Object[] | number>>({
-		folowers: [],
+	const [followData, setFollowData] = useState<Record<string, number>>({
 		followerCount: 0,
-		following: [],
 		followingCount: 0,
 	})
 	const [followed, setFollowed] = useState(false)
@@ -53,19 +50,16 @@ const ProfileCard = () => {
 		}
 	}
 
-	// TODO: improve this
 	const getFollowData = async () => {
 		if (!id) return
 		try {
 			const res = await axios.get(`${BASE_URL}/follow/count/${id}`, auth.apiConfig)
 
-			const { followers, following } = res.data
+			const { followerCount, followingCount } = res.data
 
 			const followResponse = {
-				followers: followers,
-				followerCount: followers.length,
-				following: following,
-				followingCount: following.length,
+				followerCount,
+				followingCount,
 			}
 
 			return followResponse
