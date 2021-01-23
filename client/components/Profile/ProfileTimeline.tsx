@@ -9,6 +9,7 @@ import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import ErrorIcon from '../../ui/icons/ErrorIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 import Fleet from '../Fleet/Fleet'
 import { FleetType } from '../Fleet/Timeline'
 
@@ -21,26 +22,22 @@ const ProfileTimeline = () => {
 
 	const getFleets = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/fleet/timeline/${id}`, {
-				headers: {
-					Authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.get(`${BASE_URL}/fleet/timeline/${id}`, auth.apiConfig)
 			return res.data
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 
-	const { data, isLoading } = useQuery('profile-fleets', getFleets)
+	const { data, isLoading } = useQuery(queryTypes.PROFILE_FLEETS, getFleets)
 
 	useEffect(() => {
-		queryClient.prefetchQuery('profile-fleets', getFleets)
+		queryClient.prefetchQuery(queryTypes.PROFILE_FLEETS, getFleets)
 	}, [id])
 
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries('profile-fleets')
+			queryClient.removeQueries(queryTypes.PROFILE_FLEETS)
 		}
 	}, [])
 

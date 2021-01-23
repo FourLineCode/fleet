@@ -8,6 +8,7 @@ import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import ErrorIcon from '../../ui/icons/ErrorIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 import Fleet from './Fleet'
 
 interface Author {
@@ -43,11 +44,7 @@ const Timeline = () => {
 
 	const getFleets = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/fleet/home`, {
-				headers: {
-					Authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.get(`${BASE_URL}/fleet/home`, auth.apiConfig)
 
 			return res.data
 		} catch (error) {
@@ -56,11 +53,11 @@ const Timeline = () => {
 	}
 
 	// TODO: Handle error with error component
-	const { data, isLoading } = useQuery('fleets', getFleets)
+	const { data, isLoading } = useQuery(queryTypes.FLEETS, getFleets)
 
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries('fleets')
+			queryClient.removeQueries(queryTypes.FLEETS)
 		}
 	}, [])
 

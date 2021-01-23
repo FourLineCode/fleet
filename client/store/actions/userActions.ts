@@ -5,13 +5,9 @@ import { setError } from './notificationActions'
 
 export const getUserInfo = () => async (dispatch: any, getState: any) => {
 	try {
-		const { token, id } = getState().auth
+		const auth = getState().auth
 
-		const response = await axios.get(`${BASE_URL}/user/info/${id}`, {
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		})
+		const response = await axios.get(`${BASE_URL}/user/info/${auth.id}`, auth.apiConfig)
 
 		if (response.data) {
 			dispatch({ type: actions.GET_USER_INFO, payload: response.data })

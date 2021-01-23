@@ -14,6 +14,7 @@ import TextArea from '../../ui/components/TextArea'
 import CloseIcon from '../../ui/icons/CloseIcon'
 import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 import { FleetType } from './Timeline'
 
 interface Props {
@@ -32,15 +33,7 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 
 	const composeReply = async () => {
 		try {
-			const res = await axios.post(
-				`${BASE_URL}/fleet/reply/${fleet.id}`,
-				{ body: body },
-				{
-					headers: {
-						Authorization: `Bearer ${auth.token}`,
-					},
-				}
-			)
+			const res = await axios.post(`${BASE_URL}/fleet/reply/${fleet.id}`, { body: body }, auth.apiConfig)
 
 			return res.data
 		} catch (error) {
@@ -56,11 +49,11 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 		},
 		onSuccess: () => {
 			if (pathname.startsWith('/fleet')) {
-				queryClient.refetchQueries('fleet-details')
+				queryClient.refetchQueries(queryTypes.FLEET_DETAILS)
 			} else if (pathname.startsWith('/home')) {
-				queryClient.invalidateQueries('fleets')
+				queryClient.invalidateQueries(queryTypes.FLEETS)
 			} else if (pathname.startsWith('/profile')) {
-				queryClient.invalidateQueries('profile-fleets')
+				queryClient.invalidateQueries(queryTypes.PROFILE_FLEETS)
 			}
 		},
 	})

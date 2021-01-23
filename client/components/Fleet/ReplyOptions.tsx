@@ -9,6 +9,7 @@ import ConfirmModal from '../../ui/components/ConfirmModal'
 import DotsVertical from '../../ui/icons/DotsVertical'
 import TrashIcon from '../../ui/icons/TrashIcon'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 
 interface Props {
 	id: string
@@ -23,11 +24,7 @@ const ReplyOptions = ({ id, canDelete }: Props) => {
 
 	const deleteReply = async () => {
 		try {
-			const res = await axios.delete(`${BASE_URL}/fleet/reply/${id}`, {
-				headers: {
-					Authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.delete(`${BASE_URL}/fleet/reply/${id}`, auth.apiConfig)
 
 			return res.data
 		} catch (error) {
@@ -39,7 +36,7 @@ const ReplyOptions = ({ id, canDelete }: Props) => {
 		onSuccess: () => {
 			setVisible(false)
 			dispatch(setSuccess('Reply was deleted'))
-			queryClient.refetchQueries('fleet-details')
+			queryClient.refetchQueries(queryTypes.FLEET_DETAILS)
 		},
 	})
 

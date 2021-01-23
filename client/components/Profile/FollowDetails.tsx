@@ -10,6 +10,7 @@ import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import Modal from '../../ui/components/Modal'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 import UserInfo from '../Recommend/UserInfo'
 
 interface Props {
@@ -35,11 +36,7 @@ const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
 
 	const getFollowDetails = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/users/${id}`, {
-				headers: {
-					authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.get(`${BASE_URL}/follow/users/${id}`, auth.apiConfig)
 
 			return res.data
 		} catch (error) {
@@ -47,21 +44,25 @@ const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
 		}
 	}
 
-	const { data, isLoading } = useQuery('follow-details', getFollowDetails)
+	const { data, isLoading } = useQuery(queryTypes.FOLLOW_DETAILS, getFollowDetails)
 
 	useEffect(() => {
 		setTab(tabType)
-		queryClient.prefetchQuery('follow-details', getFollowDetails)
+		queryClient.prefetchQuery(queryTypes.FOLLOW_DETAILS, getFollowDetails)
 	}, [visible])
 
 	useEffect(() => {
-		queryClient.refetchQueries('follow-details')
-	}, [])
+		setVisible(false)
+		queryClient.removeQueries(queryTypes.FOLLOW_DETAILS)
+	}, [id])
 
 	useEffect(() => {
-		setVisible(false)
-		queryClient.removeQueries('follow-details')
-	}, [id])
+		queryClient.refetchQueries(queryTypes.FOLLOW_DETAILS)
+
+		return () => {
+			queryClient.removeQueries(queryTypes.FOLLOW_DETAILS)
+		}
+	}, [])
 
 	return (
 		<Modal

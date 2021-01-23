@@ -10,6 +10,11 @@ const initState: AuthState = {
 	signedIn: false,
 	id: null,
 	token: null,
+	apiConfig: {
+		headers: {
+			Authorization: null,
+		},
+	},
 	refreshing: refreshToken !== undefined,
 }
 
@@ -21,6 +26,11 @@ const authReducer = (state = initState, { type, payload }: ActionTypes) => {
 				signedIn: payload.success,
 				id: payload.id,
 				token: payload.token,
+				apiConfig: {
+					headers: {
+						Authorization: `Bearer ${payload.token}`,
+					},
+				},
 			}
 		}
 		case actions.SIGN_OUT: {
@@ -28,6 +38,11 @@ const authReducer = (state = initState, { type, payload }: ActionTypes) => {
 				...state,
 				signedIn: false,
 				token: null,
+				apiConfig: {
+					headers: {
+						Authorization: null,
+					},
+				},
 			}
 		}
 		case actions.SET_REFRESHING: {

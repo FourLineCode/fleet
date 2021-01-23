@@ -1,31 +1,35 @@
 import axios from 'axios'
-import React from 'react'
-import { useQuery } from 'react-query'
+import React, { useEffect } from 'react'
+import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import { BASE_URL } from '../../utils/config'
+import { queryTypes } from '../../utils/query'
 import UserInfo from './UserInfo'
 
 const Recommend = () => {
 	const auth = useAuthorization()
+	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 
 	const getRecommendations = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/search/recommend`, {
-				headers: {
-					authorization: `Bearer ${auth.token}`,
-				},
-			})
+			const res = await axios.get(`${BASE_URL}/search/recommend`, auth.apiConfig)
 			return res.data
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 
-	const { data } = useQuery('recommended-users', getRecommendations)
+	const { data } = useQuery(queryTypes.RECOMMENDED_USERS, getRecommendations)
+
+	useEffect(() => {
+		return () => {
+			queryClient.removeQueries(queryTypes.RECOMMENDED_USERS)
+		}
+	}, [])
 
 	return (
 		<div className='h-full p-4'>
