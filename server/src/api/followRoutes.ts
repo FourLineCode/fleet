@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { getManager } from 'typeorm'
 import Follow from '../entity/Follow'
 import User from '../entity/User'
 import auth from '../middlewares/auth'
@@ -60,13 +59,7 @@ router.post('/unfollow/:id', auth, async (req, res, next) => {
 			throw new Error('You do not follow this user')
 		}
 
-		await getManager()
-			.getRepository(Follow)
-			.createQueryBuilder('follow')
-			.delete()
-			.where('from = :from', { from: req.userId })
-			.andWhere('to = :to', { to: req.params.id })
-			.execute()
+		Follow.unfollow({ from: req.userId, to: req.params.id })
 
 		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
@@ -115,17 +108,7 @@ router.get('/count/:id', auth, async (req, res, next) => {
 // Get follow users
 router.get('/users/:id', auth, async (req, res, next) => {
 	try {
-		const user = await getManager()
-			.getRepository(User)
-			.createQueryBuilder('user')
-			.where('user.id = :id', { id: req.params.id })
-			.leftJoinAndSelect('user.followers', 'followers')
-			.leftJoinAndSelect('followers.from', 'frfrom')
-			.leftJoinAndSelect('followers.to', 'frto')
-			.leftJoinAndSelect('user.following', 'following')
-			.leftJoinAndSelect('following.from', 'fnfrom')
-			.leftJoinAndSelect('following.to', 'fnto')
-			.getOne()
+		const user = await User.getFollowUsers(req.params.id)
 
 		if (!user) {
 			res.status(StatusCodes.BAD_REQUEST)

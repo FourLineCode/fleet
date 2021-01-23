@@ -1,11 +1,8 @@
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { getManager } from 'typeorm'
 import Fleet from '../entity/Fleet'
-import Follow from '../entity/Follow'
 import Like from '../entity/Like'
 import Reply from '../entity/Reply'
-import User from '../entity/User'
 import auth from '../middlewares/auth'
 import fleetSchema from '../validation/fleetSchema'
 import replySchema from '../validation/replySchema'
@@ -15,26 +12,9 @@ const router = Router()
 // Get all fleets
 router.get('/', auth, async (req, res, next) => {
 	try {
-		const fleets =
-			(await getManager()
-				.getRepository(Fleet)
-				.createQueryBuilder('fleet')
-				.leftJoinAndSelect('fleet.author', 'author')
-				.leftJoinAndSelect('fleet.likes', 'likes')
-				.leftJoinAndSelect('fleet.replies', 'replies')
-				.select([
-					'fleet',
-					'likes',
-					'replies',
-					'author.id',
-					'author.username',
-					'author.displayName',
-					'author.isAdmin',
-				])
-				.orderBy('fleet.createdAt', 'ASC')
-				.getMany()) || []
+		const fleets = await Fleet.getAllFleets()
 
-		res.status(StatusCodes.OK).json(fleets.reverse())
+		res.status(StatusCodes.OK).json(fleets)
 	} catch (error) {
 		next(error)
 	}
@@ -43,44 +23,9 @@ router.get('/', auth, async (req, res, next) => {
 // Get home page fleets for user
 router.get('/home', auth, async (req, res, next) => {
 	try {
-		const fleets =
-			(await getManager()
-				.getRepository(Fleet)
-				.createQueryBuilder('fleet')
-				.leftJoinAndSelect('fleet.author', 'author')
-				.leftJoinAndSelect('fleet.likes', 'likes')
-				.leftJoinAndSelect('fleet.replies', 'replies')
-				.orderBy('fleet.createdAt', 'DESC')
-				.select([
-					'fleet',
-					'likes',
-					'replies',
-					'author.id',
-					'author.username',
-					'author.displayName',
-					'author.isAdmin',
-				])
-				.getMany()) || []
+		const fleets = await Fleet.getHomepageForUser(req.userId)
 
-		const followedUsers = await getManager()
-			.getRepository(Follow)
-			.createQueryBuilder('follow')
-			.leftJoinAndSelect('follow.from', 'from')
-			.where('from.id = :id', { id: req.userId })
-			.leftJoinAndSelect('follow.to', 'to')
-			.getMany()
-
-		const followedUserIds = followedUsers.map((follow) => String(follow.to.id))
-		followedUserIds.push(String(req.userId))
-
-		const filteredFleets = fleets.filter((fleet) => followedUserIds.includes(String(fleet.author.id)))
-
-		for (const fleet of filteredFleets) {
-			const like = await Like.findOne({ where: { user: req.user, fleet: fleet } })
-			fleet.liked = !!like
-		}
-
-		res.status(StatusCodes.OK).json(filteredFleets)
+		res.status(StatusCodes.OK).json(fleets)
 	} catch (error) {
 		next(error)
 	}
@@ -89,29 +34,7 @@ router.get('/home', auth, async (req, res, next) => {
 // Get one fleet
 router.get('/post/:id', auth, async (req, res, next) => {
 	try {
-		const fleet = await getManager()
-			.getRepository(Fleet)
-			.createQueryBuilder('fleet')
-			.where('fleet.id = :id', { id: req.params.id })
-			.leftJoinAndSelect('fleet.author', 'author')
-			.leftJoinAndSelect('fleet.likes', 'likes')
-			.leftJoinAndSelect('fleet.replies', 'replies')
-			.leftJoinAndSelect('replies.user', 'user')
-			.orderBy('replies.createdAt', 'ASC')
-			.select([
-				'fleet',
-				'likes',
-				'replies',
-				'user.id',
-				'user.username',
-				'user.displayName',
-				'user.isAdmin',
-				'author.id',
-				'author.username',
-				'author.displayName',
-				'author.isAdmin',
-			])
-			.getOne()
+		const fleet = await Fleet.getOneFleetById(req.params.id)
 
 		if (!fleet) {
 			res.status(StatusCodes.BAD_REQUEST)
@@ -130,29 +53,7 @@ router.get('/post/:id', auth, async (req, res, next) => {
 // Get fleets for one user by id
 router.get('/timeline/:id', auth, async (req, res, next) => {
 	try {
-		const user = await getManager()
-			.getRepository(User)
-			.createQueryBuilder('user')
-			.where('user.id = :id', { id: req.params.id })
-			.leftJoinAndSelect('user.fleets', 'fleets')
-			.leftJoinAndSelect('fleets.author', 'author')
-			.leftJoinAndSelect('fleets.likes', 'likes')
-			.leftJoinAndSelect('fleets.replies', 'replies')
-			.orderBy('fleets.createdAt', 'DESC')
-			.select([
-				'user',
-				'fleets',
-				'likes',
-				'replies',
-				'author.id',
-				'author.username',
-				'author.displayName',
-				'author.bio',
-				'author.isAdmin',
-			])
-			.getOne()
-
-		const fleets = user?.fleets || []
+		const fleets = await Fleet.getFleetsByUserId(req.params.id)
 
 		for (const fleet of fleets) {
 			const like = await Like.findOne({ where: { user: req.user, fleet: fleet } })
@@ -192,13 +93,7 @@ router.post('/', auth, async (req, res, next) => {
 // Delete a fleet
 router.delete('/:id', auth, async (req, res, next) => {
 	try {
-		const fleet = await getManager()
-			.getRepository(Fleet)
-			.createQueryBuilder('fleet')
-			.where('fleet.id = :id', { id: req.params.id })
-			.leftJoinAndSelect('fleet.author', 'author')
-			.select(['fleet', 'author.id', 'author.username', 'author.displayName', 'author.isAdmin'])
-			.getOne()
+		const fleet = await Fleet.getOneFleetById(req.params.id)
 
 		if (!fleet) {
 			res.status(StatusCodes.BAD_REQUEST)
@@ -210,12 +105,7 @@ router.delete('/:id', auth, async (req, res, next) => {
 			throw new Error('You are not authorized to delete this fleet')
 		}
 
-		await getManager()
-			.getRepository(Fleet)
-			.createQueryBuilder('fleet')
-			.delete()
-			.where('fleet.id = :id', { id: fleet.id })
-			.execute()
+		await Fleet.delete({ id: req.params.id })
 
 		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
@@ -245,25 +135,7 @@ router.post('/like/:id', auth, async (req, res, next) => {
 			fleet: fleet,
 		}).save()
 
-		const updatedFleet = await getManager()
-			.getRepository(Fleet)
-			.createQueryBuilder('fleet')
-			.where('fleet.id = :id', { id: req.params.id })
-			.leftJoinAndSelect('fleet.author', 'author')
-			.leftJoinAndSelect('fleet.likes', 'likes')
-			.leftJoinAndSelect('fleet.replies', 'replies')
-			.select([
-				'fleet',
-				'likes',
-				'replies',
-				'author.id',
-				'author.username',
-				'author.displayName',
-				'author.isAdmin',
-			])
-			.getOne()
-
-		res.status(StatusCodes.OK).json({ success: true, updatedFleet: updatedFleet })
+		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
 		next(error)
 	}
@@ -288,25 +160,7 @@ router.post('/unlike/:id', auth, async (req, res, next) => {
 
 		await Like.delete({ user: req.user, fleet: fleet })
 
-		const updatedFleet = await getManager()
-			.getRepository(Fleet)
-			.createQueryBuilder('fleet')
-			.where('fleet.id = :id', { id: req.params.id })
-			.leftJoinAndSelect('fleet.author', 'author')
-			.leftJoinAndSelect('fleet.likes', 'likes')
-			.leftJoinAndSelect('fleet.replies', 'replies')
-			.select([
-				'fleet',
-				'likes',
-				'replies',
-				'author.id',
-				'author.username',
-				'author.displayName',
-				'author.isAdmin',
-			])
-			.getOne()
-
-		res.status(StatusCodes.OK).json({ success: true, updatedFleet: updatedFleet })
+		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
 		next(error)
 	}
@@ -363,13 +217,7 @@ router.post('/reply/:id', auth, async (req, res, next) => {
 // Delete a reply
 router.delete('/reply/:id', auth, async (req, res, next) => {
 	try {
-		const reply = await getManager()
-			.getRepository(Reply)
-			.createQueryBuilder('reply')
-			.where('reply.id = :id', { id: req.params.id })
-			.leftJoinAndSelect('reply.user', 'user')
-			.select(['reply', 'user.id', 'user.username', 'user.displayName', 'user.isAdmin'])
-			.getOne()
+		const reply = await Reply.getOneReplyById(req.params.id)
 
 		if (!reply) {
 			res.status(StatusCodes.BAD_REQUEST)
@@ -381,12 +229,7 @@ router.delete('/reply/:id', auth, async (req, res, next) => {
 			throw new Error('You are not authorized to delete this reply')
 		}
 
-		await getManager()
-			.getRepository(Reply)
-			.createQueryBuilder('reply')
-			.delete()
-			.where('reply.id = :id', { id: reply.id })
-			.execute()
+		await Reply.delete({ id: req.params.id })
 
 		res.status(StatusCodes.OK).json({ success: true })
 	} catch (error) {
