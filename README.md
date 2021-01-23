@@ -2,6 +2,8 @@
 
 **This is a Social Media App**
 
+-   Preview - [Fleet](https://fleetapp.vercel.app/)
+
 # Frontend
 
 ## Typescript
@@ -18,5 +20,5 @@
 
 -   [Nodejs](https://nodejs.org/en/)
 -   [Express](http://expressjs.com/)
--   [SQLite](https://www.sqlite.org/index.html)
+-   [PostgresSQL](https://www.postgresql.org/)
 -   [TypeORM](https://typeorm.io/)
