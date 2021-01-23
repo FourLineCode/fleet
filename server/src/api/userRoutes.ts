@@ -16,11 +16,7 @@ router.get('/', auth, async (req, res, next) => {
 			throw new Error('Access denied')
 		}
 
-		const users = await User.find()
-		if (!users) {
-			res.status(StatusCodes.NOT_FOUND)
-			throw new Error('No users found')
-		}
+		const users = (await User.find()) || []
 
 		res.status(StatusCodes.OK).json(users)
 	} catch (error) {
@@ -61,7 +57,6 @@ router.post('/signup', async (req, res, next) => {
 			throw new Error('User already exists with given email')
 		}
 
-		// TODO: use lowercase to make unique
 		const usernameExists = await User.findOne({ username: username.toLowerCase() })
 		if (usernameExists) {
 			res.status(StatusCodes.BAD_REQUEST)

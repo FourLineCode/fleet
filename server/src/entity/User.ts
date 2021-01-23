@@ -1,5 +1,5 @@
 import { IsEmail } from 'class-validator'
-import { Column, Entity, OneToMany } from 'typeorm'
+import { Column, Entity, getManager, OneToMany } from 'typeorm'
 import Follow from '../entity/Follow'
 import Fleet from './Fleet'
 import InternalEntity from './InternalEntity'
@@ -41,4 +41,22 @@ export default class User extends InternalEntity {
 
 	@OneToMany(() => Reply, (replies) => replies.user)
 	replies: Reply[]
+
+	static async getFollowUsers(id: string) {
+		try {
+			return await getManager()
+				.getRepository(User)
+				.createQueryBuilder('user')
+				.where('user.id = :id', { id })
+				.leftJoinAndSelect('user.followers', 'followers')
+				.leftJoinAndSelect('followers.from', 'frfrom')
+				.leftJoinAndSelect('followers.to', 'frto')
+				.leftJoinAndSelect('user.following', 'following')
+				.leftJoinAndSelect('following.from', 'fnfrom')
+				.leftJoinAndSelect('following.to', 'fnto')
+				.getOne()
+		} catch (error) {
+			throw error
+		}
+	}
 }

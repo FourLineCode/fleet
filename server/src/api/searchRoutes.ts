@@ -1,6 +1,5 @@
 import { Router } from 'express'
 import { StatusCodes } from 'http-status-codes'
-import { getManager } from 'typeorm'
 import User from '../entity/User'
 import auth from '../middlewares/auth'
 
@@ -11,14 +10,7 @@ router.get('/recommend', auth, async (req, res, next) => {
 	try {
 		const users = await User.find()
 
-		const currentUser = await getManager()
-			.getRepository(User)
-			.createQueryBuilder('user')
-			.where('user.id = :id', { id: req.userId })
-			.leftJoinAndSelect('user.following', 'following')
-			.leftJoinAndSelect('following.from', 'from')
-			.leftJoinAndSelect('following.to', 'to')
-			.getOne()
+		const currentUser = await User.getFollowUsers(req.userId)
 
 		const followedUsers = currentUser?.following
 		const followedUserIds = followedUsers?.map((follow) => String(follow.to.id)) || []
