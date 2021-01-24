@@ -6,7 +6,7 @@
 
 This is a full stack social media app where you can create an account, follow your friends, discover new people,
 and stay up to date with your family and friends. Yout can post an update, like each others posts, reply to each other,
-Check out each others profile. You can also message each other in real time to communicate(in development).
+Check out each others profile. You can also message each other in real time to communicate (in development).
 
 This website was developed with efficiency and scalability in mind. The UI was built to be intuitive and responsive.
 Server side rendering also maked the UI blazing fast, while also maintaining all the best practises for Search Engine Optimizations.
@@ -31,12 +31,19 @@ The database and API was designed using relational data that optimizes the backe
 -   [PostgresSQL](https://www.postgresql.org/)
 -   [TypeORM](https://typeorm.io/)
 
-**If you want to run this application on your own follow the procedure below**
+---
+
+## If you want to run this application on your own follow the procedure below
 
 # Requirements
 
 -   Node.js 12 or higher.
 -   PostgresSQL
+-   Git
+
+# Clone the Repository
+
+`git clone https://github.com/FourLineCode/fleet.git`
 
 # Install Dependencies
 
@@ -51,10 +58,10 @@ or
 
 `yarn prod`
 or
-`npm prod`
+`npm run prod`
 
 # Run in development mode
 
 `yarn dev`
 or
-`npm dev`
+`npm run dev`
