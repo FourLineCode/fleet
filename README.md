@@ -2,7 +2,7 @@
 
 **This is a Social Media App**
 
--   Preview - [Fleet](https://fleetapp.vercel.app/)
+-   Preview - [Fleet](https://fleetit.herokuapp.com/)
 
 This is a full stack social media app where you can create an account, follow your friends, discover new people,
 and stay up to date with your family and friends. Yout can post an update, like each others posts, reply to each other,
@@ -47,18 +47,15 @@ The database and API was designed using relational data that optimizes the backe
 
 # Install Dependencies
 
-`yarn install`
+`yarn`
 or
 `npm install`
 
-> If this command fails then manually change directory to client and server
-> and run `yarn` or `npm install` on both folders
-
 # Run in production mode
 
-`yarn prod`
+`yarn build && yarn start`
 or
-`npm run prod`
+`npm run build && npm start`
 
 # Run in development mode
 
