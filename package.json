@@ -7,7 +7,7 @@
 		"build": "next build && tsc --project tsconfig.server.json",
 		"start": "SET NODE_ENV=production&&node dist/server/index.js",
 		"prod": "node dist/server/index.js",
-		"deploy": "git push heroku master"
+		"deploy": "git push -f heroku HEAD:master"
 	},
 	"dependencies": {
 		"@headlessui/react": "^0.2.0",
