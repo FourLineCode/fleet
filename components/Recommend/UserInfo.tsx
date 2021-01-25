@@ -21,7 +21,7 @@ const UserInfo = ({ user }: Props) => {
 			>
 				<div className='flex items-center'>
 					<div className='flex items-center justify-center w-12 h-12 mr-2 overflow-hidden rounded-lg'>
-						<img src='http://github.com/tnarla.png' alt='profile-photo' />
+						<img src='https://github.com/tnarla.png' alt='profile-photo' />
 					</div>
 					<div className='flex flex-col'>
 						<div className='flex items-center text-white truncate'>

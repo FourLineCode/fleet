@@ -80,8 +80,8 @@ const Fleet = ({ fleet }: Props) => {
 							<img
 								src={
 									fleet.author.isAdmin
-										? 'http://github.com/FourLineCode.png'
-										: 'http://github.com/RobinMalfait.png'
+										? 'https://github.com/FourLineCode.png'
+										: 'https://github.com/RobinMalfait.png'
 								}
 								alt='profile-photo'
 							/>

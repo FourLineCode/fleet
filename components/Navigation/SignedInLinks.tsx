@@ -39,8 +39,8 @@ const SignedInLinks = () => {
 									<img
 										src={
 											user.isAdmin
-												? 'http://github.com/FourLineCode.png'
-												: 'http://github.com/RobinMalfait.png'
+												? 'https://github.com/FourLineCode.png'
+												: 'https://github.com/RobinMalfait.png'
 										}
 										alt='user-logo'
 									/>

@@ -47,7 +47,7 @@ const Menu = () => {
 							Fleet
 						</MenuLink>
 						<div className='w-full h-20'></div>
-						<MenuLink type='site' to='http://github.com/fourlinecode/fleet'>
+						<MenuLink type='site' to='https://github.com/fourlinecode/fleet'>
 							<div className='flex items-center'>
 								<GithubIcon className='w-6 h-6 mr-2' />
 								GitHub
@@ -76,7 +76,7 @@ const Menu = () => {
 							<ProfileIcon className='w-6 h-6' />
 						</a>
 					</MenuLink>
-					<MenuLink type='site' to='http://github.com/fourlinecode/fleet'>
+					<MenuLink type='site' to='https://github.com/fourlinecode/fleet'>
 						<div className='flex items-center p-2'>
 							<GithubIcon className='w-6 h-6' />
 						</div>
