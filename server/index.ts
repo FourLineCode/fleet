@@ -22,14 +22,19 @@ const init = async () => {
 	try {
 		await nextApp.prepare()
 
-		app.use(express.json())
-		app.use(cors({ credentials: true }))
-		app.use(morgan('dev'))
-		app.use('/api', helmet())
-
 		await createConnection()
 
+		app.use(express.json())
+		app.use(cors({ credentials: true }))
+		app.use(
+			morgan('dev', {
+				skip: (req) => !req.baseUrl.startsWith('/api'),
+			})
+		)
+		app.use('/api', helmet())
+
 		app.use('/api', routes)
+
 		app.all('*', (req, res) => {
 			const parsedUrl = parse(req.url, true)
 			const { pathname, query } = parsedUrl
@@ -43,8 +48,8 @@ const init = async () => {
 			}
 		})
 
-		app.use(notFound)
-		app.use(errorHandler)
+		app.use('api', notFound)
+		app.use('/api', errorHandler)
 
 		app.listen(PORT, () => {
 			console.log(`\nServer started on http://localhost:${PORT}...\n`)
