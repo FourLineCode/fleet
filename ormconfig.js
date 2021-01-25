@@ -5,5 +5,5 @@ module.exports = {
 	url: process.env.DATABASE_URL,
 	logging: false,
 	synchronize: true,
-	entities: [prod ? './build/src/entity/**/*.js' : './src/entity/**/*.ts'],
+	entities: [prod ? './dist/server/entity/**/*.js' : './server/entity/**/*.ts'],
 }
