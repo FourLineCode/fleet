@@ -18,7 +18,7 @@ const ProfileBanner = ({ isAdmin }: Props) => {
 			<div className='flex justify-center'>
 				<img
 					className='z-10 w-40 h-40 overflow-hidden border-4 border-white rounded-xl -mt-28'
-					src={isAdmin ? 'http://github.com/FourLineCode.png' : 'http://github.com/RobinMalfait.png'}
+					src={isAdmin ? 'https://github.com/FourLineCode.png' : 'https://github.com/RobinMalfait.png'}
 					alt='profile-photo'
 				/>
 			</div>

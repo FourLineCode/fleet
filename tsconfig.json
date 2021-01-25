@@ -1,0 +1,30 @@
+{
+	"compilerOptions": {
+		"module": "CommonJS",
+		"target": "esnext",
+		"jsx": "preserve",
+		"lib": ["dom", "dom.iterable", "esnext"],
+		"moduleResolution": "node",
+		"allowJs": true,
+		"sourceMap": true,
+		"skipLibCheck": true,
+		"strict": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noImplicitAny": true,
+		"strictNullChecks": true,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"downlevelIteration": true,
+		"allowSyntheticDefaultImports": true,
+		"strictPropertyInitialization": false,
+		"forceConsistentCasingInFileNames": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"typeRoots": ["@types", "./node_modules/@types"],
+		"noEmit": true
+	},
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+	"exclude": ["node_modules"]
+}

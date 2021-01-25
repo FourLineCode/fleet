@@ -1,7 +1,7 @@
 import { IsEmail } from 'class-validator'
 import { Column, Entity, getManager, OneToMany } from 'typeorm'
-import Follow from '../entity/Follow'
 import Fleet from './Fleet'
+import Follow from './Follow'
 import InternalEntity from './InternalEntity'
 import Like from './Like'
 import Reply from './Reply'
