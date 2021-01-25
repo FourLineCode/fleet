@@ -6,6 +6,7 @@
 		"dev": "nodemon --quiet",
 		"build": "next build && tsc --project tsconfig.server.json",
 		"start": "SET NODE_ENV=production&&node dist/server/index.js",
+		"prod": "node dist/server/index.js",
 		"deploy": "git push heroku master"
 	},
 	"dependencies": {
