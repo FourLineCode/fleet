@@ -26,8 +26,8 @@ const Reply = ({ reply, user }: Props) => {
 						<img
 							src={
 								reply.user.isAdmin
-									? 'http://github.com/FourLineCode.png'
-									: 'http://github.com/RobinMalfait.png'
+									? 'https://github.com/FourLineCode.png'
+									: 'https://github.com/RobinMalfait.png'
 							}
 							alt='profile-photo'
 						/>
