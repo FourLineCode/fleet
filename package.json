@@ -5,9 +5,9 @@
 	"scripts": {
 		"dev": "nodemon --quiet",
 		"build": "next build && tsc --project tsconfig.server.json",
-		"start": "SET NODE_ENV=production&&node dist/server/index.js",
-		"prod": "node dist/server/index.js",
-		"deploy": "git push -f heroku HEAD:master"
+		"start": "SET NODE_ENV=production&&node dist/index.js",
+		"prod": "node dist/index.js",
+		"deploy": "git push heroku main"
 	},
 	"dependencies": {
 		"@headlessui/react": "^0.2.0",
