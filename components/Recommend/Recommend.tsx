@@ -2,7 +2,6 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import { BASE_URL } from '../../utils/config'
@@ -10,13 +9,12 @@ import { queryTypes } from '../../utils/query'
 import UserInfo from './UserInfo'
 
 const Recommend = () => {
-	const auth = useAuthorization()
 	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 
 	const getRecommendations = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/search/recommend`, auth.apiConfig)
+			const res = await axios.get(`${BASE_URL}/search/recommend`)
 			return res.data
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))

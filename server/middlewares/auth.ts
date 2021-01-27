@@ -5,18 +5,7 @@ import User from '../entity/User'
 
 const auth = async (req: Request, res: Response, next: NextFunction) => {
 	try {
-		const header = req.headers['authorization']
-		if (!header) {
-			res.status(StatusCodes.FORBIDDEN)
-			throw new Error('Authorization failed')
-		}
-
-		// TODO: Romove this in production
-		const [type, token] = header.split(' ')
-		if (type !== 'Bearer') {
-			res.status(StatusCodes.BAD_REQUEST)
-			throw new Error('Token must be prefixed with Bearer')
-		}
+		const token = req.cookies['auth-token']
 
 		if (!token) {
 			res.status(StatusCodes.FORBIDDEN)

@@ -3,7 +3,6 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
 import { setError, setSuccess } from '../../store/actions/notificationActions'
 import ConfirmModal from '../../ui/components/ConfirmModal'
 import DotsVertical from '../../ui/icons/DotsVertical'
@@ -17,14 +16,13 @@ interface Props {
 }
 
 const ReplyOptions = ({ id, canDelete }: Props) => {
-	const auth = useAuthorization()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 	const [visible, setVisible] = useState(false)
 
 	const deleteReply = async () => {
 		try {
-			const res = await axios.delete(`${BASE_URL}/fleet/reply/${id}`, auth.apiConfig)
+			const res = await axios.delete(`${BASE_URL}/fleet/reply/${id}`)
 
 			return res.data
 		} catch (error) {

@@ -1,8 +1,6 @@
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
-import { useDispatch } from 'react-redux'
+import React from 'react'
 import useAuthorization from '../../hooks/useAuthorization'
-import { refreshAuthToken } from '../../store/actions/authActions'
 import Layout from './Layout'
 
 interface Props {
@@ -14,15 +12,8 @@ interface Props {
 const ProtectedLayout = ({ children, title, desc }: Props) => {
 	const auth = useAuthorization()
 	const router = useRouter()
-	const dispatch = useDispatch()
 
-	useEffect(() => {
-		if (!auth.signedIn) {
-			dispatch(refreshAuthToken())
-		}
-	}, [])
-
-	if (!auth.signedIn && !auth.refreshing && process.browser) {
+	if (!auth.signedIn && auth.refreshing === 'done' && process.browser) {
 		router.push('/signin')
 	}
 

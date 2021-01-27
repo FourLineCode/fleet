@@ -40,7 +40,7 @@ const ProfileCard = () => {
 		if (!id) return
 		try {
 			setUserDataLoading(true)
-			const res = await axios.get(`${BASE_URL}/user/info/${id}`, auth.apiConfig)
+			const res = await axios.get(`${BASE_URL}/user/info/${id}`)
 			setUserData(res.data)
 			setUserDataLoading(false)
 			return
@@ -53,7 +53,7 @@ const ProfileCard = () => {
 	const getFollowData = async () => {
 		if (!id) return
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/count/${id}`, auth.apiConfig)
+			const res = await axios.get(`${BASE_URL}/follow/count/${id}`)
 
 			const { followerCount, followingCount } = res.data
 
@@ -71,11 +71,11 @@ const ProfileCard = () => {
 	const handleFollow = async () => {
 		try {
 			if (!followed) {
-				const res = await axios.post(`${BASE_URL}/follow/${id}`, {}, auth.apiConfig)
+				const res = await axios.post(`${BASE_URL}/follow/${id}`)
 
 				return res.data
 			} else {
-				const res = await axios.post(`${BASE_URL}/follow/unfollow/${id}`, {}, auth.apiConfig)
+				const res = await axios.post(`${BASE_URL}/follow/unfollow/${id}`)
 
 				return res.data
 			}
@@ -92,7 +92,7 @@ const ProfileCard = () => {
 	const checkFollow = async () => {
 		if (!id) return { follows: false }
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/check/${id}`, auth.apiConfig)
+			const res = await axios.get(`${BASE_URL}/follow/check/${id}`)
 
 			return res.data
 		} catch (error) {

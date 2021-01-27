@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import ErrorIcon from '../../ui/icons/ErrorIcon'
 import { BASE_URL } from '../../utils/config'
@@ -14,7 +13,6 @@ import Fleet from '../Fleet/Fleet'
 import { FleetType } from '../Fleet/Timeline'
 
 const ProfileTimeline = () => {
-	const auth = useAuthorization()
 	const router = useRouter()
 	const { id } = router.query
 	const dispatch = useDispatch()
@@ -22,7 +20,7 @@ const ProfileTimeline = () => {
 
 	const getFleets = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/fleet/timeline/${id}`, auth.apiConfig)
+			const res = await axios.get(`${BASE_URL}/fleet/timeline/${id}`)
 			return res.data
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))

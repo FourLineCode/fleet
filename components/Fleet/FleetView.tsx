@@ -4,7 +4,6 @@ import Link from 'next/link'
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import IconButton from '../../ui/components/IconButton'
 import HeartFilledIcon from '../../ui/icons/HeartFilledIcon'
@@ -25,7 +24,6 @@ interface Props {
 }
 
 const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
-	const auth = useAuthorization()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 
@@ -34,9 +32,9 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 	const likeHandler = async () => {
 		try {
 			if (!liked) {
-				await axios.post(`${BASE_URL}/fleet/like/${fleet.id}`, {}, auth.apiConfig)
+				await axios.post(`${BASE_URL}/fleet/like/${fleet.id}`)
 			} else {
-				await axios.post(`${BASE_URL}/fleet/unlike/${fleet.id}`, {}, auth.apiConfig)
+				await axios.post(`${BASE_URL}/fleet/unlike/${fleet.id}`)
 			}
 		} catch (error) {
 			if (error.response) dispatch(setError(error.response.data.message))

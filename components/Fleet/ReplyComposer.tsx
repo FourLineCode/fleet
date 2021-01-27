@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
 import { setError, setSuccess } from '../../store/actions/notificationActions'
 import Button from '../../ui/components/Button'
 import IconButton from '../../ui/components/IconButton'
@@ -25,7 +24,6 @@ interface Props {
 
 const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 	const [body, setBody] = useState('')
-	const auth = useAuthorization()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 	const { pathname } = useRouter()
@@ -33,7 +31,7 @@ const ReplyComposer = ({ fleet, visible, setVisible }: Props) => {
 
 	const composeReply = async () => {
 		try {
-			const res = await axios.post(`${BASE_URL}/fleet/reply/${fleet.id}`, { body: body }, auth.apiConfig)
+			const res = await axios.post(`${BASE_URL}/fleet/reply/${fleet.id}`, { body: body })
 
 			return res.data
 		} catch (error) {

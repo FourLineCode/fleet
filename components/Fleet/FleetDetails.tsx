@@ -31,7 +31,7 @@ const FleetDetails = () => {
 
 	const getFleetData = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/fleet/post/${id}`, auth.apiConfig)
+			const res = await axios.get(`${BASE_URL}/fleet/post/${id}`)
 
 			return res.data
 		} catch (error) {
