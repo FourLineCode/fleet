@@ -115,13 +115,13 @@ router.post('/signin', async (req, res, next) => {
 		res.cookie('auth-token', token, {
 			httpOnly: true,
 			sameSite: true,
-			maxAge: 60 * 60 * 24,
+			maxAge: 60 * 60 * 24 * 1000,
 		})
 
 		res.cookie('refresh-token', refreshToken, {
 			httpOnly: true,
 			sameSite: true,
-			maxAge: 60 * 60 * 24 * 365,
+			maxAge: 60 * 60 * 24 * 365 * 1000,
 		})
 
 		res.status(StatusCodes.OK).json({
@@ -185,13 +185,13 @@ router.get('/refreshtoken', async (req, res, next) => {
 		res.cookie('auth-token', newToken, {
 			httpOnly: true,
 			sameSite: true,
-			maxAge: 60 * 60 * 24,
+			maxAge: 60 * 60 * 24 * 1000,
 		})
 
 		res.cookie('refresh-token', newRefreshToken, {
 			httpOnly: true,
 			sameSite: true,
-			maxAge: 60 * 60 * 24 * 365,
+			maxAge: 60 * 60 * 24 * 365 * 1000,
 		})
 
 		res.status(StatusCodes.OK).json({
