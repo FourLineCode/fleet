@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
 import { setError, setSuccess } from '../../store/actions/notificationActions'
 import Button from '../../ui/components/Button'
 import IconButton from '../../ui/components/IconButton'
@@ -20,7 +19,6 @@ interface Props {
 }
 
 const FleetComposer = ({ visible, setVisible }: Props) => {
-	const auth = useAuthorization()
 	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 	const { pathname } = useRouter()
@@ -29,9 +27,9 @@ const FleetComposer = ({ visible, setVisible }: Props) => {
 
 	const composeFleet = async () => {
 		try {
-			await axios.post(`${BASE_URL}/fleet`, { body: body }, auth.apiConfig)
+			await axios.post(`${BASE_URL}/fleet`, { body: body })
 		} catch (error) {
-			if (error.response.data) dispatch(setError(error.response.data.message))
+			if (error.response) dispatch(setError(error.response.data.message))
 		}
 	}
 

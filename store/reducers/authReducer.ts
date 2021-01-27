@@ -1,21 +1,11 @@
-import useLocalStorage from '../../hooks/useLocalStorage'
 import * as actions from '../types'
 import { ActionTypes, AuthState } from './types'
-
-const { getLocalStorage } = useLocalStorage()
-
-const refreshToken = getLocalStorage('refresh-token')
 
 const initState: AuthState = {
 	signedIn: false,
 	id: null,
 	token: null,
-	apiConfig: {
-		headers: {
-			Authorization: null,
-		},
-	},
-	refreshing: refreshToken !== undefined,
+	refreshing: 'init',
 }
 
 const authReducer = (state = initState, { type, payload }: ActionTypes) => {
@@ -26,11 +16,6 @@ const authReducer = (state = initState, { type, payload }: ActionTypes) => {
 				signedIn: payload.success,
 				id: payload.id,
 				token: payload.token,
-				apiConfig: {
-					headers: {
-						Authorization: `Bearer ${payload.token}`,
-					},
-				},
 			}
 		}
 		case actions.SIGN_OUT: {
@@ -38,23 +23,18 @@ const authReducer = (state = initState, { type, payload }: ActionTypes) => {
 				...state,
 				signedIn: false,
 				token: null,
-				apiConfig: {
-					headers: {
-						Authorization: null,
-					},
-				},
 			}
 		}
 		case actions.SET_REFRESHING: {
 			return {
 				...state,
-				refreshing: true,
+				refreshing: 'refreshing',
 			}
 		}
 		case actions.SET_NOT_REFRESHING: {
 			return {
 				...state,
-				refreshing: false,
+				refreshing: 'done',
 			}
 		}
 		default:

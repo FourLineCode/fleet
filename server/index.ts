@@ -1,3 +1,4 @@
+import cookieParser from 'cookie-parser'
 import cors from 'cors'
 import express from 'express'
 import helmet from 'helmet'
@@ -21,6 +22,7 @@ const init = async () => {
 		await createConnection()
 
 		server.use(express.json())
+		server.use(cookieParser())
 		server.use(cors({ credentials: true }))
 		server.use(
 			morgan('dev', {

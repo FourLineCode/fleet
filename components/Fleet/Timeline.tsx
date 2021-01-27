@@ -4,7 +4,6 @@ import clsx from 'clsx'
 import React, { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import ErrorIcon from '../../ui/icons/ErrorIcon'
 import { BASE_URL } from '../../utils/config'
@@ -38,13 +37,12 @@ export interface FleetType {
 }
 
 const Timeline = () => {
-	const auth = useAuthorization()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 
 	const getFleets = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/fleet/home`, auth.apiConfig)
+			const res = await axios.get(`${BASE_URL}/fleet/home`)
 
 			return res.data
 		} catch (error) {

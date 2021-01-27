@@ -37,11 +37,11 @@ const Fleet = ({ fleet }: Props) => {
 	const likeHandler = async () => {
 		try {
 			if (!liked) {
-				const res = await axios.post(`${BASE_URL}/fleet/like/${fleet.id}`, {}, auth.apiConfig)
+				const res = await axios.post(`${BASE_URL}/fleet/like/${fleet.id}`)
 
 				return res.data
 			} else {
-				const res = await axios.post(`${BASE_URL}/fleet/unlike/${fleet.id}`, {}, auth.apiConfig)
+				const res = await axios.post(`${BASE_URL}/fleet/unlike/${fleet.id}`)
 
 				return res.data
 			}

@@ -7,7 +7,7 @@ export const getUserInfo = () => async (dispatch: any, getState: any) => {
 	try {
 		const auth = getState().auth
 
-		const response = await axios.get(`${BASE_URL}/user/info/${auth.id}`, auth.apiConfig)
+		const response = await axios.get(`${BASE_URL}/user/info/${auth.id}`)
 
 		if (response.data) {
 			dispatch({ type: actions.GET_USER_INFO, payload: response.data })

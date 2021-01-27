@@ -112,6 +112,18 @@ router.post('/signin', async (req, res, next) => {
 			expiresIn: '1y',
 		})
 
+		res.cookie('auth-token', token, {
+			httpOnly: true,
+			sameSite: true,
+			maxAge: 60 * 60 * 24,
+		})
+
+		res.cookie('refresh-token', refreshToken, {
+			httpOnly: true,
+			sameSite: true,
+			maxAge: 60 * 60 * 24 * 365,
+		})
+
 		res.status(StatusCodes.OK).json({
 			success: true,
 			id: user.id,
@@ -123,13 +135,33 @@ router.post('/signin', async (req, res, next) => {
 	}
 })
 
+// Signs out user
+router.post('/signout', (req, res, next) => {
+	try {
+		const token = req.cookies['auth-token']
+		const refreshToken = req.cookies['refresh-token']
+
+		if (!token && !refreshToken) {
+			res.status(StatusCodes.BAD_REQUEST)
+			throw new Error('You are not signed in')
+		}
+
+		res.clearCookie('auth-token')
+		res.clearCookie('refresh-token')
+
+		res.status(StatusCodes.OK).json({ success: true })
+	} catch (error) {
+		next(error)
+	}
+})
+
 // Refreshes the authorization token
 router.get('/refreshtoken', async (req, res, next) => {
 	try {
-		const refreshToken = req.headers['refresh-token'] as string
+		const refreshToken = req.cookies['refresh-token']
 		if (!refreshToken) {
-			res.status(StatusCodes.FORBIDDEN)
-			throw new Error('Access denied')
+			res.status(StatusCodes.OK).json({ message: 'You do not have a refresh token' })
+			return
 		}
 
 		const verifiedUser = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET || 'sercet') as User
@@ -148,6 +180,18 @@ router.get('/refreshtoken', async (req, res, next) => {
 
 		const newRefreshToken = jwt.sign(payload, process.env.JWT_REFRESH_SECRET || 'sercet', {
 			expiresIn: '1y',
+		})
+
+		res.cookie('auth-token', newToken, {
+			httpOnly: true,
+			sameSite: true,
+			maxAge: 60 * 60 * 24,
+		})
+
+		res.cookie('refresh-token', newRefreshToken, {
+			httpOnly: true,
+			sameSite: true,
+			maxAge: 60 * 60 * 24 * 365,
 		})
 
 		res.status(StatusCodes.OK).json({

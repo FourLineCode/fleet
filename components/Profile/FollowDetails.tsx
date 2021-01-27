@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import Modal from '../../ui/components/Modal'
@@ -31,12 +30,11 @@ const FollowDetails = ({ tabType, visible, setVisible }: Props) => {
 	const queryClient = useQueryClient()
 	const { id } = router.query
 	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
-	const auth = useAuthorization()
 	const dispatch = useDispatch()
 
 	const getFollowDetails = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/users/${id}`, auth.apiConfig)
+			const res = await axios.get(`${BASE_URL}/follow/users/${id}`)
 
 			return res.data
 		} catch (error) {
