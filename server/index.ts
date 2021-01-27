@@ -14,48 +14,49 @@ require('dotenv').config()
 const PORT = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
 
-const nextApp = next({ dev })
-const handle = nextApp.getRequestHandler()
-const app = express()
-
 const init = async () => {
 	try {
-		await nextApp.prepare()
+		const server = express()
 
 		await createConnection()
 
-		app.use(express.json())
-		app.use(cors({ credentials: true }))
-		app.use(
+		server.use(express.json())
+		server.use(cors({ credentials: true }))
+		server.use(
 			morgan('dev', {
 				skip: (req) => !req.baseUrl.startsWith('/api'),
 			})
 		)
-		app.use('/api', helmet())
+		server.use('/api', helmet())
 
-		app.use('/api', routes)
+		server.use('/api', routes)
 
-		app.all('*', (req, res) => {
+		const app = next({ dev })
+		const handle = app.getRequestHandler()
+
+		server.all('*', (req, res) => {
 			const parsedUrl = parse(req.url, true)
 			const { pathname, query } = parsedUrl
 
 			if (pathname === '/a') {
-				nextApp.render(req, res, '/a', query)
+				app.render(req, res, '/a', query)
 			} else if (pathname === '/b') {
-				nextApp.render(req, res, '/b', query)
+				app.render(req, res, '/b', query)
 			} else {
 				handle(req, res, parsedUrl)
 			}
 		})
 
-		app.use('api', notFound)
-		app.use('/api', errorHandler)
+		server.use('api', notFound)
+		server.use('/api', errorHandler)
 
-		app.listen(PORT, () => {
+		server.listen(PORT, () => {
 			console.log(`\nServer started on http://localhost:${PORT}...\n`)
 		})
 
 		seed_database()
+
+		await app.prepare()
 	} catch (error) {
 		console.log(error)
 	}
