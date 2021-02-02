@@ -43,22 +43,42 @@ The database and API was designed using relational data that optimizes the backe
 
 # Clone the Repository
 
-`git clone https://github.com/FourLineCode/fleet.git`
+```
+git clone https://github.com/FourLineCode/fleet.git
+```
 
 # Install Dependencies
 
-`yarn`
+```
+yarn
+```
+
 or
-`npm install`
+
+```
+npm install
+```
 
 # Run in production mode
 
-`yarn build && yarn start`
+```
+yarn build && yarn start
+```
+
 or
-`npm run build && npm start`
+
+```
+npm run build && npm start
+```
 
 # Run in development mode
 
-`yarn dev`
+```
+yarn dev
+```
+
 or
-`npm run dev`
+
+```
+npm run dev
+```
