@@ -1,4 +1,3 @@
-import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
 import Head from 'next/head'
@@ -14,6 +13,7 @@ import ErrorIcon from '../../ui/icons/ErrorIcon'
 import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
+import ProfileSuspense from '../Suspense/ProfileSuspense'
 import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
 import ProfileBanner from './ProfileBanner'
 import ProfileInfo from './ProfileInfo'
@@ -187,9 +187,7 @@ const ProfileCard = () => {
 					<FollowDetails tabType={tab} visible={showFollowDetails} setVisible={setShowFollowDetails} />
 				</>
 			)}
-			{userDataLoading && (
-				<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
-			)}
+			{userDataLoading && <ProfileSuspense />}
 			{!userData && !userDataLoading && (
 				<div className='flex items-center justify-center w-full h-full'>
 					<div className='flex-col'>

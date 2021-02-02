@@ -91,17 +91,15 @@ const Fleet = ({ fleet }: Props) => {
 						<div className='flex items-center space-x-1'>
 							<Link href={`/profile/${fleet.author.id}`}>
 								<a className='flex items-center space-x-1 group'>
-									<div className='flex items-center group-hover:underline'>
-										<span>{fleet.author.displayName}</span>
-										<span>
-											{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
-										</span>
-									</div>{' '}
+									<span className=' line-clamp-1'>{fleet.author.displayName}</span>
+									<span>
+										{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+									</span>
 									<span className='font-normal text-gray-400 truncate'>@{fleet.author.username}</span>
 								</a>
 							</Link>
 							<span>{' • '}</span>
-							<span className='text-sm font-normal text-gray-400 truncate'>
+							<span className='text-sm font-normal text-gray-400 line-clamp-1'>
 								{formatDistanceToNow(new Date(fleet.createdAt))}
 							</span>
 						</div>

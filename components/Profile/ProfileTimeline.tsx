@@ -1,4 +1,3 @@
-import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -11,6 +10,7 @@ import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
 import Fleet from '../Fleet/Fleet'
 import { FleetType } from '../Fleet/Timeline'
+import TimelineSuspense from '../Suspense/TimelineSuspense'
 
 const ProfileTimeline = () => {
 	const router = useRouter()
@@ -52,8 +52,8 @@ const ProfileTimeline = () => {
 					'flex h-full my-4 mb-8 md:mb-0 flex-col space-y-4 pb-2'
 				)}
 			>
-				{!isLoading &&
-					(data && data.length > 0 ? (
+				{!isLoading ? (
+					data && data.length > 0 ? (
 						data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.id} />)
 					) : (
 						<div className='flex items-center justify-center w-full h-full'>
@@ -62,9 +62,9 @@ const ProfileTimeline = () => {
 								<div className='text-2xl font-semibold text-gray-500'>No Fleets found</div>
 							</div>
 						</div>
-					))}
-				{isLoading && (
-					<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
+					)
+				) : (
+					<TimelineSuspense />
 				)}
 			</div>
 		</>
