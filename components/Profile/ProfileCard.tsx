@@ -152,7 +152,7 @@ const ProfileCard = () => {
 						<title>{userData.displayName} | Fleet</title>
 					</Head>
 					<ProfileBanner isAdmin={userData.isAdmin} />
-					<div className='px-4'>
+					<div className='px-2'>
 						<div className='flex items-center justify-between pb-2 text-2xl text-white'>
 							<div className='flex flex-col'>
 								<span className='flex items-center text-white'>

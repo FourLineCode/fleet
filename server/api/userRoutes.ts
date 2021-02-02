@@ -51,7 +51,7 @@ router.post('/signup', async (req, res, next) => {
 			throw err
 		}
 
-		const emailExists = await User.findOne({ email: email })
+		const emailExists = await User.findOne({ email: email.toLowerCase() })
 		if (emailExists) {
 			res.status(StatusCodes.BAD_REQUEST)
 			throw new Error('User already exists with given email')
@@ -70,7 +70,7 @@ router.post('/signup', async (req, res, next) => {
 			username: username.toLowerCase(),
 			displayName,
 			bio,
-			email,
+			email: email.toLowerCase(),
 			password: passwordHash,
 		})
 
