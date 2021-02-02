@@ -91,7 +91,9 @@ const Fleet = ({ fleet }: Props) => {
 						<div className='flex items-center space-x-1'>
 							<Link href={`/profile/${fleet.author.id}`}>
 								<a className='flex items-center space-x-1 group'>
-									<span className=' line-clamp-1'>{fleet.author.displayName}</span>
+									<span className='group-hover:underline line-clamp-1'>
+										{fleet.author.displayName}
+									</span>
 									<span>
 										{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
 									</span>
