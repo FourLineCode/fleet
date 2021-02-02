@@ -6,6 +6,7 @@ import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
+import RecommendSuspense from '../Suspense/RecommendSuspense'
 import UserInfo from './UserInfo'
 
 const Recommend = () => {
@@ -34,7 +35,11 @@ const Recommend = () => {
 			<div className='hidden w-full px-4 pt-2 pb-4 border border-gray-700 rounded-lg shadow-xl xl:block'>
 				<div className='mb-2 text-lg text-white'>People you may know</div>
 				<div className='flex flex-col space-y-4'>
-					{data && data.length > 0 && data.map((user: UserState) => <UserInfo user={user} key={user.id} />)}
+					{data && data.length > 0 ? (
+						data.map((user: UserState) => <UserInfo user={user} key={user.id} />)
+					) : (
+						<RecommendSuspense />
+					)}
 				</div>
 			</div>
 		</div>

@@ -1,6 +1,4 @@
-import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
-import clsx from 'clsx'
 import React, { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
@@ -8,6 +6,7 @@ import { setError } from '../../store/actions/notificationActions'
 import ErrorIcon from '../../ui/icons/ErrorIcon'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
+import TimelineSuspense from '../Suspense/TimelineSuspense'
 import Fleet from './Fleet'
 
 interface Author {
@@ -60,14 +59,9 @@ const Timeline = () => {
 	}, [])
 
 	return (
-		<div
-			className={clsx(
-				'h-full col-span-4 px-1 md:px-2 lg:px-0 md:col-span-3 xl:col-span-2 md:border-l lg:border-r mb-8 md:mb-0 border-gray-500 py-4',
-				isLoading ? 'flex items-center justify-center' : 'flex-col space-y-4'
-			)}
-		>
+		<div className='flex flex-col h-full col-span-4 px-1 py-4 mb-8 space-y-4 border-gray-500 md:px-2 lg:px-0 md:col-span-3 xl:col-span-2 md:border-l lg:border-r md:mb-0'>
 			{isLoading ? (
-				<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
+				<TimelineSuspense />
 			) : data && data.length > 0 ? (
 				data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.id} />)
 			) : (
