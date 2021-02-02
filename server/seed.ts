@@ -22,7 +22,7 @@ const seed_database = async () => {
 
 		await adminUser.save()
 
-		for (const n of Array(10).keys()) {
+		for (const n of Array(30).keys()) {
 			const username = `demo${n}`
 			const displayName = `demo-user-${n}`
 			const salt = await bcrypt.genSalt(10)
@@ -43,13 +43,15 @@ const seed_database = async () => {
 				await Follow.create({ from: newUser, to: adminUser }).save()
 			}
 
-			for (const _ of Array(5).keys()) {
+			for (const _ of Array(10).keys()) {
 				await Fleet.create({
 					body: `Example Fleet by demo user ${n}`,
 					author: newUser,
 				}).save()
 			}
 		}
+
+		console.log('\nThe database was seeded successfully!\n')
 	} catch (error) {
 		console.log(error)
 	}
