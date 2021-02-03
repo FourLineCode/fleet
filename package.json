@@ -33,6 +33,7 @@
 		"morgan": "^1.10.0",
 		"next": "^10.0.5",
 		"next-redux-wrapper": "^6.0.2",
+		"next-themes": "^0.0.10",
 		"pg": "^8.5.1",
 		"postcss": "^8.2.4",
 		"react": "^17.0.1",

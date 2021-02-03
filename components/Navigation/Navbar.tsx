@@ -1,15 +1,24 @@
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import useAuthorization from '../../hooks/useAuthorization'
+import IconButton from '../../ui/components/IconButton'
 import FleetIcon from '../../ui/icons/FleetIcon'
+import MoonIcon from '../../ui/icons/MoonIcon'
+import SunIcon from '../../ui/icons/SunIcon'
 import SignedInLinks from './SignedInLinks'
 import SignedOutLinks from './SignedOutLinks'
 
 const Navbar = () => {
 	const { signedIn } = useAuthorization()
 	const { pathname } = useRouter()
+	const { theme, setTheme } = useTheme()
 	const redirect = signedIn ? '/home' : pathname
+
+	const switchTheme = () => {
+		setTheme(theme === 'light' ? 'dark' : 'light')
+	}
 
 	return (
 		<div className='sticky top-0 left-0 z-40 flex justify-center w-full border-b border-dark-500 bg-dark-800 h-14'>
@@ -22,6 +31,13 @@ const Navbar = () => {
 					</a>
 				</Link>
 				<div className='flex items-center space-x-5 text-center'>
+					<IconButton onClick={switchTheme} className='p-3 rounded-lg hover:bg-dark-700'>
+						{theme === 'dark' ? (
+							<SunIcon className='w-6 h-6 text-white' />
+						) : (
+							<MoonIcon className='w-6 h-6 text-white' />
+						)}
+					</IconButton>
 					{signedIn ? <SignedInLinks /> : <SignedOutLinks />}
 				</div>
 			</nav>

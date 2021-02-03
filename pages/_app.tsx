@@ -1,4 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
 import { QueryClientProvider } from 'react-query'
@@ -24,12 +25,14 @@ const App = ({ Component, pageProps }: AppProps) => {
 	}, [])
 
 	return (
-		<ChakraProvider theme={theme}>
-			<QueryClientProvider client={queryClient}>
-				<Component {...pageProps} />
-				<Notification />
-			</QueryClientProvider>
-		</ChakraProvider>
+		<NextThemeProvider defaultTheme='dark' attribute='class'>
+			<ChakraProvider theme={theme}>
+				<QueryClientProvider client={queryClient}>
+					<Component {...pageProps} />
+					<Notification />
+				</QueryClientProvider>
+			</ChakraProvider>
+		</NextThemeProvider>
 	)
 }
 
