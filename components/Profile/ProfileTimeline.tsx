@@ -42,7 +42,7 @@ const ProfileTimeline = () => {
 	return (
 		<>
 			<div className='flex justify-center'>
-				<div className='w-16 border-b-2 border-green-400'>
+				<div className='w-16 border-b-2 border-brand-400'>
 					<div className='text-xl font-bold text-center text-white'>Posts</div>
 				</div>
 			</div>

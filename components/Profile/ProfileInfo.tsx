@@ -8,7 +8,7 @@ interface Props {
 
 const ProfileInfo = ({ bio, createdAt }: Props) => {
 	return (
-		<div className='flex px-4 pb-2 mt-2 border-b border-gray-500'>
+		<div className='flex px-4 pb-2 mt-2 border-b border-dark-500'>
 			<div className='w-3/4 text-white'>
 				<div className='text-sm text-gray-400'>Bio</div>
 				<div>{bio}</div>

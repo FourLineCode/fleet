@@ -9,7 +9,7 @@ interface Props {
 
 const FleetPreview = ({ fleet }: Props) => {
 	return (
-		<div className='w-full px-2 py-2 mb-3 border border-gray-700 rounded-lg shadow-xl'>
+		<div className='w-full px-2 py-2 mb-3 border border-dark-700 rounded-lg shadow-xl'>
 			<div className='flex space-x-1'>
 				<div className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg'>
 					<img

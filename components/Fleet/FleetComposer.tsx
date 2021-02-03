@@ -79,7 +79,7 @@ const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
 		<Modal isOpen={isOpen} onClose={onClose} size='xl' initialFocusRef={inputRef}>
 			<ModalOverlay />
 			<ModalContent>
-				<div className='text-white bg-gray-800 rounded-sm'>
+				<div className='text-white rounded-sm bg-dark-800'>
 					<ModalHeader>Send a Fleet</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
@@ -90,7 +90,7 @@ const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
 							label='Fleet'
 							name='body'
 							ref={inputRef}
-							className='h-24 text-white transition duration-150 bg-gray-800 focus:bg-gray-700'
+							className='h-24 text-white transition duration-150 bg-dark-800 focus:bg-dark-700'
 						/>
 					</ModalBody>
 

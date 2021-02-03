@@ -13,7 +13,7 @@ const Index = () => {
 
 	return (
 		<Layout>
-			<div className='flex items-center justify-center w-full h-screen bg-gray-800'>
+			<div className='flex items-center justify-center w-full h-screen bg-dark-800'>
 				<Spinner color='green.500' size='lg' thickness='2px' />
 			</div>
 		</Layout>

@@ -51,7 +51,7 @@ const Menu = () => {
 					</div>
 				</div>
 			</div>
-			<div className='fixed bottom-0 left-0 z-50 block w-full h-16 bg-gray-800 border-t-2 border-green-500 rounded-t-md md:hidden'>
+			<div className='fixed bottom-0 left-0 z-50 block w-full h-16 border-t-2 bg-dark-800 border-brand-500 rounded-t-md md:hidden'>
 				<div className='flex items-center justify-between h-full p-1'>
 					<MenuLink type='route' to='/home' active={pathname === '/home'}>
 						<a className='flex items-center p-2'>

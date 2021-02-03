@@ -3,7 +3,7 @@ import React from 'react'
 const TimelineSuspense = () => {
 	return (
 		<>
-			<div className='w-full px-2 pt-2 border border-gray-700 rounded-lg shadow-xl animate-pulse lg:mx-auto lg:w-3/4'>
+			<div className='w-full px-2 pt-2 border border-dark-700 rounded-lg shadow-xl animate-pulse lg:mx-auto lg:w-3/4'>
 				<div className='flex space-x-1'>
 					<div className='flex-shrink-0 w-12 h-12 mr-2 bg-gray-400 rounded-lg' />
 					<div className='w-full space-y-2'>
@@ -32,7 +32,7 @@ const TimelineSuspense = () => {
 					</div>
 				</div>
 			</div>
-			<div className='w-full px-2 pt-2 border border-gray-700 rounded-lg shadow-xl animate-pulse lg:mx-auto lg:w-3/4'>
+			<div className='w-full px-2 pt-2 border border-dark-700 rounded-lg shadow-xl animate-pulse lg:mx-auto lg:w-3/4'>
 				<div className='flex space-x-1'>
 					<div className='flex-shrink-0 w-12 h-12 mr-2 bg-gray-400 rounded-lg' />
 					<div className='w-full space-y-2'>
@@ -62,7 +62,7 @@ const TimelineSuspense = () => {
 					</div>
 				</div>
 			</div>
-			<div className='w-full px-2 pt-2 border border-gray-700 rounded-lg shadow-xl animate-pulse lg:mx-auto lg:w-3/4'>
+			<div className='w-full px-2 pt-2 border border-dark-700 rounded-lg shadow-xl animate-pulse lg:mx-auto lg:w-3/4'>
 				<div className='flex space-x-1'>
 					<div className='flex-shrink-0 w-12 h-12 mr-2 bg-gray-400 rounded-lg' />
 					<div className='w-full space-y-2'>

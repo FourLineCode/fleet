@@ -47,7 +47,7 @@ const Singin = () => {
 
 	return (
 		<Layout title='Sign In | Fleet'>
-			<div className='flex justify-center w-full h-screen px-2 bg-gray-700 md:px-0'>
+			<div className='flex justify-center w-full h-screen px-2 bg-dark-700 md:px-0'>
 				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-20 w-96'>
 					<span className='my-4 text-5xl italic font-bold text-center text-white'>Sign in</span>
 					<Input label='Email' type='email' name='email' />
@@ -55,7 +55,7 @@ const Singin = () => {
 					<div className='flex items-center justify-between w-full py-2 mt-3'>
 						<span className='text-white'>
 							<span className='mr-2'>Not signed up yet?</span>
-							<div className='text-green-400 hover:underline'>
+							<div className='text-brand-400 hover:underline'>
 								<Link href='/signup'>Sign up</Link>
 							</div>
 						</span>

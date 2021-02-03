@@ -19,10 +19,10 @@ const Reply = ({ reply, user }: Props) => {
 	const [canDelete] = useState(auth.id === reply.user.id || currentUser.isAdmin)
 
 	return (
-		<div className='w-full px-2 py-2 mb-3 border border-gray-700 rounded-lg shadow-xl'>
+		<div className='w-full px-2 py-2 mb-3 border border-dark-700 rounded-lg shadow-xl'>
 			<div className='flex space-x-1'>
 				<Link href={`/profile/${reply.user.id}`}>
-					<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-green-500'>
+					<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-brand-500'>
 						<img
 							src={
 								reply.user.isAdmin

@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
 	experimental: 'all',
 	darkMode: 'class',
@@ -16,7 +18,12 @@ module.exports = {
 		],
 	},
 	theme: {
-		extend: {},
+		extend: {
+			colors: {
+				brand: colors.emerald,
+				dark: colors.coolGray,
+			},
+		},
 	},
 	variants: {},
 	plugins: [require('@tailwindcss/line-clamp')],

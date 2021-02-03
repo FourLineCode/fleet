@@ -69,29 +69,29 @@ const FollowDetails = ({ tabType, isOpen, onOpen, onClose }: Props) => {
 		<Modal isOpen={isOpen} onClose={onClose} size='md' isCentered scrollBehavior='inside'>
 			<ModalOverlay />
 			<ModalContent>
-				<div className='flex flex-col w-full bg-gray-800 rounded-sm shadow-lg h-96'>
+				<div className='flex flex-col w-full rounded-sm shadow-lg bg-dark-800 h-96'>
 					<div className='flex w-full font-semibold text-white'>
 						<div
 							onClick={() => setTab(Tabs.followers)}
-							className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-gray-700'
+							className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-dark-700'
 						>
 							Followers
 							<div
 								className={clsx(
 									tab === Tabs.followers ? 'block' : 'invisible',
-									'absolute bottom-0 left-0 w-full h-1 bg-green-500'
+									'absolute bottom-0 left-0 w-full h-1 bg-brand-500'
 								)}
 							/>
 						</div>
 						<div
 							onClick={() => setTab(Tabs.following)}
-							className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-gray-700'
+							className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-dark-700'
 						>
 							Following
 							<div
 								className={clsx(
 									tab === Tabs.following ? 'block' : 'invisible',
-									'absolute bottom-0 left-0 w-full h-1 bg-green-500'
+									'absolute bottom-0 left-0 w-full h-1 bg-brand-500'
 								)}
 							/>
 						</div>

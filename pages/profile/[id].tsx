@@ -7,7 +7,7 @@ import Recommend from '../../components/Recommend/Recommend'
 const Profile = () => {
 	return (
 		<ProtectedLayout title='Profile | Fleet'>
-			<div className='grid min-h-screen grid-cols-4 bg-gray-800 gap-x-4'>
+			<div className='grid min-h-screen grid-cols-4 bg-dark-800 gap-x-4'>
 				<Menu />
 				<ProfileCard />
 				<Recommend />

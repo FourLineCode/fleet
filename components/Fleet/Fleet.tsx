@@ -73,11 +73,11 @@ const Fleet = ({ fleet }: Props) => {
 	})
 
 	return (
-		<div className='w-full px-2 pt-2 border border-gray-700 rounded-lg shadow-xl lg:mx-auto lg:w-3/4 hover:bg-gray-900 hover:bg-opacity-50'>
+		<div className='w-full px-2 pt-2 border rounded-lg shadow-xl border-dark-700 lg:mx-auto lg:w-3/4 hover:bg-dark-900 hover:bg-opacity-50'>
 			<Link href={`/fleet/${fleet.id}`} passHref={true}>
 				<div className='flex space-x-1 cursor-pointer'>
 					<Link href={`/profile/${fleet.author.id}`}>
-						<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-green-500'>
+						<a className='flex items-center justify-center flex-shrink-0 w-12 h-12 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg hover:border-brand-500'>
 							<img
 								src={
 									fleet.author.isAdmin
@@ -116,7 +116,7 @@ const Fleet = ({ fleet }: Props) => {
 						<div className='flex items-center justify-evenly'>
 							<IconButton
 								onClick={onOpen}
-								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
+								className='text-white transform rounded-full hover:bg-dark-700 hover:text-brand-500 hover:scale-110'
 							>
 								<ReplyIcon className='w-4 h-4' />
 							</IconButton>
@@ -125,7 +125,7 @@ const Fleet = ({ fleet }: Props) => {
 						<div className='flex items-center'>
 							<IconButton
 								onClick={mutate}
-								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
+								className='text-white transform rounded-full hover:bg-dark-700 hover:text-brand-500 hover:scale-110'
 							>
 								{liked ? <HeartFilledIcon className='w-4 h-4' /> : <HeartIcon className='w-4 h-4' />}
 							</IconButton>
