@@ -1,8 +1,9 @@
+import { useDisclosure } from '@chakra-ui/react'
 import { Menu, Transition } from '@headlessui/react'
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError, setSuccess } from '../../store/actions/notificationActions'
@@ -23,7 +24,7 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 	const router = useRouter()
 	const { pathname } = router
 	const queryClient = useQueryClient()
-	const [visible, setVisible] = useState(false)
+	const { isOpen, onOpen, onClose } = useDisclosure()
 
 	const deleteFleet = async () => {
 		try {
@@ -37,7 +38,7 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 
 	const { mutate } = useMutation(deleteFleet, {
 		onSuccess: () => {
-			setVisible(false)
+			onClose()
 			dispatch(setSuccess('Fleet was deleted'))
 			if (pathname.startsWith('/home')) {
 				queryClient.refetchQueries(queryTypes.FLEETS)
@@ -76,7 +77,7 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 									{canDelete && (
 										<Menu.Item>
 											<div
-												onClick={() => setVisible(true)}
+												onClick={onOpen}
 												className='flex items-center w-full px-2 py-2 font-semibold text-red-500 rounded-lg outline-none cursor-pointer hover:bg-red-500 hover:bg-opacity-20 hover:text-red-500'
 											>
 												<TrashIcon className='w-4 h-4 mr-2' />
@@ -104,8 +105,9 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 					action={mutate}
 					header='Delete Fleet?'
 					desc='This can’t be undone and it will be removed from your profile'
-					visible={visible}
-					setVisible={setVisible}
+					isOpen={isOpen}
+					onOpen={onOpen}
+					onClose={onClose}
 				/>
 			</div>
 		</div>

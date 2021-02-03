@@ -1,20 +1,18 @@
-import { MuiThemeProvider } from '@material-ui/core'
+import { ChakraProvider } from '@chakra-ui/react'
 import { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
 import { QueryClientProvider } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../hooks/useAuthorization'
-import useNotification from '../hooks/useNotification'
 import wrapper from '../store'
 import { refreshAuthToken } from '../store/actions/authActions'
 import * as actions from '../store/types'
 import '../styles/index.css'
 import Notification from '../ui/components/Notification'
-import theme from '../ui/themes/MuiTheme'
+import theme from '../ui/themes/ChakraTheme'
 import queryClient from '../utils/query'
 
 const App = ({ Component, pageProps }: AppProps) => {
-	const notification = useNotification()
 	const auth = useAuthorization()
 	const dispatch = useDispatch()
 
@@ -26,14 +24,12 @@ const App = ({ Component, pageProps }: AppProps) => {
 	}, [])
 
 	return (
-		<MuiThemeProvider theme={theme}>
+		<ChakraProvider theme={theme}>
 			<QueryClientProvider client={queryClient}>
 				<Component {...pageProps} />
-				{notification.show && notification.message !== '' && (
-					<Notification message={notification.message} type={notification.type} />
-				)}
+				<Notification />
 			</QueryClientProvider>
-		</MuiThemeProvider>
+		</ChakraProvider>
 	)
 }
 

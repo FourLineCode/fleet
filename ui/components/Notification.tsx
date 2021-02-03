@@ -1,41 +1,24 @@
-import Snackbar from '@material-ui/core/Snackbar'
-import MuiAlert, { AlertProps } from '@material-ui/lab/Alert'
-import React, { useEffect, useState } from 'react'
+import { useToast } from '@chakra-ui/react'
+import { useEffect } from 'react'
+import useNotification from '../../hooks/useNotification'
 
-type NotificationTypes = 'success' | 'info' | 'warning' | 'error'
-
-const Alert = (props: AlertProps) => {
-	return <MuiAlert elevation={6} variant='filled' {...props} />
-}
-interface NotificationProps {
-	message: string
-	type: NotificationTypes
-}
-
-const Notification = ({ message, type = 'error' }: NotificationProps) => {
-	const [open, setOpen] = useState(false)
+const Notification = () => {
+	const notification = useNotification()
+	const toast = useToast()
 
 	useEffect(() => {
-		setOpen(true)
-	}, [])
-
-	const handleClose = (event: any, reason?: string) => {
-		if (reason === 'clickaway') {
-			return
+		if (notification.trigger && notification.message !== '') {
+			toast({
+				title: notification.message,
+				status: notification.type,
+				duration: 3000,
+				isClosable: true,
+				position: 'bottom',
+			})
 		}
+	}, [notification.trigger])
 
-		setOpen(false)
-	}
-
-	return (
-		<div>
-			<Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-				<Alert onClose={handleClose} severity={type}>
-					{message}
-				</Alert>
-			</Snackbar>
-		</div>
-	)
+	return null
 }
 
 export default Notification

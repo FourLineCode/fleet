@@ -14,7 +14,7 @@ const ProtectedLayout = ({ children, title, desc }: Props) => {
 	const router = useRouter()
 
 	if (!auth.signedIn && auth.refreshing === 'done' && process.browser) {
-		router.push('/signin')
+		router.push('/signin?redirect=true')
 	}
 
 	return (

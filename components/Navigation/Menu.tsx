@@ -1,5 +1,6 @@
+import { useDisclosure } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React from 'react'
 import useAuthorization from '../../hooks/useAuthorization'
 import MenuLink from '../../ui/components/MenuLink'
 import GithubIcon from '../../ui/icons/GithubIcon'
@@ -10,15 +11,9 @@ import ProfileIcon from '../../ui/icons/ProfileIcon'
 import FleetComposer from '../Fleet/FleetComposer'
 
 const Menu = () => {
-	const [visible, setVisible] = useState(false)
 	const auth = useAuthorization()
 	const { pathname } = useRouter()
-
-	const showFleetComposer = (e: React.ChangeEvent<HTMLButtonElement>) => {
-		e.preventDefault()
-
-		setVisible(!visible)
-	}
+	const { isOpen, onOpen, onClose } = useDisclosure()
 
 	return (
 		<>
@@ -43,7 +38,7 @@ const Menu = () => {
 								Profile
 							</a>
 						</MenuLink>
-						<MenuLink type='button' onClick={showFleetComposer}>
+						<MenuLink type='button' onClick={onOpen}>
 							Fleet
 						</MenuLink>
 						<div className='w-full h-20'></div>
@@ -68,7 +63,7 @@ const Menu = () => {
 							<MessageIcon className='w-6 h-6' />
 						</a>
 					</MenuLink>
-					<MenuLink type='button' onClick={showFleetComposer}>
+					<MenuLink type='button' onClick={onOpen}>
 						<PlusIcon className='w-6 h-6 my-1 text-white' />
 					</MenuLink>
 					<MenuLink type='route' to={`/profile/${auth.id}`} active={pathname.startsWith('/profile')}>
@@ -83,7 +78,7 @@ const Menu = () => {
 					</MenuLink>
 				</div>
 			</div>
-			<FleetComposer visible={visible} setVisible={setVisible} />
+			<FleetComposer isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 		</>
 	)
 }

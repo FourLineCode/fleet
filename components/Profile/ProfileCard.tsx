@@ -1,3 +1,4 @@
+import { useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import clsx from 'clsx'
 import Head from 'next/head'
@@ -33,7 +34,7 @@ const ProfileCard = () => {
 	})
 	const [followed, setFollowed] = useState(false)
 	const [disableFollow, setDisableFollow] = useState(false)
-	const [showFollowDetails, setShowFollowDetails] = useState(false)
+	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
 
 	const getUserData = async () => {
@@ -86,7 +87,7 @@ const ProfileCard = () => {
 
 	const followDetailsHandler = (tabType: TabTypes) => {
 		setTab(tabType)
-		setShowFollowDetails(true)
+		onOpen()
 	}
 
 	const checkFollow = async () => {
@@ -156,7 +157,7 @@ const ProfileCard = () => {
 						<div className='flex items-center justify-between pb-2 text-2xl text-white'>
 							<div className='flex flex-col'>
 								<span className='flex items-center text-white'>
-									<span className='text-3xl font-semibold '>{userData?.displayName}</span>
+									<span className='text-3xl font-bold '>{userData?.displayName}</span>
 									{userData.isAdmin && <VerifiedFilledIcon className='w-6 h-6 ml-1 text-white' />}
 								</span>
 								<span className='text-lg text-gray-400'>@{userData?.username}</span>
@@ -184,7 +185,7 @@ const ProfileCard = () => {
 						<ProfileInfo bio={userData.bio} createdAt={userData.createdAt} />
 						<ProfileTimeline />
 					</div>
-					<FollowDetails tabType={tab} visible={showFollowDetails} setVisible={setShowFollowDetails} />
+					<FollowDetails tabType={tab} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 				</>
 			)}
 			{userDataLoading && <ProfileSuspense />}
