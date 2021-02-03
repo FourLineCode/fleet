@@ -1,4 +1,3 @@
-import { CircularProgress } from '@material-ui/core'
 import axios from 'axios'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -11,6 +10,7 @@ import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import { BASE_URL } from '../../utils/config'
 import queryClient, { queryTypes } from '../../utils/query'
+import FleetDetailsSuspense from '../Suspense/FleetDetailsSuspense'
 import FleetView from './FleetView'
 import Reply from './Reply'
 
@@ -56,7 +56,6 @@ const FleetDetails = () => {
 	return (
 		<div
 			className={clsx(
-				isLoading && 'flex justify-center items-center',
 				'w-full h-full col-span-4 p-2 border-gray-500 md:col-span-3 xl:col-span-2 md:border-l lg:border-r'
 			)}
 		>
@@ -77,7 +76,7 @@ const FleetDetails = () => {
 					</div>
 				</div>
 			) : (
-				<CircularProgress color='primary' variant='indeterminate' disableShrink size={30} thickness={4} />
+				<FleetDetailsSuspense />
 			)}
 		</div>
 	)
