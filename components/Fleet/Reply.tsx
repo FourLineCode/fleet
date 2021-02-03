@@ -38,9 +38,9 @@ const Reply = ({ reply, user }: Props) => {
 						<div className='flex items-center justify-between w-full'>
 							<div className='flex items-center space-x-1'>
 								<Link href={`/profile/${reply.user.id}`}>
-									<a className='flex items-center space-x-1'>
+									<a className='flex items-center space-x-1 group'>
 										<span className='flex items-center hover:underline'>
-											<span>{reply.user.displayName}</span>
+											<span className='group-hover:underline'>{reply.user.displayName}</span>
 											{reply.user.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
 										</span>{' '}
 										<span className='font-normal text-gray-400'>@{reply.user.username}</span>
