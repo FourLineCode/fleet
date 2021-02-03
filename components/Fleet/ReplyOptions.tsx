@@ -1,6 +1,7 @@
+import { useDisclosure } from '@chakra-ui/react'
 import { Menu, Transition } from '@headlessui/react'
 import axios from 'axios'
-import React, { useState } from 'react'
+import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError, setSuccess } from '../../store/actions/notificationActions'
@@ -18,7 +19,7 @@ interface Props {
 const ReplyOptions = ({ id, canDelete }: Props) => {
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
-	const [visible, setVisible] = useState(false)
+	const { isOpen, onOpen, onClose } = useDisclosure()
 
 	const deleteReply = async () => {
 		try {
@@ -32,7 +33,7 @@ const ReplyOptions = ({ id, canDelete }: Props) => {
 
 	const { mutate } = useMutation(deleteReply, {
 		onSuccess: () => {
-			setVisible(false)
+			onClose()
 			dispatch(setSuccess('Reply was deleted'))
 			queryClient.refetchQueries(queryTypes.FLEET_DETAILS)
 		},
@@ -65,7 +66,7 @@ const ReplyOptions = ({ id, canDelete }: Props) => {
 									{canDelete && (
 										<Menu.Item>
 											<div
-												onClick={() => setVisible(true)}
+												onClick={onOpen}
 												className='flex items-center w-full px-2 py-2 font-semibold text-red-500 rounded-lg outline-none cursor-pointer hover:bg-red-500 hover:bg-opacity-20 hover:text-red-500'
 											>
 												<TrashIcon className='w-4 h-4 mr-2' />
@@ -82,8 +83,9 @@ const ReplyOptions = ({ id, canDelete }: Props) => {
 					action={mutate}
 					header='Delete Reply?'
 					desc='This can’t be undone and it will be removed from the post'
-					visible={visible}
-					setVisible={setVisible}
+					isOpen={isOpen}
+					onOpen={onOpen}
+					onClose={onClose}
 				/>
 			</div>
 		</div>

@@ -1,7 +1,8 @@
+import { useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import { format } from 'date-fns'
 import Link from 'next/link'
-import React, { Dispatch, SetStateAction, useState } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError } from '../../store/actions/notificationActions'
@@ -27,7 +28,7 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 
-	const [showReplyComposer, setShowReplyComposer] = useState(false)
+	const { isOpen, onOpen, onClose } = useDisclosure()
 
 	const likeHandler = async () => {
 		try {
@@ -96,7 +97,7 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 					<div className='flex items-center flex-1 justify-evenly'>
 						<div className='flex items-center justify-evenly'>
 							<IconButton
-								onClick={() => setShowReplyComposer(true)}
+								onClick={onOpen}
 								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
 							>
 								<ReplyIcon className='w-5 h-5' />
@@ -116,7 +117,7 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 					<FleetOptions id={fleet.id} canDelete={canDelete} />
 				</div>
 			</div>
-			<ReplyComposer fleet={fleet} visible={showReplyComposer} setVisible={setShowReplyComposer} />
+			<ReplyComposer fleet={fleet} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 		</div>
 	)
 }

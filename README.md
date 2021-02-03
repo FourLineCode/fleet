@@ -20,7 +20,7 @@ The database and API was designed using relational data that optimizes the backe
 -   [React](https://reactjs.org)
 -   [Redux](https://redux.js.org)
 -   [Tailwind CSS](https://tailwindcss.com/)
--   [Material UI](https://material-ui.com/)
+-   [Chakra-UI](https://chakra-ui.com/)
 
 # Backend
 

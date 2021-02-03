@@ -1,7 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
@@ -11,7 +10,6 @@ import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 
 const SignedInLinks = () => {
 	const user = useCurrentUser()
-	const router = useRouter()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 
@@ -20,7 +18,6 @@ const SignedInLinks = () => {
 
 		queryClient.clear()
 		dispatch(signout())
-		router.push('/signin')
 	}
 
 	return (

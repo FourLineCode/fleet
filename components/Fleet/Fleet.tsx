@@ -1,3 +1,4 @@
+import { useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
@@ -30,7 +31,7 @@ const Fleet = ({ fleet }: Props) => {
 	const queryClient = useQueryClient()
 	const { pathname } = useRouter()
 
-	const [showReplyComposer, setShowReplyComposer] = useState(false)
+	const { isOpen, onOpen, onClose } = useDisclosure()
 	const [liked, setLiked] = useState<boolean>(fleet.liked)
 	const [canDelete] = useState(auth.id === fleet.author.id || user.isAdmin)
 
@@ -114,7 +115,7 @@ const Fleet = ({ fleet }: Props) => {
 					<div className='flex items-center flex-1 justify-evenly'>
 						<div className='flex items-center justify-evenly'>
 							<IconButton
-								onClick={() => setShowReplyComposer(true)}
+								onClick={onOpen}
 								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
 							>
 								<ReplyIcon className='w-4 h-4' />
@@ -134,7 +135,7 @@ const Fleet = ({ fleet }: Props) => {
 					<FleetOptions id={fleet.id} canDelete={canDelete} />
 				</div>
 			</div>
-			<ReplyComposer fleet={fleet} visible={showReplyComposer} setVisible={setShowReplyComposer} />
+			<ReplyComposer fleet={fleet} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 		</div>
 	)
 }

@@ -2,12 +2,12 @@ import * as actions from '../types'
 import { ActionTypes, NotificationState } from './types'
 
 const initState: NotificationState = {
-	show: false,
 	message: '',
 	type: 'success',
+	trigger: false,
 }
 
-const errorReducer = (state = initState, { type, payload }: ActionTypes) => {
+const notificationReducer = (state = initState, { type, payload }: ActionTypes) => {
 	switch (type) {
 		case actions.ERROR: {
 			return {
@@ -33,13 +33,13 @@ const errorReducer = (state = initState, { type, payload }: ActionTypes) => {
 		case actions.SHOW_NOTIFICATION: {
 			return {
 				...state,
-				show: true,
+				trigger: true,
 			}
 		}
 		case actions.HIDE_NOTIFICATION: {
 			return {
 				...state,
-				show: false,
+				trigger: false,
 			}
 		}
 		default: {
@@ -48,4 +48,4 @@ const errorReducer = (state = initState, { type, payload }: ActionTypes) => {
 	}
 }
 
-export default errorReducer
+export default notificationReducer

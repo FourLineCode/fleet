@@ -17,9 +17,9 @@ export interface AuthState {
 }
 
 export interface NotificationState {
-	show: boolean
 	message: string
 	type: 'error' | 'success'
+	trigger: boolean
 }
 
 export interface UserState {

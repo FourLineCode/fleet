@@ -15,6 +15,12 @@ const Singin = () => {
 	const auth = useAuthorization()
 
 	useEffect(() => {
+		if (Boolean(router.query.redirect)) {
+			dispatch(setError('Please sign in to view this page'))
+		}
+	}, [router.query])
+
+	useEffect(() => {
 		if (auth.signedIn) {
 			dispatch(setSuccess('Successfully signed in'))
 			router.push('/home')

@@ -40,14 +40,18 @@ const Reply = ({ reply, user }: Props) => {
 								<Link href={`/profile/${reply.user.id}`}>
 									<a className='flex items-center space-x-1 group'>
 										<span className='flex items-center hover:underline'>
-											<span className='group-hover:underline'>{reply.user.displayName}</span>
+											<span className='group-hover:underline line-clamp-1'>
+												{reply.user.displayName}
+											</span>
 											{reply.user.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
 										</span>{' '}
-										<span className='font-normal text-gray-400'>@{reply.user.username}</span>
+										<span className='font-normal text-gray-400 truncate'>
+											@{reply.user.username}
+										</span>
 									</a>
 								</Link>
 								<span>{' • '}</span>
-								<span className='text-sm font-normal text-gray-400'>
+								<span className='text-sm font-normal text-gray-400 line-clamp-1'>
 									{formatDistanceToNow(new Date(reply.createdAt))}
 								</span>
 							</div>
