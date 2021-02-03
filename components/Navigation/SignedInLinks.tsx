@@ -29,7 +29,7 @@ const SignedInLinks = () => {
 							<Menu.Button className='focus:outline-none'>
 								<div
 									className={clsx(
-										user.isAdmin ? 'border-yellow-400' : 'border-white hover:border-green-400',
+										user.isAdmin ? 'border-yellow-400' : 'border-white hover:border-brand-400',
 										'inline-flex items-center w-12 h-12 overflow-hidden border-2 border-white rounded-lg'
 									)}
 								>
@@ -54,9 +54,9 @@ const SignedInLinks = () => {
 							>
 								<Menu.Items
 									static
-									className='absolute right-0 z-50 w-48 p-2 mt-1 space-y-1 text-white bg-gray-800 border-2 border-green-500 rounded-lg shadow-lg top-full focus:outline-none'
+									className='absolute right-0 z-50 w-48 p-2 mt-1 space-y-1 text-white border-2 rounded-lg shadow-lg bg-dark-800 border-brand-500 top-full focus:outline-none'
 								>
-									<div className='px-4 py-2 text-left border-b border-gray-700'>
+									<div className='px-4 py-2 text-left border-b border-dark-700'>
 										<p className='text-xs text-gray-500'>Signed in as</p>
 										<p className='flex items-center'>
 											{user.displayName}
@@ -68,20 +68,20 @@ const SignedInLinks = () => {
 									</div>
 									<Menu.Item>
 										<Link href={`/profile/${user.id}`}>
-											<a className='flex w-full px-4 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-green-500 hover:bg-opacity-25 hover:text-green-500'>
+											<a className='flex w-full px-4 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-brand-500 hover:bg-opacity-25 hover:text-brand-500'>
 												Profile
 											</a>
 										</Link>
 									</Menu.Item>
 									<Menu.Item disabled>
-										<a className='flex w-full px-4 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-green-500 hover:bg-opacity-25 hover:text-green-500'>
+										<a className='flex w-full px-4 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-brand-500 hover:bg-opacity-25 hover:text-brand-500'>
 											Settings (soon)
 										</a>
 									</Menu.Item>
 									<Menu.Item>
 										<div
 											onClick={signoutHandler}
-											className='flex w-full px-4 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-green-500 hover:bg-opacity-25 hover:text-green-500'
+											className='flex w-full px-4 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-brand-500 hover:bg-opacity-25 hover:text-brand-500'
 										>
 											Sign Out
 										</div>

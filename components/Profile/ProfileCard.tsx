@@ -144,7 +144,7 @@ const ProfileCard = () => {
 		<div
 			className={clsx(
 				(userDataLoading || !userData) && 'flex justify-center items-center',
-				'w-full h-full col-span-4 md:col-span-3 xl:col-span-2 md:border-l lg:border-r border-gray-500'
+				'w-full h-full col-span-4 md:col-span-3 xl:col-span-2 md:border-l lg:border-r border-dark-500'
 			)}
 		>
 			{userData && !userDataLoading && (
@@ -172,7 +172,7 @@ const ProfileCard = () => {
 								{followed ? 'Unfollow' : 'Follow'}
 							</Button>
 						</div>
-						<div className='flex items-center pb-2 space-x-4 text-gray-400 border-b border-gray-500'>
+						<div className='flex items-center pb-2 space-x-4 text-gray-400 border-b border-dark-500'>
 							<div className='cursor-pointer' onClick={() => followDetailsHandler(Tabs.followers)}>
 								<span className='text-lg font-bold text-white'>{followData.followerCount}</span>{' '}
 								Followers

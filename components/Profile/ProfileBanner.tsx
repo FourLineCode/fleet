@@ -13,7 +13,7 @@ const ProfileBanner = ({ isAdmin }: Props) => {
 					src='https://images6.fanpop.com/image/photos/39600000/Sparkle-Stars-Profile-Banner-smile19-39654242-946-250.jpg'
 					alt='profile-banner'
 				/>
-				<div className='absolute top-0 left-0 w-full h-full bg-gradient-to-t from-gray-900 to-transparent' />
+				<div className='absolute top-0 left-0 w-full h-full bg-gradient-to-t from-dark-900 to-transparent' />
 			</div>
 			<div className='flex justify-center'>
 				<img

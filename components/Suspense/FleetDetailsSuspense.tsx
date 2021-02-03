@@ -3,9 +3,9 @@ import React from 'react'
 const FleetDetailsSuspense = () => {
 	return (
 		<div className='animate-pulse'>
-			<div className='border-b border-gray-700'>
+			<div className='border-b border-dark-700'>
 				<div className='w-full'>
-					<div className='flex flex-col pb-2 space-x-1 space-y-2 border-b border-gray-700'>
+					<div className='flex flex-col pb-2 space-x-1 space-y-2 border-b border-dark-700'>
 						<div className='flex mt-1'>
 							<div className='mr-2 bg-gray-400 rounded-lg w-14 h-14' />
 							<div className='space-y-1'>
@@ -39,7 +39,7 @@ const FleetDetailsSuspense = () => {
 			</div>
 			<div className='w-full mt-6 mb-8 space-y-4 md:mb-0'>
 				{/* reply */}
-				<div className='w-full px-2 py-2 mb-3 border border-gray-700 rounded-lg shadow-xl'>
+				<div className='w-full px-2 py-2 mb-3 border border-dark-700 rounded-lg shadow-xl'>
 					<div className='flex space-x-1'>
 						<div className='w-12 h-12 mt-1 mr-2 bg-gray-400 rounded-lg' />
 						<div className='w-full'>
@@ -64,7 +64,7 @@ const FleetDetailsSuspense = () => {
 						</div>
 					</div>
 				</div>
-				<div className='w-full px-2 py-2 mb-3 border border-gray-700 rounded-lg shadow-xl'>
+				<div className='w-full px-2 py-2 mb-3 border border-dark-700 rounded-lg shadow-xl'>
 					<div className='flex space-x-1'>
 						<div className='w-12 h-12 mt-1 mr-2 bg-gray-400 rounded-lg' />
 						<div className='w-full'>

@@ -26,7 +26,7 @@ const ConfirmModal = ({ header, desc, action, isOpen, onOpen, onClose }: Props) 
 		<Modal onClose={onClose} isOpen={isOpen} initialFocusRef={ref} size='xs' isCentered>
 			<ModalOverlay />
 			<ModalContent>
-				<div className='text-white bg-gray-800 rounded-sm'>
+				<div className='text-white rounded-sm bg-dark-800'>
 					<ModalHeader>
 						<div className='font-bold'>{header}</div>
 					</ModalHeader>

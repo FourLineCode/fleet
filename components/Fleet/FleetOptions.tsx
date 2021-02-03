@@ -57,7 +57,7 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 					{({ open }) => (
 						<>
 							<Menu.Button className='focus:outline-none'>
-								<div className='p-1 text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'>
+								<div className='p-1 text-white transform rounded-full hover:bg-dark-700 hover:text-brand-500 hover:scale-110'>
 									<DotsVertical className='w-4 h-4' />
 								</div>
 							</Menu.Button>
@@ -72,7 +72,7 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 							>
 								<Menu.Items
 									static
-									className='absolute right-0 z-50 w-56 text-white bg-gray-800 border border-green-500 rounded-lg shadow-lg top-full focus:outline-none'
+									className='absolute right-0 z-50 w-56 text-white border rounded-lg shadow-lg bg-dark-800 border-brand-500 top-full focus:outline-none'
 								>
 									{canDelete && (
 										<Menu.Item>
@@ -89,7 +89,7 @@ const FleetOptions = ({ id, canDelete }: Props) => {
 										<Link href={`/fleet/${id}`}>
 											<a
 												target='_blank'
-												className='flex items-center w-full px-2 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-green-500 hover:bg-opacity-25 hover:text-green-500'
+												className='flex items-center w-full px-2 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-brand-500 hover:bg-opacity-25 hover:text-brand-500'
 											>
 												<ExternalLinkIcon className='w-4 h-4 mr-2' />
 												Open in a new window

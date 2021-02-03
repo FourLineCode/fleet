@@ -61,10 +61,10 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 
 	return (
 		<div className='w-full'>
-			<div className='flex flex-col pb-2 space-x-1 space-y-2 border-b border-gray-700 cursor-pointer'>
+			<div className='flex flex-col pb-2 space-x-1 space-y-2 border-b border-dark-700 cursor-pointer'>
 				<div className='flex'>
 					<Link href={`/profile/${fleet.author.id}`}>
-						<a className='flex items-center justify-center flex-shrink-0 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg w-14 h-14 hover:border-green-500'>
+						<a className='flex items-center justify-center flex-shrink-0 mt-1 mr-2 overflow-hidden border-2 border-transparent rounded-lg w-14 h-14 hover:border-brand-500'>
 							<img
 								src={
 									fleet.author.isAdmin
@@ -98,7 +98,7 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 						<div className='flex items-center justify-evenly'>
 							<IconButton
 								onClick={onOpen}
-								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
+								className='text-white transform rounded-full hover:bg-dark-700 hover:text-brand-500 hover:scale-110'
 							>
 								<ReplyIcon className='w-5 h-5' />
 							</IconButton>
@@ -107,7 +107,7 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 						<div className='flex items-center'>
 							<IconButton
 								onClick={mutate}
-								className='text-white transform rounded-full hover:bg-gray-700 hover:text-green-500 hover:scale-110'
+								className='text-white transform rounded-full hover:bg-dark-700 hover:text-brand-500 hover:scale-110'
 							>
 								{liked ? <HeartFilledIcon className='w-5 h-5' /> : <HeartIcon className='w-5 h-5' />}
 							</IconButton>

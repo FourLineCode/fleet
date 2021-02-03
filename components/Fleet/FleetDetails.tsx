@@ -56,12 +56,12 @@ const FleetDetails = () => {
 	return (
 		<div
 			className={clsx(
-				'w-full h-full col-span-4 p-2 border-gray-500 md:col-span-3 xl:col-span-2 md:border-l lg:border-r'
+				'w-full h-full col-span-4 p-2 border-dark-500 md:col-span-3 xl:col-span-2 md:border-l lg:border-r'
 			)}
 		>
 			{data && !isLoading ? (
 				<div>
-					<div className='border-b border-gray-700'>
+					<div className='border-b border-dark-700'>
 						<FleetView
 							fleet={data}
 							liked={liked}

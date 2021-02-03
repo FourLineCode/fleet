@@ -12,8 +12,8 @@ interface Props {
 }
 
 const VariantStyles: Record<string, string> = {
-	filled: 'bg-green-500 hover:bg-green-600 hover:border-transparent',
-	outlined: 'bg-transparent hover:bg-green-500 hover:bg-opacity-30',
+	filled: 'bg-brand-500 hover:bg-brand-600 hover:border-transparent',
+	outlined: 'bg-transparent hover:bg-brand-500 hover:bg-opacity-30',
 	danger: 'bg-red-500 hover:bg-red-600 hover:border-transparent',
 }
 
@@ -29,10 +29,10 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
 					className,
 					VariantStyles[variant],
 					disabled
-						? 'cursor-not-allowed border-gray-600 text-gray-500 bg-transparent'
+						? 'cursor-not-allowed border-dark-600 text-gray-500 bg-transparent'
 						: danger
 						? 'border-red-500 text-white ring-red-700'
-						: 'border-green-500 text-white ring-green-700',
+						: 'border-brand-500 text-white ring-brand-700',
 					'px-4 py-2 font-semibold rounded-lg focus:outline-none focus:ring-4 ring-opacity-50 border-2 '
 				)}
 			>
