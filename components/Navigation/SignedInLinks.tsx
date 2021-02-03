@@ -1,4 +1,5 @@
 import { Menu, Transition } from '@headlessui/react'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -6,7 +7,7 @@ import { useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useCurrentUser from '../../hooks/useCurrentUser'
 import { signout } from '../../store/actions/authActions'
-import VerifiedIcon from '../../ui/icons/VerifiedIcon'
+import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 
 const SignedInLinks = () => {
 	const user = useCurrentUser()
@@ -24,18 +25,17 @@ const SignedInLinks = () => {
 
 	return (
 		<div className='flex items-center space-x-4'>
-			{user.isAdmin && (
-				<div className='flex p-2 font-bold text-green-500 bg-green-500 bg-opacity-25 rounded-lg'>
-					<VerifiedIcon className='w-6 h-6' />
-					<span>ADMIN</span>
-				</div>
-			)}
 			<div className='relative'>
 				<Menu>
 					{({ open }) => (
 						<>
 							<Menu.Button className='focus:outline-none'>
-								<div className='inline-flex items-center w-12 h-12 overflow-hidden border-2 border-white rounded-lg hover:border-green-400'>
+								<div
+									className={clsx(
+										user.isAdmin ? 'border-yellow-400' : 'border-white hover:border-green-400',
+										'inline-flex items-center w-12 h-12 overflow-hidden border-2 border-white rounded-lg'
+									)}
+								>
 									<img
 										src={
 											user.isAdmin
@@ -61,7 +61,12 @@ const SignedInLinks = () => {
 								>
 									<div className='px-4 py-2 text-left border-b border-gray-700'>
 										<p className='text-xs text-gray-500'>Signed in as</p>
-										<p>{user.displayName}</p>
+										<p className='flex items-center'>
+											{user.displayName}
+											<span>
+												{user.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+											</span>
+										</p>
 										<p className='text-gray-400'>@{user.username}</p>
 									</div>
 									<Menu.Item>

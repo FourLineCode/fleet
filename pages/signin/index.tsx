@@ -2,12 +2,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import Layout from '../components/Layouts/Layout'
-import useAuthorization from '../hooks/useAuthorization'
-import { signin } from '../store/actions/authActions'
-import { setError, setSuccess } from '../store/actions/notificationActions'
-import Button from '../ui/components/Button'
-import Input from '../ui/components/Input'
+import Layout from '../../components/Layouts/Layout'
+import useAuthorization from '../../hooks/useAuthorization'
+import { signin } from '../../store/actions/authActions'
+import { setError, setSuccess } from '../../store/actions/notificationActions'
+import Button from '../../ui/components/Button'
+import Input from '../../ui/components/Input'
 
 const Singin = () => {
 	const router = useRouter()
