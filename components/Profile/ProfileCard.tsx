@@ -105,7 +105,9 @@ const ProfileCard = () => {
 
 	useQuery(queryTypes.IS_FOLLOWING, checkFollow, {
 		onSuccess: (isFollowingData) => {
-			setFollowed(isFollowingData.follows)
+			if (isFollowingData) {
+				setFollowed(isFollowingData.follows)
+			}
 		},
 	})
 
@@ -154,13 +156,15 @@ const ProfileCard = () => {
 					</Head>
 					<ProfileBanner isAdmin={userData.isAdmin} />
 					<div className='px-2'>
-						<div className='flex items-center justify-between pb-2 text-2xl text-white'>
+						<div className='flex items-center justify-between pb-2 text-2xl text-black dark:text-white'>
 							<div className='flex flex-col'>
-								<span className='flex items-center text-white'>
+								<span className='flex items-center'>
 									<span className='text-3xl font-bold '>{userData?.displayName}</span>
-									{userData.isAdmin && <VerifiedFilledIcon className='w-6 h-6 ml-1 text-white' />}
+									{userData.isAdmin && (
+										<VerifiedFilledIcon className='w-6 h-6 ml-1 text-brand-500 dark:text-white' />
+									)}
 								</span>
-								<span className='text-lg text-gray-400'>@{userData?.username}</span>
+								<span className='text-lg text-gray-600 dark:text-gray-400'>@{userData?.username}</span>
 							</div>
 							<Button
 								type='button'
@@ -172,13 +176,17 @@ const ProfileCard = () => {
 								{followed ? 'Unfollow' : 'Follow'}
 							</Button>
 						</div>
-						<div className='flex items-center pb-2 space-x-4 text-gray-400 border-b border-dark-500'>
+						<div className='flex items-center pb-2 space-x-4 text-gray-600 border-b dark:text-gray-400 border-dark-500'>
 							<div className='cursor-pointer' onClick={() => followDetailsHandler(Tabs.followers)}>
-								<span className='text-lg font-bold text-white'>{followData.followerCount}</span>{' '}
+								<span className='text-lg font-bold text-black dark:text-white'>
+									{followData.followerCount}
+								</span>{' '}
 								Followers
 							</div>
 							<div className='cursor-pointer' onClick={() => followDetailsHandler(Tabs.following)}>
-								<span className='text-lg font-bold text-white'>{followData.followingCount}</span>{' '}
+								<span className='text-lg font-bold text-black dark:text-white'>
+									{followData.followingCount}
+								</span>{' '}
 								Following
 							</div>
 						</div>

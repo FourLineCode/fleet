@@ -54,17 +54,19 @@ const SignedInLinks = () => {
 							>
 								<Menu.Items
 									static
-									className='absolute right-0 z-50 w-48 p-2 mt-1 space-y-1 text-white border-2 rounded-lg shadow-lg bg-dark-800 border-brand-500 top-full focus:outline-none'
+									className='absolute right-0 z-50 w-48 p-2 mt-1 space-y-1 text-black border-2 rounded-lg shadow-lg dark:text-white bg-light dark:bg-dark-800 border-brand-500 top-full focus:outline-none'
 								>
 									<div className='px-4 py-2 text-left border-b border-dark-700'>
 										<p className='text-xs text-gray-500'>Signed in as</p>
 										<p className='flex items-center'>
 											{user.displayName}
 											<span>
-												{user.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+												{user.isAdmin && (
+													<VerifiedFilledIcon className='w-4 h-4 ml-1 dark:text-white text-brand-500' />
+												)}
 											</span>
 										</p>
-										<p className='text-gray-400'>@{user.username}</p>
+										<p className='text-gray-600 dark:text-gray-400'>@{user.username}</p>
 									</div>
 									<Menu.Item>
 										<Link href={`/profile/${user.id}`}>

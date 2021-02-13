@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
+import { fleetIconURL } from '../../ui/icons/FleetIcon'
 import Navbar from '../Navigation/Navbar'
 
 interface Props {
@@ -8,18 +9,14 @@ interface Props {
 	desc?: string
 }
 
-const Layout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communications' }: Props) => (
+const Layout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communication' }: Props) => (
 	<div>
 		<Head>
-			<title>{title}</title>
+			<title>{title} | Fleet</title>
 			<meta charSet='utf-8' />
 			<meta name='viewport' content='initial-scale=1.0, width=device-width' />
 			<meta name='description' content={desc} />
-			<link
-				rel='shortcut icon'
-				href='https://img.icons8.com/fluent/48/000000/top-view-bird.png'
-				type='image/x-icon'
-			/>
+			<link rel='shortcut icon' href={fleetIconURL} type='image/x-icon' />
 		</Head>
 		<Navbar />
 		{children}

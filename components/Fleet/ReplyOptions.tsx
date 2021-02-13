@@ -46,7 +46,7 @@ const ReplyOptions = ({ id, canDelete }: Props) => {
 					{({ open }) => (
 						<>
 							<Menu.Button className='focus:outline-none'>
-								<div className='p-1 text-white transform rounded-full hover:bg-dark-700 hover:text-brand-500 hover:scale-110'>
+								<div className='p-1 text-black transform rounded-full dark:text-white hover:bg-gray-300 dark:hover:bg-dark-700 hover:text-brand-500 hover:scale-110'>
 									<DotsVertical className='w-4 h-4' />
 								</div>
 							</Menu.Button>
@@ -61,7 +61,7 @@ const ReplyOptions = ({ id, canDelete }: Props) => {
 							>
 								<Menu.Items
 									static
-									className='absolute right-0 z-50 w-56 text-white border rounded-lg shadow-lg bg-dark-800 border-brand-500 top-full focus:outline-none'
+									className='absolute right-0 z-50 w-56 text-black border rounded-lg shadow-lg dark:text-white bg-light dark:bg-dark-800 border-brand-500 top-full focus:outline-none'
 								>
 									{canDelete && (
 										<Menu.Item>

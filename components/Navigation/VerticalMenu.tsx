@@ -16,7 +16,7 @@ const VerticalMenu = ({ onOpen }: Props) => {
 	const { pathname } = useRouter()
 
 	return (
-		<div className='hidden h-full px-2 py-4 md:block md:col-span-1'>
+		<div className='hidden h-full px-2 py-4 text-black md:block md:col-span-1 dark:text-white'>
 			<div className='flex justify-center xl:justify-end'>
 				<div className='flex flex-col space-y-4'>
 					<MenuLink type='route' to='/home' active={pathname === '/home'}>
@@ -43,7 +43,7 @@ const VerticalMenu = ({ onOpen }: Props) => {
 					<div className='w-full h-20'></div>
 					<MenuLink type='site' to='https://github.com/fourlinecode/fleet'>
 						<div className='flex items-center'>
-							<GithubIcon className='w-6 h-6 mr-2' />
+							<GithubIcon className='w-6 h-6 mr-2 text-black dark:text-white' />
 							GitHub
 						</div>
 					</MenuLink>

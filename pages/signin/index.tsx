@@ -51,14 +51,16 @@ const Singin = () => {
 	}, [])
 
 	return (
-		<Layout title='Sign In | Fleet'>
-			<div className='flex justify-center w-full h-screen px-2 bg-dark-700 md:px-0'>
+		<Layout title='Sign In'>
+			<div className='flex justify-center w-full h-screen px-2 bg-light dark:bg-dark-700 md:px-0'>
 				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-20 w-96'>
-					<span className='my-4 text-5xl italic font-bold text-center text-white'>Sign in</span>
-					<Input label='Email' type='email' name='email' ref={emailRef} />
-					<Input label='Password' type='password' name='password' />
+					<span className='my-4 text-5xl italic font-bold text-center text-black dark:text-white'>
+						Sign in
+					</span>
+					<Input label='Email' placeholder='Email' type='email' name='email' ref={emailRef} />
+					<Input label='Password' placeholder='Password' type='password' name='password' />
 					<div className='flex items-center justify-between w-full py-2 mt-3'>
-						<span className='text-white'>
+						<span className='text-black dark:text-white'>
 							<span className='mr-2'>Not signed up yet?</span>
 							<div className='text-brand-400 hover:underline'>
 								<Link href='/signup'>Sign up</Link>

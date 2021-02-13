@@ -32,8 +32,8 @@ const Recommend = () => {
 
 	return (
 		<div className='h-full p-4'>
-			<div className='hidden w-full px-4 pt-2 pb-4 border border-dark-700 rounded-lg shadow-xl xl:block'>
-				<div className='mb-2 text-lg text-white'>People you may know</div>
+			<div className='hidden w-full px-4 pt-2 pb-4 border rounded-lg shadow-xl border-dark-700 xl:block'>
+				<div className='mb-2 text-lg text-black dark:text-white'>People you may know</div>
 				<div className='flex flex-col space-y-4'>
 					{data && data.length > 0 ? (
 						data.map((user: UserState) => <UserInfo user={user} key={user.id} />)

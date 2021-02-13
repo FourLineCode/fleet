@@ -73,7 +73,7 @@ const Fleet = ({ fleet }: Props) => {
 	})
 
 	return (
-		<div className='w-full px-2 pt-2 border rounded-lg shadow-xl border-dark-700 lg:mx-auto lg:w-3/4 hover:bg-dark-900 hover:bg-opacity-50'>
+		<div className='w-full px-2 pt-2 border rounded-lg shadow-xl border-dark-700 lg:mx-auto lg:w-3/4 hover:bg-gray-200 dark:hover:bg-dark-900 hover:bg-opacity-50'>
 			<Link href={`/fleet/${fleet.id}`} passHref={true}>
 				<div className='flex space-x-1 cursor-pointer'>
 					<Link href={`/profile/${fleet.author.id}`}>
@@ -88,7 +88,7 @@ const Fleet = ({ fleet }: Props) => {
 							/>
 						</a>
 					</Link>
-					<div className='w-full text-base font-bold text-white'>
+					<div className='w-full text-base font-bold text-black dark:text-white'>
 						<div className='flex items-center space-x-1'>
 							<Link href={`/profile/${fleet.author.id}`}>
 								<a className='flex items-center space-x-1 group'>
@@ -98,15 +98,17 @@ const Fleet = ({ fleet }: Props) => {
 									<span>
 										{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
 									</span>
-									<span className='font-normal text-gray-400 truncate'>@{fleet.author.username}</span>
+									<span className='font-normal text-gray-600 truncate dark:text-gray-400'>
+										@{fleet.author.username}
+									</span>
 								</a>
 							</Link>
 							<span>{' • '}</span>
-							<span className='text-sm font-normal text-gray-400 line-clamp-1'>
+							<span className='text-sm font-normal text-gray-600 dark:text-gray-400 line-clamp-1'>
 								{formatDistanceToNow(new Date(fleet.createdAt))}
 							</span>
 						</div>
-						<div className='text-sm font-normal text-white break-all'>{fleet.body}</div>
+						<div className='text-sm font-normal text-black break-all dark:text-white'>{fleet.body}</div>
 					</div>
 				</div>
 			</Link>
@@ -116,20 +118,24 @@ const Fleet = ({ fleet }: Props) => {
 						<div className='flex items-center justify-evenly'>
 							<IconButton
 								onClick={onOpen}
-								className='text-white transform rounded-full hover:bg-dark-700 hover:text-brand-500 hover:scale-110'
+								className='text-black transform rounded-full dark:text-white hover:bg-gray-300 dark:hover:bg-dark-700 hover:text-brand-500 hover:scale-110'
 							>
 								<ReplyIcon className='w-4 h-4' />
 							</IconButton>
-							<span className='text-base text-white'>{fleet.replies.length}</span>
+							<span className='text-base text-black dark:text-white'>{fleet.replies.length}</span>
 						</div>
 						<div className='flex items-center'>
 							<IconButton
 								onClick={mutate}
-								className='text-white transform rounded-full hover:bg-dark-700 hover:text-brand-500 hover:scale-110'
+								className='text-black transform rounded-full dark:text-white hover:bg-gray-300 dark:hover:bg-dark-700 hover:text-brand-500 hover:scale-110'
 							>
-								{liked ? <HeartFilledIcon className='w-4 h-4' /> : <HeartIcon className='w-4 h-4' />}
+								{liked ? (
+									<HeartFilledIcon className='w-4 h-4 text-brand-500 dark:text-white' />
+								) : (
+									<HeartIcon className='w-4 h-4' />
+								)}
 							</IconButton>
-							<span className='text-base text-white'>{fleet.likes.length}</span>
+							<span className='text-base text-black dark:text-white'>{fleet.likes.length}</span>
 						</div>
 					</div>
 					<FleetOptions id={fleet.id} canDelete={canDelete} />
