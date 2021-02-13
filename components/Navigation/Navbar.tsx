@@ -21,21 +21,26 @@ const Navbar = () => {
 	}
 
 	return (
-		<div className='sticky top-0 left-0 z-40 flex justify-center w-full border-b border-dark-500 bg-dark-800 h-14'>
+		<div className='sticky top-0 left-0 z-40 flex justify-center w-full border-b border-dark-500 bg-light dark:bg-dark-800 h-14'>
 			<nav className='flex items-center justify-between w-full mx-4 lg:w-3/4 lg:mx-0'>
 				<Link href={redirect}>
-					<a className='flex items-center italic font-bold text-center text-white duration-150 transform hover:scale-105'>
+					<a className='flex items-center italic font-bold text-center text-black duration-150 transform dark:text-white hover:scale-105'>
 						<FleetIcon className='w-8 h-8 mr-3' />
-						<span className='text-4xl'>Fl</span>
-						<span className='text-3xl underline'>eet</span>
+						<div className='items-center hidden sm:block'>
+							<span className='text-4xl'>Fl</span>
+							<span className='text-3xl underline'>eet</span>
+						</div>
 					</a>
 				</Link>
 				<div className='flex items-center space-x-5 text-center'>
-					<IconButton onClick={switchTheme} className='p-3 rounded-lg hover:bg-dark-700'>
+					<IconButton
+						onClick={switchTheme}
+						className='p-3 rounded-lg hover:bg-gray-300 dark:hover:bg-dark-700'
+					>
 						{theme === 'dark' ? (
-							<SunIcon className='w-6 h-6 text-white' />
+							<SunIcon className='w-6 h-6 text-black dark:text-white' />
 						) : (
-							<MoonIcon className='w-6 h-6 text-white' />
+							<MoonIcon className='w-6 h-6 text-black dark:text-white' />
 						)}
 					</IconButton>
 					{signedIn ? <SignedInLinks /> : <SignedOutLinks />}

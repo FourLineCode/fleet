@@ -6,8 +6,8 @@ import Recommend from '../../components/Recommend/Recommend'
 
 const Home = () => {
 	return (
-		<ProtectedLayout title='Home | Fleet'>
-			<div className='grid min-h-screen grid-cols-4 bg-dark-800 gap-x-1 xl:gap-x-4'>
+		<ProtectedLayout title='Home'>
+			<div className='grid min-h-screen grid-cols-4 bg-light dark:bg-dark-800 gap-x-1 xl:gap-x-4'>
 				<Menu />
 				<Timeline />
 				<Recommend />

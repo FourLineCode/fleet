@@ -31,8 +31,8 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
 					disabled
 						? 'cursor-not-allowed border-dark-600 text-gray-500 bg-transparent'
 						: danger
-						? 'border-red-500 text-white ring-red-700'
-						: 'border-brand-500 text-white ring-brand-700',
+						? 'border-red-500 text-black dark:text-white ring-red-700'
+						: 'border-brand-500 text-black dark:text-white ring-brand-700',
 					'px-4 py-2 font-semibold rounded-lg focus:outline-none focus:ring-4 ring-opacity-50 border-2 '
 				)}
 			>

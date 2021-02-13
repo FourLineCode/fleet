@@ -13,7 +13,7 @@ const Profile = () => {
 		}
 	}, [user.id])
 
-	return <ProtectedLayout title='Profile | Fleet' />
+	return <ProtectedLayout title='Profile' />
 }
 
 export default Profile

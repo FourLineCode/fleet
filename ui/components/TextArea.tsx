@@ -3,6 +3,7 @@ import React from 'react'
 
 interface Props {
 	label: string
+	placeholder: string
 	value?: string
 	name: string
 	className?: string
@@ -11,13 +12,14 @@ interface Props {
 }
 
 const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
-	({ label, value, name, onChange, onKeyDown, className }, ref) => {
+	({ label, placeholder, value, name, onChange, onKeyDown, className }, ref) => {
 		return (
 			<>
-				<label htmlFor={name} className='pl-1 text-white'>
+				<label htmlFor={name} className='pl-1 text-black dark:text-white'>
 					{label}
 				</label>
 				<textarea
+					placeholder={placeholder}
 					onChange={onChange}
 					onKeyDown={onKeyDown}
 					value={value}
@@ -26,7 +28,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
 					autoComplete='off'
 					className={clsx(
 						className,
-						'w-full resize-none px-2 py-2 border-4 border-brand-200 rounded-lg focus:border-brand-500 focus:outline-none'
+						'w-full resize-none px-2 py-2 border-4 border-brand-300 dark:border-brand-200 rounded-lg focus:border-brand-500 focus:outline-none'
 					)}
 				/>
 			</>

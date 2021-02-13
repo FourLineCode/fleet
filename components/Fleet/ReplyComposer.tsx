@@ -86,25 +86,26 @@ const ReplyComposer = ({ fleet, isOpen, onOpen, onClose }: Props) => {
 		<Modal isOpen={isOpen} onClose={onClose} size='xl' initialFocusRef={inputRef}>
 			<ModalOverlay />
 			<ModalContent>
-				<div className='text-white rounded-sm bg-dark-800'>
+				<div className='text-black rounded-sm dark:text-white bg-light dark:bg-dark-800'>
 					<ModalHeader>Reply to Fleet</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
 						<FleetPreview fleet={fleet} />
 						<TextArea
+							placeholder='Reply to fleet...'
 							value={body}
 							onChange={onChange}
 							onKeyDown={onEnterPress}
 							label='Reply'
 							name='reply'
 							ref={inputRef}
-							className='h-24 text-white transition duration-150 bg-dark-800 focus:bg-dark-700'
+							className='h-24 text-black transition duration-150 dark:text-white bg-light dark:bg-dark-800 focus:bg-gray-200 dark:focus:bg-dark-700'
 						/>
 					</ModalBody>
 
 					<ModalFooter>
 						<div className='flex items-center justify-between w-full'>
-							<span className={clsx(body.length > 240 ? 'text-red-600' : 'text-white')}>
+							<span className={clsx(body.length > 240 ? 'text-red-600' : 'text-black dark:text-white')}>
 								{body.length}/240
 							</span>
 							<Button variant='filled' onClick={onSubmit}>

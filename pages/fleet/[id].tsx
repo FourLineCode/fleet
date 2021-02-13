@@ -6,8 +6,8 @@ import Recommend from '../../components/Recommend/Recommend'
 
 const Profile = () => {
 	return (
-		<ProtectedLayout title='Post | Fleet'>
-			<div className='grid min-h-screen grid-cols-4 bg-dark-800 gap-x-4'>
+		<ProtectedLayout title='Post'>
+			<div className='grid min-h-screen grid-cols-4 bg-light dark:bg-dark-800 gap-x-4'>
 				<Menu />
 				<FleetDetails />
 				<Recommend />

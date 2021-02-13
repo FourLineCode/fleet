@@ -69,18 +69,20 @@ const Signup = () => {
 	}, [])
 
 	return (
-		<Layout title='Sign Up | Fleet'>
-			<div className='flex justify-center w-full h-screen px-2 bg-dark-700 md:px-0'>
+		<Layout title='Sign Up'>
+			<div className='flex justify-center w-full h-screen px-2 bg-light dark:bg-dark-700 md:px-0'>
 				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-8 w-96'>
-					<span className='my-4 text-5xl italic font-bold text-center text-white'>Sign up</span>
-					<Input label='Email' type='email' name='email' ref={emailRef} />
-					<Input label='Username' type='text' name='username' />
-					<Input label='Display Name' type='text' name='displayName' />
-					<Input label='Password' type='password' name='password' />
-					<Input label='Confirm Password' type='password' name='cpassword' />
-					<TextArea label='Bio (optional)' name='bio' />
+					<span className='my-4 text-5xl italic font-bold text-center text-black dark:text-white'>
+						Sign up
+					</span>
+					<Input label='Email' placeholder='Email' type='email' name='email' ref={emailRef} />
+					<Input label='Username' placeholder='Username' type='text' name='username' />
+					<Input label='Display Name' placeholder='Display Name' type='text' name='displayName' />
+					<Input label='Password' placeholder='Password' type='password' name='password' />
+					<Input label='Confirm Password' placeholder='Confirm Password' type='password' name='cpassword' />
+					<TextArea label='Bio (optional)' placeholder='Bio' name='bio' />
 					<div className='flex items-center justify-between w-full py-2 mt-3'>
-						<span className='text-white'>
+						<span className='text-black dark:text-white'>
 							<span className='mr-2'>Have an account?</span>
 							<div className='text-brand-400 hover:underline'>
 								<Link href='/signin'>Sign in</Link>
