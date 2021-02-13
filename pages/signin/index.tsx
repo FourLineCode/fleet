@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import Layout from '../../components/Layouts/Layout'
 import useAuthorization from '../../hooks/useAuthorization'
@@ -13,6 +13,7 @@ const Singin = () => {
 	const router = useRouter()
 	const dispatch = useDispatch()
 	const auth = useAuthorization()
+	const emailRef = useRef<HTMLInputElement>(null)
 
 	useEffect(() => {
 		if (Boolean(router.query.redirect)) {
@@ -45,12 +46,16 @@ const Singin = () => {
 		dispatch(signin(data))
 	}
 
+	useEffect(() => {
+		emailRef.current?.focus()
+	}, [])
+
 	return (
 		<Layout title='Sign In | Fleet'>
 			<div className='flex justify-center w-full h-screen px-2 bg-dark-700 md:px-0'>
 				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-20 w-96'>
 					<span className='my-4 text-5xl italic font-bold text-center text-white'>Sign in</span>
-					<Input label='Email' type='email' name='email' />
+					<Input label='Email' type='email' name='email' ref={emailRef} />
 					<Input label='Password' type='password' name='password' />
 					<div className='flex items-center justify-between w-full py-2 mt-3'>
 						<span className='text-white'>

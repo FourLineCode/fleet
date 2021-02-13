@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import Layout from '../../components/Layouts/Layout'
 import { signin } from '../../store/actions/authActions'
@@ -14,6 +14,7 @@ import { BASE_URL } from '../../utils/config'
 const Signup = () => {
 	const router = useRouter()
 	const dispatch = useDispatch()
+	const emailRef = useRef<HTMLInputElement>(null)
 
 	const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -63,12 +64,16 @@ const Signup = () => {
 		}
 	}
 
+	useEffect(() => {
+		emailRef.current?.focus()
+	}, [])
+
 	return (
 		<Layout title='Sign Up | Fleet'>
 			<div className='flex justify-center w-full h-screen px-2 bg-dark-700 md:px-0'>
 				<form onSubmit={handleSubmit} action='submit' className='flex flex-col mt-8 w-96'>
 					<span className='my-4 text-5xl italic font-bold text-center text-white'>Sign up</span>
-					<Input label='Email' type='email' name='email' />
+					<Input label='Email' type='email' name='email' ref={emailRef} />
 					<Input label='Username' type='text' name='username' />
 					<Input label='Display Name' type='text' name='displayName' />
 					<Input label='Password' type='password' name='password' />
