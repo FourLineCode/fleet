@@ -23,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(({ label, placeholder, t
 				autoComplete='off'
 				className={clsx(
 					className,
-					'w-full px-2 py-2 border-4 border-brand-300 dark:border-brand-200 rounded-lg focus:border-brand-500 focus:outline-none'
+					'w-full px-2 py-2 border-4 border-brand-300 dark:border-brand-200 rounded-lg dark:focus:border-brand-500 focus:border-brand-500 focus:outline-none'
 				)}
 			/>
 		</>

@@ -28,7 +28,7 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
 					autoComplete='off'
 					className={clsx(
 						className,
-						'w-full resize-none px-2 py-2 border-4 border-brand-300 dark:border-brand-200 rounded-lg focus:border-brand-500 focus:outline-none'
+						'w-full resize-none px-2 py-2 border-4 border-brand-300 dark:border-brand-200 rounded-lg focus:border-brand-500 dark:focus:border-brand-500 focus:outline-none'
 					)}
 				/>
 			</>
