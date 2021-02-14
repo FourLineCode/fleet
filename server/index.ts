@@ -26,7 +26,7 @@ const init = async () => {
 		server.use(cors({ credentials: true }))
 		server.use(
 			morgan('dev', {
-				skip: (req) => !req.baseUrl.startsWith('/api'),
+				skip: (req) => !req.baseUrl.startsWith('/api') || !dev,
 			})
 		)
 		server.use('/api', helmet())
