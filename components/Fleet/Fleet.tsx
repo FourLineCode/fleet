@@ -89,7 +89,7 @@ const Fleet = ({ fleet }: Props) => {
 						</a>
 					</Link>
 					<div className='w-full text-base font-bold text-black dark:text-white'>
-						<div className='flex items-center space-x-1'>
+						<div className='flex flex-col mb-2'>
 							<Link href={`/profile/${fleet.author.id}`}>
 								<a className='flex items-center space-x-1 group'>
 									<span className='group-hover:underline line-clamp-1'>
@@ -105,12 +105,11 @@ const Fleet = ({ fleet }: Props) => {
 									</span>
 								</a>
 							</Link>
-							<span>{' • '}</span>
-							<span className='text-sm font-normal text-gray-600 dark:text-gray-400 line-clamp-1'>
+							<span className='text-xs font-normal text-gray-600 dark:text-gray-400 line-clamp-1'>
 								{formatDistanceToNow(new Date(fleet.createdAt))}
 							</span>
 						</div>
-						<div className='text-sm font-normal text-black break-all dark:text-white'>{fleet.body}</div>
+						<div className='text-base font-normal text-black break-all dark:text-white'>{fleet.body}</div>
 					</div>
 				</div>
 			</Link>

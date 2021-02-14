@@ -22,7 +22,7 @@ const FleetPreview = ({ fleet }: Props) => {
 					/>
 				</div>
 				<div>
-					<div className='text-base font-bold text-black dark:text-white'>
+					<div className='mb-2 text-base font-bold text-black dark:text-white'>
 						<div className='flex items-center space-x-1'>
 							<a className='flex items-center space-x-1'>
 								<span className='flex items-center'>
@@ -33,10 +33,9 @@ const FleetPreview = ({ fleet }: Props) => {
 									@{fleet.author.username}
 								</span>
 							</a>
-							<span>{' • '}</span>
-							<span className='text-sm font-normal text-gray-600 dark:text-gray-400 line-clamp-1'>
-								{formatDistanceToNow(new Date(fleet.createdAt))}
-							</span>
+						</div>
+						<div className='text-sm font-normal text-gray-600 dark:text-gray-400 line-clamp-1'>
+							{formatDistanceToNow(new Date(fleet.createdAt))}
 						</div>
 					</div>
 					<div className='overflow-hidden text-sm text-black break-all dark:text-white'>{fleet.body}</div>
