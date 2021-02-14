@@ -3,3 +3,17 @@
 @tailwind components;
 
 @tailwind utilities;
+
+#nprogress {
+	@apply pointer-events-none;
+}
+
+#nprogress .bar {
+	@apply fixed;
+	@apply top-0;
+	@apply left-0;
+	@apply z-50;
+	@apply w-full;
+	@apply h-1;
+	@apply bg-brand-500;
+}

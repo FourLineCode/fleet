@@ -4,6 +4,7 @@ import { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
 import { QueryClientProvider } from 'react-query'
 import { useDispatch } from 'react-redux'
+import TopProgressBar from '../components/Layouts/TopProgressBar'
 import useAuthorization from '../hooks/useAuthorization'
 import wrapper from '../store'
 import { refreshAuthToken } from '../store/actions/authActions'
@@ -28,6 +29,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 		<NextThemeProvider defaultTheme='dark' attribute='class'>
 			<ChakraProvider theme={theme}>
 				<QueryClientProvider client={queryClient}>
+					<TopProgressBar />
 					<Component {...pageProps} />
 					<Notification />
 				</QueryClientProvider>

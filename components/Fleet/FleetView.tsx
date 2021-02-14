@@ -80,7 +80,9 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 							<a>
 								<span className='flex items-center text-xl hover:underline'>
 									<span>{fleet.author.displayName}</span>
-									{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+									{fleet.author.isAdmin && (
+										<VerifiedFilledIcon className='w-4 h-4 ml-1 text-brand-500 dark:text-white' />
+									)}
 								</span>{' '}
 								<span className='font-normal text-gray-600 dark:text-gray-400'>
 									@{fleet.author.username}
