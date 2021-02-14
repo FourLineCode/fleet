@@ -12,9 +12,9 @@ interface Props {
 }
 
 const VariantStyles: Record<string, string> = {
-	filled: 'bg-brand-500 hover:bg-brand-600 hover:border-transparent',
-	outlined: 'bg-transparent hover:bg-brand-500 hover:bg-opacity-30',
-	danger: 'bg-red-500 hover:bg-red-600 hover:border-transparent',
+	filled: 'bg-brand-500 hover:bg-brand-600 hover:border-transparent text-white',
+	outlined: 'bg-transparent hover:bg-brand-500 hover:bg-opacity-30 text-black dark:text-white',
+	danger: 'bg-red-500 hover:bg-red-600 hover:border-transparent text-white',
 }
 
 const Button = React.forwardRef<HTMLButtonElement, Props>(
@@ -31,8 +31,8 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
 					disabled
 						? 'cursor-not-allowed border-dark-600 text-gray-500 bg-transparent'
 						: danger
-						? 'border-red-500 text-black dark:text-white ring-red-700'
-						: 'border-brand-500 text-black dark:text-white ring-brand-700',
+						? 'border-red-500 ring-red-700'
+						: 'border-brand-500 ring-brand-700',
 					'px-4 py-2 font-semibold rounded-lg focus:outline-none focus:ring-4 ring-opacity-50 border-2 '
 				)}
 			>

@@ -96,7 +96,9 @@ const Fleet = ({ fleet }: Props) => {
 										{fleet.author.displayName}
 									</span>
 									<span>
-										{fleet.author.isAdmin && <VerifiedFilledIcon className='w-4 h-4 ml-1' />}
+										{fleet.author.isAdmin && (
+											<VerifiedFilledIcon className='w-4 h-4 ml-1 text-brand-500 dark:text-white' />
+										)}
 									</span>
 									<span className='font-normal text-gray-600 truncate dark:text-gray-400'>
 										@{fleet.author.username}
