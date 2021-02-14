@@ -2,6 +2,7 @@ import Head from 'next/head'
 import React from 'react'
 import { fleetIconURL } from '../../ui/icons/FleetIcon'
 import Navbar from '../Navigation/Navbar'
+import Footer from './Footer'
 
 interface Props {
 	children?: React.ReactNode
@@ -20,6 +21,7 @@ const Layout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communic
 		</Head>
 		<Navbar />
 		{children}
+		<Footer />
 	</div>
 )
 
