@@ -62,7 +62,7 @@ const Singin = () => {
 					<div className='flex items-center justify-between w-full py-2 mt-3'>
 						<span className='text-black dark:text-white'>
 							<span className='mr-2'>Not signed up yet?</span>
-							<div className='text-brand-400 hover:underline'>
+							<div className='font-semibold text-brand-400 hover:underline'>
 								<Link href='/signup'>Sign up</Link>
 							</div>
 						</span>

@@ -84,7 +84,7 @@ const Signup = () => {
 					<div className='flex items-center justify-between w-full py-2 mt-3'>
 						<span className='text-black dark:text-white'>
 							<span className='mr-2'>Have an account?</span>
-							<div className='text-brand-400 hover:underline'>
+							<div className='font-semibold text-brand-400 hover:underline'>
 								<Link href='/signin'>Sign in</Link>
 							</div>
 						</span>

@@ -101,7 +101,13 @@ const ProfileCard = () => {
 		}
 	}
 
-	const { data } = useQuery(queryTypes.FOLLOW_DATA, getFollowData)
+	useQuery(queryTypes.FOLLOW_DATA, getFollowData, {
+		onSuccess: (data) => {
+			if (data) {
+				setFollowData(data)
+			}
+		},
+	})
 
 	useQuery(queryTypes.IS_FOLLOWING, checkFollow, {
 		onSuccess: (isFollowingData) => {
@@ -115,17 +121,11 @@ const ProfileCard = () => {
 		onMutate: () => {
 			setFollowed(!followed)
 		},
-		onSettled: () => {
-			queryClient.invalidateQueries(queryTypes.FOLLOW_DATA)
-			queryClient.invalidateQueries(queryTypes.IS_FOLLOWING)
+		onSuccess: () => {
+			queryClient.refetchQueries(queryTypes.FOLLOW_DATA)
+			// queryClient.invalidateQueries(queryTypes.IS_FOLLOWING)
 		},
 	})
-
-	useEffect(() => {
-		if (data) {
-			setFollowData(data)
-		}
-	}, [data])
 
 	useEffect(() => {
 		getUserData()

@@ -76,9 +76,11 @@ const SignedInLinks = () => {
 										</Link>
 									</Menu.Item>
 									<Menu.Item disabled>
-										<a className='flex w-full px-4 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-brand-500 hover:bg-opacity-25 hover:text-brand-500'>
-											Settings (soon)
-										</a>
+										<Link href='/settings'>
+											<a className='flex w-full px-4 py-2 font-semibold rounded-lg outline-none cursor-pointer hover:bg-brand-500 hover:bg-opacity-25 hover:text-brand-500'>
+												Settings
+											</a>
+										</Link>
 									</Menu.Item>
 									<Menu.Item>
 										<div
