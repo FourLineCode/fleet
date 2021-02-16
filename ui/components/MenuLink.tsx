@@ -29,7 +29,7 @@ const MenuLink = ({ type, to, active = false, children, onClick }: Props) => {
 	} else if (type === 'button') {
 		return (
 			<button
-				className={`px-10 py-1 rounded-lg focus:ring-4 ring-brand-700 ring-opacity-50 text-black dark:text-white font-bold text-2xl hover:bg-brand-600 bg-brand-500 focus:outline-none`}
+				className={`px-10 py-1 rounded-lg focus:ring-4 ring-brand-700 ring-opacity-50 text-white font-bold text-2xl hover:bg-brand-600 bg-brand-500 focus:outline-none`}
 				// @ts-ignore: This function will be passed trust me
 				onClick={onClick}
 			>
