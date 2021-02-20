@@ -26,6 +26,8 @@ module.exports = {
 			},
 		},
 	},
-	variants: {},
+	variants: {
+		width: ['responsive', 'focus'],
+	},
 	plugins: [require('@tailwindcss/line-clamp')],
 }
