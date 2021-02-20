@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import useCurrentUser from '../../hooks/useCurrentUser'
 import { signout } from '../../store/actions/authActions'
 import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
+import SearchBar from '../Search/SearchBar'
 
 const SignedInLinks = () => {
 	const user = useCurrentUser()
@@ -22,6 +23,7 @@ const SignedInLinks = () => {
 
 	return (
 		<div className='flex items-center space-x-4'>
+			<SearchBar />
 			<div className='relative'>
 				<Menu>
 					{({ open }) => (
