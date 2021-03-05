@@ -4,7 +4,7 @@
 		"module": "CommonJS",
 		"target": "ES6",
 		"outDir": "./dist",
-		"rootDir": "./server",
+		// "rootDir": "./server",
 		"baseUrl": "./",
 		"noEmit": false
 	},
