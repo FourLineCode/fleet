@@ -1,13 +1,53 @@
+import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
+
+type TabType = 'users' | 'posts'
+
+const Tabs: Record<TabType, TabType> = {
+	users: 'users',
+	posts: 'posts',
+}
 
 const SearchResult = () => {
 	const router = useRouter()
 	const { query } = router.query
+	const [tab, setTab] = useState<TabType>(Tabs.users)
 
 	return (
-		<div className='h-full col-span-4 px-1 py-4 mb-8 space-y-4 text-center text-white border-dark-500 md:px-2 lg:px-0 md:col-span-3 xl:col-span-2 md:border-l xl:border-r md:mb-0'>
-			{query}
+		<div className='h-full col-span-4 px-1 py-2 mb-8 border-dark-500 md:px-2 lg:px-0 md:col-span-3 xl:col-span-2 md:border-l xl:border-r md:mb-0'>
+			<div className='flex items-center justify-center text-2xl text-black dark:text-white'>
+				{/* <SearchIcon className='w-6 h-6 mx-2 text-gray-500' /> */}
+				<span>Search result for "{query}"</span>
+			</div>
+			<div className='flex justify-center w-full'>
+				<div className='flex w-1/3 text-center text-black dark:text-white'>
+					<div
+						onClick={() => setTab(Tabs.users)}
+						className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-gray-300 dark:hover:bg-dark-700'
+					>
+						Users
+						<div
+							className={clsx(
+								tab === Tabs.users ? 'block' : 'invisible',
+								'absolute bottom-0 left-0 w-full h-1 bg-brand-500'
+							)}
+						/>
+					</div>
+					<div
+						onClick={() => setTab(Tabs.posts)}
+						className='relative flex items-center justify-center flex-1 h-10 cursor-pointer hover:bg-gray-300 dark:hover:bg-dark-700'
+					>
+						Posts
+						<div
+							className={clsx(
+								tab === Tabs.posts ? 'block' : 'invisible',
+								'absolute bottom-0 left-0 w-full h-1 bg-brand-500'
+							)}
+						/>
+					</div>
+				</div>
+			</div>
 		</div>
 	)
 }
