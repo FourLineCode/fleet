@@ -15,11 +15,7 @@ const SearchResult = () => {
 	const [tab, setTab] = useState<TabType>(Tabs.users)
 
 	return (
-		<div className='h-full col-span-4 px-1 py-2 mb-8 border-dark-500 md:px-2 lg:px-0 md:col-span-3 xl:col-span-2 md:border-l xl:border-r md:mb-0'>
-			<div className='flex items-center justify-center text-2xl text-black dark:text-white'>
-				{/* <SearchIcon className='w-6 h-6 mx-2 text-gray-500' /> */}
-				<span>Search result for "{query}"</span>
-			</div>
+		<div className='h-full col-span-4 px-1 py-2 mb-8 border-dark-500 md:px-2 md:col-span-3 xl:col-span-2 md:border-l xl:border-r md:mb-0'>
 			<div className='flex justify-center w-full'>
 				<div className='flex w-1/3 text-center text-black dark:text-white'>
 					<div
@@ -47,6 +43,9 @@ const SearchResult = () => {
 						/>
 					</div>
 				</div>
+			</div>
+			<div className='flex items-center text-2xl text-black dark:text-white'>
+				<span>Search result for "{query}"</span>
 			</div>
 		</div>
 	)
