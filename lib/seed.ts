@@ -6,7 +6,10 @@ import User from './entity/User'
 const seed_database = async () => {
 	try {
 		const user = await User.findOne()
-		if (user) return
+		if (user) {
+			console.log('Database already seeded!')
+			return
+		}
 
 		const salt = await bcrypt.genSalt(10)
 		const passwordHash = await bcrypt.hash('admin00', salt)
