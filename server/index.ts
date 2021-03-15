@@ -6,9 +6,9 @@ import morgan from 'morgan'
 import next from 'next'
 import { createConnection } from 'typeorm'
 import { parse } from 'url'
+import seed_database from '../pages/api/seed'
 import routes from './api'
 import { errorHandler, notFound } from './middlewares/error'
-import seed_database from './seed'
 
 require('dotenv').config()
 
