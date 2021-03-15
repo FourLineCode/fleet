@@ -2,8 +2,8 @@ import { ApolloServer } from 'apollo-server-micro'
 import { NextApiRequest, NextApiResponse } from 'next'
 import 'reflect-metadata'
 import { buildSchema } from 'type-graphql'
-import { connectDatabase } from '../../lib/connectDatabase'
-import { HelloResolver } from '../../lib/resolvers/helloResolver'
+import { connectDatabase } from '../../server/connectDatabase'
+import { HelloResolver } from '../../server/resolvers/helloResolver'
 
 let apolloServerHandler: (req: any, res: any) => Promise<void>
 
@@ -22,7 +22,7 @@ const getApolloServerHandler = async () => {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	await connectDatabase()
 
-	// seed_database()
+	// await User.find()
 
 	const apolloServerHandler = await getApolloServerHandler()
 
