@@ -22,7 +22,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
-		"typeRoots": ["@types", "./node_modules/@types"],
+		"typeRoots": ["./node_modules/@types"],
 		"noEmit": true
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
