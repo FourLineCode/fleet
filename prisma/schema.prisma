@@ -1,0 +1,72 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  output   = "../server/entity"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  email       String   @unique
+  password    String
+  username    String   @unique
+  displayName String
+  bio         String   @default("")
+  isAdmin     Boolean  @default(false)
+  fleet       Fleet[]
+  followers   Follow[] @relation("followers")
+  following   Follow[] @relation("following")
+  like        Like[]
+  reply       Reply[]
+}
+
+model Fleet {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  body      String
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  like      Like[]
+  reply     Reply[]
+}
+
+model Follow {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  from      User     @relation("followers", fields: [fromId], references: [id])
+  fromId    Int
+  to        User     @relation("following", fields: [toId], references: [id])
+  toId      Int
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  fleet     Fleet    @relation(fields: [fleetId], references: [id])
+  fleetId   Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  body      String
+  fleet     Fleet    @relation(fields: [fleetId], references: [id])
+  fleetId   Int
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+}

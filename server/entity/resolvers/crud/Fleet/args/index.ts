@@ -1,0 +1,10 @@
+export { AggregateFleetArgs } from "./AggregateFleetArgs";
+export { CreateFleetArgs } from "./CreateFleetArgs";
+export { DeleteFleetArgs } from "./DeleteFleetArgs";
+export { DeleteManyFleetArgs } from "./DeleteManyFleetArgs";
+export { FindFirstFleetArgs } from "./FindFirstFleetArgs";
+export { FindManyFleetArgs } from "./FindManyFleetArgs";
+export { FindUniqueFleetArgs } from "./FindUniqueFleetArgs";
+export { UpdateFleetArgs } from "./UpdateFleetArgs";
+export { UpdateManyFleetArgs } from "./UpdateManyFleetArgs";
+export { UpsertFleetArgs } from "./UpsertFleetArgs";
