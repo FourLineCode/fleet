@@ -10,8 +10,13 @@ export const config = { api: { bodyParser: false } }
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 	const server = new ApolloServer({
 		schema,
-		context: () => createContext(req, res),
+		context: async () => await createContext(req, res),
 		tracing: !production,
+		playground: !production && {
+			settings: {
+				'request.credentials': 'include',
+			},
+		},
 	})
 
 	const handler = server.createHandler({
