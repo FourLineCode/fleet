@@ -1,5 +1,6 @@
 import { Query, Resolver } from 'type-graphql'
-import User from '../entity/User'
+import { prisma } from '../../prisma'
+import { User } from '../entity/models'
 
 @Resolver()
 export class UserResolver {
@@ -12,7 +13,7 @@ export class UserResolver {
 			//     throw new Error('Access denied')
 			// }
 
-			return (await User.find()) || []
+			return prisma.user.findMany()
 		} catch (error) {
 			console.log(error)
 		}
