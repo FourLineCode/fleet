@@ -1,7 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient({
+	log: ['query'],
+})
 
 export interface Context {
 	req: NextApiRequest
