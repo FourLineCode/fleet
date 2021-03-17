@@ -2,8 +2,60 @@
 ### Do not make changes to this file directly
 
 
+type Fleet {
+  author: User
+  authorId: Int
+  body: String
+  createdAt: dateTime
+  id: Int
+  like: [Like]
+  reply: [Reply]
+  updatedAt: dateTime
+}
+
+type Follow {
+  createdAt: dateTime
+  from: User
+  fromId: Int
+  id: Int
+  to: User
+  toId: Int
+  updatedAt: dateTime
+}
+
+type Like {
+  createdAt: dateTime
+  fleet: Fleet
+  fleetId: Int
+  id: Int
+  updatedAt: dateTime
+  user: User
+  userId: Int
+}
+
+type Mutation {
+  signIn(email: String!, password: String!): SignInResponse
+}
+
 type Query {
   allUsers: [User]
+}
+
+type Reply {
+  createdAt: dateTime
+  fleet: Fleet
+  fleetId: Int
+  id: Int
+  updatedAt: dateTime
+  user: User
+  userId: Int
+}
+
+type SignInResponse {
+  id: Int
+  refreshToken: String
+  success: Boolean
+  token: String
 }
 
 type User {
@@ -11,9 +63,14 @@ type User {
   createdAt: dateTime
   displayName: String
   email: String
+  fleet: [Fleet]
+  followers: [Follow]
+  following: [Follow]
   id: Int
   isAdmin: Boolean
+  like: [Like]
   password: String
+  reply: [Reply]
   updatedAt: dateTime
   username: String
 }

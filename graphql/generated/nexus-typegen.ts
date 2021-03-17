@@ -4,6 +4,7 @@
  */
 
 
+import { FieldAuthorizeResolver } from "nexus/dist/plugins/fieldAuthorizePlugin"
 import { core } from "nexus"
 declare global {
   interface NexusGenCustomInputMethods<TypeName extends string> {
@@ -43,15 +44,64 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Fleet: { // root type
+    author?: NexusGenRootTypes['User'] | null; // User
+    authorId?: number | null; // Int
+    body?: string | null; // String
+    createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
+    id?: number | null; // Int
+    like?: Array<NexusGenRootTypes['Like'] | null> | null; // [Like]
+    reply?: Array<NexusGenRootTypes['Reply'] | null> | null; // [Reply]
+    updatedAt?: NexusGenScalars['dateTime'] | null; // dateTime
+  }
+  Follow: { // root type
+    createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
+    from?: NexusGenRootTypes['User'] | null; // User
+    fromId?: number | null; // Int
+    id?: number | null; // Int
+    to?: NexusGenRootTypes['User'] | null; // User
+    toId?: number | null; // Int
+    updatedAt?: NexusGenScalars['dateTime'] | null; // dateTime
+  }
+  Like: { // root type
+    createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
+    fleet?: NexusGenRootTypes['Fleet'] | null; // Fleet
+    fleetId?: number | null; // Int
+    id?: number | null; // Int
+    updatedAt?: NexusGenScalars['dateTime'] | null; // dateTime
+    user?: NexusGenRootTypes['User'] | null; // User
+    userId?: number | null; // Int
+  }
+  Mutation: {};
   Query: {};
+  Reply: { // root type
+    createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
+    fleet?: NexusGenRootTypes['Fleet'] | null; // Fleet
+    fleetId?: number | null; // Int
+    id?: number | null; // Int
+    updatedAt?: NexusGenScalars['dateTime'] | null; // dateTime
+    user?: NexusGenRootTypes['User'] | null; // User
+    userId?: number | null; // Int
+  }
+  SignInResponse: { // root type
+    id?: number | null; // Int
+    refreshToken?: string | null; // String
+    success?: boolean | null; // Boolean
+    token?: string | null; // String
+  }
   User: { // root type
     bio?: string | null; // String
     createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
     displayName?: string | null; // String
     email?: string | null; // String
+    fleet?: Array<NexusGenRootTypes['Fleet'] | null> | null; // [Fleet]
+    followers?: Array<NexusGenRootTypes['Follow'] | null> | null; // [Follow]
+    following?: Array<NexusGenRootTypes['Follow'] | null> | null; // [Follow]
     id?: number | null; // Int
     isAdmin?: boolean | null; // Boolean
+    like?: Array<NexusGenRootTypes['Like'] | null> | null; // [Like]
     password?: string | null; // String
+    reply?: Array<NexusGenRootTypes['Reply'] | null> | null; // [Reply]
     updatedAt?: NexusGenScalars['dateTime'] | null; // dateTime
     username?: string | null; // String
   }
@@ -68,40 +118,148 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Fleet: { // field return type
+    author: NexusGenRootTypes['User'] | null; // User
+    authorId: number | null; // Int
+    body: string | null; // String
+    createdAt: NexusGenScalars['dateTime'] | null; // dateTime
+    id: number | null; // Int
+    like: Array<NexusGenRootTypes['Like'] | null> | null; // [Like]
+    reply: Array<NexusGenRootTypes['Reply'] | null> | null; // [Reply]
+    updatedAt: NexusGenScalars['dateTime'] | null; // dateTime
+  }
+  Follow: { // field return type
+    createdAt: NexusGenScalars['dateTime'] | null; // dateTime
+    from: NexusGenRootTypes['User'] | null; // User
+    fromId: number | null; // Int
+    id: number | null; // Int
+    to: NexusGenRootTypes['User'] | null; // User
+    toId: number | null; // Int
+    updatedAt: NexusGenScalars['dateTime'] | null; // dateTime
+  }
+  Like: { // field return type
+    createdAt: NexusGenScalars['dateTime'] | null; // dateTime
+    fleet: NexusGenRootTypes['Fleet'] | null; // Fleet
+    fleetId: number | null; // Int
+    id: number | null; // Int
+    updatedAt: NexusGenScalars['dateTime'] | null; // dateTime
+    user: NexusGenRootTypes['User'] | null; // User
+    userId: number | null; // Int
+  }
+  Mutation: { // field return type
+    signIn: NexusGenRootTypes['SignInResponse'] | null; // SignInResponse
+  }
   Query: { // field return type
     allUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
+  Reply: { // field return type
+    createdAt: NexusGenScalars['dateTime'] | null; // dateTime
+    fleet: NexusGenRootTypes['Fleet'] | null; // Fleet
+    fleetId: number | null; // Int
+    id: number | null; // Int
+    updatedAt: NexusGenScalars['dateTime'] | null; // dateTime
+    user: NexusGenRootTypes['User'] | null; // User
+    userId: number | null; // Int
+  }
+  SignInResponse: { // field return type
+    id: number | null; // Int
+    refreshToken: string | null; // String
+    success: boolean | null; // Boolean
+    token: string | null; // String
   }
   User: { // field return type
     bio: string | null; // String
     createdAt: NexusGenScalars['dateTime'] | null; // dateTime
     displayName: string | null; // String
     email: string | null; // String
+    fleet: Array<NexusGenRootTypes['Fleet'] | null> | null; // [Fleet]
+    followers: Array<NexusGenRootTypes['Follow'] | null> | null; // [Follow]
+    following: Array<NexusGenRootTypes['Follow'] | null> | null; // [Follow]
     id: number | null; // Int
     isAdmin: boolean | null; // Boolean
+    like: Array<NexusGenRootTypes['Like'] | null> | null; // [Like]
     password: string | null; // String
+    reply: Array<NexusGenRootTypes['Reply'] | null> | null; // [Reply]
     updatedAt: NexusGenScalars['dateTime'] | null; // dateTime
     username: string | null; // String
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Fleet: { // field return type name
+    author: 'User'
+    authorId: 'Int'
+    body: 'String'
+    createdAt: 'dateTime'
+    id: 'Int'
+    like: 'Like'
+    reply: 'Reply'
+    updatedAt: 'dateTime'
+  }
+  Follow: { // field return type name
+    createdAt: 'dateTime'
+    from: 'User'
+    fromId: 'Int'
+    id: 'Int'
+    to: 'User'
+    toId: 'Int'
+    updatedAt: 'dateTime'
+  }
+  Like: { // field return type name
+    createdAt: 'dateTime'
+    fleet: 'Fleet'
+    fleetId: 'Int'
+    id: 'Int'
+    updatedAt: 'dateTime'
+    user: 'User'
+    userId: 'Int'
+  }
+  Mutation: { // field return type name
+    signIn: 'SignInResponse'
+  }
   Query: { // field return type name
     allUsers: 'User'
+  }
+  Reply: { // field return type name
+    createdAt: 'dateTime'
+    fleet: 'Fleet'
+    fleetId: 'Int'
+    id: 'Int'
+    updatedAt: 'dateTime'
+    user: 'User'
+    userId: 'Int'
+  }
+  SignInResponse: { // field return type name
+    id: 'Int'
+    refreshToken: 'String'
+    success: 'Boolean'
+    token: 'String'
   }
   User: { // field return type name
     bio: 'String'
     createdAt: 'dateTime'
     displayName: 'String'
     email: 'String'
+    fleet: 'Fleet'
+    followers: 'Follow'
+    following: 'Follow'
     id: 'Int'
     isAdmin: 'Boolean'
+    like: 'Like'
     password: 'String'
+    reply: 'Reply'
     updatedAt: 'dateTime'
     username: 'String'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    signIn: { // args
+      email: string; // String!
+      password: string; // String!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -165,6 +323,15 @@ declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
+    /**
+     * Authorization for an individual field. Returning "true"
+     * or "Promise<true>" means the field can be accessed.
+     * Returning "false" or "Promise<false>" will respond
+     * with a "Not Authorized" error for the field.
+     * Returning or throwing an error will also prevent the
+     * resolver from executing.
+     */
+    authorize?: FieldAuthorizeResolver<TypeName, FieldName>
   }
   interface NexusGenPluginInputFieldConfig<TypeName extends string, FieldName extends string> {
   }
