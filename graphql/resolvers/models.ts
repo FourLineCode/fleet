@@ -93,8 +93,28 @@ export const DateScalar = scalarType({
 	},
 })
 
+export const SignUpResponse = objectType({
+	name: 'SignUpResponse',
+	definition: (t) => {
+		t.boolean('success')
+		t.field('user', {
+			type: 'User',
+		})
+	},
+})
+
 export const SignInResponse = objectType({
 	name: 'SignInResponse',
+	definition: (t) => {
+		t.boolean('success')
+		t.int('id')
+		t.string('token')
+		t.string('refreshToken')
+	},
+})
+
+export const RefreshTokenResponse = objectType({
+	name: 'RefreshTokenResponse',
 	definition: (t) => {
 		t.boolean('success')
 		t.int('id')
