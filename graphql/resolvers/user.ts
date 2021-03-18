@@ -24,9 +24,7 @@ export const allUsers = queryField('allUsers', {
 export const getUser = queryField('getUser', {
 	type: 'User',
 	authorize: (_root, _args, ctx: Context) => ctx.authorized && ctx.isAdmin,
-	args: {
-		id: nonNull(intArg()),
-	},
+	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
 		return await prisma.user.findFirst({
 			where: {
@@ -177,9 +175,7 @@ export const refreshToken = queryField('refreshToken', {
 export const userInfo = queryField('userInfo', {
 	type: 'User',
 	authorize: (_root, _args, ctx: Context) => ctx.authorized,
-	args: {
-		id: nonNull(intArg()),
-	},
+	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
 		const user = await prisma.user.findFirst({ where: { id } })
 
@@ -194,9 +190,7 @@ export const userInfo = queryField('userInfo', {
 export const isAdmin = queryField('isAdmin', {
 	type: 'Boolean',
 	authorize: (_root, _args, ctx: Context) => ctx.authorized,
-	args: {
-		id: nonNull(intArg()),
-	},
+	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
 		const user = await prisma.user.findFirst({ where: { id } })
 

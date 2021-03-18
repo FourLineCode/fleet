@@ -129,3 +129,26 @@ export const RefreshTokenResponse = objectType({
 		t.string('refreshToken')
 	},
 })
+
+export const CheckFollowResponse = objectType({
+	name: 'CheckFollowResponse',
+	definition: (t) => {
+		t.boolean('follows')
+	},
+})
+
+export const FollowCountResponse = objectType({
+	name: 'FollowCountResponse',
+	definition: (t) => {
+		t.nonNull.int('followerCount')
+		t.nonNull.int('followingCount')
+	},
+})
+
+export const FollowUsersResponse = objectType({
+	name: 'FollowUsersResponse',
+	definition: (t) => {
+		t.list.field('followers', { type: 'User' })
+		t.list.field('following', { type: 'User' })
+	},
+})

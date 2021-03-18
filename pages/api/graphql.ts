@@ -39,7 +39,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	})
 
 	await runMiddleware(req, res, morgan('dev', { skip: () => !!production }))
-	await runMiddleware(req, res, helmet())
+	await runMiddleware(req, res, helmet({ contentSecurityPolicy: production ? undefined : false }))
 	await runMiddleware(req, res, cors({ credentials: true }))
 
 	return await handler(req, res)

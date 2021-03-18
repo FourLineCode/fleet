@@ -44,6 +44,9 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  CheckFollowResponse: { // root type
+    follows?: boolean | null; // Boolean
+  }
   Fleet: { // root type
     author?: NexusGenRootTypes['User'] | null; // User
     authorId?: number | null; // Int
@@ -62,6 +65,14 @@ export interface NexusGenObjects {
     to?: NexusGenRootTypes['User'] | null; // User
     toId?: number | null; // Int
     updatedAt?: NexusGenScalars['dateTime'] | null; // dateTime
+  }
+  FollowCountResponse: { // root type
+    followerCount: number; // Int!
+    followingCount: number; // Int!
+  }
+  FollowUsersResponse: { // root type
+    followers?: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    following?: Array<NexusGenRootTypes['User'] | null> | null; // [User]
   }
   Like: { // root type
     createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
@@ -131,6 +142,9 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  CheckFollowResponse: { // field return type
+    follows: boolean | null; // Boolean
+  }
   Fleet: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
     authorId: number | null; // Int
@@ -150,6 +164,14 @@ export interface NexusGenFieldTypes {
     toId: number | null; // Int
     updatedAt: NexusGenScalars['dateTime'] | null; // dateTime
   }
+  FollowCountResponse: { // field return type
+    followerCount: number; // Int!
+    followingCount: number; // Int!
+  }
+  FollowUsersResponse: { // field return type
+    followers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    following: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+  }
   Like: { // field return type
     createdAt: NexusGenScalars['dateTime'] | null; // dateTime
     fleet: NexusGenRootTypes['Fleet'] | null; // Fleet
@@ -163,9 +185,13 @@ export interface NexusGenFieldTypes {
     follow: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
     signIn: NexusGenRootTypes['SignInResponse'] | null; // SignInResponse
     signUp: NexusGenRootTypes['SignUpResponse'] | null; // SignUpResponse
+    unfollow: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
   }
   Query: { // field return type
     allUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    checkFollow: NexusGenRootTypes['CheckFollowResponse'] | null; // CheckFollowResponse
+    followCount: NexusGenRootTypes['FollowCountResponse'] | null; // FollowCountResponse
+    followUsers: NexusGenRootTypes['FollowUsersResponse'] | null; // FollowUsersResponse
     getUser: NexusGenRootTypes['User'] | null; // User
     isAdmin: boolean | null; // Boolean
     refreshToken: NexusGenRootTypes['RefreshTokenResponse'] | null; // RefreshTokenResponse
@@ -218,6 +244,9 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenFieldTypeNames {
+  CheckFollowResponse: { // field return type name
+    follows: 'Boolean'
+  }
   Fleet: { // field return type name
     author: 'User'
     authorId: 'Int'
@@ -237,6 +266,14 @@ export interface NexusGenFieldTypeNames {
     toId: 'Int'
     updatedAt: 'dateTime'
   }
+  FollowCountResponse: { // field return type name
+    followerCount: 'Int'
+    followingCount: 'Int'
+  }
+  FollowUsersResponse: { // field return type name
+    followers: 'User'
+    following: 'User'
+  }
   Like: { // field return type name
     createdAt: 'dateTime'
     fleet: 'Fleet'
@@ -250,9 +287,13 @@ export interface NexusGenFieldTypeNames {
     follow: 'SuccessResponse'
     signIn: 'SignInResponse'
     signUp: 'SignUpResponse'
+    unfollow: 'SuccessResponse'
   }
   Query: { // field return type name
     allUsers: 'User'
+    checkFollow: 'CheckFollowResponse'
+    followCount: 'FollowCountResponse'
+    followUsers: 'FollowUsersResponse'
     getUser: 'User'
     isAdmin: 'Boolean'
     refreshToken: 'RefreshTokenResponse'
@@ -320,8 +361,20 @@ export interface NexusGenArgTypes {
       password: string; // String!
       username: string; // String!
     }
+    unfollow: { // args
+      id: number; // Int!
+    }
   }
   Query: {
+    checkFollow: { // args
+      id: number; // Int!
+    }
+    followCount: { // args
+      id: number; // Int!
+    }
+    followUsers: { // args
+      id: number; // Int!
+    }
     getUser: { // args
       id: number; // Int!
     }
