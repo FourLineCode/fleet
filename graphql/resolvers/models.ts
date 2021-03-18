@@ -67,6 +67,7 @@ export const Reply = objectType({
 		t.int('id')
 		t.dateTime('createdAt')
 		t.dateTime('updatedAt')
+		t.string('body')
 		t.int('fleetId')
 		t.field('fleet', { type: 'Fleet' })
 		t.int('userId')
@@ -150,5 +151,21 @@ export const FollowUsersResponse = objectType({
 	definition: (t) => {
 		t.list.field('followers', { type: 'User' })
 		t.list.field('following', { type: 'User' })
+	},
+})
+
+export const TimelineFleet = objectType({
+	name: 'TimelineFleet',
+	definition: (t) => {
+		t.field('post', { type: 'Fleet' })
+		t.boolean('liked')
+	},
+})
+
+export const PostFleetResponse = objectType({
+	name: 'PostFleetResponse',
+	definition: (t) => {
+		t.boolean('success')
+		t.field('fleet', { type: 'Fleet' })
 	},
 })

@@ -8,31 +8,34 @@ export interface Context {
 	res: NextApiResponse
 	prisma: PrismaClient
 	authorized: boolean
-	currentUser: User | null
+	currentUser: User
 	isAdmin: boolean
 }
 
 export const createContext = async (req: NextApiRequest, res: NextApiResponse): Promise<Context> => {
-	let authorized: boolean = false
-	let currentUser: User | null = null
-	let isAdmin: boolean = false
+	const context: Record<string, any> = {
+		req,
+		res,
+		prisma,
+	}
+
 	const token = req.cookies['auth-token']
 
 	if (!token) {
-		authorized = false
+		context.authorized = false
 	} else {
 		const validated = jwt.verify(token, process.env.JWT_SECRET || 'secret') as User
 
-		authorized = !!validated
+		context.authorized = !!validated
 
 		if (validated) {
-			currentUser = (await prisma.user.findFirst({
+			context.currentUser = (await prisma.user.findFirst({
 				where: { id: validated.id },
 			})) as User
 
-			isAdmin = !!currentUser.isAdmin
+			context.isAdmin = !!context.currentUser.isAdmin
 		}
 	}
 
-	return { req, res, prisma, authorized, currentUser, isAdmin }
+	return context as Context
 }

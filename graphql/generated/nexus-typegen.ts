@@ -84,6 +84,10 @@ export interface NexusGenObjects {
     userId?: number | null; // Int
   }
   Mutation: {};
+  PostFleetResponse: { // root type
+    fleet?: NexusGenRootTypes['Fleet'] | null; // Fleet
+    success?: boolean | null; // Boolean
+  }
   Query: {};
   RefreshTokenResponse: { // root type
     id?: number | null; // Int
@@ -92,6 +96,7 @@ export interface NexusGenObjects {
     token?: string | null; // String
   }
   Reply: { // root type
+    body?: string | null; // String
     createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
     fleet?: NexusGenRootTypes['Fleet'] | null; // Fleet
     fleetId?: number | null; // Int
@@ -112,6 +117,10 @@ export interface NexusGenObjects {
   }
   SuccessResponse: { // root type
     success?: boolean | null; // Boolean
+  }
+  TimelineFleet: { // root type
+    liked?: boolean | null; // Boolean
+    post?: NexusGenRootTypes['Fleet'] | null; // Fleet
   }
   User: { // root type
     bio?: string | null; // String
@@ -182,20 +191,31 @@ export interface NexusGenFieldTypes {
     userId: number | null; // Int
   }
   Mutation: { // field return type
+    deleteFleet: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
     follow: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
+    postFleet: NexusGenRootTypes['PostFleetResponse'] | null; // PostFleetResponse
     signIn: NexusGenRootTypes['SignInResponse'] | null; // SignInResponse
+    signOut: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
     signUp: NexusGenRootTypes['SignUpResponse'] | null; // SignUpResponse
     unfollow: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
   }
+  PostFleetResponse: { // field return type
+    fleet: NexusGenRootTypes['Fleet'] | null; // Fleet
+    success: boolean | null; // Boolean
+  }
   Query: { // field return type
+    allFleets: Array<NexusGenRootTypes['Fleet'] | null> | null; // [Fleet]
     allUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     checkFollow: NexusGenRootTypes['CheckFollowResponse'] | null; // CheckFollowResponse
+    fleet: NexusGenRootTypes['TimelineFleet'] | null; // TimelineFleet
     followCount: NexusGenRootTypes['FollowCountResponse'] | null; // FollowCountResponse
     followUsers: NexusGenRootTypes['FollowUsersResponse'] | null; // FollowUsersResponse
-    getUser: NexusGenRootTypes['User'] | null; // User
+    homePageFleets: Array<NexusGenRootTypes['TimelineFleet'] | null> | null; // [TimelineFleet]
     isAdmin: boolean | null; // Boolean
     refreshToken: NexusGenRootTypes['RefreshTokenResponse'] | null; // RefreshTokenResponse
+    user: NexusGenRootTypes['User'] | null; // User
     userInfo: NexusGenRootTypes['User'] | null; // User
+    userTimeline: Array<NexusGenRootTypes['TimelineFleet'] | null> | null; // [TimelineFleet]
   }
   RefreshTokenResponse: { // field return type
     id: number | null; // Int
@@ -204,6 +224,7 @@ export interface NexusGenFieldTypes {
     token: string | null; // String
   }
   Reply: { // field return type
+    body: string | null; // String
     createdAt: NexusGenScalars['dateTime'] | null; // dateTime
     fleet: NexusGenRootTypes['Fleet'] | null; // Fleet
     fleetId: number | null; // Int
@@ -224,6 +245,10 @@ export interface NexusGenFieldTypes {
   }
   SuccessResponse: { // field return type
     success: boolean | null; // Boolean
+  }
+  TimelineFleet: { // field return type
+    liked: boolean | null; // Boolean
+    post: NexusGenRootTypes['Fleet'] | null; // Fleet
   }
   User: { // field return type
     bio: string | null; // String
@@ -284,20 +309,31 @@ export interface NexusGenFieldTypeNames {
     userId: 'Int'
   }
   Mutation: { // field return type name
+    deleteFleet: 'SuccessResponse'
     follow: 'SuccessResponse'
+    postFleet: 'PostFleetResponse'
     signIn: 'SignInResponse'
+    signOut: 'SuccessResponse'
     signUp: 'SignUpResponse'
     unfollow: 'SuccessResponse'
   }
+  PostFleetResponse: { // field return type name
+    fleet: 'Fleet'
+    success: 'Boolean'
+  }
   Query: { // field return type name
+    allFleets: 'Fleet'
     allUsers: 'User'
     checkFollow: 'CheckFollowResponse'
+    fleet: 'TimelineFleet'
     followCount: 'FollowCountResponse'
     followUsers: 'FollowUsersResponse'
-    getUser: 'User'
+    homePageFleets: 'TimelineFleet'
     isAdmin: 'Boolean'
     refreshToken: 'RefreshTokenResponse'
+    user: 'User'
     userInfo: 'User'
+    userTimeline: 'TimelineFleet'
   }
   RefreshTokenResponse: { // field return type name
     id: 'Int'
@@ -306,6 +342,7 @@ export interface NexusGenFieldTypeNames {
     token: 'String'
   }
   Reply: { // field return type name
+    body: 'String'
     createdAt: 'dateTime'
     fleet: 'Fleet'
     fleetId: 'Int'
@@ -327,6 +364,10 @@ export interface NexusGenFieldTypeNames {
   SuccessResponse: { // field return type name
     success: 'Boolean'
   }
+  TimelineFleet: { // field return type name
+    liked: 'Boolean'
+    post: 'Fleet'
+  }
   User: { // field return type name
     bio: 'String'
     createdAt: 'dateTime'
@@ -347,8 +388,14 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    deleteFleet: { // args
+      id: number; // Int!
+    }
     follow: { // args
       id: number; // Int!
+    }
+    postFleet: { // args
+      body: string; // String!
     }
     signIn: { // args
       email: string; // String!
@@ -369,19 +416,25 @@ export interface NexusGenArgTypes {
     checkFollow: { // args
       id: number; // Int!
     }
+    fleet: { // args
+      id: number; // Int!
+    }
     followCount: { // args
       id: number; // Int!
     }
     followUsers: { // args
       id: number; // Int!
     }
-    getUser: { // args
-      id: number; // Int!
-    }
     isAdmin: { // args
       id: number; // Int!
     }
+    user: { // args
+      id: number; // Int!
+    }
     userInfo: { // args
+      id: number; // Int!
+    }
+    userTimeline: { // args
       id: number; // Int!
     }
   }

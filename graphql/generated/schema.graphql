@@ -48,21 +48,33 @@ type Like {
 }
 
 type Mutation {
+  deleteFleet(id: Int!): SuccessResponse
   follow(id: Int!): SuccessResponse
+  postFleet(body: String!): PostFleetResponse
   signIn(email: String!, password: String!): SignInResponse
+  signOut: SuccessResponse
   signUp(bio: String, displayName: String!, email: String!, password: String!, username: String!): SignUpResponse
   unfollow(id: Int!): SuccessResponse
 }
 
+type PostFleetResponse {
+  fleet: Fleet
+  success: Boolean
+}
+
 type Query {
+  allFleets: [Fleet]
   allUsers: [User]
   checkFollow(id: Int!): CheckFollowResponse
+  fleet(id: Int!): TimelineFleet
   followCount(id: Int!): FollowCountResponse
   followUsers(id: Int!): FollowUsersResponse
-  getUser(id: Int!): User
+  homePageFleets: [TimelineFleet]
   isAdmin(id: Int!): Boolean
   refreshToken: RefreshTokenResponse
+  user(id: Int!): User
   userInfo(id: Int!): User
+  userTimeline(id: Int!): [TimelineFleet]
 }
 
 type RefreshTokenResponse {
@@ -73,6 +85,7 @@ type RefreshTokenResponse {
 }
 
 type Reply {
+  body: String
   createdAt: dateTime
   fleet: Fleet
   fleetId: Int
@@ -96,6 +109,11 @@ type SignUpResponse {
 
 type SuccessResponse {
   success: Boolean
+}
+
+type TimelineFleet {
+  liked: Boolean
+  post: Fleet
 }
 
 type User {

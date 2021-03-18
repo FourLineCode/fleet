@@ -1,13 +1,14 @@
 import bcrypt from 'bcryptjs'
 import { intArg, list, mutationField, nonNull, nullable, queryField, stringArg } from 'nexus'
 import { Context } from '../context'
+import { checkAuth } from '../utils/checkAuth'
 import { createCookie } from '../utils/createCookie'
 import { signToken, verifyToken } from '../utils/jwt'
 import registerShema from '../validation/registerSchema'
 
 export const allUsers = queryField('allUsers', {
 	type: list('User'),
-	authorize: (_root, _args, ctx: Context) => ctx.authorized && ctx.isAdmin,
+	authorize: checkAuth('ADMIN'),
 	resolve: async (_root, _args, { prisma }: Context) => {
 		return await prisma.user.findMany({
 			include: {
@@ -21,9 +22,9 @@ export const allUsers = queryField('allUsers', {
 	},
 })
 
-export const getUser = queryField('getUser', {
+export const user = queryField('user', {
 	type: 'User',
-	authorize: (_root, _args, ctx: Context) => ctx.authorized && ctx.isAdmin,
+	authorize: checkAuth('ADMIN'),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
 		return await prisma.user.findFirst({
@@ -134,6 +135,23 @@ export const signIn = mutationField('signIn', {
 	},
 })
 
+export const signOut = mutationField('signOut', {
+	type: 'SuccessResponse',
+	authorize: checkAuth(),
+	resolve: (_root, _args, { req, res }: Context) => {
+		const token = req.cookies['auth-token']
+		const refreshToken = req.cookies['refresh-token']
+
+		if (!token && !refreshToken) {
+			throw new Error('You are not signed in')
+		}
+
+		res.setHeader('Set-Cookie', [createCookie('auth-token', '', -1), createCookie('refresh-token', '', -1)])
+
+		return { success: true }
+	},
+})
+
 export const refreshToken = queryField('refreshToken', {
 	type: 'RefreshTokenResponse',
 	resolve: (_root, _args, { req, res }: Context) => {
@@ -174,7 +192,7 @@ export const refreshToken = queryField('refreshToken', {
 
 export const userInfo = queryField('userInfo', {
 	type: 'User',
-	authorize: (_root, _args, ctx: Context) => ctx.authorized,
+	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
 		const user = await prisma.user.findFirst({ where: { id } })
@@ -189,7 +207,7 @@ export const userInfo = queryField('userInfo', {
 
 export const isAdmin = queryField('isAdmin', {
 	type: 'Boolean',
-	authorize: (_root, _args, ctx: Context) => ctx.authorized,
+	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
 		const user = await prisma.user.findFirst({ where: { id } })

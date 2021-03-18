@@ -1,12 +1,13 @@
 import { intArg, mutationField, nonNull, queryField } from 'nexus'
 import { Context } from '../context'
+import { checkAuth } from '../utils/checkAuth'
 
 export const follow = mutationField('follow', {
 	type: 'SuccessResponse',
-	authorize: (_root, _args, ctx: Context) => ctx.authorized,
+	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma, currentUser }: Context) => {
-		if (id === currentUser?.id) {
+		if (id === currentUser.id) {
 			throw new Error('You cannot follow yourself')
 		}
 
@@ -17,7 +18,7 @@ export const follow = mutationField('follow', {
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
-				fromId: currentUser?.id,
+				fromId: currentUser.id,
 				toId: id,
 			},
 		})
@@ -27,7 +28,7 @@ export const follow = mutationField('follow', {
 
 		await prisma.follow.create({
 			data: {
-				fromId: currentUser?.id!,
+				fromId: currentUser.id!,
 				toId: followedUser.id,
 			},
 		})
@@ -38,10 +39,10 @@ export const follow = mutationField('follow', {
 
 export const unfollow = mutationField('unfollow', {
 	type: 'SuccessResponse',
-	authorize: (_root, _args, ctx: Context) => ctx.authorized,
+	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma, currentUser }: Context) => {
-		if (id === currentUser?.id) {
+		if (id === currentUser.id) {
 			throw new Error('You cannot unfollow yourself')
 		}
 
@@ -52,7 +53,7 @@ export const unfollow = mutationField('unfollow', {
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
-				fromId: currentUser?.id,
+				fromId: currentUser.id,
 				toId: id,
 			},
 		})
@@ -72,7 +73,7 @@ export const unfollow = mutationField('unfollow', {
 
 export const checkFollow = queryField('checkFollow', {
 	type: 'CheckFollowResponse',
-	authorize: (_root, _args, ctx: Context) => ctx.authorized,
+	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma, currentUser }: Context) => {
 		const followedUser = await prisma.user.findFirst({ where: { id } })
@@ -82,7 +83,7 @@ export const checkFollow = queryField('checkFollow', {
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
-				fromId: currentUser?.id,
+				fromId: currentUser.id,
 				toId: id,
 			},
 		})
@@ -93,7 +94,7 @@ export const checkFollow = queryField('checkFollow', {
 
 export const followCount = queryField('followCount', {
 	type: 'FollowCountResponse',
-	authorize: (_root, _args, ctx: Context) => ctx.authorized,
+	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
 		const user = await prisma.user.findFirst({
@@ -120,7 +121,7 @@ export const followCount = queryField('followCount', {
 
 export const followUsers = queryField('followUsers', {
 	type: 'FollowUsersResponse',
-	authorize: (_root, _args, ctx: Context) => ctx.authorized,
+	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
 		const user = await prisma.user.findFirst({
