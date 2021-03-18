@@ -99,6 +99,9 @@ export interface NexusGenObjects {
     success?: boolean | null; // Boolean
     user?: NexusGenRootTypes['User'] | null; // User
   }
+  SuccessResponse: { // root type
+    success?: boolean | null; // Boolean
+  }
   User: { // root type
     bio?: string | null; // String
     createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
@@ -157,6 +160,7 @@ export interface NexusGenFieldTypes {
     userId: number | null; // Int
   }
   Mutation: { // field return type
+    follow: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
     signIn: NexusGenRootTypes['SignInResponse'] | null; // SignInResponse
     signUp: NexusGenRootTypes['SignUpResponse'] | null; // SignUpResponse
   }
@@ -191,6 +195,9 @@ export interface NexusGenFieldTypes {
   SignUpResponse: { // field return type
     success: boolean | null; // Boolean
     user: NexusGenRootTypes['User'] | null; // User
+  }
+  SuccessResponse: { // field return type
+    success: boolean | null; // Boolean
   }
   User: { // field return type
     bio: string | null; // String
@@ -240,6 +247,7 @@ export interface NexusGenFieldTypeNames {
     userId: 'Int'
   }
   Mutation: { // field return type name
+    follow: 'SuccessResponse'
     signIn: 'SignInResponse'
     signUp: 'SignUpResponse'
   }
@@ -275,6 +283,9 @@ export interface NexusGenFieldTypeNames {
     success: 'Boolean'
     user: 'User'
   }
+  SuccessResponse: { // field return type name
+    success: 'Boolean'
+  }
   User: { // field return type name
     bio: 'String'
     createdAt: 'dateTime'
@@ -295,6 +306,9 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
+    follow: { // args
+      id: number; // Int!
+    }
     signIn: { // args
       email: string; // String!
       password: string; // String!

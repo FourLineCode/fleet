@@ -181,11 +181,7 @@ export const userInfo = queryField('userInfo', {
 		id: nonNull(intArg()),
 	},
 	resolve: async (_root, { id }, { prisma }: Context) => {
-		const user = await prisma.user.findFirst({
-			where: {
-				id,
-			},
-		})
+		const user = await prisma.user.findFirst({ where: { id } })
 
 		if (!user) {
 			throw new Error('User not found')
@@ -202,11 +198,7 @@ export const isAdmin = queryField('isAdmin', {
 		id: nonNull(intArg()),
 	},
 	resolve: async (_root, { id }, { prisma }: Context) => {
-		const user = await prisma.user.findFirst({
-			where: {
-				id,
-			},
-		})
+		const user = await prisma.user.findFirst({ where: { id } })
 
 		if (!user) {
 			throw new Error('User not found')

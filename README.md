@@ -14,7 +14,7 @@ The database and API was designed using relational data that optimizes the backe
 
 # Frontend
 
-## Typescript
+### Typescript
 
 -   [Next.js](https://nextjs.org/)
 -   [React](https://reactjs.org)
@@ -24,7 +24,7 @@ The database and API was designed using relational data that optimizes the backe
 
 # Backend
 
-## Typescript
+### Typescript
 
 -   [Nodejs](https://nodejs.org/en/)
 -   [GraphQL](https://graphql.org/)
@@ -35,52 +35,41 @@ The database and API was designed using relational data that optimizes the backe
 
 ---
 
-## If you want to run this application on your own follow the procedure below
+# If you want to run this application on your own follow the procedure below
 
-# Requirements
+## Requirements
 
 -   Node.js 12 or higher.
+-   Yarn 1.22.5
 -   SQLite
 -   Git
 
-# Clone the Repository
+## Clone the Repository
 
 ```
 git clone https://github.com/FourLineCode/fleet.git
 ```
 
-# Install Dependencies
+## Install Dependencies
 
 ```
 yarn
 ```
 
-or
+## Migrate database
 
 ```
-npm install
+yarn migrate
 ```
 
-# Run in production mode
+## Run in production mode
 
 ```
 yarn build && yarn start
 ```
 
-or
-
-```
-npm run build && npm start
-```
-
-# Run in development mode
+## Run in development mode
 
 ```
 yarn dev
-```
-
-or
-
-```
-npm run dev
 ```

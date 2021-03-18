@@ -8,13 +8,13 @@ export interface Context {
 	res: NextApiResponse
 	prisma: PrismaClient
 	authorized: boolean
-	user: User | null
+	currentUser: User | null
 	isAdmin: boolean
 }
 
 export const createContext = async (req: NextApiRequest, res: NextApiResponse): Promise<Context> => {
 	let authorized: boolean = false
-	let user: User | null = null
+	let currentUser: User | null = null
 	let isAdmin: boolean = false
 	const token = req.cookies['auth-token']
 
@@ -26,13 +26,13 @@ export const createContext = async (req: NextApiRequest, res: NextApiResponse): 
 		authorized = !!validated
 
 		if (validated) {
-			user = await prisma.user.findFirst({
+			currentUser = (await prisma.user.findFirst({
 				where: { id: validated.id },
-			})
+			})) as User
 
-			isAdmin = !!user?.isAdmin
+			isAdmin = !!currentUser.isAdmin
 		}
 	}
 
-	return { req, res, prisma, authorized, user, isAdmin }
+	return { req, res, prisma, authorized, currentUser, isAdmin }
 }

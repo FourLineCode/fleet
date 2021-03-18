@@ -34,6 +34,7 @@ type Like {
 }
 
 type Mutation {
+  follow(id: Int!): SuccessResponse
   signIn(email: String!, password: String!): SignInResponse
   signUp(bio: String, displayName: String!, email: String!, password: String!, username: String!): SignUpResponse
 }
@@ -73,6 +74,10 @@ type SignInResponse {
 type SignUpResponse {
   success: Boolean
   user: User
+}
+
+type SuccessResponse {
+  success: Boolean
 }
 
 type User {
