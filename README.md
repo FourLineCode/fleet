@@ -2,7 +2,7 @@
 
 **This is a Social Media App**
 
--   Preview - [Fleet](https://fleetit.herokuapp.com/)
+-   Preview - [Fleet (Coming Soon)](#)
 
 This is a full stack social media app where you can create an account, follow your friends, discover new people,
 and stay up to date with your family and friends. Yout can post an update, like each others posts, reply to each other,
@@ -27,9 +27,11 @@ The database and API was designed using relational data that optimizes the backe
 ## Typescript
 
 -   [Nodejs](https://nodejs.org/en/)
--   [Express](http://expressjs.com/)
--   [PostgresSQL](https://www.postgresql.org/)
--   [TypeORM](https://typeorm.io/)
+-   [GraphQL](https://graphql.org/)
+-   [Apollo Server](https://www.apollographql.com/docs/apollo-server/api/apollo-server/)
+-   [Nexus](https://nexusjs.org/)
+-   [Prisma](https://www.prisma.io/)
+-   [SQLite](https://www.sqlite.org/index.html)
 
 ---
 
@@ -38,7 +40,7 @@ The database and API was designed using relational data that optimizes the backe
 # Requirements
 
 -   Node.js 12 or higher.
--   PostgresSQL
+-   SQLite
 -   Git
 
 # Clone the Repository
