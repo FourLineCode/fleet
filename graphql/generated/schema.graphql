@@ -2,6 +2,10 @@
 ### Do not make changes to this file directly
 
 
+type CheckFollowResponse {
+  follows: Boolean
+}
+
 type Fleet {
   author: User
   authorId: Int
@@ -23,6 +27,16 @@ type Follow {
   updatedAt: dateTime
 }
 
+type FollowCountResponse {
+  followerCount: Int!
+  followingCount: Int!
+}
+
+type FollowUsersResponse {
+  followers: [User]
+  following: [User]
+}
+
 type Like {
   createdAt: dateTime
   fleet: Fleet
@@ -37,10 +51,14 @@ type Mutation {
   follow(id: Int!): SuccessResponse
   signIn(email: String!, password: String!): SignInResponse
   signUp(bio: String, displayName: String!, email: String!, password: String!, username: String!): SignUpResponse
+  unfollow(id: Int!): SuccessResponse
 }
 
 type Query {
   allUsers: [User]
+  checkFollow(id: Int!): CheckFollowResponse
+  followCount(id: Int!): FollowCountResponse
+  followUsers(id: Int!): FollowUsersResponse
   getUser(id: Int!): User
   isAdmin(id: Int!): Boolean
   refreshToken: RefreshTokenResponse
