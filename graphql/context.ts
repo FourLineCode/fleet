@@ -9,12 +9,15 @@ export interface Context {
 	prisma: PrismaClient
 	authorized: boolean
 	user: User | null
+	isAdmin: boolean
 }
 
 export const createContext = async (req: NextApiRequest, res: NextApiResponse): Promise<Context> => {
 	let authorized: boolean = false
 	let user: User | null = null
+	let isAdmin: boolean = false
 	const token = req.cookies['auth-token']
+
 	if (!token) {
 		authorized = false
 	} else {
@@ -26,8 +29,10 @@ export const createContext = async (req: NextApiRequest, res: NextApiResponse): 
 			user = await prisma.user.findFirst({
 				where: { id: validated.id },
 			})
+
+			isAdmin = !!user?.isAdmin
 		}
 	}
 
-	return { req, res, prisma, authorized, user }
+	return { req, res, prisma, authorized, user, isAdmin }
 }

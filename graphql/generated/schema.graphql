@@ -35,10 +35,22 @@ type Like {
 
 type Mutation {
   signIn(email: String!, password: String!): SignInResponse
+  signUp(bio: String, displayName: String!, email: String!, password: String!, username: String!): SignUpResponse
 }
 
 type Query {
   allUsers: [User]
+  getUser(id: Int!): User
+  isAdmin(id: Int!): Boolean
+  refreshToken: RefreshTokenResponse
+  userInfo(id: Int!): User
+}
+
+type RefreshTokenResponse {
+  id: Int
+  refreshToken: String
+  success: Boolean
+  token: String
 }
 
 type Reply {
@@ -56,6 +68,11 @@ type SignInResponse {
   refreshToken: String
   success: Boolean
   token: String
+}
+
+type SignUpResponse {
+  success: Boolean
+  user: User
 }
 
 type User {

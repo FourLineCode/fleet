@@ -74,6 +74,12 @@ export interface NexusGenObjects {
   }
   Mutation: {};
   Query: {};
+  RefreshTokenResponse: { // root type
+    id?: number | null; // Int
+    refreshToken?: string | null; // String
+    success?: boolean | null; // Boolean
+    token?: string | null; // String
+  }
   Reply: { // root type
     createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
     fleet?: NexusGenRootTypes['Fleet'] | null; // Fleet
@@ -88,6 +94,10 @@ export interface NexusGenObjects {
     refreshToken?: string | null; // String
     success?: boolean | null; // Boolean
     token?: string | null; // String
+  }
+  SignUpResponse: { // root type
+    success?: boolean | null; // Boolean
+    user?: NexusGenRootTypes['User'] | null; // User
   }
   User: { // root type
     bio?: string | null; // String
@@ -148,9 +158,20 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     signIn: NexusGenRootTypes['SignInResponse'] | null; // SignInResponse
+    signUp: NexusGenRootTypes['SignUpResponse'] | null; // SignUpResponse
   }
   Query: { // field return type
     allUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
+    getUser: NexusGenRootTypes['User'] | null; // User
+    isAdmin: boolean | null; // Boolean
+    refreshToken: NexusGenRootTypes['RefreshTokenResponse'] | null; // RefreshTokenResponse
+    userInfo: NexusGenRootTypes['User'] | null; // User
+  }
+  RefreshTokenResponse: { // field return type
+    id: number | null; // Int
+    refreshToken: string | null; // String
+    success: boolean | null; // Boolean
+    token: string | null; // String
   }
   Reply: { // field return type
     createdAt: NexusGenScalars['dateTime'] | null; // dateTime
@@ -166,6 +187,10 @@ export interface NexusGenFieldTypes {
     refreshToken: string | null; // String
     success: boolean | null; // Boolean
     token: string | null; // String
+  }
+  SignUpResponse: { // field return type
+    success: boolean | null; // Boolean
+    user: NexusGenRootTypes['User'] | null; // User
   }
   User: { // field return type
     bio: string | null; // String
@@ -216,9 +241,20 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     signIn: 'SignInResponse'
+    signUp: 'SignUpResponse'
   }
   Query: { // field return type name
     allUsers: 'User'
+    getUser: 'User'
+    isAdmin: 'Boolean'
+    refreshToken: 'RefreshTokenResponse'
+    userInfo: 'User'
+  }
+  RefreshTokenResponse: { // field return type name
+    id: 'Int'
+    refreshToken: 'String'
+    success: 'Boolean'
+    token: 'String'
   }
   Reply: { // field return type name
     createdAt: 'dateTime'
@@ -234,6 +270,10 @@ export interface NexusGenFieldTypeNames {
     refreshToken: 'String'
     success: 'Boolean'
     token: 'String'
+  }
+  SignUpResponse: { // field return type name
+    success: 'Boolean'
+    user: 'User'
   }
   User: { // field return type name
     bio: 'String'
@@ -258,6 +298,24 @@ export interface NexusGenArgTypes {
     signIn: { // args
       email: string; // String!
       password: string; // String!
+    }
+    signUp: { // args
+      bio?: string | null; // String
+      displayName: string; // String!
+      email: string; // String!
+      password: string; // String!
+      username: string; // String!
+    }
+  }
+  Query: {
+    getUser: { // args
+      id: number; // Int!
+    }
+    isAdmin: { // args
+      id: number; // Int!
+    }
+    userInfo: { // args
+      id: number; // Int!
     }
   }
 }
