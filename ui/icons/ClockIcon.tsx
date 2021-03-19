@@ -1,7 +1,6 @@
-import React from 'react'
-import IconProps from './iconProps'
+import { IconProps } from './iconProps'
 
-const ClockIcon = ({ className }: IconProps) => (
+export const ClockIcon = ({ className }: IconProps) => (
 	<svg className={className} xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
 		<path
 			strokeLinecap='round'
@@ -11,5 +10,3 @@ const ClockIcon = ({ className }: IconProps) => (
 		/>
 	</svg>
 )
-
-export default ClockIcon

@@ -1,6 +1,4 @@
-import React from 'react'
-
-const FleetDetailsSuspense = () => {
+export const FleetDetailsSuspense = () => {
 	return (
 		<div className='animate-pulse'>
 			<div className='border-b border-dark-700'>
@@ -92,5 +90,3 @@ const FleetDetailsSuspense = () => {
 		</div>
 	)
 }
-
-export default FleetDetailsSuspense

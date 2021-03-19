@@ -3,28 +3,28 @@ import axios from 'axios'
 import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useAuthorization from '../../hooks/useAuthorization'
-import useCurrentUser from '../../hooks/useCurrentUser'
+import { useAuthorization } from '../../hooks/useAuthorization'
+import { useCurrentUser } from '../../hooks/useCurrentUser'
 import { setError } from '../../store/actions/notificationActions'
-import IconButton from '../../ui/components/IconButton'
-import HeartFilledIcon from '../../ui/icons/HeartFilledIcon'
-import HeartIcon from '../../ui/icons/HeartIcon'
-import ReplyIcon from '../../ui/icons/ReplyIcon'
-import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
+import { IconButton } from '../../ui/components/IconButton'
+import { HeartFilledIcon } from '../../ui/icons/HeartFilledIcon'
+import { HeartIcon } from '../../ui/icons/HeartIcon'
+import { ReplyIcon } from '../../ui/icons/ReplyIcon'
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
-import FleetOptions from './FleetOptions'
-import ReplyComposer from './ReplyComposer'
+import { FleetOptions } from './FleetOptions'
+import { ReplyComposer } from './ReplyComposer'
 import { FleetType } from './Timeline'
 
 interface Props {
 	fleet: FleetType
 }
 
-const Fleet = ({ fleet }: Props) => {
+export const Fleet = ({ fleet }: Props) => {
 	const auth = useAuthorization()
 	const user = useCurrentUser()
 	const dispatch = useDispatch()
@@ -146,5 +146,3 @@ const Fleet = ({ fleet }: Props) => {
 		</div>
 	)
 }
-
-export default Fleet

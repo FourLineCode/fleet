@@ -7,8 +7,8 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from '@chakra-ui/react'
-import React, { useRef } from 'react'
-import Button from './Button'
+import { useRef } from 'react'
+import { Button } from './Button'
 
 interface Props {
 	header: string
@@ -19,7 +19,7 @@ interface Props {
 	onClose: () => void
 }
 
-const ConfirmModal = ({ header, desc, action, isOpen, onOpen, onClose }: Props) => {
+export const ConfirmModal = ({ header, desc, action, isOpen, onOpen, onClose }: Props) => {
 	const ref = useRef<HTMLButtonElement>(null)
 
 	return (
@@ -49,5 +49,3 @@ const ConfirmModal = ({ header, desc, action, isOpen, onOpen, onClose }: Props) 
 		</Modal>
 	)
 }
-
-export default ConfirmModal

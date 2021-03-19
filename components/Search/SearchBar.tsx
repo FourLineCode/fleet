@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef } from 'react'
-import SearchIcon from '../../ui/icons/SearchIcon'
+import { useEffect, useRef } from 'react'
+import { SearchIcon } from '../../ui/icons/SearchIcon'
 
-const SearchBar = () => {
+export const SearchBar = () => {
 	const router = useRouter()
 	const ref = useRef<HTMLInputElement>(null)
 	const searchQuery = router.query.query as string
@@ -44,5 +44,3 @@ const SearchBar = () => {
 		</form>
 	)
 }
-
-export default SearchBar

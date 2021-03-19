@@ -1,7 +1,6 @@
-import React from 'react'
-import IconProps from './iconProps'
+import { IconProps } from './iconProps'
 
-const VeifiedFilledIcon = ({ className }: IconProps) => (
+export const VerifiedFilledIcon = ({ className }: IconProps) => (
 	<svg className={className} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'>
 		<path
 			fillRule='evenodd'
@@ -10,5 +9,3 @@ const VeifiedFilledIcon = ({ className }: IconProps) => (
 		/>
 	</svg>
 )
-
-export default VeifiedFilledIcon

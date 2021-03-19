@@ -1,8 +1,7 @@
 import { useRouter } from 'next/router'
-import React from 'react'
-import Button from '../../ui/components/Button'
+import { Button } from '../../ui/components/Button'
 
-const SignedOutLinks = () => {
+export const SignedOutLinks = () => {
 	const router = useRouter()
 
 	return (
@@ -16,5 +15,3 @@ const SignedOutLinks = () => {
 		</>
 	)
 }
-
-export default SignedOutLinks

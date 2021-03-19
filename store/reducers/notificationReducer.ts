@@ -7,7 +7,7 @@ const initState: NotificationState = {
 	trigger: false,
 }
 
-const notificationReducer = (state = initState, { type, payload }: ActionTypes) => {
+export const notificationReducer = (state = initState, { type, payload }: ActionTypes) => {
 	switch (type) {
 		case actions.ERROR: {
 			return {
@@ -47,5 +47,3 @@ const notificationReducer = (state = initState, { type, payload }: ActionTypes) 
 		}
 	}
 }
-
-export default notificationReducer

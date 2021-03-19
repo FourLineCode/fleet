@@ -2,19 +2,19 @@ import { useDisclosure } from '@chakra-ui/react'
 import axios from 'axios'
 import { format } from 'date-fns'
 import Link from 'next/link'
-import React, { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError } from '../../store/actions/notificationActions'
-import IconButton from '../../ui/components/IconButton'
-import HeartFilledIcon from '../../ui/icons/HeartFilledIcon'
-import HeartIcon from '../../ui/icons/HeartIcon'
-import ReplyIcon from '../../ui/icons/ReplyIcon'
-import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
+import { IconButton } from '../../ui/components/IconButton'
+import { HeartFilledIcon } from '../../ui/icons/HeartFilledIcon'
+import { HeartIcon } from '../../ui/icons/HeartIcon'
+import { ReplyIcon } from '../../ui/icons/ReplyIcon'
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
-import FleetOptions from './FleetOptions'
-import ReplyComposer from './ReplyComposer'
+import { FleetOptions } from './FleetOptions'
+import { ReplyComposer } from './ReplyComposer'
 import { FleetType } from './Timeline'
 
 interface Props {
@@ -24,7 +24,7 @@ interface Props {
 	canDelete: boolean
 }
 
-const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
+export const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 
@@ -129,5 +129,3 @@ const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 		</div>
 	)
 }
-
-export default FleetView

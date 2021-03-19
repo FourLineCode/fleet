@@ -1,13 +1,7 @@
-import React from 'react'
-import IconProps from './iconProps'
+import { IconProps } from './iconProps'
 
-const CloseIcon = ({ className }: IconProps) => (
-	<svg
-		className={className}
-		xmlns='http://www.w3.org/2000/svg'
-		fill='none'
-		viewBox='0 0 24 24'
-		stroke='currentColor'>
+export const CloseIcon = ({ className }: IconProps) => (
+	<svg className={className} xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
 		<path
 			strokeLinecap='round'
 			strokeLinejoin='round'
@@ -16,5 +10,3 @@ const CloseIcon = ({ className }: IconProps) => (
 		/>
 	</svg>
 )
-
-export default CloseIcon

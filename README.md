@@ -2,7 +2,7 @@
 
 **This is a Social Media App**
 
--   Preview - [Fleet](https://fleetit.herokuapp.com/)
+-   Preview - [Fleet (Coming Soon)](#)
 
 This is a full stack social media app where you can create an account, follow your friends, discover new people,
 and stay up to date with your family and friends. Yout can post an update, like each others posts, reply to each other,
@@ -14,7 +14,7 @@ The database and API was designed using relational data that optimizes the backe
 
 # Frontend
 
-## Typescript
+### Typescript
 
 -   [Next.js](https://nextjs.org/)
 -   [React](https://reactjs.org)
@@ -24,61 +24,52 @@ The database and API was designed using relational data that optimizes the backe
 
 # Backend
 
-## Typescript
+### Typescript
 
 -   [Nodejs](https://nodejs.org/en/)
--   [Express](http://expressjs.com/)
--   [PostgresSQL](https://www.postgresql.org/)
--   [TypeORM](https://typeorm.io/)
+-   [GraphQL](https://graphql.org/)
+-   [Apollo Server](https://www.apollographql.com/docs/apollo-server/api/apollo-server/)
+-   [Nexus](https://nexusjs.org/)
+-   [Prisma](https://www.prisma.io/)
+-   [SQLite](https://www.sqlite.org/index.html)
 
 ---
 
-## If you want to run this application on your own follow the procedure below
+# If you want to run this application on your own follow the procedure below
 
-# Requirements
+## Requirements
 
 -   Node.js 12 or higher.
--   PostgresSQL
+-   Yarn 1.22.5
+-   SQLite
 -   Git
 
-# Clone the Repository
+## Clone the Repository
 
 ```
 git clone https://github.com/FourLineCode/fleet.git
 ```
 
-# Install Dependencies
+## Install Dependencies
 
 ```
 yarn
 ```
 
-or
+## Migrate database
 
 ```
-npm install
+yarn migrate
 ```
 
-# Run in production mode
+## Run in production mode
 
 ```
 yarn build && yarn start
 ```
 
-or
-
-```
-npm run build && npm start
-```
-
-# Run in development mode
+## Run in development mode
 
 ```
 yarn dev
-```
-
-or
-
-```
-npm run dev
 ```

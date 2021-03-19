@@ -10,7 +10,7 @@ const initState: UserState = {
 	isAdmin: false,
 }
 
-const userReducer = (state = initState, { type, payload }: ActionTypes) => {
+export const userReducer = (state = initState, { type, payload }: ActionTypes) => {
 	switch (type) {
 		case actions.GET_USER_INFO: {
 			return {
@@ -37,5 +37,3 @@ const userReducer = (state = initState, { type, payload }: ActionTypes) => {
 			return state
 	}
 }
-
-export default userReducer

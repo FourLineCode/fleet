@@ -11,7 +11,7 @@ interface Props {
 	onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
 }
 
-const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
+export const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
 	({ label, placeholder, value, name, onChange, onKeyDown, className }, ref) => {
 		return (
 			<>
@@ -35,5 +35,3 @@ const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
 		)
 	}
 )
-
-export default TextArea

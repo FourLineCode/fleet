@@ -1,14 +1,14 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { UserState } from '../../store/reducers/types'
-import RightArrowIcon from '../../ui/icons/RightArrowIcon'
-import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
+import { RightArrowIcon } from '../../ui/icons/RightArrowIcon'
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
 
 interface Props {
 	user: UserState
 }
 
-const UserInfo = ({ user }: Props) => {
+export const UserInfo = ({ user }: Props) => {
 	const [showIcon, setShowIcon] = useState(false)
 	const userProfileId = user.id ? user.id : user.id
 
@@ -45,5 +45,3 @@ const UserInfo = ({ user }: Props) => {
 		</Link>
 	)
 }
-
-export default UserInfo

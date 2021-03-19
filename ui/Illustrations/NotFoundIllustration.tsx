@@ -1,10 +1,8 @@
-import React from 'react'
-
 interface Props {
 	className?: string
 }
 
-const NotFoundIllustration = ({ className }: Props) => {
+export const NotFoundIllustration = ({ className }: Props) => {
 	return (
 		<svg
 			className={className}
@@ -173,5 +171,3 @@ const NotFoundIllustration = ({ className }: Props) => {
 		</svg>
 	)
 }
-
-export default NotFoundIllustration
