@@ -11,10 +11,7 @@ export const follow = mutationField('follow', {
 			throw new Error('You cannot follow yourself')
 		}
 
-		const followedUser = await prisma.user.findFirst({ where: { id } })
-		if (!followedUser) {
-			throw new Error('Requested user doesnt exist')
-		}
+		const followedUser = await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true })
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
@@ -46,10 +43,7 @@ export const unfollow = mutationField('unfollow', {
 			throw new Error('You cannot unfollow yourself')
 		}
 
-		const followedUser = await prisma.user.findFirst({ where: { id } })
-		if (!followedUser) {
-			throw new Error('Requested user doesnt exist')
-		}
+		await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true })
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
@@ -76,10 +70,7 @@ export const checkFollow = queryField('checkFollow', {
 	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma, currentUser }: Context) => {
-		const followedUser = await prisma.user.findFirst({ where: { id } })
-		if (!followedUser) {
-			throw new Error('Requested user doesnt exist')
-		}
+		await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true })
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
@@ -105,11 +96,8 @@ export const followCount = queryField('followCount', {
 				followers: true,
 				following: true,
 			},
+			rejectOnNotFound: true,
 		})
-
-		if (!user) {
-			throw new Error('Requested user doesnt exist')
-		}
 
 		const followerCount = user.followers.length
 		const followingCount = user.following.length
@@ -140,11 +128,8 @@ export const followUsers = queryField('followUsers', {
 					},
 				},
 			},
+			rejectOnNotFound: true,
 		})
-
-		if (!user) {
-			throw new Error('Requested user doesnt exist')
-		}
 
 		const followers = user.followers.map((follow) => follow.from)
 

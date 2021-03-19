@@ -79,11 +79,8 @@ export const fleet = queryField('fleet', {
 					},
 				},
 			},
+			rejectOnNotFound: true,
 		})
-
-		if (!fleet) {
-			throw new Error('Fleet not found')
-		}
 
 		for (const like of fleet.like) {
 			if (like.userId === currentUser.id) {
@@ -114,11 +111,8 @@ export const userTimeline = queryField('userTimeline', {
 					},
 				},
 			},
+			rejectOnNotFound: true,
 		})
-
-		if (!user) {
-			throw new Error('User not found')
-		}
 
 		const responseFleets = user.fleet.map((fleet) => {
 			for (const like of fleet.like) {
@@ -162,11 +156,7 @@ export const deleteFleet = mutationField('deleteFleet', {
 	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma, currentUser, isAdmin }: Context) => {
-		const fleet = await prisma.fleet.findFirst({ where: { id } })
-
-		if (!fleet) {
-			throw new Error('Fleet not found')
-		}
+		const fleet = await prisma.fleet.findFirst({ where: { id }, rejectOnNotFound: true })
 
 		if (fleet.authorId !== currentUser.id && !isAdmin) {
 			throw new Error('You are not authorized to delete this fleet')
