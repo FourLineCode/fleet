@@ -1,6 +1,5 @@
 import { Alert, AlertIcon } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import React from 'react'
 import Layout from '../components/Layouts/Layout'
 import useAuthorization from '../hooks/useAuthorization'
 import Button from '../ui/components/Button'

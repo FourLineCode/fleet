@@ -1,7 +1,7 @@
 import axios from 'axios'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError } from '../../store/actions/notificationActions'

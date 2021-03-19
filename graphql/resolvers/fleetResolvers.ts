@@ -148,7 +148,7 @@ export const postFleet = mutationField('postFleet', {
 			},
 		})
 
-		return { fleet }
+		return fleet
 	},
 })
 

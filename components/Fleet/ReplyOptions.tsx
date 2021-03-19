@@ -1,7 +1,6 @@
 import { useDisclosure } from '@chakra-ui/react'
 import { Menu, Transition } from '@headlessui/react'
 import axios from 'axios'
-import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError, setSuccess } from '../../store/actions/notificationActions'

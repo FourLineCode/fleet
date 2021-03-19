@@ -1,7 +1,7 @@
 import axios from 'axios'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useAuthorization from '../../hooks/useAuthorization'

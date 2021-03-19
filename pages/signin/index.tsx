@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import Layout from '../../components/Layouts/Layout'
 import useAuthorization from '../../hooks/useAuthorization'

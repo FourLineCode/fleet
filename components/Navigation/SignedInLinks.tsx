@@ -1,7 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import React from 'react'
 import { useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import useCurrentUser from '../../hooks/useCurrentUser'

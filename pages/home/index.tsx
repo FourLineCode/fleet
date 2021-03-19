@@ -1,4 +1,3 @@
-import React from 'react'
 import Timeline from '../../components/Fleet/Timeline'
 import ProtectedLayout from '../../components/Layouts/ProtectedLayout'
 import Menu from '../../components/Navigation/Menu'

@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 type TabType = 'users' | 'posts'
 
