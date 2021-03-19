@@ -1,6 +1,6 @@
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
-import useAuthorization from '../../hooks/useAuthorization'
+import { useAuthorization } from '../../hooks/useAuthorization'
 import IconButton from '../../ui/components/IconButton'
 import FleetIcon from '../../ui/icons/FleetIcon'
 import MoonIcon from '../../ui/icons/MoonIcon'

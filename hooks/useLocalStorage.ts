@@ -1,4 +1,4 @@
-const useLocalStorage = () => {
+export const useLocalStorage = () => {
 	const getLocalStorage = (key: string) => {
 		if (process.browser) {
 			const data = JSON.parse(window.localStorage.getItem(key)!)
@@ -21,5 +21,3 @@ const useLocalStorage = () => {
 
 	return { getLocalStorage, setLocalStorage, removeLocalStorage }
 }
-
-export default useLocalStorage

@@ -1,6 +1,6 @@
 import { useToast } from '@chakra-ui/react'
 import { useEffect } from 'react'
-import useNotification from '../../hooks/useNotification'
+import { useNotification } from '../../hooks/useNotification'
 
 const Notification = () => {
 	const notification = useNotification()
