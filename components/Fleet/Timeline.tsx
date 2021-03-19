@@ -1,13 +1,13 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError } from '../../store/actions/notificationActions'
-import ErrorIcon from '../../ui/icons/ErrorIcon'
+import { ErrorIcon } from '../../ui/icons/ErrorIcon'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
-import TimelineSuspense from '../Suspense/TimelineSuspense'
-import Fleet from './Fleet'
+import { TimelineSuspense } from '../Suspense/TimelineSuspense'
+import { Fleet } from './Fleet'
 
 interface Author {
 	id: string
@@ -35,7 +35,7 @@ export interface FleetType {
 	liked: boolean
 }
 
-const Timeline = () => {
+export const Timeline = () => {
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 
@@ -75,5 +75,3 @@ const Timeline = () => {
 		</div>
 	)
 }
-
-export default Timeline

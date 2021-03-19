@@ -1,18 +1,18 @@
 import axios from 'axios'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError } from '../../store/actions/notificationActions'
-import ErrorIcon from '../../ui/icons/ErrorIcon'
+import { ErrorIcon } from '../../ui/icons/ErrorIcon'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
-import Fleet from '../Fleet/Fleet'
+import { Fleet } from '../Fleet/Fleet'
 import { FleetType } from '../Fleet/Timeline'
-import TimelineSuspense from '../Suspense/TimelineSuspense'
+import { TimelineSuspense } from '../Suspense/TimelineSuspense'
 
-const ProfileTimeline = () => {
+export const ProfileTimeline = () => {
 	const router = useRouter()
 	const { id } = router.query
 	const dispatch = useDispatch()
@@ -70,5 +70,3 @@ const ProfileTimeline = () => {
 		</>
 	)
 }
-
-export default ProfileTimeline

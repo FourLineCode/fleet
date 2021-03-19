@@ -17,7 +17,7 @@ const VariantStyles: Record<string, string> = {
 	danger: 'bg-red-500 hover:bg-red-600 hover:border-transparent text-white',
 }
 
-const Button = React.forwardRef<HTMLButtonElement, Props>(
+export const Button = React.forwardRef<HTMLButtonElement, Props>(
 	({ type, variant = 'filled', disabled = false, onClick, danger = false, children, className }, ref) => {
 		return (
 			<button
@@ -41,5 +41,3 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
 		)
 	}
 )
-
-export default Button

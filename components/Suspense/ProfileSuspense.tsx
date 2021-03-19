@@ -1,7 +1,6 @@
-import React from 'react'
-import TimelineSuspense from './TimelineSuspense'
+import { TimelineSuspense } from './TimelineSuspense'
 
-const ProfileSuspense = () => {
+export const ProfileSuspense = () => {
 	return (
 		<div className='w-full h-full col-span-4 border-dark-500 animate-pulse md:col-span-3 xl:col-span-2 md:border-l lg:border-r'>
 			<div className='flex flex-col items-center'>
@@ -40,5 +39,3 @@ const ProfileSuspense = () => {
 		</div>
 	)
 }
-
-export default ProfileSuspense

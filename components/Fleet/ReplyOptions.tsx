@@ -1,13 +1,12 @@
 import { useDisclosure } from '@chakra-ui/react'
 import { Menu, Transition } from '@headlessui/react'
 import axios from 'axios'
-import React from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError, setSuccess } from '../../store/actions/notificationActions'
-import ConfirmModal from '../../ui/components/ConfirmModal'
-import DotsVertical from '../../ui/icons/DotsVertical'
-import TrashIcon from '../../ui/icons/TrashIcon'
+import { ConfirmModal } from '../../ui/components/ConfirmModal'
+import { DotsVertical } from '../../ui/icons/DotsVertical'
+import { TrashIcon } from '../../ui/icons/TrashIcon'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
 
@@ -16,7 +15,7 @@ interface Props {
 	canDelete: boolean
 }
 
-const ReplyOptions = ({ id, canDelete }: Props) => {
+export const ReplyOptions = ({ id, canDelete }: Props) => {
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
 	const { isOpen, onOpen, onClose } = useDisclosure()
@@ -91,5 +90,3 @@ const ReplyOptions = ({ id, canDelete }: Props) => {
 		</div>
 	)
 }
-
-export default ReplyOptions

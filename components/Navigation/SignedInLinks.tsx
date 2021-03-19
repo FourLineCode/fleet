@@ -1,15 +1,14 @@
 import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import React from 'react'
 import { useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
-import useCurrentUser from '../../hooks/useCurrentUser'
+import { useCurrentUser } from '../../hooks/useCurrentUser'
 import { signout } from '../../store/actions/authActions'
-import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
-import SearchBar from '../Search/SearchBar'
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
+import { SearchBar } from '../Search/SearchBar'
 
-const SignedInLinks = () => {
+export const SignedInLinks = () => {
 	const user = useCurrentUser()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
@@ -101,5 +100,3 @@ const SignedInLinks = () => {
 		</div>
 	)
 }
-
-export default SignedInLinks

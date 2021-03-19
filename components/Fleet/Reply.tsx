@@ -1,19 +1,19 @@
 import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
-import React, { useState } from 'react'
-import useAuthorization from '../../hooks/useAuthorization'
-import useCurrentUser from '../../hooks/useCurrentUser'
+import { useState } from 'react'
+import { useAuthorization } from '../../hooks/useAuthorization'
+import { useCurrentUser } from '../../hooks/useCurrentUser'
 import { UserState } from '../../store/reducers/types'
-import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
 import { ReplyType } from './FleetDetails'
-import ReplyOptions from './ReplyOptions'
+import { ReplyOptions } from './ReplyOptions'
 
 interface Props {
 	reply: ReplyType
 	user: UserState
 }
 
-const Reply = ({ reply, user }: Props) => {
+export const Reply = ({ reply, user }: Props) => {
 	const auth = useAuthorization()
 	const currentUser = useCurrentUser()
 	const [canDelete] = useState(auth.id === reply.user.id || currentUser.isAdmin)
@@ -69,5 +69,3 @@ const Reply = ({ reply, user }: Props) => {
 		</div>
 	)
 }
-
-export default Reply

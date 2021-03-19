@@ -1,12 +1,11 @@
 import { format } from 'date-fns'
-import React from 'react'
 
 interface Props {
 	bio: string | null
 	createdAt: string | null
 }
 
-const ProfileInfo = ({ bio, createdAt }: Props) => {
+export const ProfileInfo = ({ bio, createdAt }: Props) => {
 	return (
 		<div className='flex px-4 pb-2 mt-2 border-b border-dark-500'>
 			<div className='w-3/4 text-black dark:text-white'>
@@ -20,5 +19,3 @@ const ProfileInfo = ({ bio, createdAt }: Props) => {
 		</div>
 	)
 }
-
-export default ProfileInfo

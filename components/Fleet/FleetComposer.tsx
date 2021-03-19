@@ -10,12 +10,12 @@ import {
 import axios from 'axios'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useMutation, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError, setSuccess } from '../../store/actions/notificationActions'
-import Button from '../../ui/components/Button'
-import TextArea from '../../ui/components/TextArea'
+import { Button } from '../../ui/components/Button'
+import { TextArea } from '../../ui/components/TextArea'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
 
@@ -25,7 +25,7 @@ interface Props {
 	onClose: () => void
 }
 
-const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
+export const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
 	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 	const { pathname } = useRouter()
@@ -109,5 +109,3 @@ const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
 		</Modal>
 	)
 }
-
-export default FleetComposer

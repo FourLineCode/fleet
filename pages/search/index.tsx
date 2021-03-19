@@ -1,7 +1,6 @@
-import React from 'react'
-import ProtectedLayout from '../../components/Layouts/ProtectedLayout'
-import ComingSoon from '../../components/Navigation/ComingSoon'
-import Menu from '../../components/Navigation/Menu'
+import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout'
+import { ComingSoon } from '../../components/Navigation/ComingSoon'
+import { Menu } from '../../components/Navigation/Menu'
 
 const Search = () => {
 	return (

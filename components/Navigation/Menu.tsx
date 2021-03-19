@@ -1,10 +1,9 @@
 import { useDisclosure } from '@chakra-ui/react'
-import React from 'react'
-import FleetComposer from '../Fleet/FleetComposer'
-import BottomMenu from './BottomMenu'
-import VerticalMenu from './VerticalMenu'
+import { FleetComposer } from '../Fleet/FleetComposer'
+import { BottomMenu } from './BottomMenu'
+import { VerticalMenu } from './VerticalMenu'
 
-const Menu = () => {
+export const Menu = () => {
 	const { isOpen, onOpen, onClose } = useDisclosure()
 
 	return (
@@ -15,5 +14,3 @@ const Menu = () => {
 		</>
 	)
 }
-
-export default Menu

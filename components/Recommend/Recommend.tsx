@@ -1,15 +1,15 @@
 import axios from 'axios'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useQuery, useQueryClient } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
-import RecommendSuspense from '../Suspense/RecommendSuspense'
-import UserInfo from './UserInfo'
+import { RecommendSuspense } from '../Suspense/RecommendSuspense'
+import { UserInfo } from './UserInfo'
 
-const Recommend = () => {
+export const Recommend = () => {
 	const queryClient = useQueryClient()
 	const dispatch = useDispatch()
 
@@ -45,5 +45,3 @@ const Recommend = () => {
 		</div>
 	)
 }
-
-export default Recommend

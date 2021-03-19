@@ -1,6 +1,4 @@
-import React from 'react'
-
-const TimelineSuspense = () => {
+export const TimelineSuspense = () => {
 	return (
 		<>
 			<div className='w-full px-2 pt-2 border rounded-lg shadow-xl border-dark-700 animate-pulse lg:mx-auto lg:w-3/4'>
@@ -101,5 +99,3 @@ const TimelineSuspense = () => {
 		</>
 	)
 }
-
-export default TimelineSuspense
