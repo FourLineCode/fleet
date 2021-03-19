@@ -6,6 +6,10 @@ type CheckFollowResponse {
   follows: Boolean
 }
 
+type CheckLikeResponse {
+  liked: Boolean
+}
+
 type Fleet {
   author: User
   authorId: Int
@@ -49,39 +53,32 @@ type Like {
 
 type Mutation {
   deleteFleet(id: Int!): SuccessResponse
+  deleteReply(id: Int!): SuccessResponse
   follow(id: Int!): SuccessResponse
-  postFleet(body: String!): PostFleetResponse
-  signIn(email: String!, password: String!): SignInResponse
+  likeFleet(id: Int!): SuccessResponse
+  postFleet(body: String!): Fleet
+  reply(body: String!, fleetId: Int!): Reply
+  signIn(email: String!, password: String!): TokenResponse
   signOut: SuccessResponse
-  signUp(bio: String, displayName: String!, email: String!, password: String!, username: String!): SignUpResponse
+  signUp(bio: String, displayName: String!, email: String!, password: String!, username: String!): User
   unfollow(id: Int!): SuccessResponse
-}
-
-type PostFleetResponse {
-  fleet: Fleet
-  success: Boolean
+  unlikeFleet(id: Int!): SuccessResponse
 }
 
 type Query {
   allFleets: [Fleet]
   allUsers: [User]
   checkFollow(id: Int!): CheckFollowResponse
+  checkLike(id: Int!): CheckLikeResponse
   fleet(id: Int!): TimelineFleet
   followCount(id: Int!): FollowCountResponse
   followUsers(id: Int!): FollowUsersResponse
   homePageFleets: [TimelineFleet]
   isAdmin(id: Int!): Boolean
-  refreshToken: RefreshTokenResponse
+  refreshToken: TokenResponse
   user(id: Int!): User
   userInfo(id: Int!): User
   userTimeline(id: Int!): [TimelineFleet]
-}
-
-type RefreshTokenResponse {
-  id: Int
-  refreshToken: String
-  success: Boolean
-  token: String
 }
 
 type Reply {
@@ -95,18 +92,6 @@ type Reply {
   userId: Int
 }
 
-type SignInResponse {
-  id: Int
-  refreshToken: String
-  success: Boolean
-  token: String
-}
-
-type SignUpResponse {
-  success: Boolean
-  user: User
-}
-
 type SuccessResponse {
   success: Boolean
 }
@@ -114,6 +99,13 @@ type SuccessResponse {
 type TimelineFleet {
   liked: Boolean
   post: Fleet
+}
+
+type TokenResponse {
+  id: Int
+  refreshToken: String
+  success: Boolean
+  token: String
 }
 
 type User {

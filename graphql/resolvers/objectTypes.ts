@@ -21,6 +21,19 @@ export const User = objectType({
 	},
 })
 
+export const Follow = objectType({
+	name: 'Follow',
+	definition: (t) => {
+		t.int('id')
+		t.dateTime('createdAt')
+		t.dateTime('updatedAt')
+		t.int('fromId')
+		t.field('from', { type: 'User' })
+		t.int('toId')
+		t.field('to', { type: 'User' })
+	},
+})
+
 export const Fleet = objectType({
 	name: 'Fleet',
 	definition: (t) => {
@@ -32,19 +45,6 @@ export const Fleet = objectType({
 		t.field('author', { type: 'User' })
 		t.list.field('like', { type: 'Like' })
 		t.list.field('reply', { type: 'Reply' })
-	},
-})
-
-export const Follow = objectType({
-	name: 'Follow',
-	definition: (t) => {
-		t.int('id')
-		t.dateTime('createdAt')
-		t.dateTime('updatedAt')
-		t.int('fromId')
-		t.field('from', { type: 'User' })
-		t.int('toId')
-		t.field('to', { type: 'User' })
 	},
 })
 
@@ -101,28 +101,8 @@ export const SuccessResponse = objectType({
 	},
 })
 
-export const SignUpResponse = objectType({
-	name: 'SignUpResponse',
-	definition: (t) => {
-		t.boolean('success')
-		t.field('user', {
-			type: 'User',
-		})
-	},
-})
-
-export const SignInResponse = objectType({
-	name: 'SignInResponse',
-	definition: (t) => {
-		t.boolean('success')
-		t.int('id')
-		t.string('token')
-		t.string('refreshToken')
-	},
-})
-
-export const RefreshTokenResponse = objectType({
-	name: 'RefreshTokenResponse',
+export const TokenResponse = objectType({
+	name: 'TokenResponse',
 	definition: (t) => {
 		t.boolean('success')
 		t.int('id')
@@ -162,10 +142,9 @@ export const TimelineFleet = objectType({
 	},
 })
 
-export const PostFleetResponse = objectType({
-	name: 'PostFleetResponse',
+export const CheckLikeResponse = objectType({
+	name: 'CheckLikeResponse',
 	definition: (t) => {
-		t.boolean('success')
-		t.field('fleet', { type: 'Fleet' })
+		t.boolean('liked')
 	},
 })
