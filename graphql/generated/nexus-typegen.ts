@@ -205,6 +205,7 @@ export interface NexusGenFieldTypes {
     followUsers: NexusGenRootTypes['FollowUsersResponse'] | null; // FollowUsersResponse
     homePageFleets: Array<NexusGenRootTypes['TimelineFleet'] | null> | null; // [TimelineFleet]
     isAdmin: boolean | null; // Boolean
+    recommend: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     refreshToken: NexusGenRootTypes['TokenResponse'] | null; // TokenResponse
     user: NexusGenRootTypes['User'] | null; // User
     userInfo: NexusGenRootTypes['User'] | null; // User
@@ -317,6 +318,7 @@ export interface NexusGenFieldTypeNames {
     followUsers: 'FollowUsersResponse'
     homePageFleets: 'TimelineFleet'
     isAdmin: 'Boolean'
+    recommend: 'User'
     refreshToken: 'TokenResponse'
     user: 'User'
     userInfo: 'User'
