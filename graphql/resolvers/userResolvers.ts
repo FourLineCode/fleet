@@ -40,7 +40,7 @@ export const user = queryField('user', {
 })
 
 export const signUp = mutationField('signUp', {
-	type: 'SignUpResponse',
+	type: 'User',
 	args: {
 		email: nonNull(stringArg()),
 		password: nonNull(stringArg()),
@@ -82,15 +82,12 @@ export const signUp = mutationField('signUp', {
 			},
 		})
 
-		return {
-			success: true,
-			user,
-		}
+		return { user }
 	},
 })
 
 export const signIn = mutationField('signIn', {
-	type: 'SignInResponse',
+	type: 'TokenResponse',
 	args: {
 		email: nonNull(stringArg()),
 		password: nonNull(stringArg()),
@@ -153,7 +150,7 @@ export const signOut = mutationField('signOut', {
 })
 
 export const refreshToken = queryField('refreshToken', {
-	type: 'RefreshTokenResponse',
+	type: 'TokenResponse',
 	resolve: (_root, _args, { req, res }: Context) => {
 		const refreshToken = req.cookies['refresh-token'] as string
 

@@ -47,6 +47,9 @@ export interface NexusGenObjects {
   CheckFollowResponse: { // root type
     follows?: boolean | null; // Boolean
   }
+  CheckLikeResponse: { // root type
+    liked?: boolean | null; // Boolean
+  }
   Fleet: { // root type
     author?: NexusGenRootTypes['User'] | null; // User
     authorId?: number | null; // Int
@@ -84,17 +87,7 @@ export interface NexusGenObjects {
     userId?: number | null; // Int
   }
   Mutation: {};
-  PostFleetResponse: { // root type
-    fleet?: NexusGenRootTypes['Fleet'] | null; // Fleet
-    success?: boolean | null; // Boolean
-  }
   Query: {};
-  RefreshTokenResponse: { // root type
-    id?: number | null; // Int
-    refreshToken?: string | null; // String
-    success?: boolean | null; // Boolean
-    token?: string | null; // String
-  }
   Reply: { // root type
     body?: string | null; // String
     createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
@@ -105,22 +98,18 @@ export interface NexusGenObjects {
     user?: NexusGenRootTypes['User'] | null; // User
     userId?: number | null; // Int
   }
-  SignInResponse: { // root type
-    id?: number | null; // Int
-    refreshToken?: string | null; // String
-    success?: boolean | null; // Boolean
-    token?: string | null; // String
-  }
-  SignUpResponse: { // root type
-    success?: boolean | null; // Boolean
-    user?: NexusGenRootTypes['User'] | null; // User
-  }
   SuccessResponse: { // root type
     success?: boolean | null; // Boolean
   }
   TimelineFleet: { // root type
     liked?: boolean | null; // Boolean
     post?: NexusGenRootTypes['Fleet'] | null; // Fleet
+  }
+  TokenResponse: { // root type
+    id?: number | null; // Int
+    refreshToken?: string | null; // String
+    success?: boolean | null; // Boolean
+    token?: string | null; // String
   }
   User: { // root type
     bio?: string | null; // String
@@ -153,6 +142,9 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 export interface NexusGenFieldTypes {
   CheckFollowResponse: { // field return type
     follows: boolean | null; // Boolean
+  }
+  CheckLikeResponse: { // field return type
+    liked: boolean | null; // Boolean
   }
   Fleet: { // field return type
     author: NexusGenRootTypes['User'] | null; // User
@@ -192,36 +184,31 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     deleteFleet: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
+    deleteReply: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
     follow: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
-    postFleet: NexusGenRootTypes['PostFleetResponse'] | null; // PostFleetResponse
-    signIn: NexusGenRootTypes['SignInResponse'] | null; // SignInResponse
+    likeFleet: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
+    postFleet: NexusGenRootTypes['Fleet'] | null; // Fleet
+    reply: NexusGenRootTypes['Reply'] | null; // Reply
+    signIn: NexusGenRootTypes['TokenResponse'] | null; // TokenResponse
     signOut: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
-    signUp: NexusGenRootTypes['SignUpResponse'] | null; // SignUpResponse
+    signUp: NexusGenRootTypes['User'] | null; // User
     unfollow: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
-  }
-  PostFleetResponse: { // field return type
-    fleet: NexusGenRootTypes['Fleet'] | null; // Fleet
-    success: boolean | null; // Boolean
+    unlikeFleet: NexusGenRootTypes['SuccessResponse'] | null; // SuccessResponse
   }
   Query: { // field return type
     allFleets: Array<NexusGenRootTypes['Fleet'] | null> | null; // [Fleet]
     allUsers: Array<NexusGenRootTypes['User'] | null> | null; // [User]
     checkFollow: NexusGenRootTypes['CheckFollowResponse'] | null; // CheckFollowResponse
+    checkLike: NexusGenRootTypes['CheckLikeResponse'] | null; // CheckLikeResponse
     fleet: NexusGenRootTypes['TimelineFleet'] | null; // TimelineFleet
     followCount: NexusGenRootTypes['FollowCountResponse'] | null; // FollowCountResponse
     followUsers: NexusGenRootTypes['FollowUsersResponse'] | null; // FollowUsersResponse
     homePageFleets: Array<NexusGenRootTypes['TimelineFleet'] | null> | null; // [TimelineFleet]
     isAdmin: boolean | null; // Boolean
-    refreshToken: NexusGenRootTypes['RefreshTokenResponse'] | null; // RefreshTokenResponse
+    refreshToken: NexusGenRootTypes['TokenResponse'] | null; // TokenResponse
     user: NexusGenRootTypes['User'] | null; // User
     userInfo: NexusGenRootTypes['User'] | null; // User
     userTimeline: Array<NexusGenRootTypes['TimelineFleet'] | null> | null; // [TimelineFleet]
-  }
-  RefreshTokenResponse: { // field return type
-    id: number | null; // Int
-    refreshToken: string | null; // String
-    success: boolean | null; // Boolean
-    token: string | null; // String
   }
   Reply: { // field return type
     body: string | null; // String
@@ -233,22 +220,18 @@ export interface NexusGenFieldTypes {
     user: NexusGenRootTypes['User'] | null; // User
     userId: number | null; // Int
   }
-  SignInResponse: { // field return type
-    id: number | null; // Int
-    refreshToken: string | null; // String
-    success: boolean | null; // Boolean
-    token: string | null; // String
-  }
-  SignUpResponse: { // field return type
-    success: boolean | null; // Boolean
-    user: NexusGenRootTypes['User'] | null; // User
-  }
   SuccessResponse: { // field return type
     success: boolean | null; // Boolean
   }
   TimelineFleet: { // field return type
     liked: boolean | null; // Boolean
     post: NexusGenRootTypes['Fleet'] | null; // Fleet
+  }
+  TokenResponse: { // field return type
+    id: number | null; // Int
+    refreshToken: string | null; // String
+    success: boolean | null; // Boolean
+    token: string | null; // String
   }
   User: { // field return type
     bio: string | null; // String
@@ -271,6 +254,9 @@ export interface NexusGenFieldTypes {
 export interface NexusGenFieldTypeNames {
   CheckFollowResponse: { // field return type name
     follows: 'Boolean'
+  }
+  CheckLikeResponse: { // field return type name
+    liked: 'Boolean'
   }
   Fleet: { // field return type name
     author: 'User'
@@ -310,36 +296,31 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     deleteFleet: 'SuccessResponse'
+    deleteReply: 'SuccessResponse'
     follow: 'SuccessResponse'
-    postFleet: 'PostFleetResponse'
-    signIn: 'SignInResponse'
+    likeFleet: 'SuccessResponse'
+    postFleet: 'Fleet'
+    reply: 'Reply'
+    signIn: 'TokenResponse'
     signOut: 'SuccessResponse'
-    signUp: 'SignUpResponse'
+    signUp: 'User'
     unfollow: 'SuccessResponse'
-  }
-  PostFleetResponse: { // field return type name
-    fleet: 'Fleet'
-    success: 'Boolean'
+    unlikeFleet: 'SuccessResponse'
   }
   Query: { // field return type name
     allFleets: 'Fleet'
     allUsers: 'User'
     checkFollow: 'CheckFollowResponse'
+    checkLike: 'CheckLikeResponse'
     fleet: 'TimelineFleet'
     followCount: 'FollowCountResponse'
     followUsers: 'FollowUsersResponse'
     homePageFleets: 'TimelineFleet'
     isAdmin: 'Boolean'
-    refreshToken: 'RefreshTokenResponse'
+    refreshToken: 'TokenResponse'
     user: 'User'
     userInfo: 'User'
     userTimeline: 'TimelineFleet'
-  }
-  RefreshTokenResponse: { // field return type name
-    id: 'Int'
-    refreshToken: 'String'
-    success: 'Boolean'
-    token: 'String'
   }
   Reply: { // field return type name
     body: 'String'
@@ -351,22 +332,18 @@ export interface NexusGenFieldTypeNames {
     user: 'User'
     userId: 'Int'
   }
-  SignInResponse: { // field return type name
-    id: 'Int'
-    refreshToken: 'String'
-    success: 'Boolean'
-    token: 'String'
-  }
-  SignUpResponse: { // field return type name
-    success: 'Boolean'
-    user: 'User'
-  }
   SuccessResponse: { // field return type name
     success: 'Boolean'
   }
   TimelineFleet: { // field return type name
     liked: 'Boolean'
     post: 'Fleet'
+  }
+  TokenResponse: { // field return type name
+    id: 'Int'
+    refreshToken: 'String'
+    success: 'Boolean'
+    token: 'String'
   }
   User: { // field return type name
     bio: 'String'
@@ -391,11 +368,21 @@ export interface NexusGenArgTypes {
     deleteFleet: { // args
       id: number; // Int!
     }
+    deleteReply: { // args
+      id: number; // Int!
+    }
     follow: { // args
+      id: number; // Int!
+    }
+    likeFleet: { // args
       id: number; // Int!
     }
     postFleet: { // args
       body: string; // String!
+    }
+    reply: { // args
+      body: string; // String!
+      fleetId: number; // Int!
     }
     signIn: { // args
       email: string; // String!
@@ -411,9 +398,15 @@ export interface NexusGenArgTypes {
     unfollow: { // args
       id: number; // Int!
     }
+    unlikeFleet: { // args
+      id: number; // Int!
+    }
   }
   Query: {
     checkFollow: { // args
+      id: number; // Int!
+    }
+    checkLike: { // args
       id: number; // Int!
     }
     fleet: { // args
