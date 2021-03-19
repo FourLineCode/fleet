@@ -22,6 +22,7 @@ const main = async () => {
 			displayName: 'Akmal Hossain',
 			bio: 'I created this website lmao',
 			isAdmin: true,
+			avatarURL: 'https://github.com/FourLineCode.png',
 		},
 	})
 

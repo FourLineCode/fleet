@@ -75,6 +75,7 @@ type Query {
   followUsers(id: Int!): FollowUsersResponse
   homePageFleets: [TimelineFleet]
   isAdmin(id: Int!): Boolean
+  recommend: [User]
   refreshToken: TokenResponse
   user(id: Int!): User
   userInfo(id: Int!): User
