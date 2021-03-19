@@ -1,4 +1,3 @@
-import React from 'react'
 import IconProps from './iconProps'
 
 const VerifiedIcon = ({ className }: IconProps) => (

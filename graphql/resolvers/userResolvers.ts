@@ -82,7 +82,7 @@ export const signUp = mutationField('signUp', {
 			},
 		})
 
-		return { user }
+		return user
 	},
 })
 

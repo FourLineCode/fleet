@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import SearchIcon from '../../ui/icons/SearchIcon'
 
 const SearchBar = () => {

@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import React from 'react'
 import useAuthorization from '../../hooks/useAuthorization'
 import MenuLink from '../../ui/components/MenuLink'
 import GithubIcon from '../../ui/icons/GithubIcon'

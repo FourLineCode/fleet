@@ -1,4 +1,3 @@
-import React from 'react'
 import FleetDetails from '../../components/Fleet/FleetDetails'
 import ProtectedLayout from '../../components/Layouts/ProtectedLayout'
 import Menu from '../../components/Navigation/Menu'

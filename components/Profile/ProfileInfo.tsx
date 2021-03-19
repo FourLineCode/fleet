@@ -1,5 +1,4 @@
 import { format } from 'date-fns'
-import React from 'react'
 
 interface Props {
 	bio: string | null

@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import useAuthorization from '../../hooks/useAuthorization'
 import useCurrentUser from '../../hooks/useCurrentUser'
 import { UserState } from '../../store/reducers/types'

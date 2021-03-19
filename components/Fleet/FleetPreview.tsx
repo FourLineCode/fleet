@@ -1,5 +1,4 @@
 import { formatDistanceToNow } from 'date-fns'
-import React from 'react'
 import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
 import { FleetType } from './Timeline'
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import ClockIcon from '../../ui/icons/ClockIcon'
 
 interface Props {

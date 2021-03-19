@@ -1,7 +1,7 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { AppProps } from 'next/app'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { QueryClientProvider } from 'react-query'
 import { useDispatch } from 'react-redux'
 import TopProgressBar from '../components/Layouts/TopProgressBar'

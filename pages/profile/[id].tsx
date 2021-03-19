@@ -1,4 +1,3 @@
-import React from 'react'
 import ProtectedLayout from '../../components/Layouts/ProtectedLayout'
 import Menu from '../../components/Navigation/Menu'
 import ProfileCard from '../../components/Profile/ProfileCard'

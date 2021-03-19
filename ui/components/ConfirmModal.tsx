@@ -7,7 +7,7 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from '@chakra-ui/react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import Button from './Button'
 
 interface Props {
