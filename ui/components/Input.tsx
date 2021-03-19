@@ -9,7 +9,7 @@ interface Props {
 	className?: string
 }
 
-const Input = React.forwardRef<HTMLInputElement, Props>(({ label, placeholder, type, name, className }, ref) => {
+export const Input = React.forwardRef<HTMLInputElement, Props>(({ label, placeholder, type, name, className }, ref) => {
 	return (
 		<>
 			<label htmlFor={name} className='pl-1 text-black dark:text-white'>
@@ -29,5 +29,3 @@ const Input = React.forwardRef<HTMLInputElement, Props>(({ label, placeholder, t
 		</>
 	)
 })
-
-export default Input

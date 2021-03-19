@@ -9,8 +9,8 @@ import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
-import UserInfo from '../Recommend/UserInfo'
-import RecommendSuspense from '../Suspense/RecommendSuspense'
+import { UserInfo } from '../Recommend/UserInfo'
+import { RecommendSuspense } from '../Suspense/RecommendSuspense'
 
 interface Props {
 	tabType: TabTypes
@@ -26,7 +26,7 @@ export const Tabs: Record<TabTypes, TabTypes> = {
 	following: 'following',
 }
 
-const FollowDetails = ({ tabType, isOpen, onOpen, onClose }: Props) => {
+export const FollowDetails = ({ tabType, isOpen, onOpen, onClose }: Props) => {
 	const router = useRouter()
 	const dispatch = useDispatch()
 	const queryClient = useQueryClient()
@@ -113,5 +113,3 @@ const FollowDetails = ({ tabType, isOpen, onOpen, onClose }: Props) => {
 		</Modal>
 	)
 }
-
-export default FollowDetails

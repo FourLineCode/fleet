@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { useAuthorization } from '../../hooks/useAuthorization'
-import Layout from './Layout'
+import { Layout } from './Layout'
 
 interface Props {
 	children?: React.ReactNode
@@ -8,7 +8,7 @@ interface Props {
 	desc?: string
 }
 
-const ProtectedLayout = ({ children, title, desc }: Props) => {
+export const ProtectedLayout = ({ children, title, desc }: Props) => {
 	const auth = useAuthorization()
 	const router = useRouter()
 
@@ -26,5 +26,3 @@ const ProtectedLayout = ({ children, title, desc }: Props) => {
 		</>
 	)
 }
-
-export default ProtectedLayout

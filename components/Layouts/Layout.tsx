@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import { fleetIconURL } from '../../ui/icons/FleetIcon'
-import Navbar from '../Navigation/Navbar'
-import Footer from './Footer'
+import { Navbar } from '../Navigation/Navbar'
+import { Footer } from './Footer'
 
 interface Props {
 	children?: React.ReactNode
@@ -9,7 +9,7 @@ interface Props {
 	desc?: string
 }
 
-const Layout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communication' }: Props) => (
+export const Layout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communication' }: Props) => (
 	<div>
 		<Head>
 			<title>{title} | Fleet</title>
@@ -23,5 +23,3 @@ const Layout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communic
 		<Footer />
 	</div>
 )
-
-export default Layout

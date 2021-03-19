@@ -4,7 +4,7 @@ import { Context } from '../context'
 import { checkAuth } from '../utils/checkAuth'
 import { createCookie } from '../utils/createCookie'
 import { signToken, verifyToken } from '../utils/jwt'
-import registerShema from '../validation/registerSchema'
+import { registerShema } from '../validation/registerSchema'
 
 export const allUsers = queryField('allUsers', {
 	type: list('User'),

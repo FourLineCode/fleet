@@ -10,9 +10,9 @@ import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
 import { BASE_URL } from '../../utils/config'
 import { queryClient, queryTypes } from '../../utils/query'
-import FleetDetailsSuspense from '../Suspense/FleetDetailsSuspense'
-import FleetView from './FleetView'
-import Reply from './Reply'
+import { FleetDetailsSuspense } from '../Suspense/FleetDetailsSuspense'
+import { FleetView } from './FleetView'
+import { Reply } from './Reply'
 
 export interface ReplyType {
 	id: string
@@ -21,7 +21,7 @@ export interface ReplyType {
 	createdAt: string
 }
 
-const FleetDetails = () => {
+export const FleetDetails = () => {
 	const user = useCurrentUser()
 	const router = useRouter()
 	const { id } = router.query
@@ -81,5 +81,3 @@ const FleetDetails = () => {
 		</div>
 	)
 }
-
-export default FleetDetails

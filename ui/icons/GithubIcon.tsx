@@ -1,6 +1,6 @@
-import IconProps from './iconProps'
+import { IconProps } from './iconProps'
 
-const GithubIcon = ({ className }: IconProps) => (
+export const GithubIcon = ({ className }: IconProps) => (
 	<svg
 		className={className}
 		fill='currentColor'
@@ -16,5 +16,3 @@ const GithubIcon = ({ className }: IconProps) => (
 		/>
 	</svg>
 )
-
-export default GithubIcon

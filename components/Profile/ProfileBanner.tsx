@@ -2,7 +2,7 @@ interface Props {
 	isAdmin: boolean
 }
 
-const ProfileBanner = ({ isAdmin }: Props) => {
+export const ProfileBanner = ({ isAdmin }: Props) => {
 	return (
 		<>
 			<div className='relative w-full h-60'>
@@ -23,5 +23,3 @@ const ProfileBanner = ({ isAdmin }: Props) => {
 		</>
 	)
 }
-
-export default ProfileBanner

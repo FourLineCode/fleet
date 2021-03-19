@@ -1,14 +1,14 @@
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useAuthorization } from '../../hooks/useAuthorization'
-import IconButton from '../../ui/components/IconButton'
-import FleetIcon from '../../ui/icons/FleetIcon'
-import MoonIcon from '../../ui/icons/MoonIcon'
-import SunIcon from '../../ui/icons/SunIcon'
-import SignedInLinks from './SignedInLinks'
-import SignedOutLinks from './SignedOutLinks'
+import { IconButton } from '../../ui/components/IconButton'
+import { FleetIcon } from '../../ui/icons/FleetIcon'
+import { MoonIcon } from '../../ui/icons/MoonIcon'
+import { SunIcon } from '../../ui/icons/SunIcon'
+import { SignedInLinks } from './SignedInLinks'
+import { SignedOutLinks } from './SignedOutLinks'
 
-const Navbar = () => {
+export const Navbar = () => {
 	const { signedIn } = useAuthorization()
 	const { theme, setTheme } = useTheme()
 	const redirect = signedIn ? '/home' : '/'
@@ -46,5 +46,3 @@ const Navbar = () => {
 		</nav>
 	)
 }
-
-export default Navbar

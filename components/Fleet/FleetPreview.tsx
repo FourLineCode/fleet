@@ -1,12 +1,12 @@
 import { formatDistanceToNow } from 'date-fns'
-import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
 import { FleetType } from './Timeline'
 
 interface Props {
 	fleet: FleetType
 }
 
-const FleetPreview = ({ fleet }: Props) => {
+export const FleetPreview = ({ fleet }: Props) => {
 	return (
 		<div className='w-full px-2 py-2 mb-3 border rounded-lg shadow-xl border-dark-700'>
 			<div className='flex space-x-1'>
@@ -43,5 +43,3 @@ const FleetPreview = ({ fleet }: Props) => {
 		</div>
 	)
 }
-
-export default FleetPreview

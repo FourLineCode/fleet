@@ -1,5 +1,5 @@
-import Layout from '../components/Layouts/Layout'
-import NotFoundIllustration from '../ui/Illustrations/NotFoundIllustration'
+import { Layout } from '../components/Layouts/Layout'
+import { NotFoundIllustration } from '../ui/Illustrations/NotFoundIllustration'
 
 const NotFound = () => {
 	return (

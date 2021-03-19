@@ -1,8 +1,8 @@
 import { intArg, list, mutationField, nonNull, queryField, stringArg } from 'nexus'
 import { Context } from '../context'
 import { checkAuth } from '../utils/checkAuth'
-import fleetSchema from '../validation/fleetSchema'
-import replySchema from '../validation/replySchema'
+import { fleetSchema } from '../validation/fleetSchema'
+import { replySchema } from '../validation/replySchema'
 
 export const allFleets = queryField('allFleets', {
 	type: list('Fleet'),

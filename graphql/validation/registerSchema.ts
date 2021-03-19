@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const registerShema = Joi.object({
+export const registerShema = Joi.object({
 	email: Joi.string().email().required(),
 	password: Joi.string().min(6).max(18).required(),
 	username: Joi.string()
@@ -12,5 +12,3 @@ const registerShema = Joi.object({
 	bio: Joi.string().min(0).max(256).allow(''),
 	isAdmin: Joi.boolean(),
 })
-
-export default registerShema
