@@ -6,12 +6,10 @@ interface Props {
 	children: React.ReactNode
 }
 
-const IconButton = ({ className, onClick, children }: Props) => {
+export const IconButton = ({ className, onClick, children }: Props) => {
 	return (
 		<button className={clsx(className, 'p-1 focus:outline-none')} onClick={onClick}>
 			{children}
 		</button>
 	)
 }
-
-export default IconButton

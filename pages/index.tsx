@@ -1,8 +1,8 @@
 import { Alert, AlertIcon } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-import Layout from '../components/Layouts/Layout'
+import { Layout } from '../components/Layouts/Layout'
 import { useAuthorization } from '../hooks/useAuthorization'
-import Button from '../ui/components/Button'
+import { Button } from '../ui/components/Button'
 
 const Index = () => {
 	const auth = useAuthorization()

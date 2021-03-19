@@ -9,18 +9,18 @@ import { useDispatch } from 'react-redux'
 import { useAuthorization } from '../../hooks/useAuthorization'
 import { setError } from '../../store/actions/notificationActions'
 import { UserState } from '../../store/reducers/types'
-import Button from '../../ui/components/Button'
-import ErrorIcon from '../../ui/icons/ErrorIcon'
-import VerifiedFilledIcon from '../../ui/icons/VerifiedFilledIcon'
+import { Button } from '../../ui/components/Button'
+import { ErrorIcon } from '../../ui/icons/ErrorIcon'
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
 import { BASE_URL } from '../../utils/config'
 import { queryTypes } from '../../utils/query'
-import ProfileSuspense from '../Suspense/ProfileSuspense'
-import FollowDetails, { Tabs, TabTypes } from './FollowDetails'
-import ProfileBanner from './ProfileBanner'
-import ProfileInfo from './ProfileInfo'
-import ProfileTimeline from './ProfileTimeline'
+import { ProfileSuspense } from '../Suspense/ProfileSuspense'
+import { FollowDetails, Tabs, TabTypes } from './FollowDetails'
+import { ProfileBanner } from './ProfileBanner'
+import { ProfileInfo } from './ProfileInfo'
+import { ProfileTimeline } from './ProfileTimeline'
 
-const ProfileCard = () => {
+export const ProfileCard = () => {
 	const router = useRouter()
 	const { id } = router.query
 	const auth = useAuthorization()
@@ -208,5 +208,3 @@ const ProfileCard = () => {
 		</div>
 	)
 }
-
-export default ProfileCard

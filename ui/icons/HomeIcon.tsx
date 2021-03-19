@@ -1,6 +1,6 @@
-import IconProps from './iconProps'
+import { IconProps } from './iconProps'
 
-const HomeIcon = ({ className }: IconProps) => (
+export const HomeIcon = ({ className }: IconProps) => (
 	<svg className={className} xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
 		<path
 			strokeLinecap='round'
@@ -10,5 +10,3 @@ const HomeIcon = ({ className }: IconProps) => (
 		/>
 	</svg>
 )
-
-export default HomeIcon

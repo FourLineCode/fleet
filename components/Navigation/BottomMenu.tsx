@@ -1,17 +1,17 @@
 import { useRouter } from 'next/router'
 import { useAuthorization } from '../../hooks/useAuthorization'
-import MenuLink from '../../ui/components/MenuLink'
-import GithubIcon from '../../ui/icons/GithubIcon'
-import HomeIcon from '../../ui/icons/HomeIcon'
-import MessageIcon from '../../ui/icons/MessageIcon'
-import PlusIcon from '../../ui/icons/PlusIcon'
-import ProfileIcon from '../../ui/icons/ProfileIcon'
+import { MenuLink } from '../../ui/components/MenuLink'
+import { GithubIcon } from '../../ui/icons/GithubIcon'
+import { HomeIcon } from '../../ui/icons/HomeIcon'
+import { MessageIcon } from '../../ui/icons/MessageIcon'
+import { PlusIcon } from '../../ui/icons/PlusIcon'
+import { ProfileIcon } from '../../ui/icons/ProfileIcon'
 
 interface Props {
 	onOpen: () => void
 }
 
-const BottomMenu = ({ onOpen }: Props) => {
+export const BottomMenu = ({ onOpen }: Props) => {
 	const auth = useAuthorization()
 	const { pathname } = useRouter()
 
@@ -45,5 +45,3 @@ const BottomMenu = ({ onOpen }: Props) => {
 		</div>
 	)
 }
-
-export default BottomMenu

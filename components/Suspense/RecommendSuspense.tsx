@@ -1,4 +1,4 @@
-const RecommendSuspense = () => {
+export const RecommendSuspense = () => {
 	return (
 		<>
 			<div className='flex items-center justify-between w-full h-16 p-2 border rounded-lg shadow-xl border-dark-700 animate-pulse'>
@@ -31,5 +31,3 @@ const RecommendSuspense = () => {
 		</>
 	)
 }
-
-export default RecommendSuspense

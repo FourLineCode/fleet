@@ -9,7 +9,7 @@ const Tabs: Record<TabType, TabType> = {
 	posts: 'posts',
 }
 
-const SearchResult = () => {
+export const SearchResult = () => {
 	const router = useRouter()
 	const { query } = router.query
 	const [tab, setTab] = useState<TabType>(Tabs.users)
@@ -50,5 +50,3 @@ const SearchResult = () => {
 		</div>
 	)
 }
-
-export default SearchResult

@@ -10,8 +10,8 @@ import wrapper from '../store'
 import { refreshAuthToken } from '../store/actions/authActions'
 import * as actions from '../store/types'
 import '../styles/index.css'
-import Notification from '../ui/components/Notification'
-import theme from '../ui/themes/ChakraTheme'
+import { Notification } from '../ui/components/Notification'
+import { theme } from '../ui/themes/ChakraTheme'
 import { queryClient } from '../utils/query'
 
 const App = ({ Component, pageProps }: AppProps) => {
