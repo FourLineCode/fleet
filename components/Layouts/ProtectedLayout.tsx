@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import useAuthorization from '../../hooks/useAuthorization'
+import { useAuthorization } from '../../hooks/useAuthorization'
 import Layout from './Layout'
 
 interface Props {

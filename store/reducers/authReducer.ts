@@ -8,7 +8,7 @@ const initState: AuthState = {
 	refreshing: 'init',
 }
 
-const authReducer = (state = initState, { type, payload }: ActionTypes) => {
+export const authReducer = (state = initState, { type, payload }: ActionTypes) => {
 	switch (type) {
 		case actions.SIGN_IN: {
 			return {
@@ -41,5 +41,3 @@ const authReducer = (state = initState, { type, payload }: ActionTypes) => {
 			return state
 	}
 }
-
-export default authReducer
