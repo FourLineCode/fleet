@@ -2,7 +2,7 @@ import { createContext, useState } from 'react'
 import { UserState } from './types'
 
 interface UserContextType {
-	id?: string
+	id?: number
 	username?: string
 	displayName?: string
 	bio?: string
@@ -30,7 +30,7 @@ interface Props {
 }
 
 export const UserContextProvider = ({ children }: Props) => {
-	const [id, setId] = useState<string | undefined>(undefined)
+	const [id, setId] = useState<number | undefined>(undefined)
 	const [username, setUsername] = useState<string | undefined>(undefined)
 	const [displayName, setDisplayName] = useState<string | undefined>(undefined)
 	const [bio, setBio] = useState<string | undefined>(undefined)
