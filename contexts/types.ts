@@ -1,12 +1,12 @@
 export interface AuthState {
 	signedIn: boolean
-	id?: string
+	id?: number
 	token?: string
 	refreshToken?: string
 }
 
 export interface UserState {
-	id?: string
+	id?: number
 	username?: string
 	displayName?: string
 	bio?: string

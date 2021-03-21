@@ -118,7 +118,10 @@ export const signIn = mutationField('signIn', {
 
 		const refreshToken = signToken(payload, '1y', 'REFRESH')
 
-		res.setHeader('Set-Cookie', [createCookie('refresh-token', refreshToken, 365)])
+		res.setHeader('Set-Cookie', [
+			createCookie('auth-token', token, 1),
+			createCookie('refresh-token', refreshToken, 365),
+		])
 
 		return {
 			success: true,

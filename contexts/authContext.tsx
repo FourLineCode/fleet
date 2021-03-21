@@ -7,7 +7,7 @@ import { UserContext } from './userContext'
 
 interface AuthContextType {
 	signedIn: boolean
-	id?: string
+	id?: number
 	token?: string
 	refreshToken?: string
 	signIn: (arg: { email: string; password: string }) => void
@@ -31,7 +31,7 @@ interface Props {
 
 export const AuthContextProvider = ({ children }: Props) => {
 	const [signedIn, setSignedIn] = useState<boolean>(false)
-	const [id, setId] = useState<string | undefined>(undefined)
+	const [id, setId] = useState<number | undefined>(undefined)
 	const [token, setToken] = useState<string | undefined>(undefined)
 	const [refreshToken, setRefreshToken] = useState<string | undefined>(undefined)
 
@@ -56,11 +56,11 @@ export const AuthContextProvider = ({ children }: Props) => {
 			},
 		})
 
-		setAuthInfo(data)
+		setAuthInfo(data.signIn)
 	}
 
 	const setAuthInfo = async (payload: AuthState) => {
-		setSignedIn(payload.signedIn)
+		setSignedIn(true)
 		setId(payload.id)
 		setToken(payload.token)
 		setRefreshToken(payload.refreshToken)
