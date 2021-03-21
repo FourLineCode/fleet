@@ -4,12 +4,15 @@ interface NotificationContextType {
 	message: string
 	type: 'error' | 'success'
 	trigger: boolean
+}
+
+interface NotificationContextProperty extends NotificationContextType {
 	showErrorMessage: (arg: string) => void
 	showSuccessMessage: (arg: string) => void
 	clearNotification: () => void
 }
 
-export const NotificationContext = createContext<NotificationContextType>({
+export const NotificationContext = createContext<NotificationContextProperty>({
 	message: '',
 	type: 'success',
 	trigger: false,
@@ -23,40 +26,49 @@ interface Props {
 }
 
 export const NotificationContextProvider = ({ children }: Props) => {
-	const [message, setMessage] = useState<string>('')
-	const [type, setType] = useState<'error' | 'success'>('success')
-	const [trigger, setTrigger] = useState<boolean>(false)
+	const [notification, setNotification] = useState<NotificationContextType>({
+		message: '',
+		type: 'success',
+		trigger: false,
+	})
 
 	const showErrorMessage = (error: string) => {
-		setType('error')
-		setMessage(error)
-		setTrigger(true)
+		setNotification({
+			message: error,
+			type: 'error',
+			trigger: true,
+		})
 
 		const timeout = setTimeout(() => {
-			setTrigger(false)
+			setNotification((prev) => ({ ...prev, trigger: false }))
 			clearTimeout(timeout)
 		}, 100)
 	}
 
 	const showSuccessMessage = (success: string) => {
-		setType('success')
-		setMessage(success)
-		setTrigger(true)
+		setNotification({
+			message: success,
+			type: 'success',
+			trigger: true,
+		})
 
 		const timeout = setTimeout(() => {
-			setTrigger(false)
+			setNotification((prev) => ({ ...prev, trigger: false }))
 			clearTimeout(timeout)
 		}, 100)
 	}
 
 	const clearNotification = () => {
-		setMessage('')
-		setType('success')
+		setNotification((prev) => ({
+			...prev,
+			message: '',
+			type: 'success',
+		}))
 	}
 
 	return (
 		<NotificationContext.Provider
-			value={{ message, type, trigger, showErrorMessage, showSuccessMessage, clearNotification }}
+			value={{ ...notification, showErrorMessage, showSuccessMessage, clearNotification }}
 		>
 			{children}
 		</NotificationContext.Provider>

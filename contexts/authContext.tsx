@@ -10,12 +10,15 @@ interface AuthContextType {
 	id?: number
 	token?: string
 	refreshToken?: string
+}
+
+interface AuthContextProperty extends AuthContextType {
 	signIn: (arg: { email: string; password: string }) => void
 	setAuthInfo: (arg: AuthState) => void
 	signOut: () => void
 }
 
-export const AuthContext = createContext<AuthContextType>({
+export const AuthContext = createContext<AuthContextProperty>({
 	signedIn: false,
 	id: undefined,
 	token: undefined,
@@ -30,10 +33,12 @@ interface Props {
 }
 
 export const AuthContextProvider = ({ children }: Props) => {
-	const [signedIn, setSignedIn] = useState<boolean>(false)
-	const [id, setId] = useState<number | undefined>(undefined)
-	const [token, setToken] = useState<string | undefined>(undefined)
-	const [refreshToken, setRefreshToken] = useState<string | undefined>(undefined)
+	const [auth, setAuth] = useState<AuthContextType>({
+		signedIn: false,
+		id: undefined,
+		token: undefined,
+		refreshToken: undefined,
+	})
 
 	const notification = useContext(NotificationContext)
 	const user = useContext(UserContext)
@@ -60,10 +65,12 @@ export const AuthContextProvider = ({ children }: Props) => {
 	}
 
 	const setAuthInfo = async (payload: AuthState) => {
-		setSignedIn(true)
-		setId(payload.id)
-		setToken(payload.token)
-		setRefreshToken(payload.refreshToken)
+		setAuth({
+			signedIn: true,
+			id: payload.id,
+			token: payload.token,
+			refreshToken: payload.refreshToken,
+		})
 
 		const { data } = await client.query({
 			query: gql`
@@ -90,19 +97,17 @@ export const AuthContextProvider = ({ children }: Props) => {
 	}
 
 	const signOut = () => {
-		setSignedIn(false)
-		setId(undefined)
-		setToken(undefined)
-		setRefreshToken(undefined)
+		setAuth({
+			signedIn: false,
+			id: undefined,
+			token: undefined,
+			refreshToken: undefined,
+		})
 
 		user.clearCurrentUser()
 
 		notification.showSuccessMessage('Successfully signed out')
 	}
 
-	return (
-		<AuthContext.Provider value={{ signedIn, id, token, refreshToken, setAuthInfo, signIn, signOut }}>
-			{children}
-		</AuthContext.Provider>
-	)
+	return <AuthContext.Provider value={{ ...auth, setAuthInfo, signIn, signOut }}>{children}</AuthContext.Provider>
 }
