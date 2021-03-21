@@ -1,28 +1,66 @@
-import { useRouter } from 'next/router'
+import { gql } from '@apollo/client'
+import { GetServerSideProps } from 'next'
+import { useEffect } from 'react'
+import { AuthState } from '../../contexts/types'
 import { useAuthorization } from '../../hooks/useAuthorization'
-import { Layout } from './Layout'
+import { client } from '../../utils/apollo'
+import { BaseLayout } from './BaseLayout'
 
 interface Props {
 	children?: React.ReactNode
 	title?: string
 	desc?: string
+	auth?: AuthState
 }
 
-export const ProtectedLayout = ({ children, title, desc }: Props) => {
-	const auth = useAuthorization()
-	const router = useRouter()
+export const ProtectedLayout = ({ children, title, desc, auth }: Props) => {
+	const { setAuthInfo } = useAuthorization()
 
-	if (!auth.signedIn && auth.refreshing === 'done' && process.browser) {
-		router.push('/signin?redirect=true')
-	}
+	useEffect(() => {
+		if (auth && auth.signedIn) {
+			setAuthInfo(auth)
+		}
+	}, [auth])
 
 	return (
-		<>
-			{auth.signedIn && (
-				<Layout title={title} desc={desc}>
-					{children}
-				</Layout>
-			)}
-		</>
+		<BaseLayout title={title} desc={desc}>
+			{children}
+		</BaseLayout>
 	)
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+	const { data } = await client.query({
+		query: gql`
+			query Authentication {
+				refreshToken {
+					success
+					id
+					token
+					refreshToken
+				}
+			}
+		`,
+	})
+
+	if (data.success) {
+		return {
+			props: {
+				auth: {
+					signedIn: data.success,
+					id: data.id,
+					token: data.token,
+					refreshToken: data.refreshToken,
+				},
+			},
+		}
+	}
+
+	return {
+		props: {},
+		redirect: {
+			destination: '/signin?redirect=true',
+			permanent: false,
+		},
+	}
 }

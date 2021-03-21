@@ -1,23 +1,19 @@
 import { Menu, Transition } from '@headlessui/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
+import { useAuthorization } from '../../hooks/useAuthorization'
 import { useCurrentUser } from '../../hooks/useCurrentUser'
-import { signout } from '../../store/actions/authActions'
 import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
 import { SearchBar } from '../Search/SearchBar'
 
 export const SignedInLinks = () => {
 	const user = useCurrentUser()
-	const dispatch = useDispatch()
-	const queryClient = useQueryClient()
+	const auth = useAuthorization()
 
 	const signoutHandler = (e: React.MouseEvent) => {
 		e.preventDefault()
 
-		queryClient.clear()
-		dispatch(signout())
+		auth.signOut()
 	}
 
 	return (

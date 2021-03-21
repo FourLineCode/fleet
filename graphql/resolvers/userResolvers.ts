@@ -118,10 +118,7 @@ export const signIn = mutationField('signIn', {
 
 		const refreshToken = signToken(payload, '1y', 'REFRESH')
 
-		res.setHeader('Set-Cookie', [
-			createCookie('auth-token', token, 1),
-			createCookie('refresh-token', refreshToken, 365),
-		])
+		res.setHeader('Set-Cookie', [createCookie('refresh-token', refreshToken, 365)])
 
 		return {
 			success: true,
@@ -155,7 +152,12 @@ export const refreshToken = queryField('refreshToken', {
 		const refreshToken = req.cookies['refresh-token'] as string
 
 		if (!refreshToken) {
-			throw new Error('You do not have a refresh token')
+			return {
+				success: false,
+				id: null,
+				token: null,
+				refreshToken: null,
+			}
 		}
 
 		const verifiedUser = verifyToken(refreshToken, 'REFRESH')

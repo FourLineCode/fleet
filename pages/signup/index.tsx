@@ -1,20 +1,27 @@
-import axios from 'axios'
+import { gql, useMutation } from '@apollo/client'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
 import { Layout } from '../../components/Layouts/Layout'
-import { signin } from '../../store/actions/authActions'
-import { setError, setSuccess } from '../../store/actions/notificationActions'
+import { useAuthorization } from '../../hooks/useAuthorization'
+import { useNotification } from '../../hooks/useNotification'
 import { Button } from '../../ui/components/Button'
 import { Input } from '../../ui/components/Input'
 import { TextArea } from '../../ui/components/TextArea'
-import { BASE_URL } from '../../utils/config'
 
 const Signup = () => {
 	const router = useRouter()
-	const dispatch = useDispatch()
 	const emailRef = useRef<HTMLInputElement>(null)
+	const notification = useNotification()
+	const auth = useAuthorization()
+
+	const [mutate, { data: signUpResponseData }] = useMutation(gql`
+		mutation SingnUp($email: String!, $password: String!, $username: String!, $displayName: String!, $bio: Stirng) {
+			signUp(email: $email, password: $password, username: $username, displayName: $displayName, bio: $bio) {
+				id
+			}
+		}
+	`)
 
 	const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -31,12 +38,12 @@ const Signup = () => {
 			password === '' ||
 			confirmPassword === ''
 		) {
-			dispatch(setError('One or more fields are empty'))
+			notification.showErrorMessage('One or more fields are empty')
 			return
 		}
 
 		if (password !== confirmPassword) {
-			dispatch(setError('Passwords do not match'))
+			notification.showErrorMessage('Passwords do not match')
 			return
 		}
 
@@ -44,23 +51,24 @@ const Signup = () => {
 			email: formData.get('email') as string,
 			username: formData.get('username') as string,
 			displayName: formData.get('displayName') as string,
-			bio: formData.get('bio'),
+			bio: formData.get('bio') as string,
 			password: formData.get('password') as string,
 		}
 
 		try {
-			const response = await axios.post(`${BASE_URL}/user/signup`, data)
-			const { success } = response.data
-			if (success) {
-				dispatch(signin({ email: data.email, password: data.password }))
-				dispatch(setSuccess('Successfully signed up'))
+			mutate({ variables: data })
+
+			if (signUpResponseData.id) {
+				auth.signIn({ email: data.email, password: data.password })
+
+				notification.showSuccessMessage('Successfully signed up')
 				router.push('/home')
 			}
 		} catch (err) {
 			if (err.response.data.message.startsWith('E11000')) {
-				return dispatch(setError('User already exists with given username'))
+				return notification.showErrorMessage('User already exists with given username')
 			}
-			dispatch(setError(err.response.data.message))
+			notification.showErrorMessage(err.response.data.message)
 		}
 	}
 

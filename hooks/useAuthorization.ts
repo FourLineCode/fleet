@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux'
-import { RootState } from '../store/reducers/types'
+import { useContext } from 'react'
+import { AuthContext } from '../contexts/authContext'
 
 export const useAuthorization = () => {
-	const auth = useSelector((state: RootState) => state.auth)
+	const auth = useContext(AuthContext)
 
 	return auth
 }
