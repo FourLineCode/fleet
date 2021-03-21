@@ -9,11 +9,14 @@ interface UserContextType {
 	avatarURL?: string
 	createdAt?: string
 	isAdmin: boolean
+}
+
+interface UserContextProperty extends UserContextType {
 	setUserInfo: (arg: UserState) => void
 	clearCurrentUser: () => void
 }
 
-export const UserContext = createContext<UserContextType>({
+export const UserContext = createContext<UserContextProperty>({
 	id: undefined,
 	username: undefined,
 	displayName: undefined,
@@ -30,39 +33,39 @@ interface Props {
 }
 
 export const UserContextProvider = ({ children }: Props) => {
-	const [id, setId] = useState<number | undefined>(undefined)
-	const [username, setUsername] = useState<string | undefined>(undefined)
-	const [displayName, setDisplayName] = useState<string | undefined>(undefined)
-	const [bio, setBio] = useState<string | undefined>(undefined)
-	const [avatarURL, setAvatarURL] = useState<string | undefined>(undefined)
-	const [createdAt, setCreatedAt] = useState<string | undefined>(undefined)
-	const [isAdmin, setIsAdmin] = useState<boolean>(false)
+	const [user, setUser] = useState<UserContextType>({
+		id: undefined,
+		username: undefined,
+		displayName: undefined,
+		bio: undefined,
+		avatarURL: undefined,
+		createdAt: undefined,
+		isAdmin: false,
+	})
 
 	const setUserInfo = (payload: UserState) => {
-		setId(payload.id)
-		setUsername(payload.username)
-		setDisplayName(payload.displayName)
-		setBio(payload.bio)
-		setAvatarURL(payload.avatarURL)
-		setCreatedAt(payload.createdAt)
-		setIsAdmin(payload.isAdmin)
+		setUser({
+			id: payload.id,
+			username: payload.username,
+			displayName: payload.displayName,
+			bio: payload.bio,
+			avatarURL: payload.avatarURL,
+			createdAt: payload.createdAt,
+			isAdmin: payload.isAdmin,
+		})
 	}
 
 	const clearCurrentUser = () => {
-		setId(undefined)
-		setUsername(undefined)
-		setDisplayName(undefined)
-		setBio(undefined)
-		setAvatarURL(undefined)
-		setCreatedAt(undefined)
-		setIsAdmin(false)
+		setUser({
+			id: undefined,
+			username: undefined,
+			displayName: undefined,
+			bio: undefined,
+			avatarURL: undefined,
+			createdAt: undefined,
+			isAdmin: false,
+		})
 	}
 
-	return (
-		<UserContext.Provider
-			value={{ id, username, displayName, bio, avatarURL, createdAt, isAdmin, setUserInfo, clearCurrentUser }}
-		>
-			{children}
-		</UserContext.Provider>
-	)
+	return <UserContext.Provider value={{ ...user, setUserInfo, clearCurrentUser }}>{children}</UserContext.Provider>
 }
