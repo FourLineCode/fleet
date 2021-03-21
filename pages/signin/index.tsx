@@ -1,29 +1,26 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
-import { useDispatch } from 'react-redux'
 import { Layout } from '../../components/Layouts/Layout'
 import { useAuthorization } from '../../hooks/useAuthorization'
-import { signin } from '../../store/actions/authActions'
-import { setError, setSuccess } from '../../store/actions/notificationActions'
+import { useNotification } from '../../hooks/useNotification'
 import { Button } from '../../ui/components/Button'
 import { Input } from '../../ui/components/Input'
 
 const Singin = () => {
 	const router = useRouter()
-	const dispatch = useDispatch()
 	const auth = useAuthorization()
+	const notification = useNotification()
 	const emailRef = useRef<HTMLInputElement>(null)
 
 	useEffect(() => {
 		if (Boolean(router.query.redirect)) {
-			dispatch(setError('Please sign in to view this page'))
+			notification.showErrorMessage('Please sign in to view this page')
 		}
 	}, [router.query])
 
 	useEffect(() => {
 		if (auth.signedIn) {
-			dispatch(setSuccess('Successfully signed in'))
 			router.push('/home')
 		}
 	}, [auth])
@@ -34,7 +31,7 @@ const Singin = () => {
 		const formData = new FormData(e.target)
 
 		if (formData.get('email') === '' || formData.get('password') === '') {
-			dispatch(setError('One or more fields are empty'))
+			notification.showErrorMessage('One or more fields are empty')
 			return
 		}
 
@@ -43,7 +40,7 @@ const Singin = () => {
 			password: formData.get('password') as string,
 		}
 
-		dispatch(signin(data))
+		auth.signIn(data)
 	}
 
 	useEffect(() => {

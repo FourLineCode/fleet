@@ -1,5 +1,5 @@
+import { ActionTypes, UserState } from '../../contexts/types'
 import * as actions from '../types'
-import { ActionTypes, UserState } from './types'
 
 const initState: UserState = {
 	id: null,

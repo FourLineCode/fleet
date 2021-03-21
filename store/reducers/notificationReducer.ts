@@ -1,5 +1,5 @@
+import { ActionTypes, NotificationState } from '../../contexts/types'
 import * as actions from '../types'
-import { ActionTypes, NotificationState } from './types'
 
 const initState: NotificationState = {
 	message: '',

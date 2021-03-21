@@ -110,6 +110,7 @@ type TokenResponse {
 }
 
 type User {
+  avatarURL: String
   bio: String
   createdAt: dateTime
   displayName: String

@@ -112,6 +112,7 @@ export interface NexusGenObjects {
     token?: string | null; // String
   }
   User: { // root type
+    avatarURL?: string | null; // String
     bio?: string | null; // String
     createdAt?: NexusGenScalars['dateTime'] | null; // dateTime
     displayName?: string | null; // String
@@ -235,6 +236,7 @@ export interface NexusGenFieldTypes {
     token: string | null; // String
   }
   User: { // field return type
+    avatarURL: string | null; // String
     bio: string | null; // String
     createdAt: NexusGenScalars['dateTime'] | null; // dateTime
     displayName: string | null; // String
@@ -348,6 +350,7 @@ export interface NexusGenFieldTypeNames {
     token: 'String'
   }
   User: { // field return type name
+    avatarURL: 'String'
     bio: 'String'
     createdAt: 'dateTime'
     displayName: 'String'

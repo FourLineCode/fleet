@@ -1,8 +1,8 @@
-import { useSelector } from 'react-redux'
-import { RootState } from '../store/reducers/types'
+import { useContext } from 'react'
+import { UserContext } from '../contexts/userContext'
 
 export const useCurrentUser = () => {
-	const user = useSelector((state: RootState) => state.user)
+	const user = useContext(UserContext)
 
 	return user
 }

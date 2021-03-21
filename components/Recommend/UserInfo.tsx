@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useState } from 'react'
-import { UserState } from '../../store/reducers/types'
+import { UserState } from '../../contexts/types'
 import { RightArrowIcon } from '../../ui/icons/RightArrowIcon'
 import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
 

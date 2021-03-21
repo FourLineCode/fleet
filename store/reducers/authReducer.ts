@@ -1,5 +1,5 @@
+import { ActionTypes, AuthState } from '../../contexts/types'
 import * as actions from '../types'
-import { ActionTypes, AuthState } from './types'
 
 const initState: AuthState = {
 	signedIn: false,

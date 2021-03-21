@@ -11,6 +11,7 @@ export const User = objectType({
 		t.string('password')
 		t.string('username')
 		t.string('displayName')
+		t.nullable.string('avatarURL')
 		t.string('bio')
 		t.boolean('isAdmin')
 		t.list.field('fleet', { type: 'Fleet' })
