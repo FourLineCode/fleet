@@ -46,7 +46,7 @@ export const AuthContextProvider = ({ children }: Props) => {
 	const signIn = async ({ email, password }: { email: string; password: string }) => {
 		const { data } = await client.mutate({
 			mutation: gql`
-				mutation SingnIn($email: String!, $password: String!) {
+				mutation SignIn($email: String!, $password: String!) {
 					signIn(email: $email, password: $password) {
 						success
 						id

@@ -1,3 +1,4 @@
+import { gql, useMutation } from '@apollo/client'
 import {
 	Modal,
 	ModalBody,
@@ -7,17 +8,11 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from '@chakra-ui/react'
-import axios from 'axios'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
-import { setError, setSuccess } from '../../store/actions/notificationActions'
+import { useNotification } from '../../hooks/useNotification'
 import { Button } from '../../ui/components/Button'
 import { TextArea } from '../../ui/components/TextArea'
-import { BASE_URL } from '../../utils/config'
-import { queryTypes } from '../../utils/query'
 
 interface Props {
 	isOpen: boolean
@@ -26,41 +21,55 @@ interface Props {
 }
 
 export const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
-	const queryClient = useQueryClient()
-	const dispatch = useDispatch()
-	const { pathname } = useRouter()
+	// const { pathname } = useRouter()
 	const [body, setBody] = useState('')
 	const inputRef = useRef<HTMLTextAreaElement>(null)
+	const notification = useNotification()
 
-	const composeFleet = async () => {
-		try {
-			await axios.post(`${BASE_URL}/fleet`, { body: body })
-		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
-		}
-	}
-
-	const { mutate, isLoading } = useMutation(composeFleet, {
-		onMutate: () => {
-			onClose()
-			setBody('')
-		},
-		onSuccess: () => {
-			dispatch(setSuccess('Fleet sent'))
-			if (pathname.startsWith('/home')) {
-				queryClient.refetchQueries(queryTypes.FLEETS)
-			} else if (pathname.startsWith('/profile')) {
-				queryClient.refetchQueries(queryTypes.PROFILE_FLEETS)
+	const [composeFleet, { loading }] = useMutation(
+		gql`
+			mutation PostFleet($body: String!) {
+				postFleet(body: $body) {
+					id
+				}
 			}
-		},
-	})
+		`,
+		{
+			variables: {
+				body: body,
+			},
+		}
+	)
+
+	// const composeFleet = async () => {
+	// 	try {
+	// 		await axios.post(`${BASE_URL}/fleet`, { body: body })
+	// 	} catch (error) {
+	// 		if (error.response) dispatch(setError(error.response.data.message))
+	// 	}
+	// }
+
+	// const { mutate, isLoading } = useMutation(composeFleet, {
+	// 	onMutate: () => {
+	// 		onClose()
+	// 		setBody('')
+	// 	},
+	// 	onSuccess: () => {
+	// 		dispatch(setSuccess('Fleet sent'))
+	// 		if (pathname.startsWith('/home')) {
+	// 			queryClient.refetchQueries(queryTypes.FLEETS)
+	// 		} else if (pathname.startsWith('/profile')) {
+	// 			queryClient.refetchQueries(queryTypes.PROFILE_FLEETS)
+	// 		}
+	// 	},
+	// })
 
 	const onSubmit = () => {
 		if (body === '') {
-			dispatch(setError('Fleet cannot be empty'))
+			notification.showErrorMessage('Fleet cannot be empty')
 		}
-		if (body !== '' && !isLoading) {
-			mutate()
+		if (body !== '' && !loading) {
+			composeFleet()
 		}
 	}
 
