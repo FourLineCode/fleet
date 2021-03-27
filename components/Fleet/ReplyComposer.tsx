@@ -1,3 +1,4 @@
+import { gql, useMutation } from '@apollo/client'
 import {
 	Modal,
 	ModalBody,
@@ -7,17 +8,11 @@ import {
 	ModalHeader,
 	ModalOverlay,
 } from '@chakra-ui/react'
-import axios from 'axios'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
-import { setError, setSuccess } from '../../store/actions/notificationActions'
+import { useNotification } from '../../hooks/useNotification'
 import { Button } from '../../ui/components/Button'
 import { TextArea } from '../../ui/components/TextArea'
-import { BASE_URL } from '../../utils/config'
-import { queryTypes } from '../../utils/query'
 import { FleetPreview } from './FleetPreview'
 import { FleetType } from './Timeline'
 
@@ -29,45 +24,52 @@ interface Props {
 }
 
 export const ReplyComposer = ({ fleet, isOpen, onOpen, onClose }: Props) => {
-	const dispatch = useDispatch()
-	const queryClient = useQueryClient()
-	const { pathname } = useRouter()
+	// const { pathname } = useRouter()
+	const notification = useNotification()
 	const [body, setBody] = useState('')
 	const inputRef = useRef<HTMLTextAreaElement>(null)
 
-	const composeReply = async () => {
-		try {
-			const res = await axios.post(`${BASE_URL}/fleet/reply/${fleet.id}`, { body: body })
-
-			return res.data
-		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
-		}
-	}
-
-	const { mutate, isLoading } = useMutation(composeReply, {
-		onMutate: () => {
-			onClose()
-			setBody('')
-		},
-		onSuccess: () => {
-			dispatch(setSuccess('Reply sent'))
-			if (pathname.startsWith('/fleet')) {
-				queryClient.refetchQueries(queryTypes.FLEET_DETAILS)
-			} else if (pathname.startsWith('/home')) {
-				queryClient.invalidateQueries(queryTypes.FLEETS)
-			} else if (pathname.startsWith('/profile')) {
-				queryClient.invalidateQueries(queryTypes.PROFILE_FLEETS)
+	const [composeReply, { loading }] = useMutation(gql`
+		mutation Reply($fleetId: Int!, $body: String!) {
+			reply(fleetId: $fleetId, body: $body) {
+				id
 			}
-		},
-	})
+		}
+	`)
+
+	// const composeReply = async () => {
+	// 	try {
+	// 		const res = await axios.post(`${BASE_URL}/fleet/reply/${fleet.id}`, { body: body })
+
+	// 		return res.data
+	// 	} catch (error) {
+	// 		if (error.response) dispatch(setError(error.response.data.message))
+	// 	}
+	// }
+
+	// const { mutate, isLoading: loading } = useMutation(composeReply, {
+	// 	onMutate: () => {
+	// 		onClose()
+	// 		setBody('')
+	// 	},
+	// 	onSuccess: () => {
+	// 		dispatch(setSuccess('Reply sent'))
+	// 		if (pathname.startsWith('/fleet')) {
+	// 			queryClient.refetchQueries(queryTypes.FLEET_DETAILS)
+	// 		} else if (pathname.startsWith('/home')) {
+	// 			queryClient.invalidateQueries(queryTypes.FLEETS)
+	// 		} else if (pathname.startsWith('/profile')) {
+	// 			queryClient.invalidateQueries(queryTypes.PROFILE_FLEETS)
+	// 		}
+	// 	},
+	// })
 
 	const onSubmit = () => {
 		if (body === '') {
-			dispatch(setError('Reply cannot be empty'))
+			notification.showErrorMessage('Reply cannot be empty')
 		}
-		if (body !== '' && !isLoading) {
-			mutate()
+		if (body !== '' && !loading) {
+			composeReply()
 		}
 	}
 

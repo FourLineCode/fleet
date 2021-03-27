@@ -1,69 +1,72 @@
-import axios from 'axios'
-import { useEffect } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
-import { setError } from '../../store/actions/notificationActions'
+import { gql, useQuery } from '@apollo/client'
 import { ErrorIcon } from '../../ui/icons/ErrorIcon'
-import { BASE_URL } from '../../utils/config'
-import { queryTypes } from '../../utils/query'
 import { TimelineSuspense } from '../Suspense/TimelineSuspense'
 import { Fleet } from './Fleet'
 
 interface Author {
-	id: string
+	id: number
 	username: string
 	displayName: string
 	isAdmin: boolean
 }
 
 interface Like {
-	id: string
+	id: number
 	createdAt: string
 }
 
 interface Reply {
-	id: string
+	id: number
 	createdAt: string
 }
-export interface FleetType {
-	id: string
+
+interface Post {
+	id: number
 	body: string
 	createdAt: string
 	author: Author
-	likes: Like[]
-	replies: Reply[]
+	like: Like[]
+	reply: Reply[]
+}
+export interface FleetType {
+	post: Post
 	liked: boolean
 }
 
 export const Timeline = () => {
-	const dispatch = useDispatch()
-	const queryClient = useQueryClient()
-
-	const getFleets = async () => {
-		try {
-			const res = await axios.get(`${BASE_URL}/fleet/home`)
-
-			return res.data
-		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
+	const { data, loading } = useQuery(gql`
+		query Fleets {
+			homePageFleets {
+				post {
+					id
+					body
+					createdAt
+					like {
+						id
+					}
+					reply {
+						id
+					}
+					author {
+						id
+						username
+						displayName
+						isAdmin
+					}
+				}
+				liked
+			}
 		}
-	}
+	`)
 
-	// TODO: Handle error with error component
-	const { data, isLoading } = useQuery(queryTypes.FLEETS, getFleets)
-
-	useEffect(() => {
-		return () => {
-			queryClient.removeQueries(queryTypes.FLEETS)
-		}
-	}, [])
+	console.log(data)
 
 	return (
 		<div className='flex flex-col h-full col-span-4 px-1 py-4 mb-8 space-y-4 border-dark-500 md:px-2 lg:px-0 md:col-span-3 xl:col-span-2 md:border-l xl:border-r md:mb-0'>
-			{isLoading ? (
+			{loading ? (
 				<TimelineSuspense />
-			) : data && data.length > 0 ? (
-				data.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.id} />)
+			) : data && data.homePageFleets.length > 0 ? (
+				data.homePageFleets.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.post.id} />)
 			) : (
 				<div className='flex items-center justify-center w-full h-full'>
 					<div className='flex-col'>
