@@ -44,6 +44,7 @@ export const UserContextProvider = ({ children }: Props) => {
 	})
 
 	const setUserInfo = (payload: UserState) => {
+		console.log('setUserInfo', payload)
 		setUser({
 			id: payload.id,
 			username: payload.username,

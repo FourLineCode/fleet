@@ -91,7 +91,7 @@ export const AuthContextProvider = ({ children }: Props) => {
 			},
 		})
 
-		user.setUserInfo(data)
+		user.setUserInfo(data.userInfo)
 
 		notification.showSuccessMessage('Successfully signed in')
 	}

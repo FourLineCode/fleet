@@ -1,6 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
 import { ErrorIcon } from '../../ui/icons/ErrorIcon'
-import { TimelineSuspense } from '../Suspense/TimelineSuspense'
 import { Fleet } from './Fleet'
 
 interface Author {
@@ -33,40 +31,15 @@ export interface FleetType {
 	liked: boolean
 }
 
-export const Timeline = () => {
-	const { data, loading } = useQuery(gql`
-		query Fleets {
-			homePageFleets {
-				post {
-					id
-					body
-					createdAt
-					like {
-						id
-					}
-					reply {
-						id
-					}
-					author {
-						id
-						username
-						displayName
-						isAdmin
-					}
-				}
-				liked
-			}
-		}
-	`)
+interface Props {
+	fleets: FleetType[]
+}
 
-	console.log(data)
-
+export const Timeline = ({ fleets }: Props) => {
 	return (
 		<div className='flex flex-col h-full col-span-4 px-1 py-4 mb-8 space-y-4 border-dark-500 md:px-2 lg:px-0 md:col-span-3 xl:col-span-2 md:border-l xl:border-r md:mb-0'>
-			{loading ? (
-				<TimelineSuspense />
-			) : data && data.homePageFleets.length > 0 ? (
-				data.homePageFleets.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.post.id} />)
+			{fleets.length > 0 ? (
+				fleets.map((fleet: FleetType) => <Fleet fleet={fleet} key={fleet.post.id} />)
 			) : (
 				<div className='flex items-center justify-center w-full h-full'>
 					<div className='flex-col'>
