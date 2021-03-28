@@ -21,7 +21,7 @@ const Singin = () => {
 
 	useEffect(() => {
 		if (auth.signedIn) {
-			router.push('/home')
+			// router.push('/home')
 		}
 	}, [auth])
 
