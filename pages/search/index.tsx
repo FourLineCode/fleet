@@ -1,6 +1,6 @@
-import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout'
-import { ComingSoon } from '../../components/Navigation/ComingSoon'
-import { Menu } from '../../components/Navigation/Menu'
+import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout';
+import { ComingSoon } from '../../components/Navigation/ComingSoon';
+import { Menu } from '../../components/Navigation/Menu';
 
 const Search = () => {
 	return (
@@ -12,7 +12,7 @@ const Search = () => {
 				<ComingSoon feature='Search' />
 			</div>
 		</ProtectedLayout>
-	)
-}
+	);
+};
 
-export default Search
+export default Search;

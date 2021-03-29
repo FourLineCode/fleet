@@ -1,146 +1,146 @@
-import { useDisclosure } from '@chakra-ui/react'
-import axios from 'axios'
-import clsx from 'clsx'
-import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
-import { UserState } from '../../contexts/types'
-import { useAuthorization } from '../../hooks/useAuthorization'
-import { setError } from '../../store/actions/notificationActions'
-import { Button } from '../../ui/components/Button'
-import { ErrorIcon } from '../../ui/icons/ErrorIcon'
-import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
-import { BASE_URL } from '../../utils/config'
-import { queryTypes } from '../../utils/query'
-import { ProfileSuspense } from '../Suspense/ProfileSuspense'
-import { FollowDetails, Tabs, TabTypes } from './FollowDetails'
-import { ProfileBanner } from './ProfileBanner'
-import { ProfileInfo } from './ProfileInfo'
-import { ProfileTimeline } from './ProfileTimeline'
+import { useDisclosure } from '@chakra-ui/react';
+import axios from 'axios';
+import clsx from 'clsx';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { UserState } from '../../contexts/types';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { setError } from '../../store/actions/notificationActions';
+import { Button } from '../../ui/components/Button';
+import { ErrorIcon } from '../../ui/icons/ErrorIcon';
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon';
+import { BASE_URL } from '../../utils/config';
+import { queryTypes } from '../../utils/query';
+import { ProfileSuspense } from '../Suspense/ProfileSuspense';
+import { FollowDetails, Tabs, TabTypes } from './FollowDetails';
+import { ProfileBanner } from './ProfileBanner';
+import { ProfileInfo } from './ProfileInfo';
+import { ProfileTimeline } from './ProfileTimeline';
 
 export const ProfileCard = () => {
-	const router = useRouter()
-	const { id } = router.query
-	const auth = useAuthorization()
-	const queryClient = useQueryClient()
-	const dispatch = useDispatch()
-	const [userData, setUserData] = useState<UserState>()
-	const [userDataLoading, setUserDataLoading] = useState(false)
+	const router = useRouter();
+	const { id } = router.query;
+	const auth = useAuthorization();
+	const queryClient = useQueryClient();
+	const dispatch = useDispatch();
+	const [userData, setUserData] = useState<UserState>();
+	const [userDataLoading, setUserDataLoading] = useState(false);
 	const [followData, setFollowData] = useState<Record<string, number>>({
 		followerCount: 0,
 		followingCount: 0,
-	})
-	const [followed, setFollowed] = useState(false)
-	const [disableFollow, setDisableFollow] = useState(false)
-	const { isOpen, onOpen, onClose } = useDisclosure()
-	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
+	});
+	const [followed, setFollowed] = useState(false);
+	const [disableFollow, setDisableFollow] = useState(false);
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [tab, setTab] = useState<TabTypes>(Tabs.followers);
 
 	const getUserData = async () => {
-		if (!id) return
+		if (!id) return;
 		try {
-			setUserDataLoading(true)
-			const res = await axios.get(`${BASE_URL}/user/info/${id}`)
-			setUserData(res.data)
-			setUserDataLoading(false)
-			return
+			setUserDataLoading(true);
+			const res = await axios.get(`${BASE_URL}/user/info/${id}`);
+			setUserData(res.data);
+			setUserDataLoading(false);
+			return;
 		} catch (error) {
-			setUserDataLoading(false)
-			if (error.response) dispatch(setError(error.response.data.message))
+			setUserDataLoading(false);
+			if (error.response) dispatch(setError(error.response.data.message));
 		}
-	}
+	};
 
 	const getFollowData = async () => {
-		if (!id) return
+		if (!id) return;
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/count/${id}`)
+			const res = await axios.get(`${BASE_URL}/follow/count/${id}`);
 
-			const { followerCount, followingCount } = res.data
+			const { followerCount, followingCount } = res.data;
 
 			const followResponse = {
 				followerCount,
 				followingCount,
-			}
+			};
 
-			return followResponse
+			return followResponse;
 		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
+			if (error.response) dispatch(setError(error.response.data.message));
 		}
-	}
+	};
 
 	const handleFollow = async () => {
 		try {
 			if (!followed) {
-				const res = await axios.post(`${BASE_URL}/follow/${id}`)
+				const res = await axios.post(`${BASE_URL}/follow/${id}`);
 
-				return res.data
+				return res.data;
 			} else {
-				const res = await axios.post(`${BASE_URL}/follow/unfollow/${id}`)
+				const res = await axios.post(`${BASE_URL}/follow/unfollow/${id}`);
 
-				return res.data
+				return res.data;
 			}
 		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
+			if (error.response) dispatch(setError(error.response.data.message));
 		}
-	}
+	};
 
 	const followDetailsHandler = (tabType: TabTypes) => {
-		setTab(tabType)
-		onOpen()
-	}
+		setTab(tabType);
+		onOpen();
+	};
 
 	const checkFollow = async () => {
-		if (!id) return { follows: false }
+		if (!id) return { follows: false };
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/check/${id}`)
+			const res = await axios.get(`${BASE_URL}/follow/check/${id}`);
 
-			return res.data
+			return res.data;
 		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
+			if (error.response) dispatch(setError(error.response.data.message));
 		}
-	}
+	};
 
 	useQuery(queryTypes.FOLLOW_DATA, getFollowData, {
 		onSuccess: (data) => {
 			if (data) {
-				setFollowData(data)
+				setFollowData(data);
 			}
 		},
-	})
+	});
 
 	useQuery(queryTypes.IS_FOLLOWING, checkFollow, {
 		onSuccess: (isFollowingData) => {
 			if (isFollowingData) {
-				setFollowed(isFollowingData.follows)
+				setFollowed(isFollowingData.follows);
 			}
 		},
-	})
+	});
 
 	const { mutate } = useMutation(handleFollow, {
 		onMutate: () => {
-			setFollowed(!followed)
+			setFollowed(!followed);
 		},
 		onSuccess: () => {
-			queryClient.refetchQueries(queryTypes.FOLLOW_DATA)
+			queryClient.refetchQueries(queryTypes.FOLLOW_DATA);
 			// queryClient.invalidateQueries(queryTypes.IS_FOLLOWING)
 		},
-	})
+	});
 
 	useEffect(() => {
-		getUserData()
-		queryClient.prefetchQuery(queryTypes.FOLLOW_DATA, getFollowData)
-	}, [id])
+		getUserData();
+		queryClient.prefetchQuery(queryTypes.FOLLOW_DATA, getFollowData);
+	}, [id]);
 
 	useEffect(() => {
 		if (id === auth.id) {
-			setDisableFollow(true)
-			return
+			setDisableFollow(true);
+			return;
 		}
-		setDisableFollow(false)
+		setDisableFollow(false);
 
-		queryClient.prefetchQuery(queryTypes.IS_FOLLOWING, checkFollow)
-	}, [id])
+		queryClient.prefetchQuery(queryTypes.IS_FOLLOWING, checkFollow);
+	}, [id]);
 
 	return (
 		<div
@@ -206,5 +206,5 @@ export const ProfileCard = () => {
 				</div>
 			)}
 		</div>
-	)
-}
+	);
+};

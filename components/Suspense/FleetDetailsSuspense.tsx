@@ -88,5 +88,5 @@ export const FleetDetailsSuspense = () => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

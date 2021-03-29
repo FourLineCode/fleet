@@ -1,4 +1,4 @@
-import { TimelineSuspense } from './TimelineSuspense'
+import { TimelineSuspense } from './TimelineSuspense';
 
 export const ProfileSuspense = () => {
 	return (
@@ -37,5 +37,5 @@ export const ProfileSuspense = () => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

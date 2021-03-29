@@ -1,12 +1,12 @@
-import clsx from 'clsx'
-import React from 'react'
+import clsx from 'clsx';
+import React from 'react';
 
 interface Props {
-	label: string
-	placeholder: string
-	type: string
-	name: string
-	className?: string
+	label: string;
+	placeholder: string;
+	type: string;
+	name: string;
+	className?: string;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, Props>(({ label, placeholder, type, name, className }, ref) => {
@@ -27,5 +27,5 @@ export const Input = React.forwardRef<HTMLInputElement, Props>(({ label, placeho
 				)}
 			/>
 		</>
-	)
-})
+	);
+});

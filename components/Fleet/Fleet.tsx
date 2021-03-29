@@ -1,31 +1,31 @@
-import { gql, useMutation } from '@apollo/client'
-import { useDisclosure } from '@chakra-ui/react'
-import { formatDistanceToNow } from 'date-fns'
-import Link from 'next/link'
-import { useState } from 'react'
-import { useAuthorization } from '../../hooks/useAuthorization'
-import { useCurrentUser } from '../../hooks/useCurrentUser'
-import { IconButton } from '../../ui/components/IconButton'
-import { HeartFilledIcon } from '../../ui/icons/HeartFilledIcon'
-import { HeartIcon } from '../../ui/icons/HeartIcon'
-import { ReplyIcon } from '../../ui/icons/ReplyIcon'
-import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
-import { FleetOptions } from './FleetOptions'
-import { ReplyComposer } from './ReplyComposer'
-import { FleetType } from './Timeline'
+import { gql, useMutation } from '@apollo/client';
+import { useDisclosure } from '@chakra-ui/react';
+import { formatDistanceToNow } from 'date-fns';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { IconButton } from '../../ui/components/IconButton';
+import { HeartFilledIcon } from '../../ui/icons/HeartFilledIcon';
+import { HeartIcon } from '../../ui/icons/HeartIcon';
+import { ReplyIcon } from '../../ui/icons/ReplyIcon';
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon';
+import { FleetOptions } from './FleetOptions';
+import { ReplyComposer } from './ReplyComposer';
+import { FleetType } from './Timeline';
 
 interface Props {
-	fleet: FleetType
+	fleet: FleetType;
 }
 
 export const Fleet = ({ fleet }: Props) => {
-	const auth = useAuthorization()
-	const user = useCurrentUser()
+	const auth = useAuthorization();
+	const user = useCurrentUser();
 	// const { pathname } = useRouter()
 
-	const { isOpen, onOpen, onClose } = useDisclosure()
-	const [liked, setLiked] = useState<boolean>(fleet.liked)
-	const [canDelete] = useState(auth.id === fleet.post.author.id || user.isAdmin)
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [liked, setLiked] = useState<boolean>(fleet.liked);
+	const [canDelete] = useState(auth.id === fleet.post.author.id || user.isAdmin);
 
 	const likeMutation = liked
 		? gql`
@@ -41,16 +41,16 @@ export const Fleet = ({ fleet }: Props) => {
 						success
 					}
 				}
-		  `
+		  `;
 
 	const [likePost] = useMutation(likeMutation, {
 		variables: {
 			id: fleet.post.id,
 		},
 		onCompleted: () => {
-			setLiked((prev) => !prev)
+			setLiked((prev) => !prev);
 		},
-	})
+	});
 
 	// const { mutate } = useMutation(likeHandler, {
 	// 	onMutate: () => {
@@ -147,5 +147,5 @@ export const Fleet = ({ fleet }: Props) => {
 			</div>
 			<ReplyComposer fleet={fleet} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 		</div>
-	)
-}
+	);
+};

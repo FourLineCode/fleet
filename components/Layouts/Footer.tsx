@@ -4,5 +4,5 @@ export const Footer = () => {
 			<div>Copyright © 2021 FourLineCode Inc.</div>
 			<div>All Rights Reserved</div>
 		</footer>
-	)
-}
+	);
+};

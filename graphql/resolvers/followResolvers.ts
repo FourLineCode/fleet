@@ -1,6 +1,6 @@
-import { intArg, mutationField, nonNull, queryField } from 'nexus'
-import { Context } from '../context'
-import { checkAuth } from '../utils/checkAuth'
+import { intArg, mutationField, nonNull, queryField } from 'nexus';
+import { Context } from '../context';
+import { checkAuth } from '../utils/checkAuth';
 
 export const follow = mutationField('follow', {
 	type: 'SuccessResponse',
@@ -8,19 +8,19 @@ export const follow = mutationField('follow', {
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma, currentUser }: Context) => {
 		if (id === currentUser.id) {
-			throw new Error('You cannot follow yourself')
+			throw new Error('You cannot follow yourself');
 		}
 
-		const followedUser = await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true })
+		const followedUser = await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true });
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
 				fromId: currentUser.id,
 				toId: id,
 			},
-		})
+		});
 		if (alreadyFollows) {
-			throw new Error('You already follow this user')
+			throw new Error('You already follow this user');
 		}
 
 		await prisma.follow.create({
@@ -28,11 +28,11 @@ export const follow = mutationField('follow', {
 				fromId: currentUser.id!,
 				toId: followedUser.id,
 			},
-		})
+		});
 
-		return { success: true }
+		return { success: true };
 	},
-})
+});
 
 export const unfollow = mutationField('unfollow', {
 	type: 'SuccessResponse',
@@ -40,48 +40,48 @@ export const unfollow = mutationField('unfollow', {
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma, currentUser }: Context) => {
 		if (id === currentUser.id) {
-			throw new Error('You cannot unfollow yourself')
+			throw new Error('You cannot unfollow yourself');
 		}
 
-		await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true })
+		await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true });
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
 				fromId: currentUser.id,
 				toId: id,
 			},
-		})
+		});
 		if (!alreadyFollows) {
-			throw new Error('You do not follow this user')
+			throw new Error('You do not follow this user');
 		}
 
 		await prisma.follow.delete({
 			where: {
 				id: alreadyFollows.id,
 			},
-		})
+		});
 
-		return { success: true }
+		return { success: true };
 	},
-})
+});
 
 export const checkFollow = queryField('checkFollow', {
 	type: 'CheckFollowResponse',
 	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma, currentUser }: Context) => {
-		await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true })
+		await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true });
 
 		const alreadyFollows = await prisma.follow.findFirst({
 			where: {
 				fromId: currentUser.id,
 				toId: id,
 			},
-		})
+		});
 
-		return { follows: !!alreadyFollows }
+		return { follows: !!alreadyFollows };
 	},
-})
+});
 
 export const followCount = queryField('followCount', {
 	type: 'FollowCountResponse',
@@ -97,15 +97,15 @@ export const followCount = queryField('followCount', {
 				following: true,
 			},
 			rejectOnNotFound: true,
-		})
+		});
 
-		const followerCount = user.followers.length
-		const followingCount = user.following.length
+		const followerCount = user.followers.length;
+		const followingCount = user.following.length;
 
-		console.log(followerCount, followingCount)
-		return { followerCount, followingCount }
+		console.log(followerCount, followingCount);
+		return { followerCount, followingCount };
 	},
-})
+});
 
 export const followUsers = queryField('followUsers', {
 	type: 'FollowUsersResponse',
@@ -129,12 +129,12 @@ export const followUsers = queryField('followUsers', {
 				},
 			},
 			rejectOnNotFound: true,
-		})
+		});
 
-		const followers = user.followers.map((follow) => follow.from)
+		const followers = user.followers.map((follow) => follow.from);
 
-		const following = user.following.map((follow) => follow.to)
+		const following = user.following.map((follow) => follow.to);
 
-		return { followers, following }
+		return { followers, following };
 	},
-})
+});

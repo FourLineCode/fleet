@@ -1,38 +1,38 @@
-import { ErrorIcon } from '../../ui/icons/ErrorIcon'
-import { Fleet } from './Fleet'
+import { ErrorIcon } from '../../ui/icons/ErrorIcon';
+import { Fleet } from './Fleet';
 
 interface Author {
-	id: number
-	username: string
-	displayName: string
-	isAdmin: boolean
+	id: number;
+	username: string;
+	displayName: string;
+	isAdmin: boolean;
 }
 
 interface Like {
-	id: number
-	createdAt: string
+	id: number;
+	createdAt: string;
 }
 
 interface Reply {
-	id: number
-	createdAt: string
+	id: number;
+	createdAt: string;
 }
 
 interface Post {
-	id: number
-	body: string
-	createdAt: string
-	author: Author
-	like: Like[]
-	reply: Reply[]
+	id: number;
+	body: string;
+	createdAt: string;
+	author: Author;
+	like: Like[];
+	reply: Reply[];
 }
 export interface FleetType {
-	post: Post
-	liked: boolean
+	post: Post;
+	liked: boolean;
 }
 
 interface Props {
-	fleets: FleetType[]
+	fleets: FleetType[];
 }
 
 export const Timeline = ({ fleets }: Props) => {
@@ -49,5 +49,5 @@ export const Timeline = ({ fleets }: Props) => {
 				</div>
 			)}
 		</div>
-	)
-}
+	);
+};

@@ -1,21 +1,21 @@
-import { useTheme } from 'next-themes'
-import Link from 'next/link'
-import { useAuthorization } from '../../hooks/useAuthorization'
-import { IconButton } from '../../ui/components/IconButton'
-import { FleetIcon } from '../../ui/icons/FleetIcon'
-import { MoonIcon } from '../../ui/icons/MoonIcon'
-import { SunIcon } from '../../ui/icons/SunIcon'
-import { SignedInLinks } from './SignedInLinks'
-import { SignedOutLinks } from './SignedOutLinks'
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { IconButton } from '../../ui/components/IconButton';
+import { FleetIcon } from '../../ui/icons/FleetIcon';
+import { MoonIcon } from '../../ui/icons/MoonIcon';
+import { SunIcon } from '../../ui/icons/SunIcon';
+import { SignedInLinks } from './SignedInLinks';
+import { SignedOutLinks } from './SignedOutLinks';
 
 export const Navbar = () => {
-	const { signedIn } = useAuthorization()
-	const { theme, setTheme } = useTheme()
-	const redirect = signedIn ? '/home' : '/'
+	const { signedIn } = useAuthorization();
+	const { theme, setTheme } = useTheme();
+	const redirect = signedIn ? '/home' : '/';
 
 	const switchTheme = () => {
-		setTheme(theme === 'light' ? 'dark' : 'light')
-	}
+		setTheme(theme === 'light' ? 'dark' : 'light');
+	};
 
 	return (
 		<nav className='sticky top-0 left-0 z-40 flex justify-center w-full border-b shadow border-dark-500 bg-light dark:bg-dark-800 h-14'>
@@ -44,5 +44,5 @@ export const Navbar = () => {
 				</div>
 			</div>
 		</nav>
-	)
-}
+	);
+};

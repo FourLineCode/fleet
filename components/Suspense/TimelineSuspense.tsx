@@ -97,5 +97,5 @@ export const TimelineSuspense = () => {
 				</div>
 			</div>
 		</>
-	)
-}
+	);
+};

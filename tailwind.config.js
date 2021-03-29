@@ -1,4 +1,4 @@
-const colors = require('tailwindcss/colors')
+const colors = require('tailwindcss/colors');
 
 module.exports = {
 	experimental: 'all',
@@ -23,4 +23,4 @@ module.exports = {
 		width: ['responsive', 'focus'],
 	},
 	plugins: [require('@tailwindcss/line-clamp')],
-}
+};

@@ -1,20 +1,20 @@
-import { Menu, Transition } from '@headlessui/react'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { useAuthorization } from '../../hooks/useAuthorization'
-import { useCurrentUser } from '../../hooks/useCurrentUser'
-import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
-import { SearchBar } from '../Search/SearchBar'
+import { Menu, Transition } from '@headlessui/react';
+import clsx from 'clsx';
+import Link from 'next/link';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon';
+import { SearchBar } from '../Search/SearchBar';
 
 export const SignedInLinks = () => {
-	const user = useCurrentUser()
-	const auth = useAuthorization()
+	const user = useCurrentUser();
+	const auth = useAuthorization();
 
 	const signoutHandler = (e: React.MouseEvent) => {
-		e.preventDefault()
+		e.preventDefault();
 
-		auth.signOut()
-	}
+		auth.signOut();
+	};
 
 	return (
 		<div className='flex items-center space-x-4'>
@@ -94,5 +94,5 @@ export const SignedInLinks = () => {
 				</Menu>
 			</div>
 		</div>
-	)
-}
+	);
+};

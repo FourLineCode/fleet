@@ -1,63 +1,63 @@
-import { useDisclosure } from '@chakra-ui/react'
-import axios from 'axios'
-import { format } from 'date-fns'
-import Link from 'next/link'
-import { Dispatch, SetStateAction } from 'react'
-import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
-import { setError } from '../../store/actions/notificationActions'
-import { IconButton } from '../../ui/components/IconButton'
-import { HeartFilledIcon } from '../../ui/icons/HeartFilledIcon'
-import { HeartIcon } from '../../ui/icons/HeartIcon'
-import { ReplyIcon } from '../../ui/icons/ReplyIcon'
-import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
-import { BASE_URL } from '../../utils/config'
-import { queryTypes } from '../../utils/query'
-import { FleetOptions } from './FleetOptions'
-import { ReplyComposer } from './ReplyComposer'
-import { FleetType } from './Timeline'
+import { useDisclosure } from '@chakra-ui/react';
+import axios from 'axios';
+import { format } from 'date-fns';
+import Link from 'next/link';
+import { Dispatch, SetStateAction } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { setError } from '../../store/actions/notificationActions';
+import { IconButton } from '../../ui/components/IconButton';
+import { HeartFilledIcon } from '../../ui/icons/HeartFilledIcon';
+import { HeartIcon } from '../../ui/icons/HeartIcon';
+import { ReplyIcon } from '../../ui/icons/ReplyIcon';
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon';
+import { BASE_URL } from '../../utils/config';
+import { queryTypes } from '../../utils/query';
+import { FleetOptions } from './FleetOptions';
+import { ReplyComposer } from './ReplyComposer';
+import { FleetType } from './Timeline';
 
 interface Props {
-	fleet: FleetType
-	liked: boolean
-	setLiked: Dispatch<SetStateAction<boolean>>
-	canDelete: boolean
+	fleet: FleetType;
+	liked: boolean;
+	setLiked: Dispatch<SetStateAction<boolean>>;
+	canDelete: boolean;
 }
 
 export const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
-	const dispatch = useDispatch()
-	const queryClient = useQueryClient()
+	const dispatch = useDispatch();
+	const queryClient = useQueryClient();
 
-	const { isOpen, onOpen, onClose } = useDisclosure()
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const likeHandler = async () => {
 		try {
 			if (!liked) {
-				await axios.post(`${BASE_URL}/fleet/like/${fleet.id}`)
+				await axios.post(`${BASE_URL}/fleet/like/${fleet.id}`);
 			} else {
-				await axios.post(`${BASE_URL}/fleet/unlike/${fleet.id}`)
+				await axios.post(`${BASE_URL}/fleet/unlike/${fleet.id}`);
 			}
 		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
+			if (error.response) dispatch(setError(error.response.data.message));
 		}
-	}
+	};
 
 	const { mutate } = useMutation(likeHandler, {
 		onMutate: () => {
 			if (liked) {
-				fleet.likes.pop()
+				fleet.likes.pop();
 			} else {
 				fleet.likes.push({
 					id: 'placeholder',
 					createdAt: new Date().toISOString(),
-				})
+				});
 			}
-			setLiked(!liked)
+			setLiked(!liked);
 		},
 		onSettled: () => {
-			queryClient.invalidateQueries(queryTypes.FLEET_DETAILS)
+			queryClient.invalidateQueries(queryTypes.FLEET_DETAILS);
 		},
-	})
+	});
 
 	return (
 		<div className='w-full'>
@@ -127,5 +127,5 @@ export const FleetView = ({ fleet, liked, setLiked, canDelete }: Props) => {
 			</div>
 			<ReplyComposer fleet={fleet} isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
 		</div>
-	)
-}
+	);
+};

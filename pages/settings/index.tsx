@@ -1,6 +1,6 @@
-import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout'
-import { ComingSoon } from '../../components/Navigation/ComingSoon'
-import { Menu } from '../../components/Navigation/Menu'
+import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout';
+import { ComingSoon } from '../../components/Navigation/ComingSoon';
+import { Menu } from '../../components/Navigation/Menu';
 
 const Settings = () => {
 	return (
@@ -10,7 +10,7 @@ const Settings = () => {
 				<ComingSoon feature='Settings' />
 			</div>
 		</ProtectedLayout>
-	)
-}
+	);
+};
 
-export default Settings
+export default Settings;

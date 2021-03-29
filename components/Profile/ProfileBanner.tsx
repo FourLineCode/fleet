@@ -1,5 +1,5 @@
 interface Props {
-	isAdmin: boolean
+	isAdmin: boolean;
 }
 
 export const ProfileBanner = ({ isAdmin }: Props) => {
@@ -21,5 +21,5 @@ export const ProfileBanner = ({ isAdmin }: Props) => {
 				/>
 			</div>
 		</>
-	)
-}
+	);
+};

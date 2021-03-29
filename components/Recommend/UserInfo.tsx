@@ -1,16 +1,16 @@
-import Link from 'next/link'
-import { useState } from 'react'
-import { UserState } from '../../contexts/types'
-import { RightArrowIcon } from '../../ui/icons/RightArrowIcon'
-import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
+import Link from 'next/link';
+import { useState } from 'react';
+import { UserState } from '../../contexts/types';
+import { RightArrowIcon } from '../../ui/icons/RightArrowIcon';
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon';
 
 interface Props {
-	user: UserState
+	user: UserState;
 }
 
 export const UserInfo = ({ user }: Props) => {
-	const [showIcon, setShowIcon] = useState(false)
-	const userProfileId = user.id ? user.id : user.id
+	const [showIcon, setShowIcon] = useState(false);
+	const userProfileId = user.id ? user.id : user.id;
 
 	return (
 		<Link href={`/profile/${userProfileId}`}>
@@ -43,5 +43,5 @@ export const UserInfo = ({ user }: Props) => {
 				{showIcon && <RightArrowIcon className='w-5 h-5 text-gray-500' />}
 			</a>
 		</Link>
-	)
-}
+	);
+};

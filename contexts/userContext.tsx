@@ -1,19 +1,19 @@
-import { createContext, useState } from 'react'
-import { UserState } from './types'
+import { createContext, useState } from 'react';
+import { UserState } from './types';
 
 interface UserContextType {
-	id?: number
-	username?: string
-	displayName?: string
-	bio?: string
-	avatarURL?: string
-	createdAt?: string
-	isAdmin: boolean
+	id?: number;
+	username?: string;
+	displayName?: string;
+	bio?: string;
+	avatarURL?: string;
+	createdAt?: string;
+	isAdmin: boolean;
 }
 
 interface UserContextProperty extends UserContextType {
-	setUserInfo: (arg: UserState) => void
-	clearCurrentUser: () => void
+	setUserInfo: (arg: UserState) => void;
+	clearCurrentUser: () => void;
 }
 
 export const UserContext = createContext<UserContextProperty>({
@@ -26,10 +26,10 @@ export const UserContext = createContext<UserContextProperty>({
 	isAdmin: false,
 	setUserInfo: () => {},
 	clearCurrentUser: () => {},
-})
+});
 
 interface Props {
-	children?: React.ReactNode
+	children?: React.ReactNode;
 }
 
 export const UserContextProvider = ({ children }: Props) => {
@@ -41,10 +41,10 @@ export const UserContextProvider = ({ children }: Props) => {
 		avatarURL: undefined,
 		createdAt: undefined,
 		isAdmin: false,
-	})
+	});
 
 	const setUserInfo = (payload: UserState) => {
-		console.log('setUserInfo', payload)
+		console.log('setUserInfo', payload);
 		setUser({
 			id: payload.id,
 			username: payload.username,
@@ -53,8 +53,8 @@ export const UserContextProvider = ({ children }: Props) => {
 			avatarURL: payload.avatarURL,
 			createdAt: payload.createdAt,
 			isAdmin: payload.isAdmin,
-		})
-	}
+		});
+	};
 
 	const clearCurrentUser = () => {
 		setUser({
@@ -65,8 +65,8 @@ export const UserContextProvider = ({ children }: Props) => {
 			avatarURL: undefined,
 			createdAt: undefined,
 			isAdmin: false,
-		})
-	}
+		});
+	};
 
-	return <UserContext.Provider value={{ ...user, setUserInfo, clearCurrentUser }}>{children}</UserContext.Provider>
-}
+	return <UserContext.Provider value={{ ...user, setUserInfo, clearCurrentUser }}>{children}</UserContext.Provider>;
+};

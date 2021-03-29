@@ -1,15 +1,15 @@
-import Head from 'next/head'
-import React from 'react'
-import { Notification } from '../../ui/components/Notification'
-import { fleetIconURL } from '../../ui/icons/FleetIcon'
-import { Navbar } from '../Navigation/Navbar'
-import { Footer } from './Footer'
-import TopProgressBar from './TopProgressBar'
+import Head from 'next/head';
+import React from 'react';
+import { Notification } from '../../ui/components/Notification';
+import { fleetIconURL } from '../../ui/icons/FleetIcon';
+import { Navbar } from '../Navigation/Navbar';
+import { Footer } from './Footer';
+import TopProgressBar from './TopProgressBar';
 
 interface Props {
-	children?: React.ReactNode
-	title?: string
-	desc?: string
+	children?: React.ReactNode;
+	title?: string;
+	desc?: string;
 }
 
 export const BaseLayout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communication' }: Props) => (
@@ -27,4 +27,4 @@ export const BaseLayout = ({ children, title = 'Fleet', desc = 'Fleet | New way 
 		<Footer />
 		<Notification />
 	</main>
-)
+);

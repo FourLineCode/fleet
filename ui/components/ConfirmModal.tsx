@@ -6,21 +6,21 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-} from '@chakra-ui/react'
-import { useRef } from 'react'
-import { Button } from './Button'
+} from '@chakra-ui/react';
+import { useRef } from 'react';
+import { Button } from './Button';
 
 interface Props {
-	header: string
-	desc?: string
-	action: (arg?: any) => void
-	isOpen: boolean
-	onOpen: () => void
-	onClose: () => void
+	header: string;
+	desc?: string;
+	action: (arg?: any) => void;
+	isOpen: boolean;
+	onOpen: () => void;
+	onClose: () => void;
 }
 
 export const ConfirmModal = ({ header, desc, action, isOpen, onOpen, onClose }: Props) => {
-	const ref = useRef<HTMLButtonElement>(null)
+	const ref = useRef<HTMLButtonElement>(null);
 
 	return (
 		<Modal onClose={onClose} isOpen={isOpen} initialFocusRef={ref} size='xs' isCentered>
@@ -47,5 +47,5 @@ export const ConfirmModal = ({ header, desc, action, isOpen, onOpen, onClose }: 
 				</div>
 			</ModalContent>
 		</Modal>
-	)
-}
+	);
+};

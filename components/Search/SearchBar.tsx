@@ -1,31 +1,31 @@
-import { useRouter } from 'next/router'
-import { useEffect, useRef } from 'react'
-import { SearchIcon } from '../../ui/icons/SearchIcon'
+import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
+import { SearchIcon } from '../../ui/icons/SearchIcon';
 
 export const SearchBar = () => {
-	const router = useRouter()
-	const ref = useRef<HTMLInputElement>(null)
-	const searchQuery = router.query.query as string
+	const router = useRouter();
+	const ref = useRef<HTMLInputElement>(null);
+	const searchQuery = router.query.query as string;
 
 	const onSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
-		event.preventDefault()
+		event.preventDefault();
 
-		const formData = new FormData(event.target)
-		const query = formData.get('query')
+		const formData = new FormData(event.target);
+		const query = formData.get('query');
 
-		router.push(`/search?query=${query}`)
-		ref.current?.blur()
-	}
+		router.push(`/search?query=${query}`);
+		ref.current?.blur();
+	};
 
 	const onFocus = (event: React.ChangeEvent<HTMLInputElement>) => {
-		event.target.select()
-	}
+		event.target.select();
+	};
 
 	useEffect(() => {
 		if (searchQuery && ref.current) {
-			ref.current.value = searchQuery
+			ref.current.value = searchQuery;
 		}
-	}, [])
+	}, []);
 
 	return (
 		<form onSubmit={onSubmit} className='hidden md:block'>
@@ -42,5 +42,5 @@ export const SearchBar = () => {
 				/>
 			</div>
 		</form>
-	)
-}
+	);
+};

@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client';
 import {
 	Modal,
 	ModalBody,
@@ -7,27 +7,27 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-} from '@chakra-ui/react'
-import clsx from 'clsx'
-import { useRef, useState } from 'react'
-import { useNotification } from '../../hooks/useNotification'
-import { Button } from '../../ui/components/Button'
-import { TextArea } from '../../ui/components/TextArea'
-import { FleetPreview } from './FleetPreview'
-import { FleetType } from './Timeline'
+} from '@chakra-ui/react';
+import clsx from 'clsx';
+import { useRef, useState } from 'react';
+import { useNotification } from '../../hooks/useNotification';
+import { Button } from '../../ui/components/Button';
+import { TextArea } from '../../ui/components/TextArea';
+import { FleetPreview } from './FleetPreview';
+import { FleetType } from './Timeline';
 
 interface Props {
-	fleet: FleetType
-	isOpen: boolean
-	onOpen: () => void
-	onClose: () => void
+	fleet: FleetType;
+	isOpen: boolean;
+	onOpen: () => void;
+	onClose: () => void;
 }
 
 export const ReplyComposer = ({ fleet, isOpen, onOpen, onClose }: Props) => {
 	// const { pathname } = useRouter()
-	const notification = useNotification()
-	const [body, setBody] = useState('')
-	const inputRef = useRef<HTMLTextAreaElement>(null)
+	const notification = useNotification();
+	const [body, setBody] = useState('');
+	const inputRef = useRef<HTMLTextAreaElement>(null);
 
 	const [composeReply, { loading }] = useMutation(gql`
 		mutation Reply($fleetId: Int!, $body: String!) {
@@ -35,7 +35,7 @@ export const ReplyComposer = ({ fleet, isOpen, onOpen, onClose }: Props) => {
 				id
 			}
 		}
-	`)
+	`);
 
 	// const composeReply = async () => {
 	// 	try {
@@ -66,23 +66,23 @@ export const ReplyComposer = ({ fleet, isOpen, onOpen, onClose }: Props) => {
 
 	const onSubmit = () => {
 		if (body === '') {
-			notification.showErrorMessage('Reply cannot be empty')
+			notification.showErrorMessage('Reply cannot be empty');
 		}
 		if (body !== '' && !loading) {
-			composeReply()
+			composeReply();
 		}
-	}
+	};
 
 	const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setBody(e.target.value)
-	}
+		setBody(e.target.value);
+	};
 
 	const onEnterPress = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter' && e.shiftKey === false) {
-			e.preventDefault()
-			onSubmit()
+			e.preventDefault();
+			onSubmit();
 		}
-	}
+	};
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size='xl' initialFocusRef={inputRef}>
@@ -118,5 +118,5 @@ export const ReplyComposer = ({ fleet, isOpen, onOpen, onClose }: Props) => {
 				</div>
 			</ModalContent>
 		</Modal>
-	)
-}
+	);
+};

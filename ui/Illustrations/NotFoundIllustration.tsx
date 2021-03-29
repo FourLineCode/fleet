@@ -1,5 +1,5 @@
 interface Props {
-	className?: string
+	className?: string;
 }
 
 export const NotFoundIllustration = ({ className }: Props) => {
@@ -169,5 +169,5 @@ export const NotFoundIllustration = ({ className }: Props) => {
 				fill='#eea886'
 			/>
 		</svg>
-	)
-}
+	);
+};

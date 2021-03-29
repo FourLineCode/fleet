@@ -1,9 +1,9 @@
-import { formatDistanceToNow } from 'date-fns'
-import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
-import { FleetType } from './Timeline'
+import { formatDistanceToNow } from 'date-fns';
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon';
+import { FleetType } from './Timeline';
 
 interface Props {
-	fleet: FleetType
+	fleet: FleetType;
 }
 
 export const FleetPreview = ({ fleet }: Props) => {
@@ -41,5 +41,5 @@ export const FleetPreview = ({ fleet }: Props) => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

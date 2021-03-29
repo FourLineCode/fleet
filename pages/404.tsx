@@ -1,5 +1,5 @@
-import { Layout } from '../components/Layouts/Layout'
-import { NotFoundIllustration } from '../ui/Illustrations/NotFoundIllustration'
+import { Layout } from '../components/Layouts/Layout';
+import { NotFoundIllustration } from '../ui/Illustrations/NotFoundIllustration';
 
 const NotFound = () => {
 	return (
@@ -8,7 +8,7 @@ const NotFound = () => {
 				<NotFoundIllustration className='w-full h-full mx-2 sm:mx-0 sm:w-1/2 sm:h-1/2' />
 			</div>
 		</Layout>
-	)
-}
+	);
+};
 
-export default NotFound
+export default NotFound;
