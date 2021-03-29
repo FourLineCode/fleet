@@ -1,69 +1,69 @@
-import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react'
-import axios from 'axios'
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
-import { UserState } from '../../contexts/types'
-import { setError } from '../../store/actions/notificationActions'
-import { BASE_URL } from '../../utils/config'
-import { queryTypes } from '../../utils/query'
-import { UserInfo } from '../Recommend/UserInfo'
-import { RecommendSuspense } from '../Suspense/RecommendSuspense'
+import { Modal, ModalContent, ModalOverlay } from '@chakra-ui/react';
+import axios from 'axios';
+import clsx from 'clsx';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { UserState } from '../../contexts/types';
+import { setError } from '../../store/actions/notificationActions';
+import { BASE_URL } from '../../utils/config';
+import { queryTypes } from '../../utils/query';
+import { UserInfo } from '../Recommend/UserInfo';
+import { RecommendSuspense } from '../Suspense/RecommendSuspense';
 
 interface Props {
-	tabType: TabTypes
-	isOpen: boolean
-	onOpen: () => void
-	onClose: () => void
+	tabType: TabTypes;
+	isOpen: boolean;
+	onOpen: () => void;
+	onClose: () => void;
 }
 
-export type TabTypes = 'followers' | 'following'
+export type TabTypes = 'followers' | 'following';
 
 export const Tabs: Record<TabTypes, TabTypes> = {
 	followers: 'followers',
 	following: 'following',
-}
+};
 
 export const FollowDetails = ({ tabType, isOpen, onOpen, onClose }: Props) => {
-	const router = useRouter()
-	const dispatch = useDispatch()
-	const queryClient = useQueryClient()
-	const { id } = router.query
-	const [tab, setTab] = useState<TabTypes>(Tabs.followers)
+	const router = useRouter();
+	const dispatch = useDispatch();
+	const queryClient = useQueryClient();
+	const { id } = router.query;
+	const [tab, setTab] = useState<TabTypes>(Tabs.followers);
 
 	const getFollowDetails = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/follow/users/${id}`)
+			const res = await axios.get(`${BASE_URL}/follow/users/${id}`);
 
-			return res.data
+			return res.data;
 		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
+			if (error.response) dispatch(setError(error.response.data.message));
 		}
-	}
+	};
 
-	const { data, isLoading } = useQuery(queryTypes.FOLLOW_DETAILS, getFollowDetails)
+	const { data, isLoading } = useQuery(queryTypes.FOLLOW_DETAILS, getFollowDetails);
 
 	useEffect(() => {
 		if (isOpen) {
-			setTab(tabType)
-			queryClient.prefetchQuery(queryTypes.FOLLOW_DETAILS, getFollowDetails)
+			setTab(tabType);
+			queryClient.prefetchQuery(queryTypes.FOLLOW_DETAILS, getFollowDetails);
 		}
-	}, [isOpen])
+	}, [isOpen]);
 
 	useEffect(() => {
-		onClose()
-		queryClient.removeQueries(queryTypes.FOLLOW_DETAILS)
-	}, [id])
+		onClose();
+		queryClient.removeQueries(queryTypes.FOLLOW_DETAILS);
+	}, [id]);
 
 	useEffect(() => {
-		queryClient.refetchQueries(queryTypes.FOLLOW_DETAILS)
+		queryClient.refetchQueries(queryTypes.FOLLOW_DETAILS);
 
 		return () => {
-			queryClient.removeQueries(queryTypes.FOLLOW_DETAILS)
-		}
-	}, [])
+			queryClient.removeQueries(queryTypes.FOLLOW_DETAILS);
+		};
+	}, []);
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size='md' isCentered scrollBehavior='inside'>
@@ -111,5 +111,5 @@ export const FollowDetails = ({ tabType, isOpen, onOpen, onClose }: Props) => {
 				</div>
 			</ModalContent>
 		</Modal>
-	)
-}
+	);
+};

@@ -1,43 +1,43 @@
-import axios from 'axios'
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { useQuery, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
-import { setError } from '../../store/actions/notificationActions'
-import { ErrorIcon } from '../../ui/icons/ErrorIcon'
-import { BASE_URL } from '../../utils/config'
-import { queryTypes } from '../../utils/query'
-import { Fleet } from '../Fleet/Fleet'
-import { FleetType } from '../Fleet/Timeline'
-import { TimelineSuspense } from '../Suspense/TimelineSuspense'
+import axios from 'axios';
+import clsx from 'clsx';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { setError } from '../../store/actions/notificationActions';
+import { ErrorIcon } from '../../ui/icons/ErrorIcon';
+import { BASE_URL } from '../../utils/config';
+import { queryTypes } from '../../utils/query';
+import { Fleet } from '../Fleet/Fleet';
+import { FleetType } from '../Fleet/Timeline';
+import { TimelineSuspense } from '../Suspense/TimelineSuspense';
 
 export const ProfileTimeline = () => {
-	const router = useRouter()
-	const { id } = router.query
-	const dispatch = useDispatch()
-	const queryClient = useQueryClient()
+	const router = useRouter();
+	const { id } = router.query;
+	const dispatch = useDispatch();
+	const queryClient = useQueryClient();
 
 	const getFleets = async () => {
 		try {
-			const res = await axios.get(`${BASE_URL}/fleet/timeline/${id}`)
-			return res.data
+			const res = await axios.get(`${BASE_URL}/fleet/timeline/${id}`);
+			return res.data;
 		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
+			if (error.response) dispatch(setError(error.response.data.message));
 		}
-	}
+	};
 
-	const { data, isLoading } = useQuery(queryTypes.PROFILE_FLEETS, getFleets)
+	const { data, isLoading } = useQuery(queryTypes.PROFILE_FLEETS, getFleets);
 
 	useEffect(() => {
-		queryClient.prefetchQuery(queryTypes.PROFILE_FLEETS, getFleets)
-	}, [id])
+		queryClient.prefetchQuery(queryTypes.PROFILE_FLEETS, getFleets);
+	}, [id]);
 
 	useEffect(() => {
 		return () => {
-			queryClient.removeQueries(queryTypes.PROFILE_FLEETS)
-		}
-	}, [])
+			queryClient.removeQueries(queryTypes.PROFILE_FLEETS);
+		};
+	}, []);
 
 	return (
 		<>
@@ -68,5 +68,5 @@ export const ProfileTimeline = () => {
 				)}
 			</div>
 		</>
-	)
-}
+	);
+};

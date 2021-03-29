@@ -1,18 +1,18 @@
-import { PrismaClient } from '@prisma/client'
-import bcrypt from 'bcryptjs'
+import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient({
 	log: ['query', 'error'],
-})
+});
 
 const main = async () => {
 	const user = await prisma.user.findFirst({
 		where: {
 			email: 'akmal@rip.com',
 		},
-	})
+	});
 
-	if (user) return
+	if (user) return;
 
 	const admin = await prisma.user.upsert({
 		where: { email: 'akmal@rip.com' },
@@ -26,7 +26,7 @@ const main = async () => {
 			isAdmin: true,
 			avatarURL: 'https://github.com/FourLineCode.png',
 		},
-	})
+	});
 
 	for (const n of Array(30).keys()) {
 		const newUser = await prisma.user.upsert({
@@ -39,7 +39,7 @@ const main = async () => {
 				displayName: `Demo user ${n}`,
 				bio: `Auto generated bio for demo user ${n}`,
 			},
-		})
+		});
 
 		if (n % 2 == 0) {
 			await prisma.follow.create({
@@ -47,7 +47,7 @@ const main = async () => {
 					fromId: newUser.id,
 					toId: admin.id,
 				},
-			})
+			});
 		}
 
 		for (const _ of Array(10).keys()) {
@@ -56,16 +56,16 @@ const main = async () => {
 					body: `Example Fleet by demo user ${n}`,
 					authorId: newUser.id,
 				},
-			})
+			});
 		}
 	}
-}
+};
 
 main()
 	.catch((e) => {
-		console.error(e)
-		process.exit(1)
+		console.error(e);
+		process.exit(1);
 	})
 	.finally(async () => {
-		await prisma.$disconnect()
-	})
+		await prisma.$disconnect();
+	});

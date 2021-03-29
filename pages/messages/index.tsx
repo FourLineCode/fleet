@@ -1,6 +1,6 @@
-import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout'
-import { ComingSoon } from '../../components/Navigation/ComingSoon'
-import { Menu } from '../../components/Navigation/Menu'
+import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout';
+import { ComingSoon } from '../../components/Navigation/ComingSoon';
+import { Menu } from '../../components/Navigation/Menu';
 
 const Messages = () => {
 	return (
@@ -10,7 +10,7 @@ const Messages = () => {
 				<ComingSoon feature='Messages' />
 			</div>
 		</ProtectedLayout>
-	)
-}
+	);
+};
 
-export default Messages
+export default Messages;

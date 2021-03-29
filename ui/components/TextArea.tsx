@@ -1,14 +1,14 @@
-import clsx from 'clsx'
-import React from 'react'
+import clsx from 'clsx';
+import React from 'react';
 
 interface Props {
-	label: string
-	placeholder: string
-	value?: string
-	name: string
-	className?: string
-	onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
-	onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void
+	label: string;
+	placeholder: string;
+	value?: string;
+	name: string;
+	className?: string;
+	onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+	onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
@@ -32,6 +32,6 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, Props>(
 					)}
 				/>
 			</>
-		)
+		);
 	}
-)
+);

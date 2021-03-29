@@ -1,42 +1,42 @@
-import { useDisclosure } from '@chakra-ui/react'
-import { Menu, Transition } from '@headlessui/react'
-import axios from 'axios'
-import { useMutation, useQueryClient } from 'react-query'
-import { useDispatch } from 'react-redux'
-import { setError, setSuccess } from '../../store/actions/notificationActions'
-import { ConfirmModal } from '../../ui/components/ConfirmModal'
-import { DotsVertical } from '../../ui/icons/DotsVertical'
-import { TrashIcon } from '../../ui/icons/TrashIcon'
-import { BASE_URL } from '../../utils/config'
-import { queryTypes } from '../../utils/query'
+import { useDisclosure } from '@chakra-ui/react';
+import { Menu, Transition } from '@headlessui/react';
+import axios from 'axios';
+import { useMutation, useQueryClient } from 'react-query';
+import { useDispatch } from 'react-redux';
+import { setError, setSuccess } from '../../store/actions/notificationActions';
+import { ConfirmModal } from '../../ui/components/ConfirmModal';
+import { DotsVertical } from '../../ui/icons/DotsVertical';
+import { TrashIcon } from '../../ui/icons/TrashIcon';
+import { BASE_URL } from '../../utils/config';
+import { queryTypes } from '../../utils/query';
 
 interface Props {
-	id: string
-	canDelete: boolean
+	id: string;
+	canDelete: boolean;
 }
 
 export const ReplyOptions = ({ id, canDelete }: Props) => {
-	const dispatch = useDispatch()
-	const queryClient = useQueryClient()
-	const { isOpen, onOpen, onClose } = useDisclosure()
+	const dispatch = useDispatch();
+	const queryClient = useQueryClient();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const deleteReply = async () => {
 		try {
-			const res = await axios.delete(`${BASE_URL}/fleet/reply/${id}`)
+			const res = await axios.delete(`${BASE_URL}/fleet/reply/${id}`);
 
-			return res.data
+			return res.data;
 		} catch (error) {
-			if (error.response) dispatch(setError(error.response.data.message))
+			if (error.response) dispatch(setError(error.response.data.message));
 		}
-	}
+	};
 
 	const { mutate } = useMutation(deleteReply, {
 		onSuccess: () => {
-			onClose()
-			dispatch(setSuccess('Reply was deleted'))
-			queryClient.refetchQueries(queryTypes.FLEET_DETAILS)
+			onClose();
+			dispatch(setSuccess('Reply was deleted'));
+			queryClient.refetchQueries(queryTypes.FLEET_DETAILS);
 		},
-	})
+	});
 
 	return (
 		<div>
@@ -88,5 +88,5 @@ export const ReplyOptions = ({ id, canDelete }: Props) => {
 				/>
 			</div>
 		</div>
-	)
-}
+	);
+};

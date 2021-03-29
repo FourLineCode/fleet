@@ -1,18 +1,18 @@
-import { useRouter } from 'next/router'
-import { useAuthorization } from '../../hooks/useAuthorization'
-import { MenuLink } from '../../ui/components/MenuLink'
-import { GithubIcon } from '../../ui/icons/GithubIcon'
-import { HomeIcon } from '../../ui/icons/HomeIcon'
-import { MessageIcon } from '../../ui/icons/MessageIcon'
-import { ProfileIcon } from '../../ui/icons/ProfileIcon'
+import { useRouter } from 'next/router';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { MenuLink } from '../../ui/components/MenuLink';
+import { GithubIcon } from '../../ui/icons/GithubIcon';
+import { HomeIcon } from '../../ui/icons/HomeIcon';
+import { MessageIcon } from '../../ui/icons/MessageIcon';
+import { ProfileIcon } from '../../ui/icons/ProfileIcon';
 
 interface Props {
-	onOpen: () => void
+	onOpen: () => void;
 }
 
 export const VerticalMenu = ({ onOpen }: Props) => {
-	const auth = useAuthorization()
-	const { pathname } = useRouter()
+	const auth = useAuthorization();
+	const { pathname } = useRouter();
 
 	return (
 		<div className='hidden h-full px-2 py-4 text-black md:block md:col-span-1 dark:text-white'>
@@ -49,5 +49,5 @@ export const VerticalMenu = ({ onOpen }: Props) => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

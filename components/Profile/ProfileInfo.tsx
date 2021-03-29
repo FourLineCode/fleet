@@ -1,8 +1,8 @@
-import { format } from 'date-fns'
+import { format } from 'date-fns';
 
 interface Props {
-	bio: string | null
-	createdAt: string | null
+	bio: string | null;
+	createdAt: string | null;
 }
 
 export const ProfileInfo = ({ bio, createdAt }: Props) => {
@@ -17,5 +17,5 @@ export const ProfileInfo = ({ bio, createdAt }: Props) => {
 				<div className='text-base text-black dark:text-white'>{format(new Date(createdAt!), 'd MMM, Y')}</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

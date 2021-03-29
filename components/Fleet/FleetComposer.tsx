@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client'
+import { gql, useMutation } from '@apollo/client';
 import {
 	Modal,
 	ModalBody,
@@ -7,24 +7,24 @@ import {
 	ModalFooter,
 	ModalHeader,
 	ModalOverlay,
-} from '@chakra-ui/react'
-import clsx from 'clsx'
-import { useRef, useState } from 'react'
-import { useNotification } from '../../hooks/useNotification'
-import { Button } from '../../ui/components/Button'
-import { TextArea } from '../../ui/components/TextArea'
+} from '@chakra-ui/react';
+import clsx from 'clsx';
+import { useRef, useState } from 'react';
+import { useNotification } from '../../hooks/useNotification';
+import { Button } from '../../ui/components/Button';
+import { TextArea } from '../../ui/components/TextArea';
 
 interface Props {
-	isOpen: boolean
-	onOpen: () => void
-	onClose: () => void
+	isOpen: boolean;
+	onOpen: () => void;
+	onClose: () => void;
 }
 
 export const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
 	// const { pathname } = useRouter()
-	const [body, setBody] = useState('')
-	const inputRef = useRef<HTMLTextAreaElement>(null)
-	const notification = useNotification()
+	const [body, setBody] = useState('');
+	const inputRef = useRef<HTMLTextAreaElement>(null);
+	const notification = useNotification();
 
 	const [composeFleet, { loading }] = useMutation(
 		gql`
@@ -39,7 +39,7 @@ export const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
 				body: body,
 			},
 		}
-	)
+	);
 
 	// const composeFleet = async () => {
 	// 	try {
@@ -66,23 +66,23 @@ export const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
 
 	const onSubmit = () => {
 		if (body === '') {
-			notification.showErrorMessage('Fleet cannot be empty')
+			notification.showErrorMessage('Fleet cannot be empty');
 		}
 		if (body !== '' && !loading) {
-			composeFleet()
+			composeFleet();
 		}
-	}
+	};
 
 	const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-		setBody(e.target.value)
-	}
+		setBody(e.target.value);
+	};
 
 	const onEnterPress = (e: React.KeyboardEvent) => {
 		if (e.key === 'Enter' && e.shiftKey === false) {
-			e.preventDefault()
-			onSubmit()
+			e.preventDefault();
+			onSubmit();
 		}
-	}
+	};
 
 	return (
 		<Modal isOpen={isOpen} onClose={onClose} size='xl' initialFocusRef={inputRef}>
@@ -116,5 +116,5 @@ export const FleetComposer = ({ isOpen, onOpen, onClose }: Props) => {
 				</div>
 			</ModalContent>
 		</Modal>
-	)
-}
+	);
+};

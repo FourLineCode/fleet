@@ -1,7 +1,7 @@
-import { ClockIcon } from '../../ui/icons/ClockIcon'
+import { ClockIcon } from '../../ui/icons/ClockIcon';
 
 interface Props {
-	feature: string
+	feature: string;
 }
 
 export const ComingSoon = ({ feature }: Props) => {
@@ -10,5 +10,5 @@ export const ComingSoon = ({ feature }: Props) => {
 			<ClockIcon className='w-20 h-20' />
 			<h1 className='text-4xl font-semibold'>{feature} Coming Soon</h1>
 		</div>
-	)
-}
+	);
+};

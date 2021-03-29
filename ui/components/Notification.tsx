@@ -1,10 +1,10 @@
-import { useToast } from '@chakra-ui/react'
-import { useEffect } from 'react'
-import { useNotification } from '../../hooks/useNotification'
+import { useToast } from '@chakra-ui/react';
+import { useEffect } from 'react';
+import { useNotification } from '../../hooks/useNotification';
 
 export const Notification = () => {
-	const notification = useNotification()
-	const toast = useToast()
+	const notification = useNotification();
+	const toast = useToast();
 
 	useEffect(() => {
 		if (notification.trigger && notification.message !== '') {
@@ -14,9 +14,9 @@ export const Notification = () => {
 				duration: 3000,
 				isClosable: true,
 				position: 'bottom',
-			})
+			});
 		}
-	}, [notification.trigger])
+	}, [notification.trigger]);
 
-	return null
-}
+	return null;
+};

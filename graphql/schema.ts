@@ -1,6 +1,6 @@
-import { fieldAuthorizePlugin, makeSchema } from 'nexus'
-import path from 'path'
-import * as types from './resolvers'
+import { fieldAuthorizePlugin, makeSchema } from 'nexus';
+import path from 'path';
+import * as types from './resolvers';
 
 export const schema = makeSchema({
 	types,
@@ -9,4 +9,4 @@ export const schema = makeSchema({
 		schema: path.join(process.cwd(), 'graphql', 'generated', 'schema.graphql'),
 	},
 	plugins: [fieldAuthorizePlugin()],
-})
+});

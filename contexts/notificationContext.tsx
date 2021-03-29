@@ -1,15 +1,15 @@
-import { createContext, useState } from 'react'
+import { createContext, useState } from 'react';
 
 interface NotificationContextType {
-	message: string
-	type: 'error' | 'success'
-	trigger: boolean
+	message: string;
+	type: 'error' | 'success';
+	trigger: boolean;
 }
 
 interface NotificationContextProperty extends NotificationContextType {
-	showErrorMessage: (arg: string) => void
-	showSuccessMessage: (arg: string) => void
-	clearNotification: () => void
+	showErrorMessage: (arg: string) => void;
+	showSuccessMessage: (arg: string) => void;
+	clearNotification: () => void;
 }
 
 export const NotificationContext = createContext<NotificationContextProperty>({
@@ -19,10 +19,10 @@ export const NotificationContext = createContext<NotificationContextProperty>({
 	showErrorMessage: () => {},
 	showSuccessMessage: () => {},
 	clearNotification: () => {},
-})
+});
 
 interface Props {
-	children?: React.ReactNode
+	children?: React.ReactNode;
 }
 
 export const NotificationContextProvider = ({ children }: Props) => {
@@ -30,41 +30,41 @@ export const NotificationContextProvider = ({ children }: Props) => {
 		message: '',
 		type: 'success',
 		trigger: false,
-	})
+	});
 
 	const showErrorMessage = (error: string) => {
 		setNotification({
 			message: error,
 			type: 'error',
 			trigger: true,
-		})
+		});
 
 		const timeout = setTimeout(() => {
-			setNotification((prev) => ({ ...prev, trigger: false }))
-			clearTimeout(timeout)
-		}, 100)
-	}
+			setNotification((prev) => ({ ...prev, trigger: false }));
+			clearTimeout(timeout);
+		}, 100);
+	};
 
 	const showSuccessMessage = (success: string) => {
 		setNotification({
 			message: success,
 			type: 'success',
 			trigger: true,
-		})
+		});
 
 		const timeout = setTimeout(() => {
-			setNotification((prev) => ({ ...prev, trigger: false }))
-			clearTimeout(timeout)
-		}, 100)
-	}
+			setNotification((prev) => ({ ...prev, trigger: false }));
+			clearTimeout(timeout);
+		}, 100);
+	};
 
 	const clearNotification = () => {
 		setNotification((prev) => ({
 			...prev,
 			message: '',
 			type: 'success',
-		}))
-	}
+		}));
+	};
 
 	return (
 		<NotificationContext.Provider
@@ -72,5 +72,5 @@ export const NotificationContextProvider = ({ children }: Props) => {
 		>
 			{children}
 		</NotificationContext.Provider>
-	)
-}
+	);
+};

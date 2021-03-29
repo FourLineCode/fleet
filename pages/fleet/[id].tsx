@@ -1,7 +1,7 @@
-import { FleetDetails } from '../../components/Fleet/FleetDetails'
-import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout'
-import { Menu } from '../../components/Navigation/Menu'
-import { Recommend } from '../../components/Recommend/Recommend'
+import { FleetDetails } from '../../components/Fleet/FleetDetails';
+import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout';
+import { Menu } from '../../components/Navigation/Menu';
+import { Recommend } from '../../components/Recommend/Recommend';
 
 const Profile = () => {
 	return (
@@ -12,7 +12,7 @@ const Profile = () => {
 				<Recommend />
 			</div>
 		</ProtectedLayout>
-	)
-}
+	);
+};
 
-export default Profile
+export default Profile;

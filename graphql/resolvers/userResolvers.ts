@@ -1,10 +1,10 @@
-import bcrypt from 'bcryptjs'
-import { intArg, list, mutationField, nonNull, nullable, queryField, stringArg } from 'nexus'
-import { Context } from '../context'
-import { checkAuth } from '../utils/checkAuth'
-import { createCookie } from '../utils/createCookie'
-import { signToken, verifyToken } from '../utils/jwt'
-import { registerShema } from '../validation/registerSchema'
+import bcrypt from 'bcryptjs';
+import { intArg, list, mutationField, nonNull, nullable, queryField, stringArg } from 'nexus';
+import { Context } from '../context';
+import { checkAuth } from '../utils/checkAuth';
+import { createCookie } from '../utils/createCookie';
+import { signToken, verifyToken } from '../utils/jwt';
+import { registerShema } from '../validation/registerSchema';
 
 export const allUsers = queryField('allUsers', {
 	type: list('User'),
@@ -18,9 +18,9 @@ export const allUsers = queryField('allUsers', {
 				like: true,
 				reply: true,
 			},
-		})
+		});
 	},
-})
+});
 
 export const user = queryField('user', {
 	type: 'User',
@@ -35,9 +35,9 @@ export const user = queryField('user', {
 				followers: true,
 				following: true,
 			},
-		})
+		});
 	},
-})
+});
 
 export const signUp = mutationField('signUp', {
 	type: 'User',
@@ -49,27 +49,27 @@ export const signUp = mutationField('signUp', {
 		bio: nullable(stringArg()),
 	},
 	resolve: async (_root, { email, password, username, displayName, bio }, { prisma }: Context) => {
-		const { error } = registerShema.validate({ email, password, username, displayName, bio })
+		const { error } = registerShema.validate({ email, password, username, displayName, bio });
 		if (error) {
-			throw error
+			throw error;
 		}
 
 		const emailExists = await prisma.user.findFirst({
 			where: {
 				email: email.toLowerCase(),
 			},
-		})
+		});
 		if (emailExists) {
-			throw new Error('User already exists with given email')
+			throw new Error('User already exists with given email');
 		}
 
 		const usernameExists = await prisma.user.findFirst({
 			where: {
 				username: username.toLowerCase(),
 			},
-		})
+		});
 		if (usernameExists) {
-			throw new Error('User already exists with given username')
+			throw new Error('User already exists with given username');
 		}
 
 		const user = await prisma.user.create({
@@ -80,11 +80,11 @@ export const signUp = mutationField('signUp', {
 				displayName,
 				bio: bio || '',
 			},
-		})
+		});
 
-		return user
+		return user;
 	},
-})
+});
 
 export const signIn = mutationField('signIn', {
 	type: 'TokenResponse',
@@ -97,62 +97,62 @@ export const signIn = mutationField('signIn', {
 			where: {
 				email: email.toLowerCase(),
 			},
-		})
+		});
 		if (!user) {
-			throw new Error('Invalid Credentials')
+			throw new Error('Invalid Credentials');
 		}
 
-		const validated = await bcrypt.compare(password, user.password)
+		const validated = await bcrypt.compare(password, user.password);
 
 		if (!validated) {
-			throw new Error('Invalid Credentials')
+			throw new Error('Invalid Credentials');
 		}
 
 		const payload = {
 			id: user.id,
 			username: user.username,
 			displayName: user.displayName,
-		}
+		};
 
-		const token = signToken(payload, '24h', 'AUTH')
+		const token = signToken(payload, '24h', 'AUTH');
 
-		const refreshToken = signToken(payload, '1y', 'REFRESH')
+		const refreshToken = signToken(payload, '1y', 'REFRESH');
 
 		res.setHeader('Set-Cookie', [
 			createCookie('auth-token', token, 1),
 			createCookie('refresh-token', refreshToken, 365),
-		])
+		]);
 
 		return {
 			success: true,
 			id: user.id,
 			token,
 			refreshToken,
-		}
+		};
 	},
-})
+});
 
 export const signOut = mutationField('signOut', {
 	type: 'SuccessResponse',
 	authorize: checkAuth(),
 	resolve: (_root, _args, { req, res }: Context) => {
-		const token = req.cookies['auth-token']
-		const refreshToken = req.cookies['refresh-token']
+		const token = req.cookies['auth-token'];
+		const refreshToken = req.cookies['refresh-token'];
 
 		if (!token && !refreshToken) {
-			throw new Error('You are not signed in')
+			throw new Error('You are not signed in');
 		}
 
-		res.setHeader('Set-Cookie', [createCookie('auth-token', '', -1), createCookie('refresh-token', '', -1)])
+		res.setHeader('Set-Cookie', [createCookie('auth-token', '', -1), createCookie('refresh-token', '', -1)]);
 
-		return { success: true }
+		return { success: true };
 	},
-})
+});
 
 export const refreshToken = queryField('refreshToken', {
 	type: 'TokenResponse',
 	resolve: (_root, _args, { req, res }: Context) => {
-		const refreshToken = req.cookies['refresh-token'] as string
+		const refreshToken = req.cookies['refresh-token'] as string;
 
 		if (!refreshToken) {
 			return {
@@ -160,54 +160,54 @@ export const refreshToken = queryField('refreshToken', {
 				id: null,
 				token: null,
 				refreshToken: null,
-			}
+			};
 		}
 
-		const verifiedUser = verifyToken(refreshToken, 'REFRESH')
+		const verifiedUser = verifyToken(refreshToken, 'REFRESH');
 		if (!verifiedUser) {
-			throw new Error('Access denied')
+			throw new Error('Access denied');
 		}
 
 		const payload = {
 			id: verifiedUser.id,
 			username: verifiedUser.username,
 			displayName: verifiedUser.displayName,
-		}
+		};
 
-		const newToken = signToken(payload, '24h', 'AUTH')
+		const newToken = signToken(payload, '24h', 'AUTH');
 
-		const newRefreshToken = signToken(payload, '1y', 'REFRESH')
+		const newRefreshToken = signToken(payload, '1y', 'REFRESH');
 
 		res.setHeader('Set-Cookie', [
 			createCookie('auth-token', newToken, 1),
 			createCookie('refresh-token', newRefreshToken, 365),
-		])
+		]);
 
 		return {
 			success: true,
 			id: verifiedUser.id,
 			token: newToken,
 			refreshToken: newRefreshToken,
-		}
+		};
 	},
-})
+});
 
 export const userInfo = queryField('userInfo', {
 	type: 'User',
 	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
-		return await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true })
+		return await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true });
 	},
-})
+});
 
 export const isAdmin = queryField('isAdmin', {
 	type: 'Boolean',
 	authorize: checkAuth(),
 	args: { id: nonNull(intArg()) },
 	resolve: async (_root, { id }, { prisma }: Context) => {
-		const user = await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true })
+		const user = await prisma.user.findFirst({ where: { id }, rejectOnNotFound: true });
 
-		return user.isAdmin
+		return user.isAdmin;
 	},
-})
+});

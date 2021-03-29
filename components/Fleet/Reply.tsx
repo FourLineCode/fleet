@@ -1,22 +1,22 @@
-import { formatDistanceToNow } from 'date-fns'
-import Link from 'next/link'
-import { useState } from 'react'
-import { UserState } from '../../contexts/types'
-import { useAuthorization } from '../../hooks/useAuthorization'
-import { useCurrentUser } from '../../hooks/useCurrentUser'
-import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon'
-import { ReplyType } from './FleetDetails'
-import { ReplyOptions } from './ReplyOptions'
+import { formatDistanceToNow } from 'date-fns';
+import Link from 'next/link';
+import { useState } from 'react';
+import { UserState } from '../../contexts/types';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
+import { VerifiedFilledIcon } from '../../ui/icons/VerifiedFilledIcon';
+import { ReplyType } from './FleetDetails';
+import { ReplyOptions } from './ReplyOptions';
 
 interface Props {
-	reply: ReplyType
-	user: UserState
+	reply: ReplyType;
+	user: UserState;
 }
 
 export const Reply = ({ reply, user }: Props) => {
-	const auth = useAuthorization()
-	const currentUser = useCurrentUser()
-	const [canDelete] = useState(auth.id === reply.user.id || currentUser.isAdmin)
+	const auth = useAuthorization();
+	const currentUser = useCurrentUser();
+	const [canDelete] = useState(auth.id === reply.user.id || currentUser.isAdmin);
 
 	return (
 		<div className='w-full px-2 py-2 mb-3 border rounded-lg shadow-xl border-dark-700'>
@@ -67,5 +67,5 @@ export const Reply = ({ reply, user }: Props) => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

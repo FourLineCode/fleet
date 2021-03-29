@@ -1,7 +1,7 @@
-import { gql, useQuery } from '@apollo/client'
-import { UserState } from '../../contexts/types'
-import { RecommendSuspense } from '../Suspense/RecommendSuspense'
-import { UserInfo } from './UserInfo'
+import { gql, useQuery } from '@apollo/client';
+import { UserState } from '../../contexts/types';
+import { RecommendSuspense } from '../Suspense/RecommendSuspense';
+import { UserInfo } from './UserInfo';
 
 export const Recommend = () => {
 	const { data } = useQuery(gql`
@@ -16,7 +16,7 @@ export const Recommend = () => {
 				createdAt
 			}
 		}
-	`)
+	`);
 
 	// const getRecommendations = async () => {
 	// 	try {
@@ -48,5 +48,5 @@ export const Recommend = () => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};

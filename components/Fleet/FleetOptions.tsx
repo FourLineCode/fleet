@@ -1,21 +1,21 @@
-import { gql, useMutation } from '@apollo/client'
-import { useDisclosure } from '@chakra-ui/react'
-import { Menu, Transition } from '@headlessui/react'
-import Link from 'next/link'
-import { ConfirmModal } from '../../ui/components/ConfirmModal'
-import { DotsVertical } from '../../ui/icons/DotsVertical'
-import { ExternalLinkIcon } from '../../ui/icons/ExternalLinkIcon'
-import { TrashIcon } from '../../ui/icons/TrashIcon'
+import { gql, useMutation } from '@apollo/client';
+import { useDisclosure } from '@chakra-ui/react';
+import { Menu, Transition } from '@headlessui/react';
+import Link from 'next/link';
+import { ConfirmModal } from '../../ui/components/ConfirmModal';
+import { DotsVertical } from '../../ui/icons/DotsVertical';
+import { ExternalLinkIcon } from '../../ui/icons/ExternalLinkIcon';
+import { TrashIcon } from '../../ui/icons/TrashIcon';
 
 interface Props {
-	id: number
-	canDelete: boolean
+	id: number;
+	canDelete: boolean;
 }
 
 export const FleetOptions = ({ id, canDelete }: Props) => {
 	// const router = useRouter()
 	// const { pathname } = router
-	const { isOpen, onOpen, onClose } = useDisclosure()
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const [deletePost] = useMutation(
 		gql`
@@ -30,7 +30,7 @@ export const FleetOptions = ({ id, canDelete }: Props) => {
 				id: id,
 			},
 		}
-	)
+	);
 
 	// const { mutate } = useMutation(deleteFleet, {
 	// 	onSuccess: () => {
@@ -107,5 +107,5 @@ export const FleetOptions = ({ id, canDelete }: Props) => {
 				/>
 			</div>
 		</div>
-	)
-}
+	);
+};

@@ -1,10 +1,10 @@
-import React from 'react'
-import { AuthContextProvider } from './authContext'
-import { NotificationContextProvider } from './notificationContext'
-import { UserContextProvider } from './userContext'
+import React from 'react';
+import { AuthContextProvider } from './authContext';
+import { NotificationContextProvider } from './notificationContext';
+import { UserContextProvider } from './userContext';
 
 interface Props {
-	children?: React.ReactNode
+	children?: React.ReactNode;
 }
 
 export const ContextProvider = ({ children }: Props) => {
@@ -14,5 +14,5 @@ export const ContextProvider = ({ children }: Props) => {
 				<NotificationContextProvider>{children}</NotificationContextProvider>
 			</UserContextProvider>
 		</AuthContextProvider>
-	)
-}
+	);
+};

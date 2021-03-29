@@ -1,12 +1,12 @@
-import { gql } from '@apollo/client'
-import { FleetType, Timeline } from '../../components/Fleet/Timeline'
-import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout'
-import { Menu } from '../../components/Navigation/Menu'
-import { Recommend } from '../../components/Recommend/Recommend'
-import { client } from '../../utils/apollo'
+import { gql } from '@apollo/client';
+import { FleetType, Timeline } from '../../components/Fleet/Timeline';
+import { ProtectedLayout } from '../../components/Layouts/ProtectedLayout';
+import { Menu } from '../../components/Navigation/Menu';
+import { Recommend } from '../../components/Recommend/Recommend';
+import { client } from '../../utils/apollo';
 
 interface Props {
-	fleets: FleetType[]
+	fleets: FleetType[];
 }
 
 const Home = ({ fleets }: Props) => {
@@ -18,8 +18,8 @@ const Home = ({ fleets }: Props) => {
 				<Recommend />
 			</div>
 		</ProtectedLayout>
-	)
-}
+	);
+};
 
 export const getServerSideProps = async () => {
 	const { data } = await client.query({
@@ -49,13 +49,13 @@ export const getServerSideProps = async () => {
 				}
 			}
 		`,
-	})
+	});
 
 	return {
 		props: {
 			fleets: data.homePageFleets,
 		},
-	}
-}
+	};
+};
 
-export default Home
+export default Home;

@@ -1,19 +1,19 @@
-import { gql, useMutation } from '@apollo/client'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useEffect, useRef } from 'react'
-import { Layout } from '../../components/Layouts/Layout'
-import { useAuthorization } from '../../hooks/useAuthorization'
-import { useNotification } from '../../hooks/useNotification'
-import { Button } from '../../ui/components/Button'
-import { Input } from '../../ui/components/Input'
-import { TextArea } from '../../ui/components/TextArea'
+import { gql, useMutation } from '@apollo/client';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useRef } from 'react';
+import { Layout } from '../../components/Layouts/Layout';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { useNotification } from '../../hooks/useNotification';
+import { Button } from '../../ui/components/Button';
+import { Input } from '../../ui/components/Input';
+import { TextArea } from '../../ui/components/TextArea';
 
 const Signup = () => {
-	const router = useRouter()
-	const emailRef = useRef<HTMLInputElement>(null)
-	const notification = useNotification()
-	const auth = useAuthorization()
+	const router = useRouter();
+	const emailRef = useRef<HTMLInputElement>(null);
+	const notification = useNotification();
+	const auth = useAuthorization();
 
 	const [mutate, { data: signUpResponseData }] = useMutation(gql`
 		mutation SingnUp($email: String!, $password: String!, $username: String!, $displayName: String!, $bio: Stirng) {
@@ -21,15 +21,15 @@ const Signup = () => {
 				id
 			}
 		}
-	`)
+	`);
 
 	const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
-		e.preventDefault()
+		e.preventDefault();
 
-		const formData = new FormData(e.target)
+		const formData = new FormData(e.target);
 
-		const password = formData.get('password')
-		const confirmPassword = formData.get('cpassword')
+		const password = formData.get('password');
+		const confirmPassword = formData.get('cpassword');
 
 		if (
 			formData.get('email') === '' ||
@@ -38,13 +38,13 @@ const Signup = () => {
 			password === '' ||
 			confirmPassword === ''
 		) {
-			notification.showErrorMessage('One or more fields are empty')
-			return
+			notification.showErrorMessage('One or more fields are empty');
+			return;
 		}
 
 		if (password !== confirmPassword) {
-			notification.showErrorMessage('Passwords do not match')
-			return
+			notification.showErrorMessage('Passwords do not match');
+			return;
 		}
 
 		const data = {
@@ -53,28 +53,28 @@ const Signup = () => {
 			displayName: formData.get('displayName') as string,
 			bio: formData.get('bio') as string,
 			password: formData.get('password') as string,
-		}
+		};
 
 		try {
-			mutate({ variables: data })
+			mutate({ variables: data });
 
 			if (signUpResponseData.id) {
-				auth.signIn({ email: data.email, password: data.password })
+				auth.signIn({ email: data.email, password: data.password });
 
-				notification.showSuccessMessage('Successfully signed up')
-				router.push('/home')
+				notification.showSuccessMessage('Successfully signed up');
+				router.push('/home');
 			}
 		} catch (err) {
 			if (err.response.data.message.startsWith('E11000')) {
-				return notification.showErrorMessage('User already exists with given username')
+				return notification.showErrorMessage('User already exists with given username');
 			}
-			notification.showErrorMessage(err.response.data.message)
+			notification.showErrorMessage(err.response.data.message);
 		}
-	}
+	};
 
 	useEffect(() => {
-		emailRef.current?.focus()
-	}, [])
+		emailRef.current?.focus();
+	}, []);
 
 	return (
 		<Layout title='Sign Up'>
@@ -103,7 +103,7 @@ const Signup = () => {
 				</form>
 			</div>
 		</Layout>
-	)
-}
+	);
+};
 
-export default Signup
+export default Signup;

@@ -1,18 +1,18 @@
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import { useState } from 'react'
+import clsx from 'clsx';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
-type TabType = 'users' | 'posts'
+type TabType = 'users' | 'posts';
 
 const Tabs: Record<TabType, TabType> = {
 	users: 'users',
 	posts: 'posts',
-}
+};
 
 export const SearchResult = () => {
-	const router = useRouter()
-	const { query } = router.query
-	const [tab, setTab] = useState<TabType>(Tabs.users)
+	const router = useRouter();
+	const { query } = router.query;
+	const [tab, setTab] = useState<TabType>(Tabs.users);
 
 	return (
 		<div className='h-full col-span-4 px-1 py-2 mb-8 border-dark-500 md:px-2 md:col-span-3 xl:col-span-2 md:border-l xl:border-r md:mb-0'>
@@ -48,5 +48,5 @@ export const SearchResult = () => {
 				<span>Search result for "{query}"</span>
 			</div>
 		</div>
-	)
-}
+	);
+};

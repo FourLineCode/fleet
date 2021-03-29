@@ -1,19 +1,19 @@
-import { useRouter } from 'next/router'
-import { useAuthorization } from '../../hooks/useAuthorization'
-import { MenuLink } from '../../ui/components/MenuLink'
-import { GithubIcon } from '../../ui/icons/GithubIcon'
-import { HomeIcon } from '../../ui/icons/HomeIcon'
-import { MessageIcon } from '../../ui/icons/MessageIcon'
-import { PlusIcon } from '../../ui/icons/PlusIcon'
-import { ProfileIcon } from '../../ui/icons/ProfileIcon'
+import { useRouter } from 'next/router';
+import { useAuthorization } from '../../hooks/useAuthorization';
+import { MenuLink } from '../../ui/components/MenuLink';
+import { GithubIcon } from '../../ui/icons/GithubIcon';
+import { HomeIcon } from '../../ui/icons/HomeIcon';
+import { MessageIcon } from '../../ui/icons/MessageIcon';
+import { PlusIcon } from '../../ui/icons/PlusIcon';
+import { ProfileIcon } from '../../ui/icons/ProfileIcon';
 
 interface Props {
-	onOpen: () => void
+	onOpen: () => void;
 }
 
 export const BottomMenu = ({ onOpen }: Props) => {
-	const auth = useAuthorization()
-	const { pathname } = useRouter()
+	const auth = useAuthorization();
+	const { pathname } = useRouter();
 
 	return (
 		<div className='fixed bottom-0 left-0 z-50 block w-full h-16 border-t-2 bg-light dark:bg-dark-800 border-brand-500 rounded-t-md md:hidden'>
@@ -43,5 +43,5 @@ export const BottomMenu = ({ onOpen }: Props) => {
 				</MenuLink>
 			</div>
 		</div>
-	)
-}
+	);
+};

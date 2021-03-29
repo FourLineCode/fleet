@@ -1,61 +1,61 @@
-import Router from 'next/router'
-import NProgress from 'nprogress'
+import Router from 'next/router';
+import NProgress from 'nprogress';
 
-let timer: NodeJS.Timeout
-let state: string
-let activeRequests = 0
-const delay = 100
+let timer: NodeJS.Timeout;
+let state: string;
+let activeRequests = 0;
+const delay = 100;
 
 function load() {
 	if (state === 'loading') {
-		return
+		return;
 	}
 
-	state = 'loading'
+	state = 'loading';
 
 	timer = setTimeout(function () {
-		NProgress.start()
-	}, delay)
+		NProgress.start();
+	}, delay);
 }
 
 function stop() {
 	if (activeRequests > 0) {
-		return
+		return;
 	}
 
-	state = 'stop'
+	state = 'stop';
 
-	clearTimeout(timer)
-	NProgress.done()
+	clearTimeout(timer);
+	NProgress.done();
 }
 
-Router.events.on('routeChangeStart', load)
-Router.events.on('routeChangeComplete', stop)
-Router.events.on('routeChangeError', stop)
+Router.events.on('routeChangeStart', load);
+Router.events.on('routeChangeComplete', stop);
+Router.events.on('routeChangeError', stop);
 
 if (process.browser) {
-	const originalFetch = window.fetch
+	const originalFetch = window.fetch;
 	window.fetch = async function (...args) {
 		if (activeRequests === 0) {
-			load()
+			load();
 		}
 
-		activeRequests++
+		activeRequests++;
 
 		try {
-			const response = await originalFetch(...args)
-			return response
+			const response = await originalFetch(...args);
+			return response;
 		} catch (error) {
-			return Promise.reject(error)
+			return Promise.reject(error);
 		} finally {
-			activeRequests -= 1
+			activeRequests -= 1;
 			if (activeRequests === 0) {
-				stop()
+				stop();
 			}
 		}
-	}
+	};
 }
 
 export default function Nothing() {
-	return null
+	return null;
 }

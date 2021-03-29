@@ -1,30 +1,30 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 interface Props {
-	type: 'route' | 'site' | 'button'
-	to?: string
-	active?: boolean
-	onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void
-	children: React.ReactNode
+	type: 'route' | 'site' | 'button';
+	to?: string;
+	active?: boolean;
+	onClick?: (e: React.ChangeEvent<HTMLButtonElement>) => void;
+	children: React.ReactNode;
 }
 
 export const MenuLink = ({ type, to, active = false, children, onClick }: Props) => {
 	const classes = `${
 		active ? 'text-brand-400' : 'text-black dark:text-white'
-	} px-4 xl:px-10 py-1 rounded-lg font-bold text-2xl hover:bg-gray-400 hover:bg-opacity-25 hover:text-brand-400`
+	} px-4 xl:px-10 py-1 rounded-lg font-bold text-2xl hover:bg-gray-400 hover:bg-opacity-25 hover:text-brand-400`;
 
 	if (type === 'route') {
 		return (
 			<div className={classes}>
 				<Link href={to as string}>{children}</Link>
 			</div>
-		)
+		);
 	} else if (type === 'site') {
 		return (
 			<a className={classes} href={to} target='_blank'>
 				{children}
 			</a>
-		)
+		);
 	} else if (type === 'button') {
 		return (
 			<button
@@ -34,6 +34,6 @@ export const MenuLink = ({ type, to, active = false, children, onClick }: Props)
 			>
 				{children}
 			</button>
-		)
-	} else return <></>
-}
+		);
+	} else return <></>;
+};
