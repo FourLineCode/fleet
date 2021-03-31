@@ -6,13 +6,13 @@ import { Navbar } from '../Navigation/Navbar';
 import { Footer } from './Footer';
 import TopProgressBar from './TopProgressBar';
 
-interface Props {
+export interface LayoutProps {
 	children?: React.ReactNode;
 	title?: string;
 	desc?: string;
 }
 
-export const BaseLayout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communication' }: Props) => (
+export const BaseLayout = ({ children, title = 'Fleet', desc = 'Fleet | New way of communication' }: LayoutProps) => (
 	<main>
 		<Head>
 			<title>{title} | Fleet</title>
