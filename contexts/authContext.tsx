@@ -96,7 +96,17 @@ export const AuthContextProvider = ({ children }: Props) => {
 		notification.showSuccessMessage('Successfully signed in');
 	};
 
-	const signOut = () => {
+	const signOut = async () => {
+		await client.query({
+			query: gql`
+				query SignOut {
+					userInfo {
+						success
+					}
+				}
+			`,
+		});
+
 		setAuth({
 			signedIn: false,
 			id: undefined,
