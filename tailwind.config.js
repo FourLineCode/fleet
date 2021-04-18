@@ -1,26 +1,24 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
+	mode: 'jit',
+	purge: ['./src/**/*.ts', './src/**/*.tsx'],
 	experimental: 'all',
 	darkMode: 'class',
-	future: {
-		removeDeprecatedGapUtilities: true,
-		purgeLayersByDefault: true,
-	},
-	purge: {
-		content: ['./**/*.ts', './**/*.tsx'],
-	},
 	theme: {
 		extend: {
-			colors: {
-				brand: colors.emerald,
-				light: colors.coolGray[100],
-				dark: colors.coolGray,
-			},
+			colors: {},
 		},
 	},
 	variants: {
-		width: ['responsive', 'focus'],
+		extend: {},
+		scrollbar: ['rounded'],
 	},
-	plugins: [require('@tailwindcss/line-clamp')],
+	plugins: [
+		require('@tailwindcss/typography'),
+		require('@tailwindcss/forms'),
+		require('@tailwindcss/aspect-ratio'),
+		require('@tailwindcss/line-clamp'),
+		require('tailwind-scrollbar'),
+	],
 };
