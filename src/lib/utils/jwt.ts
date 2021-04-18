@@ -4,9 +4,14 @@ import jwt from 'jsonwebtoken';
 export type TokenType = 'AUTH' | 'REFRESH';
 export type TokenAge = '24h' | '1y';
 
-interface SignTokenInput {
+interface SignTokenParams {
 	payload: Record<string, string | number | boolean>;
 	age: TokenAge;
+	type: TokenType;
+}
+
+interface ValidateTokenParams {
+	token: string;
 	type: TokenType;
 }
 
@@ -15,7 +20,7 @@ const SECRETS: Record<TokenType, string> = {
 	REFRESH: process.env.JWT_REFRESH_SECRET || 'secret',
 };
 
-export const signToken = ({ payload, age, type }: SignTokenInput) => {
+export const signToken = ({ payload, age, type }: SignTokenParams) => {
 	const secret = SECRETS[type];
 
 	return jwt.sign(payload, secret, {
@@ -23,6 +28,6 @@ export const signToken = ({ payload, age, type }: SignTokenInput) => {
 	});
 };
 
-export const verifyToken = (token: string, type: TokenType): User => {
+export const verifyToken = ({ token, type }: ValidateTokenParams): User => {
 	return jwt.verify(token, SECRETS[type]) as User;
 };
