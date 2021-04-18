@@ -29,7 +29,8 @@
 		"experimentalDecorators": true,
 		"typeRoots": ["./node_modules/@types"],
 		"noEmit": true,
-		"pretty": true
+		"pretty": true,
+		"baseUrl": "."
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]
