@@ -36,6 +36,7 @@
 			"~/components/*": ["src/components/*"],
 			"~/ui/*": ["src/ui/*"],
 			"~/prisma/*": ["prisma/*"],
+			"~/lib/*": ["src/lib/*"],
 			"~/config/*": ["config/*"]
 		}
 	},
