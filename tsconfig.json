@@ -30,7 +30,14 @@
 		"typeRoots": ["./node_modules/@types"],
 		"noEmit": true,
 		"pretty": true,
-		"baseUrl": "."
+		"baseUrl": ".",
+		"paths": {
+			"~/src/*": ["src/*"],
+			"~/components/*": ["src/components/*"],
+			"~/ui/*": ["src/ui/*"],
+			"~/prisma/*": ["prisma/*"],
+			"~/config/*": ["config/*"]
+		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
 	"exclude": ["node_modules"]
