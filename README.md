@@ -12,35 +12,24 @@ This website was developed with efficiency and scalability in mind. The UI was b
 Server side rendering also maked the UI blazing fast, while also maintaining all the best practises for Search Engine Optimizations.
 The database and API was designed using relational data that optimizes the backend performance which can be easily scaled up to expectations.
 
-# Frontend
+# Stack
 
-### Typescript
-
+-   [Typescript](https://www.typescriptlang.org/)
 -   [Next.js](https://nextjs.org/)
 -   [React](https://reactjs.org)
--   [Redux](https://redux.js.org)
--   [Tailwind CSS](https://tailwindcss.com/)
+-   [React Query](https://react-query.tanstack.com/)
+-   [Zustand](https://github.com/pmndrs/zustand)
 -   [Chakra-UI](https://chakra-ui.com/)
-
-# Backend
-
-### Typescript
-
 -   [Nodejs](https://nodejs.org/en/)
--   [GraphQL](https://graphql.org/)
--   [Apollo Server](https://www.apollographql.com/docs/apollo-server/api/apollo-server/)
--   [Nexus](https://nexusjs.org/)
 -   [Prisma](https://www.prisma.io/)
 -   [SQLite](https://www.sqlite.org/index.html)
-
----
 
 # If you want to run this application on your own follow the procedure below
 
 ## Requirements
 
 -   Node.js 12 or higher.
--   Yarn 1.22.5
+-   Npm or Yarn 1.22.5
 -   SQLite
 -   Git
 
@@ -56,10 +45,22 @@ git clone https://github.com/FourLineCode/fleet.git
 yarn
 ```
 
+or
+
+```
+npm install
+```
+
 ## Migrate database
 
 ```
 yarn migrate
+```
+
+or
+
+```
+npm run migrate
 ```
 
 ## Run in production mode
@@ -68,8 +69,20 @@ yarn migrate
 yarn build && yarn start
 ```
 
+or
+
+```
+npm run build && npm start
+```
+
 ## Run in development mode
 
 ```
 yarn dev
+```
+
+or
+
+```
+npm run dev
 ```
