@@ -8,7 +8,10 @@ export const theme = extendTheme({
 	colors: {
 		brand: defaultTheme.colors.green,
 		dark: defaultTheme.colors.gray[900],
+		'dark-muted': defaultTheme.colors.gray[800],
 		light: defaultTheme.colors.gray[100],
+		'light-muted': defaultTheme.colors.gray[200],
+		'text-muted': defaultTheme.colors.gray[500],
 	},
 	styles: {
 		global: (props) => ({

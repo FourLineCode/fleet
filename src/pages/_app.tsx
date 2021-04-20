@@ -2,7 +2,8 @@ import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import axios from 'axios';
 import App, { AppContext, AppProps } from 'next/app';
 import { QueryClientProvider } from 'react-query';
-import { config, queryClient } from '~/config/config';
+import { queryClient } from 'src/shared/queryClient';
+import { config } from '~/config/config';
 import { theme } from '~/theme/theme';
 
 interface AuthState {

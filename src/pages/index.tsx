@@ -1,11 +1,8 @@
 import { GetServerSideProps } from 'next';
+import { Layout } from '~/components/Layouts/Layout';
 
-interface Props {
-	data?: any;
-}
-
-const Index = (props: Props) => {
-	return null;
+const Index = () => {
+	return <Layout title='Fleet' />;
 };
 
 export const getServerSideProps: GetServerSideProps = async () => {
