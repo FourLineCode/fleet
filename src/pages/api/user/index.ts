@@ -1,17 +1,23 @@
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
+import { authorize } from '~/lib/middlewares/authorize';
 import prisma from '~/prisma/client';
 
-// TDOD: Authorize middleware
 const userHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'GET') {
+		const { authorized } = await authorize(req);
+		if (!authorized) {
+			res.status(StatusCodes.FORBIDDEN).json({ error: 'You are not authorized' });
+			return;
+		}
+
 		const users = await prisma.user.findMany({
 			include: {
-				fleet: true,
+				fleets: true,
 				followers: true,
 				following: true,
-				like: true,
-				reply: true,
+				likes: true,
+				replies: true,
 			},
 		});
 

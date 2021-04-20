@@ -3,7 +3,7 @@ import { NextApiHandler } from 'next';
 import { authorize } from '~/lib/middlewares/authorize';
 import prisma from '~/prisma/client';
 
-const userByIdHandler: NextApiHandler = async (req, res) => {
+const infoHandler: NextApiHandler = async (req, res) => {
 	const id = parseInt(req.query.id as string);
 
 	if (req.method === 'GET') {
@@ -13,29 +13,16 @@ const userByIdHandler: NextApiHandler = async (req, res) => {
 			return;
 		}
 
-		const user = await prisma.user.findFirst({
-			where: { id },
-			select: {
-				id: true,
-				email: true,
-				username: true,
-				displayName: true,
-				bio: true,
-				avatarURL: true,
-				isAdmin: true,
-				createdAt: true,
-			},
-		});
-
+		const user = await prisma.user.findFirst({ where: { id } });
 		if (!user) {
 			res.status(StatusCodes.BAD_REQUEST).json({ error: 'User not found' });
 			return;
 		}
 
-		res.status(StatusCodes.OK).json(user);
+		res.status(StatusCodes.OK).json({ isAdmin: user.isAdmin });
 	} else {
 		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ error: 'Method not allowed' });
 	}
 };
 
-export default userByIdHandler;
+export default infoHandler;

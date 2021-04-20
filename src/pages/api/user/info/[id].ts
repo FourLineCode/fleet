@@ -3,7 +3,7 @@ import { NextApiHandler } from 'next';
 import { authorize } from '~/lib/middlewares/authorize';
 import prisma from '~/prisma/client';
 
-const userByIdHandler: NextApiHandler = async (req, res) => {
+const infoHandler: NextApiHandler = async (req, res) => {
 	const id = parseInt(req.query.id as string);
 
 	if (req.method === 'GET') {
@@ -38,4 +38,4 @@ const userByIdHandler: NextApiHandler = async (req, res) => {
 	}
 };
 
-export default userByIdHandler;
+export default infoHandler;

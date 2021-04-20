@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
+import { createCookie } from '~/lib/utils/createCookie';
+import { signToken } from '~/lib/utils/jwt';
+import { signinShema } from '~/lib/validation/signinSchema';
 import prisma from '~/prisma/client';
-import { createCookie } from '~/src/lib/utils/createCookie';
-import { signToken } from '~/src/lib/utils/jwt';
-import { signinShema } from '~/src/lib/validation/signinSchema';
 
 const signinHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {
@@ -44,8 +44,8 @@ const signinHandler: NextApiHandler = async (req, res) => {
 		const refreshToken = signToken({ payload, age: '1y', type: 'REFRESH' });
 
 		res.setHeader('Set-Cookie', [
-			createCookie('auth-token', token, 1),
-			createCookie('refresh-token', refreshToken, 365),
+			createCookie({ name: 'auth-token', value: token, age: 1 }),
+			createCookie({ name: 'refresh-token', value: refreshToken, age: 365 }),
 		]);
 
 		res.status(StatusCodes.OK).json({
