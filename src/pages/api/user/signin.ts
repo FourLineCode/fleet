@@ -23,14 +23,14 @@ const signinHandler: NextApiHandler = async (req, res) => {
 			},
 		});
 		if (!user) {
-			res.status(StatusCodes.BAD_REQUEST).json({ error: 'User not found' });
+			res.status(StatusCodes.BAD_REQUEST).json({ message: 'User not found' });
 			return;
 		}
 
 		const validated = await bcrypt.compare(password, user.password);
 
 		if (!validated) {
-			res.status(StatusCodes.FORBIDDEN).json({ error: 'Invalid credentials' });
+			res.status(StatusCodes.FORBIDDEN).json({ message: 'Invalid credentials' });
 			return;
 		}
 
@@ -55,7 +55,7 @@ const signinHandler: NextApiHandler = async (req, res) => {
 			refreshToken,
 		});
 	} else {
-		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ error: 'Method not allowed' });
+		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ message: 'Method not allowed' });
 	}
 };
 

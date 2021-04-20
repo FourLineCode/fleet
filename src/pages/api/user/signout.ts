@@ -7,7 +7,7 @@ const signoutHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {
 		const { authorized } = await authorize(req);
 		if (!authorized) {
-			res.status(StatusCodes.FORBIDDEN).json({ error: 'You are not authorized' });
+			res.status(StatusCodes.FORBIDDEN).json({ message: 'You are not authorized' });
 			return;
 		}
 
@@ -15,7 +15,7 @@ const signoutHandler: NextApiHandler = async (req, res) => {
 		const refreshToken = req.cookies['refresh-token'];
 
 		if (!token && !refreshToken) {
-			res.status(StatusCodes.FORBIDDEN).json({ error: 'You are not signed in' });
+			res.status(StatusCodes.FORBIDDEN).json({ message: 'You are not signed in' });
 			return;
 		}
 
@@ -26,7 +26,7 @@ const signoutHandler: NextApiHandler = async (req, res) => {
 
 		res.status(StatusCodes.OK).json({ success: true });
 	} else {
-		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ error: 'Method not allowed' });
+		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ message: 'Method not allowed' });
 	}
 };
 
