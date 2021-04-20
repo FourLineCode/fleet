@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
+import { signupShema } from '~/lib/validation/signupSchema';
 import prisma from '~/prisma/client';
-import { signupShema } from '~/src/lib/validation/signupSchema';
 
 const signupHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {
@@ -15,27 +15,18 @@ const signupHandler: NextApiHandler = async (req, res) => {
 
 		const { email, password, username, displayName, bio } = req.body;
 
-		const emailExists = await prisma.user.findFirst({
+		const exists = await prisma.user.findFirst({
 			where: {
-				email: email.toLowerCase(),
+				OR: [{ email: email.toLowerCase() }, { username: username.toLowerCase() }],
 			},
 		});
-		if (emailExists) {
-			res.status(StatusCodes.BAD_REQUEST).json({
-				error: 'User already exists with given email',
-			});
-			return;
-		}
+		if (exists) {
+			const field = exists.email === email.toLowerCase() ? 'email' : 'username';
 
-		const usernameExists = await prisma.user.findFirst({
-			where: {
-				username: username.toLowerCase(),
-			},
-		});
-		if (usernameExists) {
 			res.status(StatusCodes.BAD_REQUEST).json({
-				error: 'User already exists with given username',
+				error: `User already exists with given ${field}`,
 			});
+
 			return;
 		}
 

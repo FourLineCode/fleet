@@ -32,7 +32,6 @@
 		"pretty": true,
 		"baseUrl": ".",
 		"paths": {
-			"~/src/*": ["src/*"],
 			"~/components/*": ["src/components/*"],
 			"~/ui/*": ["src/ui/*"],
 			"~/prisma/*": ["prisma/*"],

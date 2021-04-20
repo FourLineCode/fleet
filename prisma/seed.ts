@@ -42,8 +42,8 @@ const main = async () => {
 		if (n % 2 == 0) {
 			await prisma.follow.create({
 				data: {
-					fromId: newUser.id,
-					toId: admin.id,
+					fromUserId: newUser.id,
+					toUserId: admin.id,
 				},
 			});
 		}
