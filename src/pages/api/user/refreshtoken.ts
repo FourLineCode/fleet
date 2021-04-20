@@ -8,13 +8,13 @@ const refreshtokenHandler: NextApiHandler = async (req, res) => {
 		const refreshToken = req.cookies['refresh-token'] as string;
 
 		if (!refreshToken) {
-			res.status(StatusCodes.FORBIDDEN).json({ error: 'You do not have refresh token' });
+			res.status(StatusCodes.FORBIDDEN).json({ message: 'You do not have refresh token' });
 			return;
 		}
 
 		const verifiedUser = verifyToken({ token: refreshToken, type: 'REFRESH' });
 		if (!verifiedUser) {
-			res.status(StatusCodes.FORBIDDEN).json({ error: 'Access denied' });
+			res.status(StatusCodes.FORBIDDEN).json({ message: 'Access denied' });
 			return;
 		}
 
@@ -39,7 +39,7 @@ const refreshtokenHandler: NextApiHandler = async (req, res) => {
 			refreshToken: newRefreshToken,
 		});
 	} else {
-		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ error: 'Method not allowed' });
+		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ message: 'Method not allowed' });
 	}
 };
 

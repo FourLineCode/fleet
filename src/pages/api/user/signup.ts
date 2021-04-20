@@ -24,7 +24,7 @@ const signupHandler: NextApiHandler = async (req, res) => {
 			const field = exists.email === email.toLowerCase() ? 'email' : 'username';
 
 			res.status(StatusCodes.BAD_REQUEST).json({
-				error: `User already exists with given ${field}`,
+				message: `User already exists with given ${field}`,
 			});
 
 			return;
@@ -42,7 +42,7 @@ const signupHandler: NextApiHandler = async (req, res) => {
 
 		res.status(StatusCodes.OK).json(user);
 	} else {
-		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ error: 'Method not allowed' });
+		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ message: 'Method not allowed' });
 	}
 };
 

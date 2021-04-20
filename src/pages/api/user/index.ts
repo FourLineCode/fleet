@@ -7,7 +7,7 @@ const userHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'GET') {
 		const { authorized } = await authorize(req);
 		if (!authorized) {
-			res.status(StatusCodes.FORBIDDEN).json({ error: 'You are not authorized' });
+			res.status(StatusCodes.FORBIDDEN).json({ message: 'You are not authorized' });
 			return;
 		}
 
@@ -23,7 +23,7 @@ const userHandler: NextApiHandler = async (req, res) => {
 
 		res.status(StatusCodes.OK).json(users);
 	} else {
-		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ error: 'Method not allowed' });
+		res.status(StatusCodes.METHOD_NOT_ALLOWED).json({ message: 'Method not allowed' });
 	}
 };
 
