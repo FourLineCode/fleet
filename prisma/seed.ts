@@ -1,9 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 
-const prisma = new PrismaClient({
-	log: ['query', 'error'],
-});
+const prisma = new PrismaClient();
 
 const main = async () => {
 	const user = await prisma.user.findFirst({
@@ -18,10 +16,10 @@ const main = async () => {
 		where: { email: 'akmal@rip.com' },
 		update: {},
 		create: {
-			email: 'akmal@rip.com',
-			password: await bcrypt.hash('admin00', 10),
-			username: 'akmal',
-			displayName: 'Akmal Hossain',
+			email: process.env.ADMIN_EMAIL || 'example@rip.com',
+			password: await bcrypt.hash(process.env.ADMIN_PASSWORD || 'example123', 10),
+			username: process.env.ADMIN_USERNAME || 'example',
+			displayName: process.env.ADMIN_DISPLAYNAME || 'EXAMPLE',
 			bio: 'I created this website lmao',
 			isAdmin: true,
 			avatarURL: 'https://github.com/FourLineCode.png',
@@ -44,8 +42,8 @@ const main = async () => {
 		if (n % 2 == 0) {
 			await prisma.follow.create({
 				data: {
-					fromId: newUser.id,
-					toId: admin.id,
+					fromUserId: newUser.id,
+					toUserId: admin.id,
 				},
 			});
 		}

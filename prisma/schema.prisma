@@ -1,72 +1,72 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  email       String   @unique
-  password    String
-  username    String   @unique
-  displayName String
-  bio         String?  @default("")
-  isAdmin     Boolean  @default(false)
-  avatarURL   String?
-  fleet       Fleet[]
-  followers   Follow[] @relation("followers")
-  following   Follow[] @relation("following")
-  like        Like[]
-  reply       Reply[]
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    email       String   @unique
+    password    String
+    username    String   @unique
+    displayName String
+    bio         String?  @default("")
+    isAdmin     Boolean  @default(false)
+    avatarURL   String?
+    fleets      Fleet[]
+    followers   Follow[] @relation("followers")
+    following   Follow[] @relation("following")
+    likes       Like[]
+    replies     Reply[]
 }
 
 model Follow {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  from      User     @relation("following", fields: [fromId], references: [id])
-  fromId    Int
-  to        User     @relation("followers", fields: [toId], references: [id])
-  toId      Int
+    id         Int      @id @default(autoincrement())
+    createdAt  DateTime @default(now())
+    updatedAt  DateTime @updatedAt
+    fromUser   User     @relation("following", fields: [fromUserId], references: [id])
+    fromUserId Int
+    toUser     User     @relation("followers", fields: [toUserId], references: [id])
+    toUserId   Int
 
-  @@unique([fromId, toId])
+    @@unique([fromUserId, toUserId])
 }
 
 model Fleet {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  body      String
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
-  like      Like[]
-  reply     Reply[]
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    body      String
+    author    User     @relation(fields: [authorId], references: [id])
+    authorId  Int
+    likes     Like[]
+    replies   Reply[]
 }
 
 model Like {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  fleet     Fleet    @relation(fields: [fleetId], references: [id])
-  fleetId   Int
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    fleet     Fleet    @relation(fields: [fleetId], references: [id])
+    fleetId   Int
+    user      User     @relation(fields: [userId], references: [id])
+    userId    Int
 
-  @@unique([fleetId, userId])
+    @@unique([fleetId, userId])
 }
 
 model Reply {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  body      String
-  fleet     Fleet    @relation(fields: [fleetId], references: [id])
-  fleetId   Int
-  user      User     @relation(fields: [userId], references: [id])
-  userId    Int
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    body      String
+    fleet     Fleet    @relation(fields: [fleetId], references: [id])
+    fleetId   Int
+    user      User     @relation(fields: [userId], references: [id])
+    userId    Int
 }
