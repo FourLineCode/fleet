@@ -16,7 +16,8 @@
 		"generate": "yarn prisma generate",
 		"seed": "yarn prisma db seed --preview-feature",
 		"studio": "yarn prisma studio",
-		"db:reset": "rm -rf ./prisma/db && rm -rf ./prisma/migrations && yarn migrate -n init && yarn generate && yarn seed"
+		"db:reset": "rm -rf ./prisma/db && rm -rf ./prisma/migrations && yarn migrate -n init && yarn generate && yarn seed",
+		"deploy": "vercel --prod"
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^1.5.2",
