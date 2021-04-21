@@ -1,8 +1,7 @@
-import { IconButton } from '@chakra-ui/button';
 import { Flex, HStack, Text } from '@chakra-ui/layout';
-import { Container, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Avatar, Container, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
-import { FaCaretDown, FaMoon, FaSun } from 'react-icons/fa';
+import { DropDown } from '~/components/Navigations/DropDown';
 import { SideMenu } from '~/components/Navigations/SideMenu';
 
 interface Props {
@@ -10,7 +9,6 @@ interface Props {
 }
 
 export const Navbar = ({ route }: Props) => {
-	const { colorMode, toggleColorMode } = useColorMode();
 	const bgColor = useColorModeValue('light-muted', 'dark-muted');
 
 	return (
@@ -24,12 +22,8 @@ export const Navbar = ({ route }: Props) => {
 						</Text>
 					</Flex>
 					<HStack>
-						<IconButton
-							onClick={toggleColorMode}
-							icon={colorMode === 'dark' ? <FaSun /> : <FaMoon />}
-							aria-label='color-mode'
-						/>
-						<IconButton icon={<FaCaretDown />} aria-label='dropdown' isRound />
+						<Avatar size='sm' />
+						<DropDown />
 					</HStack>
 				</Flex>
 			</Container>

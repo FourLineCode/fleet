@@ -3,12 +3,13 @@ import React from 'react';
 import { Navbar } from '~/components/Navigations/Navbar';
 import { config } from '~/config/config';
 
-interface LayoutProps {
+interface Props {
+	children?: React.ReactNode;
 	title?: string;
 	desc?: string;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ title, desc, children }) => {
+export const Layout = ({ title, desc, children }: Props) => {
 	return (
 		<main>
 			<Head>
