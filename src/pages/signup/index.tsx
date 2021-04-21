@@ -10,6 +10,7 @@ import {
 	Text,
 	Textarea,
 	useBreakpointValue,
+	useColorModeValue,
 	useToast,
 	VStack,
 } from '@chakra-ui/react';
@@ -27,6 +28,7 @@ const SignUp = () => {
 	const [agreed, setAgreed] = useState(false);
 	const padding = useBreakpointValue({ base: '8', md: '12', lg: '16' });
 	const marginTop = useBreakpointValue({ base: '12', lg: '20' });
+	const bg = useColorModeValue('light-muted', 'dark-muted');
 
 	return (
 		<Layout title='Sign Up' desc='Sign Up Page'>
@@ -51,7 +53,7 @@ const SignUp = () => {
 							return;
 						}
 
-						const [success, message] = await auth.signup(values);
+						const { success, message } = await auth.signup(values);
 
 						if (success) {
 							toast({
@@ -74,12 +76,13 @@ const SignUp = () => {
 					{(props) => (
 						<Container
 							as={Form}
-							bg='dark-muted'
+							bg={bg}
 							pt='8'
 							px={padding}
 							pb={padding}
 							mt={marginTop}
 							rounded='lg'
+							shadow='lg'
 						>
 							<Heading p='2' textAlign='center' as='h1' size='xl'>
 								Sign Up
@@ -93,6 +96,7 @@ const SignUp = () => {
 								type='email'
 								placeholder='example@example.com ...'
 								focusBorderColor='brand.500'
+								variant='filled'
 							/>
 							<FormLabel htmlFor='username'>Username</FormLabel>
 							<Field
@@ -103,6 +107,7 @@ const SignUp = () => {
 								type='text'
 								placeholder='username ...'
 								focusBorderColor='brand.500'
+								variant='filled'
 							/>
 							<FormLabel htmlFor='displayName'>Display Name</FormLabel>
 							<Field
@@ -113,6 +118,7 @@ const SignUp = () => {
 								type='text'
 								placeholder='your name ...'
 								focusBorderColor='brand.500'
+								variant='filled'
 							/>
 							<FormLabel htmlFor='password'>Password</FormLabel>
 							<Field
@@ -123,6 +129,7 @@ const SignUp = () => {
 								type='password'
 								placeholder='********'
 								focusBorderColor='brand.500'
+								variant='filled'
 							/>
 							<FormLabel htmlFor='confirmPassword'>Confirm Password</FormLabel>
 							<Field
@@ -133,6 +140,7 @@ const SignUp = () => {
 								type='password'
 								placeholder='********'
 								focusBorderColor='brand.500'
+								variant='filled'
 							/>
 							<FormLabel htmlFor='bio' display='flex'>
 								Bio
@@ -147,6 +155,7 @@ const SignUp = () => {
 								autoComplete='off'
 								placeholder='about yourself ...'
 								focusBorderColor='brand.500'
+								variant='filled'
 								resize='none'
 							/>
 							<Flex mt='2'>
@@ -154,11 +163,15 @@ const SignUp = () => {
 									checked={agreed}
 									onInput={() => setAgreed((p) => !p)}
 									colorScheme='brand'
+									borderColor='gray.500'
 									mr='2'
 								/>
 								<Text>
 									{/* TODO: Open a modal for this */}
-									Accept our <Link color='brand.500'>Terms and Conditions</Link>
+									Accept our{' '}
+									<Link fontWeight='semibold' color='brand.500'>
+										Terms and Conditions
+									</Link>
 								</Text>
 							</Flex>
 							<Button
@@ -167,14 +180,20 @@ const SignUp = () => {
 								type='submit'
 								isFullWidth
 								isLoading={props.isSubmitting}
-								disabled={!agreed}
+								disabled={!agreed || props.isSubmitting}
 							>
 								Sign Up
 							</Button>
 							<Flex justify='center' mt='2'>
 								<Text>Already have an account?</Text>
 								<NextLink passHref href='/signin'>
-									<Text as={Link} color='brand.500' ml='2' cursor='pointer'>
+									<Text
+										fontWeight='semibold'
+										as={Link}
+										color='brand.500'
+										ml='2'
+										cursor='pointer'
+									>
 										Sign in
 									</Text>
 								</NextLink>

@@ -24,7 +24,7 @@ export const Layout = ({ title, desc, children, authorized = false }: Props) => 
 		if (process.browser && authorized && auth.authorized !== null && !auth.authorized) {
 			router.push(`/signin?redirect=true&from=${router.pathname}`);
 		}
-	}, []);
+	}, [auth]);
 
 	if (!auth.authorized && authorized) {
 		return (

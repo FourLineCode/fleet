@@ -9,8 +9,8 @@ export const theme = extendTheme({
 		brand: defaultTheme.colors.whatsapp,
 		dark: defaultTheme.colors.gray[900],
 		'dark-muted': defaultTheme.colors.gray[800],
-		light: defaultTheme.colors.gray[200],
-		'light-muted': defaultTheme.colors.gray[300],
+		light: defaultTheme.colors.gray[100],
+		'light-muted': defaultTheme.colors.gray[200],
 		'text-muted': defaultTheme.colors.gray[500],
 	},
 	styles: {

@@ -16,14 +16,19 @@ interface SignUpInput {
 	bio: string;
 }
 
+interface Response {
+	success: boolean;
+	message: string;
+}
+
 export interface AuthState extends State {
 	authorized: boolean | null;
 	id: number | null;
 	token: string | null;
 	refreshToken: string | null;
-	signup: (arg: SignUpInput) => Promise<[boolean, string]>;
-	signin: (arg: SignInInput) => Promise<[boolean, string]>;
-	signout: () => Promise<boolean>;
+	signup: (arg: SignUpInput) => Promise<Response>;
+	signin: (arg: SignInInput) => Promise<Response>;
+	signout: () => Promise<Response>;
 	setAuthInfo: (arg: Partial<AuthState>) => void;
 }
 
@@ -45,13 +50,13 @@ export const useAuth = create<AuthState>((set, get) => ({
 
 			if (data.id) {
 				useAuth.getState().signin({ email, password });
-				return [true, 'Successfully signed up'];
+				return { success: true, message: 'Successfully signed up' };
 			}
 		} catch (error) {
-			return [false, error.response.data.message];
+			return { success: false, message: error.response.data.message };
 		}
 
-		return [false, 'An unknown error has occured'];
+		return { success: false, message: 'An unknown error has occured' };
 	},
 	signin: async ({ email, password }) => {
 		try {
@@ -66,13 +71,13 @@ export const useAuth = create<AuthState>((set, get) => ({
 					refreshToken: data.refreshToken,
 				});
 
-				return [true, 'Successfully signed in'];
+				return { success: true, message: 'Successfully signed in' };
 			}
 		} catch (error) {
-			return [false, error.response.data.message];
+			return { success: false, message: error.response.data.message };
 		}
 
-		return [false, 'An unknown error has occured'];
+		return { success: false, message: 'An unknown error has occured' };
 	},
 	signout: async () => {
 		try {
@@ -87,12 +92,12 @@ export const useAuth = create<AuthState>((set, get) => ({
 					refreshToken: null,
 				});
 
-				return true;
+				return { success: true, message: 'Successfully signed out' };
 			}
 		} catch (error) {
-			return false;
+			return { success: false, message: 'An unknown error has occured' };
 		}
-		return false;
+		return { success: false, message: 'An unknown error has occured' };
 	},
 	setAuthInfo: (payload) => {
 		set(payload);

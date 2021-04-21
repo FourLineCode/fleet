@@ -9,6 +9,7 @@ import {
 	Link,
 	Text,
 	useBreakpointValue,
+	useColorModeValue,
 	useToast,
 	VStack,
 } from '@chakra-ui/react';
@@ -26,6 +27,7 @@ const SignIn = () => {
 	const toast = useToast();
 	const padding = useBreakpointValue({ base: '8', md: '12', lg: '16' });
 	const marginTop = useBreakpointValue({ base: '24', lg: '32' });
+	const bg = useColorModeValue('light-muted', 'dark-muted');
 
 	useEffect(() => {
 		if (Boolean(query.redirect)) {
@@ -47,7 +49,7 @@ const SignIn = () => {
 						password: '',
 					}}
 					onSubmit={async (values) => {
-						const [success, message] = await auth.signin(values);
+						const { success, message } = await auth.signin(values);
 
 						if (success) {
 							toast({
@@ -70,12 +72,13 @@ const SignIn = () => {
 					{(props) => (
 						<Container
 							as={Form}
-							bg='dark-muted'
+							bg={bg}
 							pt='8'
 							px={padding}
 							pb={padding}
 							mt={marginTop}
 							rounded='lg'
+							shadow='lg'
 						>
 							<Heading p='2' textAlign='center' as='h1' size='xl'>
 								Sign In
@@ -89,6 +92,7 @@ const SignIn = () => {
 								autoComplete='off'
 								placeholder='example@example.com ...'
 								focusBorderColor='brand.500'
+								variant='filled'
 							/>
 							<FormLabel htmlFor='password'>Password</FormLabel>
 							<Field
@@ -99,9 +103,15 @@ const SignIn = () => {
 								autoComplete='off'
 								placeholder='********'
 								focusBorderColor='brand.500'
+								variant='filled'
 							/>
 							<Flex mt='2'>
-								<Checkbox defaultChecked={true} colorScheme='brand' mr='2' />
+								<Checkbox
+									borderColor='gray.500'
+									defaultChecked={true}
+									colorScheme='brand'
+									mr='2'
+								/>
 								<Text>Keep me signed in</Text>
 							</Flex>
 							<Button
@@ -116,7 +126,13 @@ const SignIn = () => {
 							<Flex justify='center' mt='2'>
 								<Text>Don't have an account?</Text>
 								<NextLink passHref href='/signup'>
-									<Text as={Link} color='brand.500' ml='2' cursor='pointer'>
+									<Text
+										fontWeight='semibold'
+										as={Link}
+										color='brand.500'
+										ml='2'
+										cursor='pointer'
+									>
 										Sign up
 									</Text>
 								</NextLink>

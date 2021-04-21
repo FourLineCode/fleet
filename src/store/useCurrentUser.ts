@@ -32,8 +32,7 @@ export const useCurrentUser = create<UserState>((set, get) => ({
 
 			get().setUserInfo(data);
 		} catch (error) {
-			// TODO: handle error
-			console.log(error);
+			throw error;
 		}
 	},
 	setUserInfo: (payload) => {
