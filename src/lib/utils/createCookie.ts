@@ -11,5 +11,6 @@ export const createCookie = ({ name, value, age }: CreateCookieInput) => {
 		httpOnly: true,
 		sameSite: 'strict',
 		maxAge: age * 60 * 60 * 24,
+		path: '/',
 	});
 };

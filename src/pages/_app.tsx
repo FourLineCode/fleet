@@ -1,26 +1,25 @@
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import axios from 'axios';
 import App, { AppContext, AppProps } from 'next/app';
+import React, { useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from 'src/shared/queryClient';
 import { config } from '~/config/config';
+import { AuthState, useAuth } from '~/store/useAuth';
 import { theme } from '~/theme/theme';
 
-interface AuthState {
-	success: boolean;
-	id?: number;
-	token?: string;
-	refreshToken?: string;
-}
 interface CustomAppProps extends AppProps {
-	auth: AuthState;
+	auth: Partial<AuthState>;
 }
 
 const MainApp = ({ Component, pageProps, auth }: CustomAppProps) => {
-	// TODO: add zustand store for auth
-	if (process.browser) {
-		console.log(auth);
-	}
+	const authState = useAuth();
+
+	useEffect(() => {
+		if (process.browser) {
+			authState.setAuthInfo(auth);
+		}
+	}, []);
 
 	return (
 		<ChakraProvider theme={theme}>
@@ -49,6 +48,9 @@ MainApp.getInitialProps = async (appContext: AppContext) => {
 				...appProps,
 				auth: {
 					success: false,
+					id: null,
+					token: null,
+					refreshToken: null,
 				},
 			};
 		}

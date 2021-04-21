@@ -3,12 +3,14 @@ import { Avatar, Container, useColorModeValue } from '@chakra-ui/react';
 import React from 'react';
 import { DropDown } from '~/components/Navigations/DropDown';
 import { SideMenu } from '~/components/Navigations/SideMenu';
+import { useAuth } from '~/store/useAuth';
 
 interface Props {
 	route: string;
 }
 
 export const Navbar = ({ route }: Props) => {
+	const auth = useAuth();
 	const bgColor = useColorModeValue('light-muted', 'dark-muted');
 
 	return (
@@ -22,7 +24,7 @@ export const Navbar = ({ route }: Props) => {
 						</Text>
 					</Flex>
 					<HStack>
-						<Avatar size='sm' />
+						{auth.authorized && <Avatar size='sm' />}
 						<DropDown />
 					</HStack>
 				</Flex>

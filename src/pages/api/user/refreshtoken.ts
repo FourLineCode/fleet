@@ -6,6 +6,7 @@ import { signToken, verifyToken } from '~/lib/utils/jwt';
 const refreshtokenHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'GET') {
 		const refreshToken = req.cookies['refresh-token'] as string;
+		console.log(req.cookies);
 
 		if (!refreshToken) {
 			res.status(StatusCodes.FORBIDDEN).json({ message: 'You do not have refresh token' });

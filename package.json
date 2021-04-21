@@ -29,6 +29,7 @@
 		"clsx": "^1.1.1",
 		"cookie": "^0.4.1",
 		"date-fns": "^2.21.1",
+		"formik": "^2.2.6",
 		"framer-motion": "^4",
 		"http-status-codes": "^2.1.4",
 		"jsonwebtoken": "^8.5.1",
@@ -37,7 +38,8 @@
 		"react-dom": "^17.0.2",
 		"react-icons": "^4.2.0",
 		"react-query": "^3.13.10",
-		"yup": "^0.32.9"
+		"yup": "^0.32.9",
+		"zustand": "^3.4.1"
 	},
 	"devDependencies": {
 		"@types/bcryptjs": "^2.4.2",

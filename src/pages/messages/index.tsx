@@ -4,7 +4,7 @@ import { Layout } from '~/components/Layouts/Layout';
 
 const Messages = () => {
 	return (
-		<Layout title='Messages' desc='Messages Page'>
+		<Layout authorized title='Messages' desc='Messages Page'>
 			<VStack>
 				<Heading bgGradient='linear(to-r, green.500, red.500)' bgClip='text'>
 					Messages Page

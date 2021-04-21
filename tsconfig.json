@@ -37,7 +37,8 @@
 			"~/prisma/*": ["prisma/*"],
 			"~/lib/*": ["src/lib/*"],
 			"~/config/*": ["config/*"],
-			"~/theme/*": ["theme/*"]
+			"~/theme/*": ["theme/*"],
+			"~/store/*": ["src/store/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
