@@ -2,16 +2,16 @@ import { Heading, VStack } from '@chakra-ui/react';
 import React from 'react';
 import { Layout } from '~/components/Layouts/Layout';
 
-const SignUp = () => {
+const Messages = () => {
 	return (
-		<Layout title='Sign Up' desc='Sign Up Page'>
+		<Layout title='Messages' desc='Messages Page'>
 			<VStack>
 				<Heading bgGradient='linear(to-r, green.500, red.500)' bgClip='text'>
-					Sign Up Page
+					Messages Page
 				</Heading>
 			</VStack>
 		</Layout>
 	);
 };
 
-export default SignUp;
+export default Messages;

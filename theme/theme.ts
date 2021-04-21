@@ -6,7 +6,7 @@ export const theme = extendTheme({
 		useSystemColorMode: false,
 	},
 	colors: {
-		brand: defaultTheme.colors.green,
+		brand: defaultTheme.colors.whatsapp,
 		dark: defaultTheme.colors.gray[900],
 		'dark-muted': defaultTheme.colors.gray[800],
 		light: defaultTheme.colors.gray[100],
