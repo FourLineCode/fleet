@@ -8,21 +8,51 @@ interface SignInInput {
 	password: string;
 }
 
+interface SignUpInput {
+	email: string;
+	username: string;
+	displayName: string;
+	password: string;
+	bio: string;
+}
+
 export interface AuthState extends State {
-	authorized: boolean;
+	authorized: boolean | null;
 	id: number | null;
 	token: string | null;
 	refreshToken: string | null;
-	signin: (arg: SignInInput) => Promise<[boolean, Error | null]>;
+	signup: (arg: SignUpInput) => Promise<[boolean, string]>;
+	signin: (arg: SignInInput) => Promise<[boolean, string]>;
 	signout: () => Promise<boolean>;
 	setAuthInfo: (arg: Partial<AuthState>) => void;
 }
 
 export const useAuth = create<AuthState>((set, get) => ({
-	authorized: false,
+	authorized: null,
 	id: null,
 	token: null,
 	refreshToken: null,
+	signup: async ({ email, password, username, displayName, bio }) => {
+		try {
+			const res = await axios.post(`${config.api}/user/signup`, {
+				email,
+				username,
+				displayName,
+				password,
+				bio,
+			});
+			const data = res.data;
+
+			if (data.id) {
+				useAuth.getState().signin({ email, password });
+				return [true, 'Successfully signed up'];
+			}
+		} catch (error) {
+			return [false, error.response.data.message];
+		}
+
+		return [false, 'An unknown error has occured'];
+	},
 	signin: async ({ email, password }) => {
 		try {
 			const res = await axios.post(`${config.api}/user/signin`, { email, password });
@@ -36,13 +66,13 @@ export const useAuth = create<AuthState>((set, get) => ({
 					refreshToken: data.refreshToken,
 				});
 
-				return [true, null];
+				return [true, 'Successfully signed in'];
 			}
 		} catch (error) {
-			return [false, error];
+			return [false, error.response.data.message];
 		}
 
-		return [false, new Error('An unknown error has occured')];
+		return [false, 'An unknown error has occured'];
 	},
 	signout: async () => {
 		try {
@@ -68,8 +98,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 		set(payload);
 
 		if (payload?.id) {
-			const user = useCurrentUser();
-			user.getUserInfo(payload.id);
+			useCurrentUser.getState().getUserInfo(payload.id);
 		}
 	},
 }));

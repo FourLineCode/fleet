@@ -9,13 +9,13 @@ import {
 	Link,
 	Text,
 	useBreakpointValue,
+	useToast,
 	VStack,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { useNotification } from 'src/hooks/useNotification';
 import { Layout } from '~/components/Layouts/Layout';
 import { useAuth } from '~/store/useAuth';
 
@@ -23,20 +23,18 @@ const SignIn = () => {
 	const router = useRouter();
 	const query = router.query;
 	const auth = useAuth();
-	const errorMessage = useNotification({
-		message: 'Please sign in to view this page',
-		type: 'error',
-	});
-	const signInSuccess = useNotification({
-		message: 'Successfully signed in',
-		type: 'success',
-	});
+	const toast = useToast();
 	const padding = useBreakpointValue({ base: '8', md: '12', lg: '16' });
 	const marginTop = useBreakpointValue({ base: '24', lg: '32' });
 
 	useEffect(() => {
 		if (Boolean(query.redirect)) {
-			errorMessage();
+			toast({
+				title: 'Please sign in to view this page',
+				position: 'bottom',
+				status: 'error',
+				duration: 5000,
+			});
 		}
 	}, [query]);
 
@@ -49,15 +47,23 @@ const SignIn = () => {
 						password: '',
 					}}
 					onSubmit={async (values) => {
-						// TODO: validate the values
-						const [success] = await auth.signin({
-							email: values.email,
-							password: values.password,
-						});
+						const [success, message] = await auth.signin(values);
 
 						if (success) {
-							signInSuccess();
+							toast({
+								title: message,
+								position: 'bottom',
+								status: 'success',
+								duration: 5000,
+							});
 							router.push('/home');
+						} else {
+							toast({
+								title: message,
+								position: 'bottom',
+								status: 'error',
+								duration: 5000,
+							});
 						}
 					}}
 				>
@@ -95,7 +101,7 @@ const SignIn = () => {
 								focusBorderColor='brand.500'
 							/>
 							<Flex mt='2'>
-								<Checkbox colorScheme='brand' mr='2' />
+								<Checkbox defaultChecked={true} colorScheme='brand' mr='2' />
 								<Text>Keep me signed in</Text>
 							</Flex>
 							<Button

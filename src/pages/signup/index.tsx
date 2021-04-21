@@ -10,14 +10,20 @@ import {
 	Text,
 	Textarea,
 	useBreakpointValue,
+	useToast,
 	VStack,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Layout } from '~/components/Layouts/Layout';
+import { useAuth } from '~/store/useAuth';
 
 const SignUp = () => {
+	const auth = useAuth();
+	const toast = useToast();
+	const router = useRouter();
 	const [agreed, setAgreed] = useState(false);
 	const padding = useBreakpointValue({ base: '8', md: '12', lg: '16' });
 	const marginTop = useBreakpointValue({ base: '12', lg: '20' });
@@ -32,12 +38,37 @@ const SignUp = () => {
 						displayName: '',
 						password: '',
 						confirmPassword: '',
+						bio: '',
 					}}
-					onSubmit={(values, actions) => {
-						setTimeout(() => {
-							console.log(values);
-							actions.setSubmitting(false);
-						}, 2000);
+					onSubmit={async (values) => {
+						if (values.password !== values.confirmPassword) {
+							toast({
+								title: 'Passwords do not match',
+								position: 'bottom',
+								status: 'error',
+								duration: 5000,
+							});
+							return;
+						}
+
+						const [success, message] = await auth.signup(values);
+
+						if (success) {
+							toast({
+								title: message,
+								position: 'bottom',
+								status: 'success',
+								duration: 5000,
+							});
+							router.push('/home');
+						} else {
+							toast({
+								title: message,
+								position: 'bottom',
+								status: 'error',
+								duration: 5000,
+							});
+						}
 					}}
 				>
 					{(props) => (

@@ -36,18 +36,30 @@ MainApp.getInitialProps = async (appContext: AppContext) => {
 
 	if (!process.browser) {
 		try {
-			const res = await axios.get(`${config.api}/user/refreshtoken`);
+			const res = await axios.get(`${config.api}/user/refreshtoken`, {
+				headers: {
+					// @ts-ignore
+					Cookie: Object.entries(appContext.ctx.req.cookies)
+						.map(([key, value]) => `${key}=${value}`)
+						.join('; '),
+				},
+			});
 			const data = res.data;
 
 			return {
 				...appProps,
-				auth: data,
+				auth: {
+					authorized: data.success,
+					id: data.id,
+					token: data.token,
+					refreshToken: data.refreshToken,
+				},
 			};
 		} catch (error) {
 			return {
 				...appProps,
 				auth: {
-					success: false,
+					authorized: false,
 					id: null,
 					token: null,
 					refreshToken: null,
