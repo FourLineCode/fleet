@@ -1,4 +1,4 @@
-import { extendTheme, theme as defaultTheme } from '@chakra-ui/react';
+import { extendTheme, theme as defaultTheme, UseToastOptions } from '@chakra-ui/react';
 
 export const theme = extendTheme({
 	config: {

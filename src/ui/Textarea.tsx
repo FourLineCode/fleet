@@ -8,7 +8,7 @@ interface TextareaProps {
 	placeholder?: string;
 }
 
-export const Textarea = ({ label, name, type, placeholder }: TextareaProps) => {
+export const Textarea = ({ label, name, placeholder }: TextareaProps) => {
 	const bg = useColorModeValue('light', 'dark');
 
 	return (
