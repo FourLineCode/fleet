@@ -8,6 +8,6 @@
 **/.cache
 **/.parcel-cache
 **/.vercel
-**/*.sqlite
+**/dev.sqlite
 **/migrations
 .vercel
