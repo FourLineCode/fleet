@@ -3,23 +3,23 @@ import {
 	Checkbox,
 	Container,
 	Flex,
-	FormLabel,
 	Heading,
-	Input,
 	Link,
 	Text,
-	Textarea,
 	useBreakpointValue,
 	useColorModeValue,
 	useToast,
 	VStack,
 } from '@chakra-ui/react';
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Layout } from '~/components/Layouts/Layout';
 import { useAuth } from '~/store/useAuth';
+import { toastProps } from '~/theme/theme';
+import { Input } from '~/ui/Input';
+import { Textarea } from '~/ui/Textarea';
 
 const SignUp = () => {
 	const auth = useAuth();
@@ -27,7 +27,7 @@ const SignUp = () => {
 	const router = useRouter();
 	const [agreed, setAgreed] = useState(false);
 	const padding = useBreakpointValue({ base: '8', md: '12', lg: '16' });
-	const marginTop = useBreakpointValue({ base: '12', lg: '20' });
+	const marginTop = useBreakpointValue({ base: '4', md: '12', lg: '20' });
 	const bg = useColorModeValue('light-muted', 'dark-muted');
 
 	return (
@@ -46,9 +46,8 @@ const SignUp = () => {
 						if (values.password !== values.confirmPassword) {
 							toast({
 								title: 'Passwords do not match',
-								position: 'bottom',
 								status: 'error',
-								duration: 5000,
+								...toastProps,
 							});
 							return;
 						}
@@ -58,17 +57,15 @@ const SignUp = () => {
 						if (success) {
 							toast({
 								title: message,
-								position: 'bottom',
 								status: 'success',
-								duration: 5000,
+								...toastProps,
 							});
 							router.push('/home');
 						} else {
 							toast({
 								title: message,
-								position: 'bottom',
 								status: 'error',
-								duration: 5000,
+								...toastProps,
 							});
 						}
 					}}
@@ -87,77 +84,37 @@ const SignUp = () => {
 							<Heading p='2' textAlign='center' as='h1' size='xl'>
 								Sign Up
 							</Heading>
-							<FormLabel htmlFor='email'>Email address</FormLabel>
-							<Field
-								as={Input}
-								id='email'
+							<Input
 								name='email'
-								autoComplete='off'
 								type='email'
 								placeholder='example@example.com ...'
-								focusBorderColor='brand.500'
-								variant='filled'
+								label='Email address'
 							/>
-							<FormLabel htmlFor='username'>Username</FormLabel>
-							<Field
-								as={Input}
-								id='username'
+							<Input
 								name='username'
-								autoComplete='off'
 								type='text'
 								placeholder='username ...'
-								focusBorderColor='brand.500'
-								variant='filled'
+								label='Username'
 							/>
-							<FormLabel htmlFor='displayName'>Display Name</FormLabel>
-							<Field
-								as={Input}
-								id='displayName'
+							<Input
 								name='displayName'
-								autoComplete='off'
 								type='text'
 								placeholder='your name ...'
-								focusBorderColor='brand.500'
-								variant='filled'
+								label='Display Name'
 							/>
-							<FormLabel htmlFor='password'>Password</FormLabel>
-							<Field
-								as={Input}
-								id='password'
+							<Input
 								name='password'
-								autoComplete='off'
 								type='password'
-								placeholder='********'
-								focusBorderColor='brand.500'
-								variant='filled'
+								placeholder='••••••••'
+								label='Password'
 							/>
-							<FormLabel htmlFor='confirmPassword'>Confirm Password</FormLabel>
-							<Field
-								as={Input}
-								id='confirmPassword'
+							<Input
 								name='confirmPassword'
-								autoComplete='off'
 								type='password'
-								placeholder='********'
-								focusBorderColor='brand.500'
-								variant='filled'
+								placeholder='••••••••'
+								label='Confirm Password'
 							/>
-							<FormLabel htmlFor='bio' display='flex'>
-								Bio
-								<Text color='text-muted' ml='1'>
-									(optional)
-								</Text>
-							</FormLabel>
-							<Field
-								as={Textarea}
-								id='bio'
-								name='bio'
-								autoComplete='off'
-								placeholder='about yourself ...'
-								focusBorderColor='brand.500'
-								variant='filled'
-								resize='none'
-							/>
+							<Textarea name='bio' placeholder='about yourself ...' label='Bio' />
 							<Flex mt='2'>
 								<Checkbox
 									checked={agreed}

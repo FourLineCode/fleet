@@ -21,7 +21,7 @@ export const Navlink = ({ label, icon, href, newTab = false }: Props) => {
 				w='full'
 				p='4'
 				cursor='pointer'
-				_hover={{ bg: hoverColor, color: 'brand.500' }}
+				_hover={{ bg: hoverColor, color: 'brand.500', textDecoration: 'none' }}
 				rounded='lg'
 				display='flex'
 				alignItems='center'

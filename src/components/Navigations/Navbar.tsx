@@ -14,7 +14,7 @@ export const Navbar = ({ route }: Props) => {
 	const bgColor = useColorModeValue('light-muted', 'dark-muted');
 
 	return (
-		<HStack bg={bgColor} h='14'>
+		<HStack bg={bgColor} h='14' shadow='base'>
 			<Container maxW='container.lg'>
 				<Flex justifyContent='space-between'>
 					<Flex spacing='0' alignItems='center'>
