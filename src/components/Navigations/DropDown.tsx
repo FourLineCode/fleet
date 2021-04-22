@@ -7,13 +7,25 @@ import {
 	MenuList,
 	useColorMode,
 	useColorModeValue,
+	useToast,
 } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { FaCaretDown, FaMoon, FaSignInAlt, FaSun, FaUserPlus } from 'react-icons/fa';
+import {
+	FaCaretDown,
+	FaCog,
+	FaMoon,
+	FaSignInAlt,
+	FaSignOutAlt,
+	FaSun,
+	FaUser,
+	FaUserPlus,
+} from 'react-icons/fa';
+import { useAuth } from '~/store/useAuth';
+import { toastProps } from '~/theme/theme';
 
 export const DropDown = () => {
-	const router = useRouter();
+	const auth = useAuth();
 	const { colorMode, toggleColorMode } = useColorMode();
 	const text = useColorModeValue('Dark Mode', 'Light Mode');
 
@@ -27,14 +39,10 @@ export const DropDown = () => {
 				size='sm'
 			/>
 			<MenuList>
-				<MenuItem onClick={() => router.push('signup')} icon={<FaUserPlus />}>
-					Sign Up
-				</MenuItem>
-				<MenuItem onClick={() => router.push('signin')} icon={<FaSignInAlt />}>
-					Sign In
-				</MenuItem>
+				{auth.authorized ? <SignedInLinks /> : <SignedOutLinks />}
 				<MenuDivider />
 				<MenuItem
+					_hover={{ color: 'brand.500' }}
 					onClick={toggleColorMode}
 					icon={colorMode === 'dark' ? <FaSun /> : <FaMoon />}
 				>
@@ -42,5 +50,75 @@ export const DropDown = () => {
 				</MenuItem>
 			</MenuList>
 		</Menu>
+	);
+};
+
+const SignedInLinks = () => {
+	const router = useRouter();
+	const auth = useAuth();
+	const toast = useToast();
+
+	const signoutHandler = async () => {
+		const { success, message } = await auth.signout();
+
+		if (success) {
+			toast({
+				title: message,
+				status: 'success',
+				...toastProps,
+			});
+			router.push('/signin');
+		} else {
+			toast({
+				title: message,
+				status: 'error',
+				...toastProps,
+			});
+		}
+	};
+
+	return (
+		<>
+			<MenuItem
+				_hover={{ color: 'brand.500' }}
+				onClick={() => router.push('/profile')}
+				icon={<FaUser />}
+			>
+				Profile
+			</MenuItem>
+			<MenuItem
+				_hover={{ color: 'brand.500' }}
+				onClick={() => router.push('/settings')}
+				icon={<FaCog />}
+			>
+				Settings
+			</MenuItem>
+			<MenuItem color='red.500' onClick={signoutHandler} icon={<FaSignOutAlt />}>
+				Sign Out
+			</MenuItem>
+		</>
+	);
+};
+
+const SignedOutLinks = () => {
+	const router = useRouter();
+
+	return (
+		<>
+			<MenuItem
+				_hover={{ color: 'brand.500' }}
+				onClick={() => router.push('/signin')}
+				icon={<FaSignInAlt />}
+			>
+				Sign In
+			</MenuItem>
+			<MenuItem
+				_hover={{ color: 'brand.500' }}
+				onClick={() => router.push('/signup')}
+				icon={<FaUserPlus />}
+			>
+				Sign Up
+			</MenuItem>
+		</>
 	);
 };

@@ -24,6 +24,8 @@ const infoHandler: NextApiHandler = async (req, res) => {
 				avatarURL: true,
 				isAdmin: true,
 				createdAt: true,
+				followers: true,
+				following: true,
 			},
 		});
 

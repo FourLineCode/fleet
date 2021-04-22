@@ -1,4 +1,4 @@
-import { FormLabel, Textarea as ChakraTextarea } from '@chakra-ui/react';
+import { FormLabel, Textarea as ChakraTextarea, useColorModeValue } from '@chakra-ui/react';
 import { Field } from 'formik';
 import React from 'react';
 
@@ -9,6 +9,8 @@ interface TextareaProps {
 }
 
 export const Textarea = ({ label, name, type, placeholder }: TextareaProps) => {
+	const bg = useColorModeValue('light', 'dark');
+
 	return (
 		<>
 			<FormLabel htmlFor={name}>{label}</FormLabel>
@@ -18,6 +20,7 @@ export const Textarea = ({ label, name, type, placeholder }: TextareaProps) => {
 				name={name}
 				autoComplete='off'
 				placeholder={placeholder}
+				bg={bg}
 				focusBorderColor='brand.500'
 				variant='filled'
 				resize='none'

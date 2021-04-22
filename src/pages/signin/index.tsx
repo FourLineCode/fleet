@@ -6,6 +6,7 @@ import {
 	Link,
 	Spinner,
 	Text,
+	useBoolean,
 	useBreakpointValue,
 	useColorModeValue,
 	useToast,
@@ -14,8 +15,8 @@ import {
 import { Form, Formik } from 'formik';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import { Layout } from '~/components/Layouts/Layout';
+import React, { useEffect } from 'react';
+import { Layout } from '~/components/layouts/Layout';
 import { useAuth } from '~/store/useAuth';
 import { toastProps } from '~/theme/theme';
 import { CheckboxPrompt } from '~/ui/CheckboxPrompt';
@@ -26,7 +27,7 @@ const SignIn = () => {
 	const query = router.query;
 	const auth = useAuth();
 	const toast = useToast();
-	const [redirecting, setRedirecting] = useState(false);
+	const [redirecting, setRedirecting] = useBoolean();
 	const padding = useBreakpointValue({ base: '8', md: '12', lg: '16' });
 	const marginTop = useBreakpointValue({ base: '24', lg: '32' });
 	const bg = useColorModeValue('light-muted', 'dark-muted');
@@ -44,7 +45,7 @@ const SignIn = () => {
 
 	useEffect(() => {
 		return () => {
-			setRedirecting(false);
+			setRedirecting.off();
 		};
 	}, []);
 
@@ -68,11 +69,10 @@ const SignIn = () => {
 						keep: true,
 					}}
 					onSubmit={async (values) => {
-						console.log(values);
 						const { success, message } = await auth.signin(values);
 
 						if (success) {
-							setRedirecting(true);
+							setRedirecting.on();
 							toast({
 								title: message,
 								status: 'success',

@@ -5,7 +5,9 @@ import {
 	Flex,
 	Heading,
 	Link,
+	Spinner,
 	Text,
+	useBoolean,
 	useBreakpointValue,
 	useColorModeValue,
 	useToast,
@@ -14,8 +16,9 @@ import {
 import { Form, Formik } from 'formik';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { Layout } from '~/components/Layouts/Layout';
+import React, { useEffect } from 'react';
+import { Terms } from '~/components/info/Terms';
+import { Layout } from '~/components/layouts/Layout';
 import { useAuth } from '~/store/useAuth';
 import { toastProps } from '~/theme/theme';
 import { Input } from '~/ui/Input';
@@ -25,10 +28,28 @@ const SignUp = () => {
 	const auth = useAuth();
 	const toast = useToast();
 	const router = useRouter();
-	const [agreed, setAgreed] = useState(false);
+	const [agreed, setAgreed] = useBoolean();
+	const [redirecting, setRedirecting] = useBoolean();
 	const padding = useBreakpointValue({ base: '8', md: '12', lg: '16' });
 	const marginTop = useBreakpointValue({ base: '4', md: '12', lg: '20' });
 	const bg = useColorModeValue('light-muted', 'dark-muted');
+	const spinnerSize = useBreakpointValue({ sm: 'lg', md: 'xl' });
+
+	useEffect(() => {
+		return () => {
+			setRedirecting.off();
+		};
+	}, []);
+
+	if (redirecting) {
+		return (
+			<Layout title='Sign In' desc='Sign In Page'>
+				<Flex as='div' w='100vw' h='100vh' alignItems='center' justify='center'>
+					<Spinner size={spinnerSize} color='brand.500' thickness='3px' />
+				</Flex>
+			</Layout>
+		);
+	}
 
 	return (
 		<Layout title='Sign Up' desc='Sign Up Page'>
@@ -55,6 +76,7 @@ const SignUp = () => {
 						const { success, message } = await auth.signup(values);
 
 						if (success) {
+							setRedirecting.on();
 							toast({
 								title: message,
 								status: 'success',
@@ -118,18 +140,14 @@ const SignUp = () => {
 							<Flex mt='2'>
 								<Checkbox
 									checked={agreed}
-									onInput={() => setAgreed((p) => !p)}
+									onInput={setAgreed.toggle}
 									colorScheme='brand'
 									borderColor='gray.500'
-									mr='2'
-								/>
-								<Text>
-									{/* TODO: Open a modal for this */}
-									Accept our{' '}
-									<Link fontWeight='semibold' color='brand.500'>
-										Terms and Conditions
-									</Link>
-								</Text>
+									mr='1'
+								>
+									Accept our
+								</Checkbox>
+								<Terms />
 							</Flex>
 							<Button
 								mt='2'

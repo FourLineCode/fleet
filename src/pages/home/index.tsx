@@ -1,6 +1,6 @@
 import { Heading, VStack } from '@chakra-ui/layout';
 import React from 'react';
-import { Layout } from '~/components/Layouts/Layout';
+import { Layout } from '~/components/layouts/Layout';
 
 const Home = () => {
 	return (

@@ -1,4 +1,4 @@
-import { FormLabel, Input as ChakraInput } from '@chakra-ui/react';
+import { FormLabel, Input as ChakraInput, useColorModeValue } from '@chakra-ui/react';
 import { Field } from 'formik';
 import React from 'react';
 
@@ -10,6 +10,8 @@ interface InputProps {
 }
 
 export const Input = ({ label, name, type, placeholder }: InputProps) => {
+	const bg = useColorModeValue('light', 'dark');
+
 	return (
 		<>
 			<FormLabel htmlFor={name}>{label}</FormLabel>
@@ -20,6 +22,7 @@ export const Input = ({ label, name, type, placeholder }: InputProps) => {
 				type={type}
 				autoComplete='off'
 				placeholder={placeholder}
+				bg={bg}
 				focusBorderColor='brand.500'
 				variant='filled'
 			/>

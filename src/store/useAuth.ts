@@ -49,7 +49,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 			const data = res.data;
 
 			if (data.id) {
-				useAuth.getState().signin({ email, password });
+				await useAuth.getState().signin({ email, password });
 				return { success: true, message: 'Successfully signed up' };
 			}
 		} catch (error) {

@@ -1,4 +1,4 @@
-import { Checkbox, Flex, Text } from '@chakra-ui/react';
+import { Checkbox, Flex } from '@chakra-ui/react';
 import { Field } from 'formik';
 import React from 'react';
 
@@ -19,8 +19,9 @@ export const CheckboxPrompt = ({ label, name, defaultChecked = false }: Checkbox
 				defaultChecked={defaultChecked}
 				colorScheme='brand'
 				mr='2'
-			/>
-			<Text>{label}</Text>
+			>
+				{label}
+			</Field>
 		</Flex>
 	);
 };
