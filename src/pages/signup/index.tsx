@@ -17,12 +17,12 @@ import { Form, Formik } from 'formik';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { Terms } from '~/components/info/Terms';
-import { Layout } from '~/components/layouts/Layout';
-import { useAuth } from '~/store/useAuth';
-import { toastProps } from '~/theme/theme';
-import { Input } from '~/ui/Input';
-import { Textarea } from '~/ui/Textarea';
+import { Terms } from '~components/info/Terms';
+import { Layout } from '~components/layouts/Layout';
+import { useAuth } from '~store/useAuth';
+import { toastProps } from '~theme/theme';
+import { Input } from '~ui/Input';
+import { Textarea } from '~ui/Textarea';
 
 const SignUp = () => {
 	const auth = useAuth();

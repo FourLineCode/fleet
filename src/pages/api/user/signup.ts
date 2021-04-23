@@ -1,8 +1,8 @@
 import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
-import { signupShema } from '~/lib/validation/signupSchema';
-import prisma from '~/prisma/client';
+import { signupShema } from '~lib/validation/signupSchema';
+import prisma from '~prisma/client';
 
 const signupHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {

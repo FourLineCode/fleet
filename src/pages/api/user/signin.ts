@@ -1,10 +1,10 @@
 import bcrypt from 'bcryptjs';
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
-import { createCookie } from '~/lib/utils/createCookie';
-import { signToken } from '~/lib/utils/jwt';
-import { signinShema } from '~/lib/validation/signinSchema';
-import prisma from '~/prisma/client';
+import { createCookie } from '~lib/utils/createCookie';
+import { signToken } from '~lib/utils/jwt';
+import { signinShema } from '~lib/validation/signinSchema';
+import prisma from '~prisma/client';
 
 const signinHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {

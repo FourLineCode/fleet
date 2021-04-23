@@ -21,8 +21,8 @@ import {
 	FaUser,
 	FaUserPlus,
 } from 'react-icons/fa';
-import { useAuth } from '~/store/useAuth';
-import { toastProps } from '~/theme/theme';
+import { useAuth } from '~store/useAuth';
+import { toastProps } from '~theme/theme';
 
 export const DropDown = () => {
 	const auth = useAuth();

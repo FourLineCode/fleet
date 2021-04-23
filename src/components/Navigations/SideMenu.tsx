@@ -28,10 +28,10 @@ import {
 	FaUser,
 	FaUserPlus,
 } from 'react-icons/fa';
-import { SocialLinks } from '~/components/info/SocialLinks';
-import { Navlink } from '~/components/navigations/NavLink';
-import { useAuth } from '~/store/useAuth';
-import { useCurrentUser } from '~/store/useCurrentUser';
+import { SocialLinks } from '~components/info/SocialLinks';
+import { Navlink } from '~components/navigations/NavLink';
+import { useAuth } from '~store/useAuth';
+import { useCurrentUser } from '~store/useCurrentUser';
 
 export const SideMenu = () => {
 	const auth = useAuth();

@@ -32,13 +32,13 @@
 		"pretty": true,
 		"baseUrl": ".",
 		"paths": {
-			"~/components/*": ["src/components/*"],
-			"~/ui/*": ["src/ui/*"],
-			"~/prisma/*": ["prisma/*"],
-			"~/lib/*": ["src/lib/*"],
-			"~/config/*": ["config/*"],
-			"~/theme/*": ["theme/*"],
-			"~/store/*": ["src/store/*"]
+			"~components/*": ["src/components/*"],
+			"~ui/*": ["src/ui/*"],
+			"~prisma/*": ["prisma/*"],
+			"~lib/*": ["src/lib/*"],
+			"~config/*": ["config/*"],
+			"~theme/*": ["theme/*"],
+			"~store/*": ["src/store/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

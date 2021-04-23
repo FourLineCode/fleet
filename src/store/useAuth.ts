@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useCurrentUser } from 'src/store/useCurrentUser';
 import create, { State } from 'zustand';
-import { config } from '~/config/config';
+import { config } from '~config/config';
 
 interface SignInInput {
 	email: string;

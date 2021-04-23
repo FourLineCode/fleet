@@ -4,9 +4,9 @@ import App, { AppContext, AppProps } from 'next/app';
 import React, { useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from 'src/shared/queryClient';
-import { config } from '~/config/config';
-import { AuthState, useAuth } from '~/store/useAuth';
-import { theme } from '~/theme/theme';
+import { config } from '~config/config';
+import { AuthState, useAuth } from '~store/useAuth';
+import { theme } from '~theme/theme';
 
 interface CustomAppProps extends AppProps {
 	auth: Partial<AuthState>;

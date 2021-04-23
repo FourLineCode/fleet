@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
-import { authorize } from '~/lib/middlewares/authorize';
-import { createCookie } from '~/lib/utils/createCookie';
+import { authorize } from '~lib/middlewares/authorize';
+import { createCookie } from '~lib/utils/createCookie';
 
 const signoutHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'POST') {

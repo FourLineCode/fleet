@@ -2,10 +2,10 @@ import { Flex, HStack, Text } from '@chakra-ui/layout';
 import { Avatar, Container, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
-import { DropDown } from '~/components/navigations/DropDown';
-import { SideMenu } from '~/components/navigations/SideMenu';
-import { useAuth } from '~/store/useAuth';
-import { useCurrentUser } from '~/store/useCurrentUser';
+import { DropDown } from '~components/navigations/DropDown';
+import { SideMenu } from '~components/navigations/SideMenu';
+import { useAuth } from '~store/useAuth';
+import { useCurrentUser } from '~store/useCurrentUser';
 
 interface Props {
 	route: string;

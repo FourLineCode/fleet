@@ -4,9 +4,9 @@ import { Spinner } from '@chakra-ui/spinner';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { Navbar } from '~/components/navigations/Navbar';
-import { config } from '~/config/config';
-import { useAuth } from '~/store/useAuth';
+import { Navbar } from '~components/navigations/Navbar';
+import { config } from '~config/config';
+import { useAuth } from '~store/useAuth';
 
 interface Props {
 	authorized?: boolean;

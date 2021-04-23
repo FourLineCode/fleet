@@ -1,6 +1,6 @@
 import { Heading, VStack } from '@chakra-ui/react';
 import React from 'react';
-import { Layout } from '~/components/layouts/Layout';
+import { Layout } from '~components/layouts/Layout';
 
 const Messages = () => {
 	return (

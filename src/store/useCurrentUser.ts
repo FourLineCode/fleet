@@ -1,6 +1,6 @@
 import axios from 'axios';
 import create, { State } from 'zustand';
-import { config } from '~/config/config';
+import { config } from '~config/config';
 
 interface Follow {
 	id: number;

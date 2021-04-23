@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
-import { authorize } from '~/lib/middlewares/authorize';
-import prisma from '~/prisma/client';
+import { authorize } from '~lib/middlewares/authorize';
+import prisma from '~prisma/client';
 
 const userHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'GET') {

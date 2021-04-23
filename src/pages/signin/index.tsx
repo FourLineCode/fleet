@@ -16,11 +16,11 @@ import { Form, Formik } from 'formik';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react';
-import { Layout } from '~/components/layouts/Layout';
-import { useAuth } from '~/store/useAuth';
-import { toastProps } from '~/theme/theme';
-import { CheckboxPrompt } from '~/ui/CheckboxPrompt';
-import { Input } from '~/ui/Input';
+import { Layout } from '~components/layouts/Layout';
+import { useAuth } from '~store/useAuth';
+import { toastProps } from '~theme/theme';
+import { CheckboxPrompt } from '~ui/CheckboxPrompt';
+import { Input } from '~ui/Input';
 
 const SignIn = () => {
 	const router = useRouter();

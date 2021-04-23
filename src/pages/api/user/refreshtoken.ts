@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
-import { createCookie } from '~/lib/utils/createCookie';
-import { signToken, verifyToken } from '~/lib/utils/jwt';
+import { createCookie } from '~lib/utils/createCookie';
+import { signToken, verifyToken } from '~lib/utils/jwt';
 
 const refreshtokenHandler: NextApiHandler = async (req, res) => {
 	if (req.method === 'GET') {
