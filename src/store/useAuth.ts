@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { useCurrentUser } from 'src/store/useCurrentUser';
 import create, { State } from 'zustand';
-import { config } from '~config/config';
+import { ApiClient } from '~config/ApiClient';
 
 interface SignInInput {
 	email: string;
@@ -39,7 +38,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 	refreshToken: null,
 	signup: async ({ email, password, username, displayName, bio }) => {
 		try {
-			const res = await axios.post(`${config.api}/user/signup`, {
+			const res = await ApiClient.post('/user/signup', {
 				email,
 				username,
 				displayName,
@@ -60,7 +59,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 	},
 	signin: async ({ email, password }) => {
 		try {
-			const res = await axios.post(`${config.api}/user/signin`, { email, password });
+			const res = await ApiClient.post('/user/signin', { email, password });
 			const data = res.data;
 
 			if (data.success) {
@@ -81,7 +80,7 @@ export const useAuth = create<AuthState>((set, get) => ({
 	},
 	signout: async () => {
 		try {
-			const res = await axios.post(`${config.api}/user/signout`);
+			const res = await ApiClient.post('/user/signout');
 			const data = res.data;
 
 			if (data.success) {

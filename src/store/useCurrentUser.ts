@@ -1,6 +1,5 @@
-import axios from 'axios';
 import create, { State } from 'zustand';
-import { config } from '~config/config';
+import { ApiClient } from '~config/ApiClient';
 
 interface Follow {
 	id: number;
@@ -36,7 +35,7 @@ export const useCurrentUser = create<UserState>((set, get) => ({
 	following: undefined,
 	getUserInfo: async (id) => {
 		try {
-			const res = await axios.get(`${config.api}/user/info/${id}`);
+			const res = await ApiClient.get(`/user/info/${id}`);
 			const data = res.data;
 
 			get().setUserInfo(data);
