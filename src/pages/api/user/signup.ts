@@ -11,8 +11,8 @@ const signupHandler: NextApiHandler = async (req, res) => {
 			try {
 				signupShema.validateSync(req.body);
 			} catch (error) {
-				res.status(StatusCodes.BAD_REQUEST).json(error);
-				return;
+				res.status(StatusCodes.BAD_REQUEST);
+				throw error;
 			}
 
 			const { email, password, username, displayName, bio } = req.body;

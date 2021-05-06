@@ -13,8 +13,8 @@ const signinHandler: NextApiHandler = async (req, res) => {
 			try {
 				signinShema.validateSync(req.body);
 			} catch (error) {
-				res.status(StatusCodes.BAD_REQUEST).json(error);
-				return;
+				res.status(StatusCodes.BAD_REQUEST);
+				throw error;
 			}
 
 			const { email, password } = req.body;
