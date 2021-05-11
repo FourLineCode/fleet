@@ -1,6 +1,8 @@
 import { Avatar } from '@chakra-ui/avatar';
 import { Box, HStack, Icon, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
 import { formatDistanceToNow } from 'date-fns';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { FaShieldAlt } from 'react-icons/fa';
 import { FleetType } from 'src/shared/types';
@@ -12,21 +14,38 @@ interface Props {
 }
 
 export const Fleet = ({ fleet, liked }: Props) => {
+	const router = useRouter();
 	const avatarSize = useBreakpointValue({
 		base: 'sm',
 		md: 'md',
 	});
 
 	return (
-		<Card>
+		<Card
+			onClick={() => router.push(`/fleet/${fleet.id}`)}
+			cursor='pointer'
+			_hover={{ opacity: '0.8' }}
+		>
 			<Stack w='100%' display='flex' direction='row'>
-				<Box>
-					<Avatar size={avatarSize} src={fleet.author.avatarURL} />
+				<Box as={Link} href='/profile'>
+					<Avatar size={avatarSize} src={fleet.author.avatarURL} cursor='pointer' />
 				</Box>
 				<Stack w='100%'>
-					<Box>
-						<HStack>
-							<Text as='span' fontSize='md' fontWeight='semibold'>
+					<Box w='max-content'>
+						<HStack
+							role='group'
+							cursor='pointer'
+							onClick={(e) => {
+								e.stopPropagation();
+								router.push('/profile');
+							}}
+						>
+							<Text
+								as='span'
+								fontSize='md'
+								fontWeight='semibold'
+								_groupHover={{ textDecoration: 'underline' }}
+							>
 								{fleet.author.displayName}
 							</Text>
 							{fleet.author.isAdmin && (
