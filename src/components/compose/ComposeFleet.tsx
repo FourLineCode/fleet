@@ -9,10 +9,10 @@ import {
 	useColorModeValue,
 	useToast,
 } from '@chakra-ui/react';
-import { AxiosError } from 'axios';
 import { Field, Form, Formik } from 'formik';
 import React, { useMemo, useState } from 'react';
 import { useMutation } from 'react-query';
+import { queryClient } from 'src/shared/queryClient';
 import { ApiClient } from '~config/ApiClient';
 import { useCurrentUser } from '~store/useCurrentUser';
 import { toastProps } from '~theme/theme';
@@ -43,9 +43,9 @@ export const ComposeFleet = () => {
 			return res.data;
 		},
 		{
-			onError: (error: AxiosError) => {
+			onError: (error: any) => {
 				toast({
-					title: error.response?.data.message || 'Unknown error occured',
+					title: error.response.data.message || 'Unknown error occured',
 					status: 'error',
 					...toastProps,
 				});
@@ -57,6 +57,7 @@ export const ComposeFleet = () => {
 					...toastProps,
 				});
 				setBody('');
+				queryClient.invalidateQueries('fleet-timeline');
 			},
 		}
 	);

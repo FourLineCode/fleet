@@ -1,6 +1,5 @@
 import {
 	Avatar,
-	Box,
 	Center,
 	Divider,
 	Drawer,
@@ -12,6 +11,7 @@ import {
 	DrawerOverlay,
 	Flex,
 	HStack,
+	Icon,
 	IconButton,
 	Text,
 	useDisclosure,
@@ -92,7 +92,7 @@ const SignedInUserInfo = () => {
 				<Flex direction='column'>
 					<Text fontSize='md' fontWeight='semibold' display='flex' alignItems='center'>
 						{user.displayName}
-						{user.isAdmin && <Box as={FaShieldAlt} ml='2' />}
+						{user.isAdmin && <Icon color='brand.500' as={FaShieldAlt} ml='2' />}
 					</Text>
 					<Text fontSize='sm' color='text-muted'>
 						@{user.username}
