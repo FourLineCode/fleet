@@ -18,12 +18,19 @@ export const Navbar = ({ route }: Props) => {
 	const bgColor = useColorModeValue('light-muted', 'dark-muted');
 
 	return (
-		<HStack bg={bgColor} h='14' shadow='base'>
+		<HStack bg={bgColor} h='14' shadow='base' position='sticky' top='0' zIndex='sticky'>
 			<Container maxW='container.lg'>
 				<Flex justifyContent='space-between'>
 					<Flex spacing='0' alignItems='center'>
 						<SideMenu />
-						<Text fontSize='2xl' fontWeight='semibold'>
+						<Text
+							fontSize='2xl'
+							fontWeight='semibold'
+							cursor='pointer'
+							onClick={() => {
+								window.scrollTo(0, 0);
+							}}
+						>
 							{route}
 						</Text>
 					</Flex>
