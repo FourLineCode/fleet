@@ -45,6 +45,8 @@ MainApp.getInitialProps = async (appContext: AppContext) => {
 			});
 			const data = res.data;
 
+			appContext.ctx.res?.setHeader('Set-Cookie', res.headers['set-cookie']);
+
 			return {
 				...appProps,
 				auth: {
