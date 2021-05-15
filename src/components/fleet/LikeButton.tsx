@@ -2,6 +2,7 @@ import { IconButton, Stack, Text, Tooltip } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { useMutation } from 'react-query';
+import { queryClient } from 'src/shared/queryClient';
 import { ApiClient } from '~config/ApiClient';
 
 interface Props {
@@ -14,11 +15,19 @@ export const LikeButton = ({ initialLiked, initialCount, id }: Props) => {
 	const [liked, setLiked] = useState(initialLiked);
 	const [count, setCount] = useState(initialCount);
 
-	const { mutate } = useMutation(async () => {
-		const url = liked ? '/fleet/unlike' : '/fleet/like';
-		const res = await ApiClient.post(`${url}/${id}`);
-		return res.data;
-	});
+	const { mutate } = useMutation(
+		async () => {
+			const url = liked ? '/fleet/unlike' : '/fleet/like';
+			const res = await ApiClient.post(`${url}/${id}`);
+			return res.data;
+		},
+		{
+			onSuccess: () => {
+				queryClient.invalidateQueries('fleet-timeline');
+				queryClient.invalidateQueries('fleet-view');
+			},
+		}
+	);
 
 	const likeHandler = () => {
 		mutate();

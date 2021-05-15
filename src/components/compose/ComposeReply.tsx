@@ -62,6 +62,7 @@ export const ComposeReply = ({ id, isOpen, onClose }: Props) => {
 				setBody('');
 				onClose();
 				queryClient.invalidateQueries('fleet-timeline');
+				queryClient.invalidateQueries('fleet-view');
 			},
 		}
 	);

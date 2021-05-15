@@ -31,11 +31,7 @@ export const Fleet = ({ fleet, liked }: Props) => {
 	const bgBody = useColorModeValue('light', 'dark');
 
 	return (
-		<Card
-			// TODO: Fleet details component
-			// onClick={() => router.push(`/fleet/${fleet.id}`)}
-			cursor='pointer'
-		>
+		<Card onClick={() => router.push(`/fleet/${fleet.id}`)} cursor='pointer'>
 			<Stack w='100%' display='flex' direction='row'>
 				<Box as={Link} href='/profile'>
 					<Avatar size={avatarSize} src={fleet.author.avatarURL} cursor='pointer' />

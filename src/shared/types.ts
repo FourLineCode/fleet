@@ -1,5 +1,3 @@
-import { Like, Reply } from '@prisma/client';
-
 interface Base {
 	id: number;
 	createdAt: string;
@@ -17,8 +15,8 @@ export interface UserType extends Base {
 
 export interface FleetType extends Base {
 	body: string;
-	likes: Like[];
-	replies: Reply[];
+	likes: LikeType[];
+	replies: ReplyType[];
 	authorId: number;
 	author: UserType;
 }
@@ -30,6 +28,7 @@ export interface LikeType extends Base {
 
 export interface ReplyType extends Base {
 	body: string;
+	user: UserType;
 	fleetId: number;
 	userId: number;
 }
