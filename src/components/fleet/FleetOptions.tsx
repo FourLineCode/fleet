@@ -4,6 +4,7 @@ import {
 	MenuButton,
 	MenuItem,
 	MenuList,
+	Tooltip,
 	useDisclosure,
 	useToast,
 } from '@chakra-ui/react';
@@ -49,14 +50,16 @@ export const FleetOptions = ({ id, canDelete }: Props) => {
 	);
 	return (
 		<Menu placement='bottom-end'>
-			<MenuButton
-				as={IconButton}
-				aria-label='Options'
-				icon={<FaEllipsisV />}
-				rounded='full'
-				size='sm'
-				bg='transparent'
-			/>
+			<Tooltip label='Options' isDisabled={isOpen}>
+				<MenuButton
+					as={IconButton}
+					aria-label='Options'
+					icon={<FaEllipsisV />}
+					rounded='full'
+					size='sm'
+					bg='transparent'
+				/>
+			</Tooltip>
 			<MenuList>
 				{canDelete && (
 					<>

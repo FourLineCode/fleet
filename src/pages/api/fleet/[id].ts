@@ -66,6 +66,7 @@ const fleetByIdHandler: NextApiHandler = async (req, res) => {
 			throw new Error('Method not allowed');
 		}
 	} catch (error) {
+		console.log(error);
 		errorHandler(error, res);
 	}
 };

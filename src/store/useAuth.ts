@@ -1,3 +1,4 @@
+import { queryClient } from 'src/shared/queryClient';
 import { useCurrentUser } from 'src/store/useCurrentUser';
 import create, { State } from 'zustand';
 import { ApiClient } from '~config/ApiClient';
@@ -90,6 +91,8 @@ export const useAuth = create<AuthState>((set, get) => ({
 					token: null,
 					refreshToken: null,
 				});
+
+				queryClient.clear();
 
 				return { success: true, message: 'Successfully signed out' };
 			}

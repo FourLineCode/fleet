@@ -72,7 +72,7 @@ export const Fleet = ({ fleet, liked }: Props) => {
 					<Text bg={bgBody} rounded='md' p='2' fontSize='lg'>
 						{fleet.body}
 					</Text>
-					<FleetFooter fleet={fleet} />
+					<FleetFooter fleet={fleet} liked={liked} />
 				</Stack>
 			</Stack>
 		</Card>

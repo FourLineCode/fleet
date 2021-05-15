@@ -5,6 +5,7 @@ import {
 	MenuDivider,
 	MenuItem,
 	MenuList,
+	Tooltip,
 	useColorMode,
 	useColorModeValue,
 	useToast,
@@ -31,13 +32,15 @@ export const DropDown = () => {
 
 	return (
 		<Menu placement='bottom-end'>
-			<MenuButton
-				as={IconButton}
-				aria-label='Options'
-				icon={<FaCaretDown />}
-				rounded='full'
-				size='sm'
-			/>
+			<Tooltip label='Menu'>
+				<MenuButton
+					as={IconButton}
+					aria-label='Options'
+					icon={<FaCaretDown />}
+					rounded='full'
+					size='sm'
+				/>
+			</Tooltip>
 			<MenuList>
 				{auth.authorized ? <SignedInLinks /> : <SignedOutLinks />}
 				<MenuDivider />
