@@ -8,12 +8,16 @@ import { TimelineSuspense } from '~components/suspense/TimelineSuspense';
 import { ApiClient } from '~config/ApiClient';
 import { toastProps } from '~theme/theme';
 
-interface FleetData {
+export interface FleetData {
 	post: FleetType;
 	liked: boolean;
 }
 
-export const FleetTimeline = () => {
+interface Props {
+	initialData: FleetData[];
+}
+
+export const FleetTimeline = ({ initialData }: Props) => {
 	const toast = useToast();
 
 	const { data, isLoading } = useQuery<FleetData[]>(
@@ -23,6 +27,7 @@ export const FleetTimeline = () => {
 			return res.data;
 		},
 		{
+			initialData,
 			onError: (error: any) => {
 				toast({
 					title: error.response.data.message || 'Unknown error occured',

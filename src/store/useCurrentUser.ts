@@ -44,7 +44,10 @@ export const useCurrentUser = create<UserState>((set, get) => ({
 		}
 	},
 	setUserInfo: (payload) => {
-		set(payload);
+		set((prevState) => ({
+			...prevState,
+			...payload,
+		}));
 	},
 	clearCurrentUser: () => {
 		set({

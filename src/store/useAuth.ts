@@ -99,7 +99,10 @@ export const useAuth = create<AuthState>((set, get) => ({
 		return { success: false, message: 'An unknown error has occured' };
 	},
 	setAuthInfo: (payload) => {
-		set(payload);
+		set((prevState) => ({
+			...prevState,
+			...payload,
+		}));
 
 		if (payload?.id) {
 			useCurrentUser.getState().getUserInfo(payload.id);

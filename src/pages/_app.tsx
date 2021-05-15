@@ -2,8 +2,8 @@ import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import App, { AppContext, AppProps } from 'next/app';
 import React, { useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
+import { preloadAppData } from 'src/shared/preloadData';
 import { queryClient } from 'src/shared/queryClient';
-import { ApiClient } from '~config/ApiClient';
 import { AuthState, useAuth } from '~store/useAuth';
 import { theme } from '~theme/theme';
 
@@ -35,14 +35,8 @@ MainApp.getInitialProps = async (appContext: AppContext) => {
 
 	if (!process.browser) {
 		try {
-			const res = await ApiClient.get('/user/refreshtoken', {
-				headers: {
-					// @ts-ignore
-					Cookie: Object.entries(appContext.ctx.req.cookies)
-						.map(([key, value]) => `${key}=${value}`)
-						.join('; '),
-				},
-			});
+			const res = await preloadAppData('/user/refreshtoken', appContext);
+			console.log(res);
 			const data = res.data;
 
 			appContext.ctx.res?.setHeader('Set-Cookie', res.headers['set-cookie']);
