@@ -11,7 +11,7 @@
 	"scripts": {
 		"dev": "next dev",
 		"build": "next build",
-		"start": "SET NODE_ENV=production&&next start",
+		"start": "next start",
 		"migrate": "yarn prisma migrate dev",
 		"generate": "yarn prisma generate",
 		"seed": "yarn prisma db seed --preview-feature",
@@ -26,7 +26,6 @@
 		"@prisma/client": "^2.22.1",
 		"axios": "^0.21.1",
 		"bcryptjs": "^2.4.3",
-		"clsx": "^1.1.1",
 		"cookie": "^0.4.1",
 		"date-fns": "^2.21.3",
 		"formik": "^2.2.6",

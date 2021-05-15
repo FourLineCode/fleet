@@ -6,7 +6,7 @@ export const Discover = () => {
 	const bgColor = useColorModeValue('light-muted', 'dark-muted');
 
 	return (
-		<VStack hidden={hide} w='xs' h='100vh' bg={bgColor} shadow='lg' rounded='lg'>
+		<VStack hidden={hide} w='xs' h='100vh' bg={bgColor} shadow='md' rounded='lg'>
 			<Text textAlign='center' fontSize='4xl' fontWeight='bold'>
 				Discover
 			</Text>

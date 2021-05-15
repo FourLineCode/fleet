@@ -36,7 +36,6 @@ MainApp.getInitialProps = async (appContext: AppContext) => {
 	if (!process.browser) {
 		try {
 			const res = await preloadAppData('/user/refreshtoken', appContext);
-			console.log(res);
 			const data = res.data;
 
 			appContext.ctx.res?.setHeader('Set-Cookie', res.headers['set-cookie']);

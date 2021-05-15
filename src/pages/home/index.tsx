@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 	return {
 		props: {
-			fleets: res.data,
+			fleets: res?.data,
 		},
 	};
 };

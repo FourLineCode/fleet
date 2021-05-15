@@ -88,6 +88,7 @@ export const ComposeFleet = () => {
 							placeholder='share a status...'
 							value={body}
 							overflow
+							isDisabled={isLoading}
 							onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
 								setBody(e.target.value)
 							}

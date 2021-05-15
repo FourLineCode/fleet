@@ -1,11 +1,20 @@
 import { Avatar } from '@chakra-ui/avatar';
-import { Box, HStack, Icon, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
+import {
+	Box,
+	HStack,
+	Icon,
+	Stack,
+	Text,
+	useBreakpointValue,
+	useColorModeValue,
+} from '@chakra-ui/react';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { FaShieldAlt } from 'react-icons/fa';
 import { FleetType } from 'src/shared/types';
+import { FleetFooter } from '~components/fleet/FleetFooter';
 import { Card } from '~ui/Card';
 
 interface Props {
@@ -19,12 +28,13 @@ export const Fleet = ({ fleet, liked }: Props) => {
 		base: 'sm',
 		md: 'md',
 	});
+	const bgBody = useColorModeValue('light', 'dark');
 
 	return (
 		<Card
-			onClick={() => router.push(`/fleet/${fleet.id}`)}
+			// TODO: Fleet details component
+			// onClick={() => router.push(`/fleet/${fleet.id}`)}
 			cursor='pointer'
-			_hover={{ opacity: '0.8' }}
 		>
 			<Stack w='100%' display='flex' direction='row'>
 				<Box as={Link} href='/profile'>
@@ -59,9 +69,10 @@ export const Fleet = ({ fleet, liked }: Props) => {
 							{formatDistanceToNow(new Date(fleet.createdAt))}
 						</Text>
 					</Box>
-					<Text bg='dark' rounded='md' p='2' fontSize='lg'>
+					<Text bg={bgBody} rounded='md' p='2' fontSize='lg'>
 						{fleet.body}
 					</Text>
+					<FleetFooter fleet={fleet} />
 				</Stack>
 			</Stack>
 		</Card>

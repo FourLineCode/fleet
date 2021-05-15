@@ -14,12 +14,16 @@ export const preloadAppData = async (url: string, context: AppContext) => {
 };
 
 export const preloadData = async (url: string, context: GetServerSidePropsContext) => {
-	return await ApiClient.get(url, {
-		headers: {
-			// @ts-ignore
-			Cookie: Object.entries(context.req.cookies)
-				.map(([key, value]) => `${key}=${value}`)
-				.join('; '),
-		},
-	});
+	try {
+		return await ApiClient.get(url, {
+			headers: {
+				// @ts-ignore
+				Cookie: Object.entries(context.req.cookies)
+					.map(([key, value]) => `${key}=${value}`)
+					.join('; '),
+			},
+		});
+	} catch (error) {
+		// TODO: handle unauthorized error
+	}
 };
