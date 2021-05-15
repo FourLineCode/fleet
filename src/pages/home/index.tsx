@@ -26,11 +26,11 @@ const Home = ({ fleets }: Props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-	const res = await preloadData('/fleet/homepage', context);
+	const data = await preloadData('/fleet/homepage', context);
 
 	return {
 		props: {
-			fleets: res?.data,
+			fleets: data,
 		},
 	};
 };

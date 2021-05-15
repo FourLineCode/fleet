@@ -15,15 +15,17 @@ export const preloadAppData = async (url: string, context: AppContext) => {
 
 export const preloadData = async (url: string, context: GetServerSidePropsContext) => {
 	try {
-		return await ApiClient.get(url, {
+		const res = await ApiClient.get(url, {
 			headers: {
-				// @ts-ignore
 				Cookie: Object.entries(context.req.cookies)
 					.map(([key, value]) => `${key}=${value}`)
 					.join('; '),
 			},
 		});
+
+		return res.data;
 	} catch (error) {
 		// TODO: handle unauthorized error
+		return null;
 	}
 };
