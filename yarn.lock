@@ -800,6 +800,20 @@
   resolved "https://registry.yarnpkg.com/@opentelemetry/context-base/-/context-base-0.14.0.tgz#c67fc20a4d891447ca1a855d7d70fa79a3533001"
   integrity sha512-sDOAZcYwynHFTbLo6n8kIbLiVF3a3BLkrmehJUyEbT9F+Smbi47kLGS2gG2g0fjBLR/Lr1InPD7kXL7FaTqEkw==
 
+"@paljs/plugins@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@paljs/plugins/-/plugins-3.2.0.tgz#9cc42bc859cfd6a7d9593099aa54c47cb6b71eb4"
+  integrity sha512-ng8B02xWSm6lApnlz6gpRLm9yu3zkAJ/iSicuh6Wx4hODIKE6MbleuyWM8MJiUSPwD0SW1kX7K/vD0I+MMFuXg==
+  dependencies:
+    "@paljs/types" "^3.2.0"
+    graphql-fields "2.0.3"
+    graphql-tag "2.12.4"
+
+"@paljs/types@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@paljs/types/-/types-3.2.0.tgz#7cd14d62eac969158f79bb501260457c6ce51ebc"
+  integrity sha512-8Lu8SVVbrCKUQq5WqL224hjVFbpGR90cA+cNtyPJPhKJIBSrUL4CX1sDvbKAegzzzAcrXsr2IKoZ4+ttYSJ4cQ==
+
 "@popperjs/core@2.4.4":
   version "2.4.4"
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.4.4.tgz#11d5db19bd178936ec89cd84519c4de439574398"
@@ -1813,6 +1827,18 @@ graceful-fs@^4.1.2:
   version "4.2.6"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.6.tgz#ff040b2b0853b23c3d31027523706f1885d76bee"
   integrity sha512-nTnJ528pbqxYanhpDYsi4Rd8MAeaBA67+RZ10CM1m3bTAVFEDcd5AuA4a6W5YkGZ1iNXHzZz8T6TBKLeBuNriQ==
+
+graphql-fields@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/graphql-fields/-/graphql-fields-2.0.3.tgz#5e68dff7afbb202be4f4f40623e983b22c96ab8f"
+  integrity sha512-x3VE5lUcR4XCOxPIqaO4CE+bTK8u6gVouOdpQX9+EKHr+scqtK5Pp/l8nIGqIpN1TUlkKE6jDCCycm/WtLRAwA==
+
+graphql-tag@2.12.4:
+  version "2.12.4"
+  resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.4.tgz#d34066688a4f09e72d6f4663c74211e9b4b7c4bf"
+  integrity sha512-VV1U4O+9x99EkNpNmCUV5RZwq6MnK4+pGbRYWG+lA/m3uo7TSqJF81OkcOP148gFP6fzdl7JWYBrwWVTS9jXww==
+  dependencies:
+    tslib "^2.1.0"
 
 has-bigints@^1.0.1:
   version "1.0.1"

@@ -1,3 +1,4 @@
+import { PrismaDelete } from '@paljs/plugins';
 import { StatusCodes } from 'http-status-codes';
 import { NextApiHandler } from 'next';
 import { authorize } from '~lib/middlewares/authorize';
@@ -58,7 +59,8 @@ const fleetByIdHandler: NextApiHandler = async (req, res) => {
 				throw new Error('You are not authorized to delete this fleet');
 			}
 
-			await prisma.fleet.delete({ where: { id } });
+			const prismaDelete = new PrismaDelete(prisma);
+			await prismaDelete.onDelete({ model: 'Fleet', where: { id }, deleteParent: true });
 
 			res.status(StatusCodes.OK).json({ success: true });
 		} else {

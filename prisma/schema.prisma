@@ -44,7 +44,9 @@ model Fleet {
     body      String
     author    User     @relation(fields: [authorId], references: [id])
     authorId  Int
+    /// @onDelete(CASCADE)
     likes     Like[]
+    /// @onDelete(CASCADE)
     replies   Reply[]
 }
 
