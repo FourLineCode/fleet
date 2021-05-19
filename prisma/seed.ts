@@ -32,7 +32,7 @@ const main = async () => {
 			update: {},
 			create: {
 				email: `demo${n}@rip.com`,
-				password: await bcrypt.hash('adminpp', 10),
+				password: await bcrypt.hash(process.env.BOT_PASSWORD || 'example123', 10),
 				username: `demo${n}`,
 				displayName: `Demo user ${n}`,
 				bio: `Auto generated bio for demo user ${n}`,
