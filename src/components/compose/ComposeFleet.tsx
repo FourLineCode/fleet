@@ -87,7 +87,6 @@ export const ComposeFleet = () => {
 							autoComplete='off'
 							placeholder='share a status...'
 							value={body}
-							overflow
 							isDisabled={isLoading}
 							onInput={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
 								setBody(e.target.value)
