@@ -37,9 +37,11 @@ export const FleetView = ({ fleet, liked }: Props) => {
 			{data && (
 				<>
 					<Fleet fleet={data.post} liked={data.liked} />
-					<Box w='100%' h='4'>
-						<Box w='1' h='100%' bg={barColor} ml='12' />
-					</Box>
+					{data.post.replies.length > 0 && (
+						<Box w='100%' h='4'>
+							<Box w='1' h='100%' bg={barColor} ml='12' />
+						</Box>
+					)}
 					<Stack>
 						{data.post.replies.map((reply: ReplyType) => (
 							<Reply reply={reply} to={data.post.author.username} key={reply.id} />

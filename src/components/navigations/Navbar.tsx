@@ -1,5 +1,5 @@
 import { Flex, HStack, Text } from '@chakra-ui/layout';
-import { Avatar, Container, useColorModeValue } from '@chakra-ui/react';
+import { Avatar, Container, Tooltip, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { DropDown } from '~components/navigations/DropDown';
@@ -36,13 +36,15 @@ export const Navbar = ({ route }: Props) => {
 					</Flex>
 					<HStack>
 						{auth.authorized && (
-							<Avatar
-								src={user.avatarURL}
-								onClick={() => router.push('/profile')}
-								size='sm'
-								cursor='pointer'
-								_hover={{ border: '1px', borderColor: 'brand.500' }}
-							/>
+							<Tooltip label='Profile'>
+								<Avatar
+									src={user.avatarURL}
+									onClick={() => router.push('/profile')}
+									size='sm'
+									cursor='pointer'
+									_hover={{ border: '1px', borderColor: 'brand.500' }}
+								/>
+							</Tooltip>
 						)}
 						<DropDown />
 					</HStack>

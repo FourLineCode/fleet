@@ -14,6 +14,7 @@ import {
 	Icon,
 	IconButton,
 	Text,
+	Tooltip,
 	useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
@@ -40,13 +41,15 @@ export const SideMenu = () => {
 
 	return (
 		<>
-			<IconButton
-				ref={menuRef}
-				onClick={onOpen}
-				icon={<FaBars />}
-				aria-label='Menu'
-				variant='ghost'
-			/>
+			<Tooltip label='Side Menu'>
+				<IconButton
+					ref={menuRef}
+					onClick={onOpen}
+					icon={<FaBars />}
+					aria-label='Menu'
+					variant='ghost'
+				/>
+			</Tooltip>
 			<Drawer isOpen={isOpen} placement='left' onClose={onClose} finalFocusRef={menuRef}>
 				<DrawerOverlay>
 					<DrawerContent>

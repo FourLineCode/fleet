@@ -24,7 +24,7 @@ export const LikeButton = ({ initialLiked, initialCount, id }: Props) => {
 		{
 			onSuccess: () => {
 				queryClient.invalidateQueries('fleet-timeline');
-				queryClient.invalidateQueries('fleet-view');
+				queryClient.invalidateQueries(['fleet-view', id]);
 			},
 		}
 	);
