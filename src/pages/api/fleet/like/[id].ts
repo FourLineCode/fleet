@@ -30,14 +30,14 @@ const likeHandler: NextApiHandler = async (req, res) => {
 				throw new Error('You have already liked this fleet');
 			}
 
-			await prisma.like.create({
+			const newLike = await prisma.like.create({
 				data: {
 					userId: currentUser.id,
 					fleetId: fleet.id,
 				},
 			});
 
-			res.status(StatusCodes.OK).json({ success: true });
+			res.status(StatusCodes.OK).json({ like: newLike });
 		} else {
 			res.status(StatusCodes.METHOD_NOT_ALLOWED);
 			throw new Error('Method not allowed');

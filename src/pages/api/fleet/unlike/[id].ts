@@ -30,9 +30,9 @@ const unlikeHandler: NextApiHandler = async (req, res) => {
 				throw new Error('You have not liked this fleet');
 			}
 
-			await prisma.like.delete({ where: { id: like.id } });
+			const deletedLike = await prisma.like.delete({ where: { id: like.id } });
 
-			res.status(StatusCodes.OK).json({ success: true });
+			res.status(StatusCodes.OK).json({ id: deletedLike.id, success: true });
 		} else {
 			res.status(StatusCodes.METHOD_NOT_ALLOWED);
 			throw new Error('Method not allowed');

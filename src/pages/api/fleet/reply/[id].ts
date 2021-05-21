@@ -58,7 +58,7 @@ const replyHandler: NextApiHandler = async (req, res) => {
 
 			await prisma.reply.delete({ where: { id } });
 
-			res.status(StatusCodes.OK).json({ success: true });
+			res.status(StatusCodes.OK).json({ id, success: true });
 		} else {
 			res.status(StatusCodes.METHOD_NOT_ALLOWED);
 			throw new Error('Method not allowed');

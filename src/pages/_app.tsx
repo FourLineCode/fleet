@@ -1,9 +1,11 @@
 import { ChakraProvider, CSSReset } from '@chakra-ui/react';
 import App, { AppContext, AppProps } from 'next/app';
 import React, { useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClientProvider } from 'react-query';
 import { preloadAppData } from 'src/shared/preloadData';
 import { queryClient } from 'src/shared/queryClient';
+import { ErrorFallback } from '~components/layouts/ErrorFallback';
 import { AuthState, useAuth } from '~store/useAuth';
 import { theme } from '~theme/theme';
 
@@ -24,7 +26,9 @@ const MainApp = ({ Component, pageProps, auth }: CustomAppProps) => {
 		<ChakraProvider theme={theme}>
 			<CSSReset />
 			<QueryClientProvider client={queryClient}>
-				<Component {...pageProps} />
+				<ErrorBoundary FallbackComponent={ErrorFallback}>
+					<Component {...pageProps} />
+				</ErrorBoundary>
 			</QueryClientProvider>
 		</ChakraProvider>
 	);

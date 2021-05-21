@@ -62,7 +62,7 @@ const fleetByIdHandler: NextApiHandler = async (req, res) => {
 			const prismaDelete = new PrismaDelete(prisma);
 			await prismaDelete.onDelete({ model: 'Fleet', where: { id }, deleteParent: true });
 
-			res.status(StatusCodes.OK).json({ success: true });
+			res.status(StatusCodes.OK).json({ id, success: true });
 		} else {
 			res.status(StatusCodes.METHOD_NOT_ALLOWED);
 			throw new Error('Method not allowed');
