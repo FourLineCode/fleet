@@ -3,17 +3,13 @@ import { Box, Stack } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
 import React from 'react';
 import { useQuery } from 'react-query';
-import { FleetType, ReplyType } from 'src/shared/types';
+import { ReplyType } from 'src/shared/types';
 import { Fleet } from '~components/fleet/Fleet';
 import { Reply } from '~components/fleet/Reply';
+import { FleetData } from '~components/timeline/FleetTimeline';
 import { ApiClient } from '~config/ApiClient';
 
-interface Props {
-	fleet: FleetType;
-	liked: boolean;
-}
-
-export const FleetView = ({ fleet, liked }: Props) => {
+export const FleetView = ({ post, liked }: FleetData) => {
 	const router = useRouter();
 	const { id } = router.query;
 	const barColor = useColorModeValue('light-muted', 'dark-muted');
@@ -26,7 +22,7 @@ export const FleetView = ({ fleet, liked }: Props) => {
 		},
 		{
 			initialData: {
-				post: fleet,
+				post,
 				liked,
 			},
 		}

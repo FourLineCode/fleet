@@ -8,6 +8,7 @@ import {
 	useDisclosure,
 	useToast,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React from 'react';
 import { FaEllipsisV, FaExternalLinkAlt, FaTrash } from 'react-icons/fa';
 import { useMutation } from 'react-query';
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export const FleetOptions = ({ id, canDelete }: Props) => {
+	const router = useRouter();
 	const toast = useToast();
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -38,6 +40,10 @@ export const FleetOptions = ({ id, canDelete }: Props) => {
 					...toastProps,
 				});
 				queryClient.invalidateQueries('fleet-timeline');
+
+				if (router.pathname.startsWith('/fleet')) {
+					router.push('/home');
+				}
 			},
 			onError: () => {
 				toast({
