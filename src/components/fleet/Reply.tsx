@@ -1,4 +1,4 @@
-import { Avatar, Box, Flex, HStack, Icon, Stack, Text, useColorModeValue } from '@chakra-ui/react';
+import { Avatar, Box, Flex, HStack, Icon, Stack, Text } from '@chakra-ui/react';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -17,7 +17,6 @@ interface Props {
 export const Reply = ({ reply, to }: Props) => {
 	const router = useRouter();
 	const user = useCurrentUser();
-	const bgBody = useColorModeValue('light', 'dark');
 	const canDelete = useMemo(() => {
 		return user.isAdmin || reply.userId === user.id;
 	}, [reply, user]);
@@ -28,7 +27,7 @@ export const Reply = ({ reply, to }: Props) => {
 				<Box as={Link} href='/profile'>
 					<Avatar size='sm' src={reply.user.avatarURL} cursor='pointer' mt='5' />
 				</Box>
-				<Stack w='100%'>
+				<Stack w='100%' spacing='0.5'>
 					<Flex w='100%' justifyContent='space-between'>
 						<Box w='max-content'>
 							<Text fontSize='xs' color='text-muted'>
@@ -39,7 +38,7 @@ export const Reply = ({ reply, to }: Props) => {
 								cursor='pointer'
 								onClick={(e) => {
 									e.stopPropagation();
-									router.push('/profile');
+									router.push(`/profile/${reply.userId}`);
 								}}
 							>
 								<Text
@@ -62,7 +61,7 @@ export const Reply = ({ reply, to }: Props) => {
 						</Box>
 						<ReplyOptions id={reply.id} fleetId={reply.fleetId} canDelete={canDelete} />
 					</Flex>
-					<Text bg={bgBody} rounded='md' p='2' fontSize='sm'>
+					<Text rounded='md' py='1' fontSize='sm'>
 						{reply.body}
 					</Text>
 				</Stack>

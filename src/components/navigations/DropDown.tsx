@@ -84,7 +84,7 @@ const SignedInLinks = () => {
 		<>
 			<MenuItem
 				_hover={{ color: 'brand.500' }}
-				onClick={() => router.push('/profile')}
+				onClick={() => router.push(`/profile/${auth.id}`)}
 				icon={<FaUser />}
 			>
 				Profile

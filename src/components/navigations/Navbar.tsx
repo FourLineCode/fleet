@@ -39,7 +39,7 @@ export const Navbar = ({ route }: Props) => {
 							<Tooltip label='Profile'>
 								<Avatar
 									src={user.avatarURL}
-									onClick={() => router.push('/profile')}
+									onClick={() => router.push(`/profile/${auth.id}`)}
 									size='sm'
 									cursor='pointer'
 									_hover={{ border: '1px', borderColor: 'brand.500' }}

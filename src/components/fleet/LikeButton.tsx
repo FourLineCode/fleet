@@ -1,39 +1,49 @@
 import { IconButton, Stack, Text, Tooltip } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { queryClient } from 'src/shared/queryClient';
+import { FleetType } from 'src/shared/types';
 import { ApiClient } from '~config/ApiClient';
 
 interface Props {
 	initialLiked: boolean;
-	initialCount: number;
-	id: number;
+	fleet: FleetType;
 }
 
-export const LikeButton = ({ initialLiked, initialCount, id }: Props) => {
+export const LikeButton = ({ initialLiked, fleet }: Props) => {
 	const [liked, setLiked] = useState(initialLiked);
-	const [count, setCount] = useState(initialCount);
 
-	const { mutate } = useMutation(
+	useQuery(
+		`fleet-liked-${fleet.id}`,
 		async () => {
-			const url = liked ? '/fleet/unlike' : '/fleet/like';
-			const res = await ApiClient.post(`${url}/${id}`);
+			const res = await ApiClient.get(`/fleet/like/check/${fleet.id}`);
 			return res.data;
 		},
 		{
-			onSuccess: () => {
-				queryClient.invalidateQueries('fleet-timeline');
-				queryClient.invalidateQueries(`fleet-view-${id}`);
+			onSuccess: (data) => {
+				setLiked(data.liked);
 			},
 		}
 	);
 
-	const likeHandler = () => {
-		mutate();
-		setLiked((curr) => !curr);
-		setCount((curr) => Math.max(0, liked ? curr - 1 : curr + 1));
-	};
+	const { mutate } = useMutation(
+		async () => {
+			const url = liked ? '/fleet/unlike' : '/fleet/like';
+			const res = await ApiClient.post(`${url}/${fleet.id}`);
+			return res.data;
+		},
+		{
+			onMutate: () => {
+				setLiked((cur) => !cur);
+			},
+			onSuccess: () => {
+				queryClient.invalidateQueries('fleet-timeline');
+				queryClient.invalidateQueries(`fleet-view-${fleet.id}`);
+				queryClient.invalidateQueries(`fleet-liked-${fleet.id}`);
+			},
+		}
+	);
 
 	return (
 		<Tooltip label='Like'>
@@ -44,9 +54,9 @@ export const LikeButton = ({ initialLiked, initialCount, id }: Props) => {
 					bg='transparent'
 					isRound
 					size='sm'
-					onClick={likeHandler}
+					onClick={() => mutate()}
 				/>
-				<Text>{count}</Text>
+				<Text>{fleet.likes.length}</Text>
 			</Stack>
 		</Tooltip>
 	);

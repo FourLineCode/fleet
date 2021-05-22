@@ -26,7 +26,7 @@ export const FleetFooter = ({ fleet, liked }: Props) => {
 			onClick={(e) => e.stopPropagation()}
 		>
 			<Stack display='flex' direction='row' spacing='3'>
-				<LikeButton initialLiked={liked} id={fleet.id} initialCount={fleet.likes.length} />
+				<LikeButton initialLiked={liked} fleet={fleet} />
 				<ReplyButton id={fleet.id} count={fleet.replies.length} />
 			</Stack>
 			<FleetOptions id={fleet.id} canDelete={canDelete} />
