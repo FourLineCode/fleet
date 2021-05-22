@@ -39,7 +39,7 @@ export const ReplyOptions = ({ id, fleetId, canDelete }: Props) => {
 					...toastProps,
 				});
 				queryClient.invalidateQueries('fleet-timeline');
-				queryClient.invalidateQueries('fleet-view');
+				queryClient.invalidateQueries(`fleet-view-${fleetId}`);
 			},
 			onError: () => {
 				toast({

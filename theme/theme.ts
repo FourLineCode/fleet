@@ -10,7 +10,7 @@ export const theme = extendTheme({
 		dark: defaultTheme.colors.gray[900],
 		'dark-muted': defaultTheme.colors.gray[800],
 		light: defaultTheme.colors.gray[50],
-		'light-muted': defaultTheme.colors.blackAlpha[200],
+		'light-muted': defaultTheme.colors.blackAlpha[300],
 		'text-muted': defaultTheme.colors.gray[500],
 	},
 	styles: {

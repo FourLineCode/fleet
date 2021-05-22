@@ -111,32 +111,42 @@ const SignUp = () => {
 								type='email'
 								placeholder='example@example.com ...'
 								label='Email address'
+								disabled={props.isSubmitting}
 							/>
 							<Input
 								name='username'
 								type='text'
 								placeholder='username ...'
 								label='Username'
+								disabled={props.isSubmitting}
 							/>
 							<Input
 								name='displayName'
 								type='text'
 								placeholder='your name ...'
 								label='Display Name'
+								disabled={props.isSubmitting}
 							/>
 							<Input
 								name='password'
 								type='password'
 								placeholder='••••••••'
 								label='Password'
+								disabled={props.isSubmitting}
 							/>
 							<Input
 								name='confirmPassword'
 								type='password'
 								placeholder='••••••••'
 								label='Confirm Password'
+								disabled={props.isSubmitting}
 							/>
-							<Textarea name='bio' placeholder='about yourself ...' label='Bio' />
+							<Textarea
+								name='bio'
+								placeholder='about yourself ...'
+								label='Bio'
+								disabled={props.isSubmitting}
+							/>
 							<Flex mt='2'>
 								<Checkbox
 									checked={agreed}
@@ -144,6 +154,7 @@ const SignUp = () => {
 									colorScheme='brand'
 									borderColor='gray.500'
 									mr='1'
+									isDisabled={props.isSubmitting}
 								>
 									Accept our
 								</Checkbox>

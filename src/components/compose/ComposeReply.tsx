@@ -14,7 +14,7 @@ import {
 	useToast,
 } from '@chakra-ui/react';
 import { Field, Form, Formik } from 'formik';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useMutation } from 'react-query';
 import { queryClient } from 'src/shared/queryClient';
 import { ApiClient } from '~config/ApiClient';
@@ -31,6 +31,7 @@ export const ComposeReply = ({ id, isOpen, onClose }: Props) => {
 	const bg = useColorModeValue('light', 'dark');
 	const textColor = useColorModeValue('dark', 'light');
 	const [body, setBody] = useState('');
+	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const lengthColor = useMemo(() => {
 		if (body.length >= 200 && body.length < 240) {
 			return 'yellow.500';
@@ -62,13 +63,13 @@ export const ComposeReply = ({ id, isOpen, onClose }: Props) => {
 				setBody('');
 				onClose();
 				queryClient.invalidateQueries('fleet-timeline');
-				queryClient.invalidateQueries('fleet-view');
+				queryClient.invalidateQueries(`fleet-view-${id}`);
 			},
 		}
 	);
 
 	return (
-		<Modal isOpen={isOpen} onClose={onClose} size='2xl'>
+		<Modal isOpen={isOpen} onClose={onClose} size='2xl' initialFocusRef={inputRef}>
 			<ModalOverlay />
 			<ModalContent>
 				<ModalHeader>Reply</ModalHeader>
@@ -82,8 +83,8 @@ export const ComposeReply = ({ id, isOpen, onClose }: Props) => {
 					>
 						<Stack as={Form} w='100%'>
 							<Field
-								mt='0'
 								as={Textarea}
+								mt='0'
 								id='body'
 								name='body'
 								bg={bg}

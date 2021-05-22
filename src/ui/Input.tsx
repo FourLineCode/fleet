@@ -7,9 +7,10 @@ interface InputProps {
 	type: string;
 	label: string;
 	placeholder?: string;
+	disabled?: boolean;
 }
 
-export const Input = ({ label, name, type, placeholder }: InputProps) => {
+export const Input = ({ label, name, type, placeholder, disabled }: InputProps) => {
 	const bg = useColorModeValue('light', 'dark');
 
 	return (
@@ -25,6 +26,7 @@ export const Input = ({ label, name, type, placeholder }: InputProps) => {
 				bg={bg}
 				focusBorderColor='brand.500'
 				variant='filled'
+				isDisabled={disabled}
 			/>
 		</>
 	);

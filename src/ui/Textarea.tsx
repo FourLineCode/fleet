@@ -6,9 +6,10 @@ interface TextareaProps {
 	name: string;
 	label: string;
 	placeholder?: string;
+	disabled?: boolean;
 }
 
-export const Textarea = ({ label, name, placeholder }: TextareaProps) => {
+export const Textarea = ({ label, name, placeholder, disabled }: TextareaProps) => {
 	const bg = useColorModeValue('light', 'dark');
 
 	return (
@@ -24,6 +25,7 @@ export const Textarea = ({ label, name, placeholder }: TextareaProps) => {
 				focusBorderColor='brand.500'
 				variant='filled'
 				resize='none'
+				isDisabled={disabled}
 			/>
 		</>
 	);

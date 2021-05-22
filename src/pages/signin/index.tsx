@@ -107,17 +107,20 @@ const SignIn = () => {
 								type='email'
 								placeholder='example@example.com ...'
 								label='Email address'
+								disabled={props.isSubmitting}
 							/>
 							<Input
 								name='password'
 								type='password'
 								placeholder='••••••••'
 								label='Password'
+								disabled={props.isSubmitting}
 							/>
 							<CheckboxPrompt
 								name='keep'
 								defaultChecked={true}
 								label='Keep me signed in'
+								disabled={props.isSubmitting}
 							/>
 							<Button
 								mt='2'

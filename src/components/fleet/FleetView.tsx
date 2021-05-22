@@ -15,7 +15,7 @@ export const FleetView = ({ post, liked }: FleetData) => {
 	const barColor = useColorModeValue('light-muted', 'dark-muted');
 
 	const { data } = useQuery(
-		'fleet-view',
+		`fleet-view-${id}`,
 		async () => {
 			const res = await ApiClient.get(`/fleet/${id}`);
 			return res.data;

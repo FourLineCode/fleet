@@ -6,9 +6,15 @@ interface CheckboxProps {
 	defaultChecked?: boolean;
 	label: string;
 	name: string;
+	disabled?: boolean;
 }
 
-export const CheckboxPrompt = ({ label, name, defaultChecked = false }: CheckboxProps) => {
+export const CheckboxPrompt = ({
+	label,
+	name,
+	defaultChecked = false,
+	disabled,
+}: CheckboxProps) => {
 	return (
 		<Flex mt='2'>
 			<Field
@@ -19,6 +25,7 @@ export const CheckboxPrompt = ({ label, name, defaultChecked = false }: Checkbox
 				defaultChecked={defaultChecked}
 				colorScheme='brand'
 				mr='2'
+				isDisabled={disabled}
 			>
 				{label}
 			</Field>
