@@ -25,7 +25,12 @@ export const Fleet = ({ fleet, liked }: Props) => {
 		<Card onClick={() => router.push(`/fleet/${fleet.id}`)} cursor='pointer'>
 			<Stack w='100%' display='flex' direction='row'>
 				<Box as={Link} href='/profile'>
-					<Avatar size={avatarSize} src={fleet.author.avatarURL} cursor='pointer' />
+					<Avatar
+						size={avatarSize}
+						src={fleet.author.avatarURL}
+						cursor='pointer'
+						name='user-avatar'
+					/>
 				</Box>
 				<Stack w='100%'>
 					<Box w='max-content'>

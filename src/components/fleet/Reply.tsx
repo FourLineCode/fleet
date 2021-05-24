@@ -25,7 +25,13 @@ export const Reply = ({ reply, to }: Props) => {
 		<Card>
 			<Stack w='100%' display='flex' direction='row'>
 				<Box as={Link} href='/profile'>
-					<Avatar size='sm' src={reply.user.avatarURL} cursor='pointer' mt='5' />
+					<Avatar
+						size='sm'
+						src={reply.user.avatarURL}
+						cursor='pointer'
+						mt='5'
+						name='user-avatar'
+					/>
 				</Box>
 				<Stack w='100%' spacing='0.5'>
 					<Flex w='100%' justifyContent='space-between'>

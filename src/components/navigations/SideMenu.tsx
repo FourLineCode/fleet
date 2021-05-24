@@ -91,7 +91,7 @@ const SignedInUserInfo = () => {
 	return (
 		<>
 			<HStack p='2' spacing='2'>
-				<Avatar src={user.avatarURL} />
+				<Avatar src={user.avatarURL} name='user-avatar' />
 				<Flex direction='column'>
 					<Text fontSize='md' fontWeight='semibold' display='flex' alignItems='center'>
 						{user.displayName}

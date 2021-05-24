@@ -31,7 +31,7 @@ export const UserInfoCard = ({ user }: Props) => {
 					alignItems='center'
 				>
 					<Flex alignItems='center'>
-						<Avatar src={user.avatarURL} size='sm' mr='2'></Avatar>
+						<Avatar src={user.avatarURL} size='sm' mr='2' name='user-avatar' />
 						<Stack spacing='0'>
 							<Text
 								as='span'

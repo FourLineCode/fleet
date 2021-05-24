@@ -66,7 +66,7 @@ export const ComposeFleet = () => {
 		<Card w='100%'>
 			<Stack display='flex' direction='row'>
 				<Box>
-					<Avatar size={avatarSize} src={user.avatarURL} />
+					<Avatar size={avatarSize} src={user.avatarURL} name='user-avatar' />
 				</Box>
 				<Formik
 					initialValues={{ body: '' }}
