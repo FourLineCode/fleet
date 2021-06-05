@@ -14,7 +14,7 @@ export const Profile = ({ user }: Props) => {
 	const { id } = router.query;
 
 	const { data } = useQuery<UserType>(
-		'profile-user',
+		`profile-user-${id}`,
 		async () => {
 			const res = await ApiClient.get(`/user/info/${id}`);
 			return res.data;
