@@ -37,12 +37,13 @@ export const UserInfoCard = ({ user }: Props) => {
 								as='span'
 								fontSize='sm'
 								fontWeight='semibold'
+								noOfLines={1}
 								_groupHover={{ textDecoration: 'underline' }}
 							>
 								{user.displayName}
 							</Text>
 							{user.isAdmin && <Icon color='brand.500' as={FaShieldAlt} ml='2' />}
-							<Text as='span' fontSize='xs' color='text-muted'>
+							<Text as='span' fontSize='xs' noOfLines={1} color='text-muted'>
 								@{user.username}
 							</Text>
 						</Stack>
