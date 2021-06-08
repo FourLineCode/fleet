@@ -18,6 +18,7 @@ model User {
     bio         String?  @default("")
     isAdmin     Boolean  @default(false)
     avatarURL   String?
+    bannerURL   String?
     fleets      Fleet[]
     followers   Follow[] @relation("followers")
     following   Follow[] @relation("following")

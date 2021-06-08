@@ -23,10 +23,12 @@ const main = async () => {
 			bio: 'I created this website lmao',
 			isAdmin: true,
 			avatarURL: 'https://github.com/FourLineCode.png',
+			bannerURL:
+				'https://pbs.twimg.com/profile_banners/722828982836535296/1587784620/1500x500',
 		},
 	});
 
-	for (const n of Array(30).keys()) {
+	for (const n of Array(12).keys()) {
 		const newUser = await prisma.user.upsert({
 			where: { email: `demo${n}@rip.com` },
 			update: {},
@@ -37,6 +39,8 @@ const main = async () => {
 				displayName: `Demo user ${n}`,
 				bio: `Auto generated bio for demo user ${n}`,
 				avatarURL: 'https://github.com/probot.png',
+				bannerURL:
+					'https://png.pngtree.com/thumb_back/fw800/back_our/20190621/ourmid/pngtree-black-atmospheric-artificial-intelligence-robot-banner-poster-image_195213.jpg',
 			},
 		});
 
@@ -49,7 +53,7 @@ const main = async () => {
 			});
 		}
 
-		for (const _ of Array(10).keys()) {
+		for (const _ of Array(5).keys()) {
 			await prisma.fleet.create({
 				data: {
 					body: `Example Fleet by demo user ${n}`,

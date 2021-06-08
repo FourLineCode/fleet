@@ -24,6 +24,7 @@ const userByIdHandler: NextApiHandler = async (req, res) => {
 					displayName: true,
 					bio: true,
 					avatarURL: true,
+					bannerURL: true,
 					isAdmin: true,
 					createdAt: true,
 				},
