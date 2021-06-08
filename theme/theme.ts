@@ -11,7 +11,7 @@ export const theme = extendTheme({
 		'dark-muted': defaultTheme.colors.gray[800],
 		light: defaultTheme.colors.gray[100],
 		'light-muted': defaultTheme.colors.gray[300],
-		'text-muted': defaultTheme.colors.gray[500],
+		'text-muted': defaultTheme.colors.gray[400],
 	},
 	styles: {
 		global: (props) => ({

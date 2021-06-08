@@ -33,7 +33,14 @@ export const ProfileBanner = ({ user }: Props) => {
 				mx='auto'
 				p='0.5'
 			>
-				<Avatar src={user.avatarURL} alt='profile-image' rounded='full' size='full' />
+				<Avatar
+					src={user.avatarURL}
+					name={user.displayName}
+					bg={bg}
+					rounded='full'
+					size='full'
+					fontSize='9xl'
+				/>
 			</Box>
 		</Box>
 	);
