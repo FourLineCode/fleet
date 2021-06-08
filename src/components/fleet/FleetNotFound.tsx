@@ -7,7 +7,7 @@ export const FleetNotFound = () => {
 		<VStack flex='1' justify='center'>
 			<Icon as={FaFrown} boxSize='24' color='text-muted' />
 			<Text fontSize='4xl' fontWeight='extrabold' color='text-muted'>
-				Fleet not found!
+				Fleet not found
 			</Text>
 		</VStack>
 	);

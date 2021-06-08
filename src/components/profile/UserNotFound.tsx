@@ -7,7 +7,7 @@ export const UserNotFound = () => {
 		<VStack flex='1' justify='center'>
 			<Icon as={FaFrown} boxSize='24' color='text-muted' />
 			<Text fontSize='4xl' fontWeight='extrabold' color='text-muted'>
-				User not found!
+				User not found
 			</Text>
 		</VStack>
 	);

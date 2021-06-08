@@ -18,6 +18,7 @@ export const UserInfoCard = ({ user }: Props) => {
 	return (
 		<Link href={`/profile/${user.id}`}>
 			<Card
+				as='a'
 				bg={bg}
 				cursor='pointer'
 				role='group'

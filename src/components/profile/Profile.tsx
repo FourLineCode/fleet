@@ -1,9 +1,10 @@
-import { Code, Stack } from '@chakra-ui/layout';
+import { Stack } from '@chakra-ui/layout';
 import { useRouter } from 'next/router';
+import React from 'react';
 import { useQuery } from 'react-query';
 import { UserType } from 'src/shared/types';
+import { ProfileBanner } from '~components/profile/ProfileBanner';
 import { ApiClient } from '~config/ApiClient';
-import { Card } from '~ui/Card';
 
 interface Props {
 	user?: UserType;
@@ -27,9 +28,9 @@ export const Profile = ({ user }: Props) => {
 	return (
 		<Stack flex='1'>
 			{data && (
-				<Card>
-					<Code children={JSON.stringify(data, null, 4)} />
-				</Card>
+				<Stack w='100%'>
+					<ProfileBanner user={data} />
+				</Stack>
 			)}
 		</Stack>
 	);

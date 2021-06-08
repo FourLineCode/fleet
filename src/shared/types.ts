@@ -11,6 +11,7 @@ export interface UserType extends Base {
 	isAdmin: boolean;
 	bio: string;
 	avatarURL: string;
+	bannerURL: string;
 }
 
 export interface FleetType extends Base {
