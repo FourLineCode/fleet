@@ -16,7 +16,7 @@ export const UserInfoCard = ({ user }: Props) => {
 	const [showArrow, setShowArrow] = useBoolean(false);
 
 	return (
-		<Link href={`/profile/${user.id}`}>
+		<Link passHref href={`/profile/${user.id}`}>
 			<Card
 				as='a'
 				bg={bg}
