@@ -1,0 +1,13 @@
+**/node_modules
+**/dist
+**/build
+**/debug.log
+**/yarn-error.log
+**/.next
+**/.env
+**/.cache
+**/.parcel-cache
+**/.vercel
+**/dev.sqlite
+**/migrations
+.vercel
