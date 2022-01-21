@@ -24,12 +24,22 @@ The database and API was designed using relational data that optimizes the backe
 -   [Prisma](https://www.prisma.io/)
 -   [SQLite](https://www.sqlite.org/index.html)
 
+### Demo
+
+<div align="center">
+    <img src=".github/demo1.png" width="1920">
+    <img src=".github/demo2.png" width="1920">
+    <img src=".github/demo3.png" width="1920">
+    <img src=".github/demo4.png" width="1920">
+    <img src=".github/demo5.png" width="1920">
+</div>
+
 # If you want to run this application on your own follow the procedure below
 
 ## Requirements
 
--   Node.js 12 or higher.
--   Npm or Yarn 1.22.5
+-   Node.js v12 or higher.
+-   Pnpm
 -   SQLite
 -   Git
 
@@ -42,47 +52,23 @@ git clone https://github.com/FourLineCode/fleet.git
 ## Install Dependencies
 
 ```
-yarn
-```
-
-or
-
-```
-npm install
+pnpm install
 ```
 
 ## Migrate database
 
 ```
-yarn migrate
-```
-
-or
-
-```
-npm run migrate
+pnpm migrate
 ```
 
 ## Run in production mode
 
 ```
-yarn build && yarn start
-```
-
-or
-
-```
-npm run build && npm start
+pnpm build && pnpm start
 ```
 
 ## Run in development mode
 
 ```
-yarn dev
-```
-
-or
-
-```
-npm run dev
+pnpm dev
 ```
